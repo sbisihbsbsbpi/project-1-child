@@ -232,16 +232,23 @@ class ParallelLogoUpdater:
 
     async def detect_warnings_and_logo(self, page: Page) -> Dict:
         """
-        Detect warning icons and logo existence
+        Enhanced detection for multiple logos in different positions
         Returns: {
             'hasWarnings': bool,
             'warningCount': int,
-            'hasLogo': bool,
-            'logoPosition': str (header/top/bottom),
+            'logos': [
+                {
+                    'position': 'top-left' | 'top-center' | 'top-right',
+                    'hasWarning': bool,
+                    'src': str,
+                    'coordinates': {top, left, width, height}
+                }
+            ],
+            'hasLogo': bool,  // true if ANY logo exists
             'headerButtonGrayed': bool
         }
         """
-        logger.info("      🔍 Detecting warnings and logo...")
+        logger.info("      🔍 Detecting warnings and logos (multi-position)...")
 
         # Load ignore list
         with open('logo_ignore_list.json') as f:
@@ -253,9 +260,8 @@ class ParallelLogoUpdater:
                     hasWarnings: false,
                     warningCount: 0,
                     warnings: [],
+                    logos: [],
                     hasLogo: false,
-                    logoPosition: null,
-                    logoDetails: null,
                     headerButtonGrayed: false
                 };
 
@@ -273,14 +279,34 @@ class ParallelLogoUpdater:
                     return false;
                 }
 
+                // Define position zones
+                const HEADER_THRESHOLD = 600;  // Top boundary for header area
+                const LEFT_ZONE = window.innerWidth * 0.33;    // Left 33%
+                const RIGHT_ZONE = window.innerWidth * 0.67;   // Right 67%
+
+                // Helper function to determine logo position
+                function getLogoPosition(rect) {
+                    const centerX = rect.left + (rect.width / 2);
+
+                    if (centerX < LEFT_ZONE) {
+                        return 'top-left';
+                    } else if (centerX > RIGHT_ZONE) {
+                        return 'top-right';
+                    } else {
+                        return 'top-center';
+                    }
+                }
+
                 // 1. DETECT WARNING ICONS
                 const warningIcons = document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb');
+                const imagesWithWarnings = new Set();
 
                 for (const icon of warningIcons) {
                     const parent = icon.closest('[class*="SortableItem"]');
                     const img = parent ? parent.querySelector('img') : null;
 
                     if (img && !isIgnored(img)) {
+                        imagesWithWarnings.add(img);  // Track which images have warnings
                         const rect = icon.getBoundingClientRect();
                         analysis.warnings.push({
                             position: { x: Math.round(rect.left), y: Math.round(rect.top) },
@@ -292,8 +318,7 @@ class ParallelLogoUpdater:
                 analysis.hasWarnings = analysis.warnings.length > 0;
                 analysis.warningCount = analysis.warnings.length;
 
-                // 2. DETECT LOGO IN HEADER POSITION
-                const HEADER_THRESHOLD = 600;
+                // 2. DETECT ALL LOGOS IN HEADER AREA
                 const allImgs = document.querySelectorAll('img');
 
                 for (const img of allImgs) {
@@ -308,17 +333,26 @@ class ParallelLogoUpdater:
                                                 rect.height > 20 && rect.height < 200;
 
                         if (isReasonableSize && rect.top < HEADER_THRESHOLD) {
-                            analysis.hasLogo = true;
-                            analysis.logoPosition = 'header';
-                            analysis.logoDetails = {
+                            const logoPosition = getLogoPosition(rect);
+                            const hasWarning = imagesWithWarnings.has(img);
+
+                            analysis.logos.push({
+                                position: logoPosition,
+                                hasWarning: hasWarning,
                                 src: src.substring(0, 150),
-                                position: { top: Math.round(rect.top), left: Math.round(rect.left) },
-                                size: { width: Math.round(rect.width), height: Math.round(rect.height) }
-                            };
-                            break;
+                                coordinates: {
+                                    top: Math.round(rect.top),
+                                    left: Math.round(rect.left),
+                                    width: Math.round(rect.width),
+                                    height: Math.round(rect.height)
+                                }
+                            });
+                            // Continue searching for more logos (no break)
                         }
                     }
                 }
+
+                analysis.hasLogo = analysis.logos.length > 0;
 
                 // 3. CHECK HEADER BUTTON STATE
                 const headerBtn = document.querySelector('#HEADER');
@@ -331,31 +365,45 @@ class ParallelLogoUpdater:
             }
         """, ignore_list['ignore_patterns'])
 
+        # Enhanced logging with logo positions
         logger.info(f"      📊 Results:")
         logger.info(f"         Warnings: {result['warningCount']}")
-        logger.info(f"         Logo exists: {result['hasLogo']}")
+        logger.info(f"         Logos found: {len(result['logos'])}")
+
+        for i, logo in enumerate(result['logos'], 1):
+            warning_emoji = "⚠️" if logo['hasWarning'] else "✅"
+            logger.info(f"         Logo {i}: {warning_emoji} {logo['position']} - {logo['coordinates']['width']}x{logo['coordinates']['height']}px at ({logo['coordinates']['left']}, {logo['coordinates']['top']})")
+
         logger.info(f"         Header button grayed: {result['headerButtonGrayed']}")
 
         return result
 
     async def decide_action(self, analysis: Dict) -> str:
         """
-        Decide what action to take based on analysis
+        Enhanced decision logic for multiple logos
+
+        Priority:
+        1. If ANY logo has warnings -> UPDATE_REMOVE_READD
+        2. If no logos at all -> UPDATE_ADD_NEW
+        3. If all logos healthy -> SKIP
 
         Returns: 'SKIP', 'UPDATE_REMOVE_READD', 'UPDATE_ADD_NEW'
         """
-        has_warnings = analysis['hasWarnings']
-        has_logo = analysis['hasLogo']
+        logos = analysis.get('logos', [])
 
-        if not has_warnings and has_logo:
-            # Perfect state - no action needed
-            return 'SKIP'
-        elif has_warnings and has_logo:
-            # Logo exists but has warnings - need to remove and re-add
-            return 'UPDATE_REMOVE_READD'
-        else:
-            # No logo or no logo with warnings - add new
+        if not logos:
+            # No logos found - add new
             return 'UPDATE_ADD_NEW'
+
+        # Check if any logo has warnings
+        logos_with_warnings = [logo for logo in logos if logo.get('hasWarning', False)]
+
+        if logos_with_warnings:
+            # At least one logo has warnings - remove and re-add
+            return 'UPDATE_REMOVE_READD'
+
+        # All logos are healthy
+        return 'SKIP'
 
     async def remove_logo_with_warning(self, page: Page) -> bool:
         """Remove logo that has warning icon"""
@@ -587,6 +635,7 @@ class ParallelLogoUpdater:
             'success': False,
             'warnings_detected': 0,
             'logo_exists': False,
+            'logos': [],
             'error': None
         }
 
@@ -594,11 +643,12 @@ class ParallelLogoUpdater:
             # Step 1: Wait for template to load
             await self.wait_for_template_loaded(page)
 
-            # Step 2: Detect warnings and logo
+            # Step 2: Detect warnings and logos (enhanced multi-logo detection)
             analysis = await self.detect_warnings_and_logo(page)
 
             result['warnings_detected'] = analysis['warningCount']
             result['logo_exists'] = analysis['hasLogo']
+            result['logos'] = analysis.get('logos', [])
 
             # Step 3: Decide action
             action = await self.decide_action(analysis)
@@ -705,7 +755,14 @@ class ParallelLogoUpdater:
             logger.info(f"      ID: {result.get('template_id', 'Unknown')}")
             logger.info(f"      Action: {result.get('action', 'None')}")
             logger.info(f"      Warnings: {result.get('warnings_detected', 0)}")
-            logger.info(f"      Logo exists: {result.get('logo_exists', False)}")
+
+            # Enhanced logo reporting
+            logos = result.get('logos', [])
+            logger.info(f"      Logos found: {len(logos)}")
+            for i, logo in enumerate(logos, 1):
+                warning_emoji = "⚠️" if logo.get('hasWarning') else "✅"
+                logger.info(f"        Logo {i}: {warning_emoji} {logo.get('position', 'unknown')} ({logo.get('coordinates', {}).get('width', '?')}x{logo.get('coordinates', {}).get('height', '?')}px)")
+
             if result.get('message'):
                 logger.info(f"      Message: {result['message']}")
             if result.get('error'):
