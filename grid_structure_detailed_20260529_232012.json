@@ -1,0 +1,741 @@
+{
+  "grid_container": {
+    "className": "rt-table",
+    "html": "<div class=\"rt-table\" role=\"grid\" sectiontype=\"table-section\"><div class=\"rt-thead -header\" sectiontype=\"section-header\" style=\"min-width: 2880px; top: 0px;\"><div class=\"rt-tr\" role=\"row\" datatest=\"\" style=\"height: 40px;\"><div class=\"rt-th rthfc-th-fixed rthfc-th-fixed-left rthfc-th-fixed-left-last\" role=\"columnheader\" tabindex=\"-1\" headerclassname=\"rthfc-th-fixed rthfc-th-fixed-left rthfc-th-fixed-left-last root_table_thStyle__6oeVPmdECc\" datatest=\"\" style=\"left: 0px; flex: 50 0 auto; width: 50"
+  },
+  "headers": [
+    {
+      "index": 0,
+      "text": "",
+      "ariaLabel": null,
+      "className": "rt-th rthfc-th-fixed rthfc-th-fixed-left rthfc-th-fixed-left-last",
+      "hasSort": false,
+      "hasCheckbox": true
+    },
+    {
+      "index": 1,
+      "text": "Name",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": true,
+      "hasCheckbox": false
+    },
+    {
+      "index": 2,
+      "text": "Quick Search Tag",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 3,
+      "text": "Department",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 4,
+      "text": "Communication Type",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 5,
+      "text": "Categories",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 6,
+      "text": "Expiry Date",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 7,
+      "text": "Created By",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 8,
+      "text": "Created Date",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": true,
+      "hasCheckbox": false
+    },
+    {
+      "index": 9,
+      "text": "Last Updated by",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 10,
+      "text": "Last Updated date",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 11,
+      "text": "Published By",
+      "ariaLabel": null,
+      "className": "rt-th rt-resizable-header",
+      "hasSort": false,
+      "hasCheckbox": false
+    },
+    {
+      "index": 12,
+      "text": "",
+      "ariaLabel": null,
+      "className": "rt-th column-configurator-z-index rthfc-th-fixed rthfc-th-fixed-right rthfc-th-f",
+      "hasSort": false,
+      "hasCheckbox": false
+    }
+  ],
+  "rows": [
+    {
+      "index": 0,
+      "cells": [
+        {
+          "index": 0,
+          "text": "",
+          "role": "columnheader",
+          "hasCheckbox": true,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rthfc-th-fixed rthfc-th-fixed-left rthfc-th-fixed-left"
+        },
+        {
+          "index": 1,
+          "text": "Name",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 2,
+          "text": "Quick Search Tag",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 3,
+          "text": "Department",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 4,
+          "text": "Communication Type",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 5,
+          "text": "Categories",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 6,
+          "text": "Expiry Date",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 7,
+          "text": "Created By",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 8,
+          "text": "Created Date",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 9,
+          "text": "Last Updated by",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 10,
+          "text": "Last Updated date",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 11,
+          "text": "Published By",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th rt-resizable-header"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "role": "columnheader",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-th column-configurator-z-index rthfc-th-fixed rthfc-th-fi"
+        }
+      ],
+      "className": "rt-tr",
+      "hasCheckbox": true,
+      "hasActions": false
+    },
+    {
+      "index": 1,
+      "cells": [
+        {
+          "index": 0,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": true,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rth"
+        },
+        {
+          "index": 1,
+          "text": "Request Completion: Data Deletion (Closed Documents)",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 2,
+          "text": "#cpraClosed",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 3,
+          "text": "Sales,Parts,Service",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 4,
+          "text": "Required Dealership Business",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 5,
+          "text": "Data Privacy",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 6,
+          "text": "-",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 7,
+          "text": "System",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 8,
+          "text": "Jun 28 2024",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 9,
+          "text": "IAism admin",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 10,
+          "text": "May 29 2026",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 11,
+          "text": "NTNucar Automall of Tilton",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td p-0 rthfc-td-fixed rthfc-td-fixed-right rthfc-td-fixed"
+        }
+      ],
+      "className": "rt-tr rowHoverColor -odd",
+      "hasCheckbox": true,
+      "hasActions": false
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "index": 0,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": true,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rth"
+        },
+        {
+          "index": 1,
+          "text": "Request Completion: Data Correction",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 2,
+          "text": "#cpraCorrec",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 3,
+          "text": "Sales,Parts,Service",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 4,
+          "text": "Required Dealership Business",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 5,
+          "text": "Data Privacy",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 6,
+          "text": "-",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 7,
+          "text": "System",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 8,
+          "text": "Jun 28 2024",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 9,
+          "text": "IAism admin",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 10,
+          "text": "May 29 2026",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 11,
+          "text": "NTNucar Automall of Tilton",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td p-0 rthfc-td-fixed rthfc-td-fixed-right rthfc-td-fixed"
+        }
+      ],
+      "className": "rt-tr rowHoverColor -even",
+      "hasCheckbox": true,
+      "hasActions": false
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "index": 0,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": true,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rth"
+        },
+        {
+          "index": 1,
+          "text": "Request Completion: Data Export",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 2,
+          "text": "#cpraExport",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 3,
+          "text": "Sales,Parts,Service",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 4,
+          "text": "Required Dealership Business",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 5,
+          "text": "Data Privacy",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 6,
+          "text": "-",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 7,
+          "text": "System",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 8,
+          "text": "Jun 28 2024",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 9,
+          "text": "IAism admin",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 10,
+          "text": "May 29 2026",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 11,
+          "text": "NTNucar Automall of Tilton",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td p-0 rthfc-td-fixed rthfc-td-fixed-right rthfc-td-fixed"
+        }
+      ],
+      "className": "rt-tr rowHoverColor -odd",
+      "hasCheckbox": true,
+      "hasActions": false
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "index": 0,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": true,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rth"
+        },
+        {
+          "index": 1,
+          "text": "Request Acknowledgement",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 2,
+          "text": "#cpraAcknow",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 3,
+          "text": "Sales,Service,Parts",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 4,
+          "text": "Required Dealership Business",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 5,
+          "text": "Data Privacy",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 6,
+          "text": "-",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 7,
+          "text": "System",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 8,
+          "text": "Jun 28 2024",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 9,
+          "text": "IAism admin",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 10,
+          "text": "May 29 2026",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 11,
+          "text": "NTNucar Automall of Tilton",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "role": "gridcell",
+          "hasCheckbox": false,
+          "hasButton": false,
+          "hasLink": false,
+          "className": "rt-td p-0 rthfc-td-fixed rthfc-td-fixed-right rthfc-td-fixed"
+        }
+      ],
+      "className": "rt-tr rowHoverColor -even",
+      "hasCheckbox": true,
+      "hasActions": false
+    }
+  ],
+  "columns_count": 13,
+  "rows_count": 12
+}

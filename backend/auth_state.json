@@ -1,0 +1,197 @@
+{
+  "cookies": [
+    {
+      "name": "redirected_from",
+      "value": "https://preprodapp.tekioncloud.com/home",
+      "domain": "preprodapp.tekioncloud.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "email",
+      "value": "tlreddy@tekion.com",
+      "domain": "preprodapp.tekioncloud.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "authProvider",
+      "value": "OKTA_SAML",
+      "domain": "preprodapp.tekioncloud.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "DT",
+      "value": "DI1bPHvRdpLQ-ylorpF79SsSA",
+      "domain": "employee.tekion.com",
+      "path": "/",
+      "expires": 1797240633.656373,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "JSESSIONID",
+      "value": "678BCB47B15B71D867BA5DFB2A5BA80F",
+      "domain": "employee.tekion.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "idx",
+      "value": "eyJ6aXAiOiJERUYiLCJ2ZXIiOiIxIiwiYWxpYXMiOiJlbmNyeXB0aW9ua2V5Iiwib2lkIjoiMDBvamRnejEyUGJnYVNrSUM0eDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIiwieHNpZCI6ImlkeHczMVBBSllxUjdLemVSclVJOHFHaXcifQ..xefimNnXdMzwxv2n.ncnNKT8bqaAOaeYjoPStSB43rXYIyCQ3ftH1PaDU_JwM4FqbiloZ6QWFPrb1S1itR7BwFksyuKHVxj_g6MJboeqsAfzOtLugmbfDm4FboS35aHrqn616UktixMKuyUErZBZNRJF6DBfPxEEDvTgAS0_mGf_VJkZqv3NxYbrY78A9MsqVI2Vt6fsLGDqpBACRNy1UTX4yT2vTKa2dc5caIUSeZ-QO9g9rJXHfsSgIu7LOwycEvuqo7TJmYAVWIC6GvShNEwe9nd9oi9cL7OQwxeQbXPngW_vfBE0zVAKwL1fxdIAXkb8f8ttt2PoSboh3_Si9w1TW1iCGlnBfaP7931kIbHQUPPoLuEEdpdN-cOyp5ADc9WLCj0c4xzaSfc8EY0liZ5JbW9wLIWGGYh65zea1RLi399sH3j1nm8hRmCxd3q2DjNnpximsvDF4TcE-1WKuiago2hzTx9xgwXmqf2yhbyTL_eoH794eNcuQGbB1UVmuYqm4abaddU2GZ-joySj1GIxPxr8x4ISb4GSICKqWXAp62A-upylSWO_btfk8r-Ii6oq8a6Deah0etOu2x9NlrvsjfMBCZDclX0rSTmrxstRv9MqzGgrSp1qDsLX13V6ppfjuX0ELIHr1D2WqXT5JR6O5PTFvT_V8XavcT6ueXIFv_YGBAZTIQzGPrFjsu1TU8i520dYwH5Ja-uDLQ6JXtHnZmPdRRo0Kqc_xdXI6tTFwmjijE5H3gFwYFsagWDUFr80eGgAapcJXhh81NNb6ckk1stYExvvmVELNfshDuaqBv3wU-mKGz0J6QIcIBwPWG1RW6Ku10mbLNHrbLXRQZXGT0qtGuAb0-Eskp6Cpc0ENHPu4BAaRcQqmi9nVzxI87spvY_xSiByikCfFQSZl8Umb6rjfHYf5Eg02kzOlalPhpuPCjNpQ92IDKMZ4O7c41TqaG4gud8-wG_L5SfVHVbG_-4EdZzY_viqfChDrzz1symNZAn6RDa3XKjSwZjFyI8Lpwz4JMcUYkKAsndnJLaY5NkG-VSLc9HBvUmtHDRrHjeB9CKTKjnKOggKOeqNT_HGpFrxv4phNBfpLSj_ixu5uy67r27oeaA.znLa4ydR1L5chtRg7CWRzQ",
+      "domain": "employee.tekion.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "luf_-545789153",
+      "value": "eyJ6aXAiOiJERUYiLCJ2ZXIiOiIxIiwiYWxpYXMiOiJlbmNyeXB0aW9ua2V5Iiwib2lkIjoiMDBvamRnejEyUGJnYVNrSUM0eDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIiwidGltZXN0YW1wIjoxNzYyNjgwNjQ1NTUxfQ..QArVLQaf2R4tSnCk.ssEjqNyjMTDGdjiZBNkQXeNsnLQ1Kzef-ZqgYFFupXMTuuMZpB_ekCYHRkxQBI4l0AWQDspChWTksfm9v0cl7Yg0f2UjVuA3TpPR4rNQXz7hPDAxUt5Jd2dGl-z0tHghFBXlBJvQC1-SkZtklCIjxPrFIKiRRP_fSFoBcpA1g0LRpAU31ycBxfWEgX2ufC71IU3oIYD8Ptd7AHA0UpxkupsFI7R-7J1Y-ERorKe7q1W1f8v1p3yfn4DOXBjF-cMVAEFHH5ZPGhyGWygZDhP7lA.l1_1dfAoTr7d1SqepUa0kw",
+      "domain": "employee.tekion.com",
+      "path": "/",
+      "expires": 1765272645.666316,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "tcache",
+      "value": "{%22tenantname%22:%22markautogroup%22}",
+      "domain": "preprodapp.tekioncloud.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "tcookie",
+      "value": "{%22roleId%22:%227118_ISM_Admin%22%2C%22userId%22:%22f8cfebb9-fc33-4f7b-8a52-b6577512fe8c%22%2C%22tenantname%22:%22markautogroup%22%2C%22dealerId%22:%227118%22%2C%22tek-siteId%22:%22-1_7118%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}",
+      "domain": "preprodapp.tekioncloud.com",
+      "path": "/",
+      "expires": 1762692185,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://preprodapp.tekioncloud.com",
+      "localStorage": [
+        {
+          "name": "_pendo_utm.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"referrer\":\"preprodapp.tekioncloud.com\"}"
+        },
+        {
+          "name": "currentActiveIsWorkspace",
+          "value": "false"
+        },
+        {
+          "name": "t_user",
+          "value": "{\"email\":\"ism@markautogroup.com\",\"displayName\":\"ism admin\",\"dealerId\":\"7118\",\"id\":\"f8cfebb9-fc33-4f7b-8a52-b6577512fe8c\",\"tenantName\":\"markautogroup\",\"fname\":\"ism\",\"lname\":\"admin\",\"dealer\":[{\"dealerId\":\"7118\",\"dealerDisplayName\":\"Mark Kia\",\"dealerInternalDisplayName\":\"Mark Kia\",\"dealerLogo\":\"https://com-tekioncloud-cdms-global.s3.us-west-1.amazonaws.com/cdos-mobile/images/873d7715-d81c-481d-a893-a1d66b553886_Screenshot_2025-11-07_at_6.15.24%E2%80%AFPM.png\",\"dealerColor\":\"#177d1e\",\"dealerChars\":\"MK\"},{\"dealerId\":\"7119\",\"dealerDisplayName\":\"Scottsdale Mitsubishi\",\"dealerInternalDisplayName\":\"Scottsdale Mitsubishi\",\"dealerLogo\":\"https://com-tekioncloud-cdms-global.s3.us-west-1.amazonaws.com/cdos-mobile/images/16964aec-71ed-42f4-a39a-ba3b770f88ef_GetLibraryImage.png\",\"dealerColor\":\"#dd5f5f\",\"dealerChars\":\"SM\"},{\"dealerId\":\"7124\",\"dealerDisplayName\":\"Mark Mazda Scottsdale\",\"dealerInternalDisplayName\":\"Mark Mazda Scottsdale\",\"dealerLogo\":\"https://com-tekioncloud-cdms-global.s3.us-west-1.amazonaws.com/cdos-mobile/images/0932bd8a-4d2a-4602-951e-56342e5eca8a_Screenshot_2025-11-05_at_5.55.42%E2%80%AFPM.png\",\"dealerColor\":\"#37a3e6\",\"dealerChars\":\"MS\"}],\"enableClockIn\":false,\"firstTimePWDReset\":false,\"originalUserId\":\"fe3a3333-c9ad-49fd-bef7-79eacaddc1d5\",\"originalTenantId\":\"techmotors\",\"dealerOemSites\":[{\"oemSites\":[{\"siteId\":\"-1_7118\",\"name\":\"Main Site\",\"defaultSite\":true,\"mainSite\":true}],\"dealerId\":\"7118\"},{\"oemSites\":[{\"siteId\":\"-1_7119\",\"name\":\"Main Site\",\"defaultSite\":true,\"mainSite\":true}],\"dealerId\":\"7119\"},{\"oemSites\":[{\"siteId\":\"-1_7124\",\"name\":\"Main Site\",\"defaultSite\":true,\"mainSite\":true}],\"dealerId\":\"7124\"}],\"programId\":\"DEFAULT\",\"applicationId\":\"ARC_NA\",\"subApplicationId\":\"US\",\"productIds\":\"ARC\",\"flattenedAecProgramsMap\":\"\",\"expire_time\":1762692185690,\"isWorkspace\":false,\"roleId\":\"7118_ISM_Admin\",\"persona\":\"ISM_Admin\",\"tekSiteId\":\"-1_7118\",\"isMainSite\":true,\"envPrefix\":\"preprod_cloud\",\"workspaceId\":\"undefined\",\"userSessionCapture\":true,\"aecProgramIdsByOemMap\":{},\"rolesResources\":[{\"dealerID\":\"7118\",\"dealerDisplayName\":\"Mark Kia\",\"roleResourcePermissions\":[{\"roleID\":\"7118_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7118_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":false},{\"dealerID\":\"7119\",\"dealerDisplayName\":\"Scottsdale Mitsubishi\",\"roleResourcePermissions\":[{\"roleID\":\"7119_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7119_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":false},{\"dealerID\":\"7124\",\"dealerDisplayName\":\"Mark Mazda Scottsdale\",\"roleResourcePermissions\":[{\"roleID\":\"7124_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7124_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":true}],\"derivedAccess\":false,\"isWorkspaceAccessibleForLoggedInUser\":false}"
+        },
+        {
+          "name": "currentActiveRoleId",
+          "value": "7118_ISM_Admin"
+        },
+        {
+          "name": "currentActiveSiteId",
+          "value": "-1_7118"
+        },
+        {
+          "name": "universal_search_active_tab",
+          "value": "customer"
+        },
+        {
+          "name": "currentActiveDealerId",
+          "value": "7118"
+        },
+        {
+          "name": "_pendo_guides_blocked.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"ttl\":1762695072330,\"value\":\"0\"}"
+        },
+        {
+          "name": "dse_t_user",
+          "value": "{\"tenantName\":\"markautogroup\",\"dealerId\":\"7124\",\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmOGNmZWJiOS1mYzMzLTRmN2ItOGE1Mi1iNjU3NzUxMmZlOGMiLCJpYXQiOjE3NjI2ODA2NjYsInN1YiI6ImY4Y2ZlYmI5LWZjMzMtNGY3Yi04YTUyLWI2NTc3NTEyZmU4YyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlNDg2N2ZmZC0yMGY2LTRkNWItODEyZi01NTkxZjk0ZmE5YmMiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiZjhjZmViYjktZmMzMy00ZjdiLThhNTItYjY1Nzc1MTJmZThjIiwiZW1haWwiOiJpc21AbWFya2F1dG9ncm91cC5jb20iLCJleHAiOjE3NjI2ODg0NDJ9.tHcIGg2_vLtTl5U7TWbZABdtvYpm7lKOjPrJdB6cxlY\",\"expireTime\":1762692185690,\"systemPreferences\":{\"validationRules\":{\"tenantName\":\"markautogroup\",\"passwordExpiryInDays\":90,\"minLength\":8,\"minLowerCase\":1,\"minUpperCase\":1,\"minNumeric\":1,\"minSymbol\":0,\"minDiacritic\":0,\"maxUnsuccessfulLoginAttempts\":4,\"createdTime\":1762680666822,\"modifiedTime\":1762680666822,\"lastModifiedByUser\":\"-1\",\"active\":true,\"tenantId\":\"markautogroup\"}},\"rolesResources\":[{\"dealerID\":\"7118\",\"dealerDisplayName\":\"Mark Kia\",\"roleResourcePermissions\":[{\"roleID\":\"7118_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7118_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":false},{\"dealerID\":\"7119\",\"dealerDisplayName\":\"Scottsdale Mitsubishi\",\"roleResourcePermissions\":[{\"roleID\":\"7119_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7119_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":false},{\"dealerID\":\"7124\",\"dealerDisplayName\":\"Mark Mazda Scottsdale\",\"roleResourcePermissions\":[{\"roleID\":\"7124_ISM_Admin\",\"isDefaultRole\":true,\"isPrimary\":true,\"name\":\"ISM_Admin\",\"persona\":\"ISM_Admin\",\"tenantId\":null,\"dmsRoleId\":[\"7124_ISM_Admin\"],\"resourcePermission\":[{\"permission\":1,\"resourceName\":\"EstimateUpdateROStatus_UI\"},{\"permission\":1,\"resourceName\":\"Dealer_Admin_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Add_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"Service_Menu_UI\"},{\"permission\":1,\"resourceName\":\"Communication_Remove_Internal_Member_UI\"},{\"permission\":1,\"resourceName\":\"BDCScheduling_Change_Advisor_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Settings_UI\"},{\"permission\":1,\"resourceName\":\"MPVI_Settings_UI\"},{\"permission\":1,\"resourceName\":\"LaborPrice_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateTechnician_UI\"},{\"permission\":1,\"resourceName\":\"Reporting_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Unlock_UI\"},{\"permission\":1,\"resourceName\":\"External_Communication_Actions_UI\"},{\"permission\":1,\"resourceName\":\"Dealership_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Scheduling_Admin_UI\"},{\"permission\":1,\"resourceName\":\"ServiceCatalog_UI\"},{\"permission\":1,\"resourceName\":\"RecommendationSettings_UI\"},{\"permission\":1,\"resourceName\":\"Estimate_List_UI\"},{\"permission\":1,\"resourceName\":\"Notification_User_Settings_UI\"},{\"permission\":1,\"resourceName\":\"EstimateUpdateSA_UI\"},{\"permission\":1,\"resourceName\":\"Admin_User_View_UI\"},{\"permission\":1,\"resourceName\":\"Service_Advisor_Dasboard_UI\"},{\"permission\":1,\"resourceName\":\"Create_Estimate_UI\"},{\"permission\":1,\"resourceName\":\"All_Checkin_UI\"},{\"permission\":1,\"resourceName\":\"Digital_MPVI_UI\"},{\"permission\":1,\"resourceName\":\"Notification_Settings_UI\"},{\"permission\":1,\"resourceName\":\"Campaign_UI\"}]}],\"isHomeDealerID\":true}],\"userID\":\"f8cfebb9-fc33-4f7b-8a52-b6577512fe8c\",\"roleID\":\"7124_ISM_Admin\",\"baseURL\":\"https://preprodapp.tekioncloud.com/api/dselite\"}"
+        },
+        {
+          "name": "t_apmAutnToken",
+          "value": ""
+        },
+        {
+          "name": "_pendo_accountId.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"ttl\":1771320676020,\"value\":\"7118\"}"
+        },
+        {
+          "name": "_pendo_visitorId.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"ttl\":1771320676020,\"value\":\"ism@markautogroup.com\"}"
+        },
+        {
+          "name": "recentlyUsedPageList_f8cfebb9-fc33-4f7b-8a52-b6577512fe8c",
+          "value": "[{\"key\":\"sales_setup\",\"standardKey\":\"APP_SETTINGS_sales_sales_setup\",\"group\":\"SETTINGS\"},{\"key\":\"accounting_chain\",\"standardKey\":\"APP_SETTINGS_accounting_accounting_chain\",\"group\":\"SETTINGS\"},{\"key\":\"accountSettings\",\"standardKey\":\"APP_SETTINGS_accounting_accountSettings\",\"group\":\"SETTINGS\"},{\"key\":\"templates\",\"standardKey\":\"APP_SETTINGS_core_templates\",\"group\":\"SETTINGS\"},{\"key\":\"core-management-setup\",\"standardKey\":\"APP_SETTINGS_parts_core-management-setup\",\"group\":\"SETTINGS\"},{\"key\":\"schedules\",\"standardKey\":\"APP_APPS_accounting_schedules\",\"group\":\"APPS\"},{\"key\":\"invoice\",\"standardKey\":\"APP_APPS_accounting_accountPayable_invoice\",\"group\":\"APPS\"},{\"key\":\"financial_reports\",\"standardKey\":\"APP_APPS_accounting_accounting_reports_financial_reports\",\"group\":\"APPS\"},{\"key\":\"core-management\",\"standardKey\":\"APP_APPS_parts_core-management\",\"group\":\"APPS\"},{\"key\":\"chart_of_account\",\"standardKey\":\"APP_APPS_accounting_chart_of_account\",\"group\":\"APPS\"}]"
+        },
+        {
+          "name": "t_token",
+          "value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmOGNmZWJiOS1mYzMzLTRmN2ItOGE1Mi1iNjU3NzUxMmZlOGMiLCJpYXQiOjE3NjI2ODA2NjYsInN1YiI6ImY4Y2ZlYmI5LWZjMzMtNGY3Yi04YTUyLWI2NTc3NTEyZmU4YyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlNDg2N2ZmZC0yMGY2LTRkNWItODEyZi01NTkxZjk0ZmE5YmMiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiZjhjZmViYjktZmMzMy00ZjdiLThhNTItYjY1Nzc1MTJmZThjIiwiZW1haWwiOiJpc21AbWFya2F1dG9ncm91cC5jb20iLCJleHAiOjE3NjI2ODg0NDJ9.tHcIGg2_vLtTl5U7TWbZABdtvYpm7lKOjPrJdB6cxlY"
+        },
+        {
+          "name": "currentActiveLocale",
+          "value": "en_US"
+        },
+        {
+          "name": "_pendo_sessionId.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"sessionId\":\"ip9hL2LUaDL0HoUC\",\"timestamp\":1762680711292}"
+        },
+        {
+          "name": "mimickingRequestStatus",
+          "value": "{\"status\":\"ALLOWED\"}"
+        },
+        {
+          "name": "currentActivePersona",
+          "value": "ISM_Admin"
+        },
+        {
+          "name": "persist:primary",
+          "value": "{\"LoginReducer\":\"{}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "_pendo_meta.5226874a-540e-44fa-591d-e684e0045efd",
+          "value": "{\"ttl\":1771320676021,\"value\":2991182474}"
+        },
+        {
+          "name": "__openreplay_uuid",
+          "value": "a79a2079-b8be-422e-b01c-01d8772f4560"
+        },
+        {
+          "name": "expiryTime",
+          "value": "1762767107142"
+        },
+        {
+          "name": "mimickedDetails",
+          "value": "{\"mimickedTenantId\":\"markautogroup\",\"mimickedUserId\":\"f8cfebb9-fc33-4f7b-8a52-b6577512fe8c\",\"tenantId\":\"techmotors\",\"userId\":\"fe3a3333-c9ad-49fd-bef7-79eacaddc1d5\",\"expiryTime\":1762692185690,\"mimicToken\":\"e3469bbf-03bc-4cb0-90e3-f0023a3ac24a\",\"limitReachedForExtendingSession\":false,\"originalUserBucketId\":\"ISM\",\"extendableSession\":true}"
+        },
+        {
+          "name": "currentActiveWorkspace",
+          "value": "undefined"
+        }
+      ]
+    }
+  ]
+}

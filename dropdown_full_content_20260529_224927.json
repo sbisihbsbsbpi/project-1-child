@@ -1,0 +1,1157 @@
+{
+  "all_visible_text": [
+    {
+      "text": "Q",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "OM",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "SS",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "SP",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "WM",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "FP",
+      "tag": "DIV",
+      "className": "root_heading_h4__sh93txrLYC root_sideNavItem_title"
+    },
+    {
+      "text": "00:00 Hrs",
+      "tag": "DIV",
+      "className": "root_profile_durationContainer__aBBvCq6qKz"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "1:19 PM",
+      "tag": "DIV",
+      "className": "root_helperText_notificationText__uTyc9RFFjx font-"
+    },
+    {
+      "text": "4",
+      "tag": "DIV",
+      "className": "root_helperText_notificationText__uTyc9RFFjx font-"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_selectedWorkspace_workspace__27sbHfzgqm"
+    },
+    {
+      "text": "Communication Templates",
+      "tag": "DIV",
+      "className": "root_heading_h1__u3GJw8EEfN"
+    },
+    {
+      "text": "Email (11)",
+      "tag": "DIV",
+      "className": "ant-tabs-tab-active ant-tabs-tab"
+    },
+    {
+      "text": "Text (1)",
+      "tag": "DIV",
+      "className": " ant-tabs-tab"
+    },
+    {
+      "text": "Live Chat (3)",
+      "tag": "DIV",
+      "className": " ant-tabs-tab"
+    },
+    {
+      "text": "0",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "1",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "2",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "3",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "4",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "5",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "6",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "7",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "8",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "9",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "0",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "1",
+      "tag": "P",
+      "className": "current"
+    },
+    {
+      "text": "2",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "3",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "4",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "5",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "6",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "7",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "8",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "9",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "0",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "1",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "2",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "3",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "4",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "5",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "6",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "7",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "8",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "9",
+      "tag": "P",
+      "className": ""
+    },
+    {
+      "text": "1",
+      "tag": "SPAN",
+      "className": "root_multiSortTrigger_sortItemsCount__odPDbwXqKS"
+    },
+    {
+      "text": "Department:",
+      "tag": "DIV",
+      "className": "root_filter_filterName__n2EK7Q5gWR root_filter_isS"
+    },
+    {
+      "text": "Sales",
+      "tag": "DIV",
+      "className": " css-1whqc0q-option"
+    },
+    {
+      "text": "Service",
+      "tag": "DIV",
+      "className": " css-1oiby7b-option"
+    },
+    {
+      "text": "Parts",
+      "tag": "DIV",
+      "className": " css-1oiby7b-option"
+    },
+    {
+      "text": "Clear",
+      "tag": "SPAN",
+      "className": "root_textualAction_container__6WdZPFT1TG root_defa"
+    },
+    {
+      "text": "11 Result(s)",
+      "tag": "DIV",
+      "className": "root_filterResults_container__kC3agXc4NW root_filt"
+    },
+    {
+      "text": "Drafts (0)",
+      "tag": "SPAN",
+      "className": ""
+    },
+    {
+      "text": "Archive (0)",
+      "tag": "SPAN",
+      "className": ""
+    },
+    {
+      "text": "Actions",
+      "tag": "SPAN",
+      "className": ""
+    },
+    {
+      "text": "New Template",
+      "tag": "DIV",
+      "className": ""
+    },
+    {
+      "text": "Name",
+      "tag": "DIV",
+      "className": ""
+    },
+    {
+      "text": "Quick Search Tag",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Department",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Communication Type",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Categories",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Expiry Date",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Created By",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Created Date",
+      "tag": "DIV",
+      "className": ""
+    },
+    {
+      "text": "Last Updated by",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Last Updated date",
+      "tag": "DIV",
+      "className": ""
+    },
+    {
+      "text": "Published By",
+      "tag": "DIV",
+      "className": "rt-resizable-header-content"
+    },
+    {
+      "text": "Request Completion: Data Deletion (Closed Documents)",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraClosed",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Completion: Data Correction",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraCorrec",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Completion: Data Export",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraExport",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Acknowledgement",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraAcknow",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Service,Parts",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "First Time Email",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraFirst",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Decline: Data Deletion (Open Documents)",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraOpen",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 29 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Service History Recap PDF",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#HistoryRec",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Service,Sales",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Customer Satisfaction",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Repair Order",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "IA",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "ism admin",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "May 19 2026",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Decline: Marked As Declined",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraBefore",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Service,Parts",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Completion: Sensitive Information Restriction",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpraSensit",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Service,Parts",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Request Completion: Do not sell & share with 3rd Parties",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#cpra3rdPar",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales,Parts,Service",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Data Privacy",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "Standard Appointment",
+      "tag": "SPAN",
+      "className": "templates_TemplatesInput_span__umnDgP84QP"
+    },
+    {
+      "text": "#apptremin",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Sales",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Required Dealership Business",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N"
+    },
+    {
+      "text": "Appointment Reminder",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "Campaign Blast",
+      "tag": "DIV",
+      "className": "templates_templates_categories__q6v3kbPSv2 undefin"
+    },
+    {
+      "text": "-",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "System",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "Jun 28 2024",
+      "tag": "DIV",
+      "className": "rt-td"
+    },
+    {
+      "text": "NT",
+      "tag": "SPAN",
+      "className": "ant-avatar-string"
+    },
+    {
+      "text": "Nucar Automall of Tilton",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N m-l-8"
+    },
+    {
+      "text": "50",
+      "tag": "DIV",
+      "className": "ant-select-selection-selected-value"
+    },
+    {
+      "text": "Results Per Page",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N pagina"
+    },
+    {
+      "text": "Prev",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N text d"
+    },
+    {
+      "text": "1",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N text i"
+    },
+    {
+      "text": "Next",
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N text d"
+    },
+    {
+      "text": "Search",
+      "tag": "DIV",
+      "className": " css-yrpxub-placeholder"
+    },
+    {
+      "text": "Sales",
+      "tag": "DIV",
+      "className": "ant-tooltip-inner"
+    }
+  ],
+  "dropdown_content": {
+    "html": "<div class=\"ant-dropdown ant-dropdown-placement-bottomCenter\" style=\"left: 189px; top: 252px;\"><div class=\"root_withMultiSelect_overlay__eS6iqekQFf css-2b097c-container\" id=\"departments\"><span aria-live=\"polite\" class=\"css-1laao21-a11yText\"><p id=\"aria-selection-event\">&nbsp;</p><p id=\"aria-context\">&nbsp;  3 results available. Select is focused ,type to refine list, press Down to open the menu,  press left to focus selected values</p></span><div class=\" css-1so95g7-control\"><div class=\" css-1jt2rif\"><div class=\" css-yrpxub-placeholder\">Search</div><div class=\"css-mxa45a\"><div class=\"\" style=\"display: inline-block;\"><input autocapitalize=\"none\" autocomplete=\"off\" autocorrect=\"off\" id=\"-departments-multiSelect\" spellcheck=\"false\" tabindex=\"0\" type=\"text\" aria-autocomplete=\"list\" value=\"\" style=\"box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor: initial; --darkreader-inline-border-top: 0px; --darkreader-inline-border-right: 0px; --darkreader-inline-border-bottom: 0px; --darkreader-inline-border-left: 0px; --darkreader-inline-outline: initial; --darkreader-inline-color: inherit;\" data-darkreader-inline-bgimage=\"\" data-darkreader-inline-bgcolor=\"\" data-darkreader-inline-border-top=\"\" data-darkreader-inline-border-right=\"\" data-darkreader-inline-border-bottom=\"\" data-darkreader-inline-border-left=\"\" data-darkreader-inline-outline=\"\" data-darkreader-inline-color=\"\"><div style=\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: Proxima-Nova-Regular; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;\"></div></div></div></div><div class=\" css-1wy0on6\"><div class=\"create-emotion-68mhxv-indicatorContainer root_icon_size__md__eSxdUr3MZh icon-search\" aria-label=\"icon-search\" role=\"img\"></div></div></div></div></div>",
+    "text": "\u00a0\u00a0  3 results available. Select is focused ,type to refine list, press Down to open the menu,  press left to focus selected valuesSearch",
+    "className": "ant-dropdown ant-dropdown-placement-bottomCenter"
+  },
+  "checkbox_labels": [
+    {
+      "text": "",
+      "checked": true,
+      "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper ant-checkbox-wrapper-checked\"><span class=\"ant-checkbox ant-checkbox-checked\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test=\"-departments-multiSelect-checkbox\" data-test-id=\"-departments-multiSelect-checkbox\" value=\"\" checked=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test=\"-departments-multiSelect-checkbox\" data-test-id=\"-departments-multiSelect-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test=\"-departments-multiSelect-checkbox\" data-test-id=\"-departments-multiSelect-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-header-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    },
+    {
+      "text": "",
+      "checked": false,
+      "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\" style=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    }
+  ],
+  "select_options": []
+}

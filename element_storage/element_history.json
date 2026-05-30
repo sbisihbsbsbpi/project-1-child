@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "version_id": "20260530_105548_cb3d420b",
+      "timestamp": "2026-05-30T10:55:48.376345",
+      "element_count": {
+        "department_filter": 1,
+        "tabs": 3,
+        "buttons": 9
+      },
+      "page_signature": "7de37f3d5543bbc1436f647a11765cf5"
+    }
+  ]
+}

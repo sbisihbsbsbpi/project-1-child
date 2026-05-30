@@ -1,0 +1,171 @@
+[
+  {
+    "url": "https://preprodapp.tekioncloud.com/api/templatestore/u/search",
+    "method": "POST",
+    "payload": {
+      "sort": [],
+      "filters": [],
+      "searchText": "",
+      "groupBy": [
+        {
+          "key": "template",
+          "groupType": "FILTERS",
+          "filters": [
+            {
+              "key": "EMAIL",
+              "field": "purposeSubType",
+              "operator": "BOOL",
+              "andFilters": [
+                {
+                  "field": "status",
+                  "operator": "IN",
+                  "values": [
+                    "ACTIVE"
+                  ],
+                  "key": "status"
+                },
+                {
+                  "field": "purposeSubType",
+                  "operator": "IN",
+                  "values": [
+                    "EMAIL"
+                  ],
+                  "key": "purposeSubType"
+                },
+                {
+                  "field": "departments",
+                  "operator": "IN",
+                  "values": [
+                    "SALES"
+                  ],
+                  "key": "departments"
+                },
+                {
+                  "field": "visibleOnUI",
+                  "operator": "IN",
+                  "values": [
+                    true
+                  ],
+                  "key": "visibleOnUI"
+                }
+              ]
+            },
+            {
+              "key": "TEXT",
+              "field": "purposeSubType",
+              "operator": "BOOL",
+              "andFilters": [
+                {
+                  "field": "status",
+                  "operator": "IN",
+                  "values": [
+                    "ACTIVE"
+                  ],
+                  "key": "status"
+                },
+                {
+                  "field": "purposeSubType",
+                  "operator": "IN",
+                  "values": [
+                    "TEXT"
+                  ],
+                  "key": "purposeSubType"
+                },
+                {
+                  "field": "departments",
+                  "operator": "IN",
+                  "values": [
+                    "SALES"
+                  ],
+                  "key": "departments"
+                },
+                {
+                  "field": "visibleOnUI",
+                  "operator": "IN",
+                  "values": [
+                    true
+                  ],
+                  "key": "visibleOnUI"
+                }
+              ]
+            },
+            {
+              "key": "CHAT",
+              "field": "purposeSubType",
+              "operator": "BOOL",
+              "andFilters": [
+                {
+                  "field": "status",
+                  "operator": "IN",
+                  "values": [
+                    "ACTIVE"
+                  ],
+                  "key": "status"
+                },
+                {
+                  "field": "purposeSubType",
+                  "operator": "IN",
+                  "values": [
+                    "CHAT"
+                  ],
+                  "key": "purposeSubType"
+                },
+                {
+                  "field": "departments",
+                  "operator": "IN",
+                  "values": [
+                    "SALES"
+                  ],
+                  "key": "departments"
+                },
+                {
+                  "field": "visibleOnUI",
+                  "operator": "IN",
+                  "values": [
+                    true
+                  ],
+                  "key": "visibleOnUI"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "includeFields": [],
+      "searchableFields": [],
+      "excludeFields": [],
+      "pageInfo": {
+        "start": 0,
+        "rows": 0
+      }
+    },
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-language": "en-US,en;q=0.5",
+      "content-type": "application/json",
+      "cookie": "tcache={%22tenantname%22:%22dcdautomotive%22}; tcookie={%22roleId%22:%225941_ISM_Admin%22%2C%22userId%22:%22e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175%22%2C%22tenantname%22:%22dcdautomotive%22%2C%22dealerId%22:%225939%22%2C%22tek-siteId%22:%22-1_5939%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22workspaceId%22:%225939%22}",
+      "origin": "https://preprodapp.tekioncloud.com",
+      "referer": "https://preprodapp.tekioncloud.com/templates/list",
+      "sec-gpc": "1",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "applicationid": "ARC_NA",
+      "clientid": "web",
+      "dealerid": "5939",
+      "locale": "en_US",
+      "original-tenantid": "techmotors",
+      "original-userid": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5",
+      "productids": "ARC",
+      "program": "DEFAULT",
+      "roleid": "5941_ISM_Admin",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"Brave\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"macOS\"",
+      "subapplicationid": "US",
+      "tek-siteid": "-1_5939",
+      "tekion-api-token": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlM2YxYTBmNC1iYWUyLTRjMWYtYjIzOC1mNmY3YmM2M2UxNzUiLCJpYXQiOjE3ODAwNDgyNDIsInN1YiI6ImUzZjFhMGY0LWJhZTItNGMxZi1iMjM4LWY2ZjdiYzYzZTE3NSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI3NjYwODYwYi02NmYzLTRiNmUtOTBkMy0xMmRjYjY0ZjEzMzUiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiZTNmMWEwZjQtYmFlMi00YzFmLWIyMzgtZjZmN2JjNjNlMTc1IiwiZW1haWwiOiJpc21AZGNkYXV0b21vdGl2ZS5jb20iLCJleHAiOjE3ODAwNTYwMTh9.OVrCFwu48azTyY41teR6ss8KewLLtTuRuEwFkJV2-0Y",
+      "tenantname": "dcdautomotive",
+      "userid": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+      "workspaceid": "5939"
+    }
+  }
+]

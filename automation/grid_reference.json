@@ -1,0 +1,206 @@
+{
+  "grid_type": "React Table (rt-table)",
+  "role": "grid",
+  "selector": ".rt-table[role='grid']",
+  "detection_date": "2026-05-29",
+  "status": "detected",
+  
+  "structure": {
+    "type": "div-based grid with ARIA roles",
+    "container_class": "rt-table",
+    "header_class": "rt-thead -header",
+    "row_selector": "[role='row']",
+    "cell_selector": "[role='gridcell']",
+    "header_selector": "[role='columnheader']"
+  },
+  
+  "columns": [
+    {
+      "index": 0,
+      "name": "Checkbox",
+      "header_text": "",
+      "type": "checkbox",
+      "class": "rthfc-th-fixed rthfc-th-fixed-left",
+      "width": "50px",
+      "fixed": true,
+      "sortable": false,
+      "selector": ".rt-th.rthfc-th-fixed-left input[type='checkbox']",
+      "purpose": "Select individual templates"
+    },
+    {
+      "index": 1,
+      "name": "Name",
+      "header_text": "Name",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": true,
+      "resizable": true,
+      "purpose": "Template name/title",
+      "clickable": true,
+      "action": "Opens template editor"
+    },
+    {
+      "index": 2,
+      "name": "Quick Search Tag",
+      "header_text": "Quick Search Tag",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Hashtag for quick search (e.g., #cpraExport)"
+    },
+    {
+      "index": 3,
+      "name": "Department",
+      "header_text": "Department",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Shows assigned departments (Sales, Parts, Service)",
+      "format": "Comma-separated list"
+    },
+    {
+      "index": 4,
+      "name": "Communication Type",
+      "header_text": "Communication Type",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Template communication type"
+    },
+    {
+      "index": 5,
+      "name": "Categories",
+      "header_text": "Categories",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Template categories"
+    },
+    {
+      "index": 6,
+      "name": "Expiry Date",
+      "header_text": "Expiry Date",
+      "type": "date",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Template expiration date",
+      "format": "'-' for no expiry"
+    },
+    {
+      "index": 7,
+      "name": "Created By",
+      "header_text": "Created By",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "User who created the template"
+    },
+    {
+      "index": 8,
+      "name": "Created Date",
+      "header_text": "Created Date",
+      "type": "date",
+      "class": "rt-th rt-resizable-header",
+      "sortable": true,
+      "resizable": true,
+      "purpose": "Template creation date",
+      "format": "MMM DD YYYY (e.g., Jun 28 2024)"
+    },
+    {
+      "index": 9,
+      "name": "Last Updated by",
+      "header_text": "Last Updated by",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "User who last updated the template"
+    },
+    {
+      "index": 10,
+      "name": "Last Updated date",
+      "header_text": "Last Updated date",
+      "type": "date",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "Last update date",
+      "format": "MMM DD YYYY"
+    },
+    {
+      "index": 11,
+      "name": "Published By",
+      "header_text": "Published By",
+      "type": "text",
+      "class": "rt-th rt-resizable-header",
+      "sortable": false,
+      "resizable": true,
+      "purpose": "User who published the template"
+    },
+    {
+      "index": 12,
+      "name": "Actions",
+      "header_text": "",
+      "type": "actions",
+      "class": "rt-th",
+      "sortable": false,
+      "purpose": "Row action buttons (more options menu)"
+    }
+  ],
+  
+  "sample_data": [
+    {
+      "name": "Request Completion: Data Deletion (Closed Documents)",
+      "quick_search_tag": "#cpraClosed",
+      "department": "Sales,Parts,Service",
+      "communication_type": "Required Dealership Business",
+      "categories": "Data Privacy",
+      "expiry_date": "-",
+      "created_by": "System",
+      "created_date": "Jun 28 2024",
+      "last_updated_by": "IAism admin",
+      "last_updated_date": "May 29 2026",
+      "published_by": "NTNucar Automall of Tilton"
+    }
+  ],
+  
+  "interactions": {
+    "select_all_checkbox": {
+      "selector": ".rt-thead input[type='checkbox']",
+      "location": "Header row, column 0",
+      "action": "Select/deselect all templates"
+    },
+    "row_checkbox": {
+      "selector": ".rt-tbody [role='row'] input[type='checkbox']",
+      "action": "Select individual template"
+    },
+    "template_name_click": {
+      "selector": ".rt-tbody [role='row'] [role='gridcell']:nth-child(2)",
+      "action": "Opens template in editor",
+      "warning": "Navigates away from list page"
+    },
+    "sort_column": {
+      "selector": ".rt-th.rt-resizable-header:has([class*='sort'])",
+      "columns": ["Name", "Created Date"],
+      "action": "Sort by column"
+    }
+  },
+  
+  "notes": {
+    "total_columns": 13,
+    "fixed_columns": 1,
+    "sortable_columns": 2,
+    "resizable_columns": 11,
+    "row_count": "Dynamic (depends on filters)",
+    "pagination": "Controlled by page size dropdown (Select50)",
+    "virtual_scrolling": false,
+    "sticky_header": true,
+    "sticky_left_column": true
+  }
+}

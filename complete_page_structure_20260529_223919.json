@@ -1,0 +1,104 @@
+{
+  "page_title": "Tekion Template Builder",
+  "url": "https://preprodapp.tekioncloud.com/templates/list",
+  "filters": {
+    "department_filter": {
+      "text": "antdproellipsis178007455793360webkitlineclamp1webkitboxorient verticaloverflow hiddendisplay webkitboxSales",
+      "selector": ".ant-dropdown-trigger",
+      "full_text": "#antd-pro-ellipsis-178007455793360{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales"
+    },
+    "search_boxes": [
+      {
+        "placeholder": "Search here...",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "placeholder": "Search...",
+        "value": "",
+        "type": "text"
+      }
+    ],
+    "page_size_selector": {
+      "text": "Select50",
+      "aria_expanded": "false"
+    }
+  },
+  "tabs": [
+    {
+      "label": "Email",
+      "count": 11,
+      "active": true,
+      "full_text": "Email (11)"
+    },
+    {
+      "label": "Text",
+      "count": 1,
+      "active": false,
+      "full_text": "Text (1)"
+    },
+    {
+      "label": "Live Chat",
+      "count": 3,
+      "active": false,
+      "full_text": "Live Chat (3)"
+    }
+  ],
+  "action_buttons": {
+    "drafts": {
+      "text": "Drafts (0)",
+      "count": 0
+    },
+    "archive": {
+      "text": "Archive (0)",
+      "count": 0
+    },
+    "actions": {
+      "text": "Actions",
+      "disabled": true
+    },
+    "new_template": {
+      "text": "New Template",
+      "disabled": false
+    },
+    "other": []
+  },
+  "template_cards": [],
+  "template_list": {
+    "headers": [],
+    "rows": [],
+    "view_type": null
+  },
+  "pagination": {
+    "current_page": null,
+    "total_items": null,
+    "items_per_page": null,
+    "prev_button": {
+      "text": "Prev",
+      "disabled": false
+    },
+    "next_button": {
+      "text": "Next",
+      "disabled": false
+    }
+  },
+  "page_sections": [],
+  "dom_info": {
+    "total_buttons": 13,
+    "total_links": 7,
+    "total_inputs": 6,
+    "total_cards": 0,
+    "main_containers": [
+      {
+        "tag": "DIV",
+        "classes": "full-width full-height root_tableManager_container__3ZbHpZQp",
+        "children_count": 1
+      },
+      {
+        "tag": "DIV",
+        "classes": "root_table_spinnerWrap__9TAS8uuVre table-loader-wrapper",
+        "children_count": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "table_found": false,
+  "grid_found": true,
+  "columns": [],
+  "rows": [],
+  "sample_rows": [],
+  "checkboxes": false,
+  "actions_column": false,
+  "grid_elements": [
+    {
+      "index": 0,
+      "tag": "DIV",
+      "role": null,
+      "className": "full-width full-height root_tableManager_container__3ZbHpZQpuX undefined"
+    },
+    {
+      "index": 1,
+      "tag": "DIV",
+      "role": null,
+      "className": "root_tableManager_bodyContainer__rW7GHdJhJw"
+    },
+    {
+      "index": 2,
+      "tag": "DIV",
+      "role": null,
+      "className": "ReactTable rthfc-mpr7ljzd rthfc -sp root_table_tableBordered__v4XHPS3L6T"
+    },
+    {
+      "index": 3,
+      "tag": "DIV",
+      "role": "grid",
+      "className": "rt-table"
+    },
+    {
+      "index": 4,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 5,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 6,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 7,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 8,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 9,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 10,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 11,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 12,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 13,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    },
+    {
+      "index": 14,
+      "tag": "DIV",
+      "role": "gridcell",
+      "className": "rt-td root_table_checkBoxCell__7pbSk4b3ny rthfc-td-fixed rthfc-td-fixed-left rthfc-td-fixed-left-las"
+    }
+  ]
+}

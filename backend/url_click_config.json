@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "description": "URL-specific click action configurations for screenshot tool",
+  "url_patterns": [
+    {
+      "id": "config-1763077242065",
+      "name": "Config for https://preprodapp.tekioncloud.com/ro/mpvi-settings/FORMS",
+      "url_pattern": "https://preprodapp.tekioncloud.com/ro/mpvi-settings/FORMS",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Active",
+          "wait_after_ms": 2000
+        }
+      ],
+      "enabled": true,
+      "notes": ""
+    },
+    {
+      "id": "config-1763078421037",
+      "name": "Config for https://preprodapp.tekioncloud.com/dse-v2/scheduling-settings/shops",
+      "url_pattern": "https://preprodapp.tekioncloud.com/dse-v2/scheduling-settings/shops",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": " ",
+          "wait_after_ms": 2000
+        }
+      ],
+      "enabled": true,
+      "notes": ""
+    },
+    {
+      "id": "config-1773955554610",
+      "name": "Config for https://preprodapp.tekioncloud.com/parts/return-reasons",
+      "url_pattern": "https://preprodapp.tekioncloud.com/parts/return-reasons",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Customer Return w/ Restocking",
+          "wait_after_ms": 2000
+        }
+      ],
+      "enabled": true,
+      "notes": ""
+    },
+    {
+      "id": "config-1773957925744",
+      "name": "Config for https://preprodapp.tekioncloud.com/parts/parts-settings/pdf-configuration",
+      "url_pattern": "https://preprodapp.tekioncloud.com/parts/parts-settings/pdf-configuration",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Disclaimer of Warranty",
+          "wait_after_ms": 2000
+        }
+      ],
+      "enabled": true,
+      "notes": ""
+    },
+    {
+      "id": "config-1774449214434",
+      "name": "Config for https://preprodapp.tekioncloud.com/vi/visettings",
+      "url_pattern": "https://preprodapp.tekioncloud.com/vi/visettings",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Account Setup",
+          "wait_after_ms": 2000
+        }
+      ],
+      "enabled": true,
+      "notes": "",
+      "auto_expand_dropdowns": true
+    }
+  ]
+}

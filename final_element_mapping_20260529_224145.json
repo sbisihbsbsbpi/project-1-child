@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "page_url": "https://preprodapp.tekioncloud.com/templates/list",
+    "page_title": "Tekion Template Builder",
+    "timestamp": "2026-05-29T17:11:45.077Z",
+    "description": "Complete element mapping for Tekion Templates page"
+  },
+  "important_elements": {
+    "1_department_filter": {
+      "element_number": 1,
+      "type": "department_filter",
+      "label": "Department Filter",
+      "value": "antdproellipsis178007470246192webkitlineclamp1webkitboxorient verticaloverflow hiddendisplay webkitboxSales",
+      "full_text": "#antd-pro-ellipsis-178007470246192{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales",
+      "selector": ".ant-dropdown-trigger",
+      "css_class": "ant-dropdown-trigger",
+      "is_interactive": true,
+      "description": "Main department filter dropdown (Sales, Service, Parts, etc.)"
+    },
+    "2_search_box": {
+      "element_number": 2,
+      "type": "search_input",
+      "label": "Search Box",
+      "placeholder": "Search...",
+      "value": "",
+      "selector": "input[placeholder=\"Search...\"]",
+      "css_class": "ant-input root_expandableSearch_expandableInput__2Bbph5vRT9 is-paddingless",
+      "is_interactive": true,
+      "description": "Search input field: \"Search...\""
+    },
+    "5_drafts_button": {
+      "element_number": 5,
+      "type": "action_button",
+      "label": "Drafts",
+      "text": "Drafts (0)",
+      "count": 0,
+      "disabled": false,
+      "css_class": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+      "is_interactive": true,
+      "description": "Button to view draft templates"
+    },
+    "6_archive_button": {
+      "element_number": 6,
+      "type": "action_button",
+      "label": "Archive",
+      "text": "Archive (0)",
+      "count": 0,
+      "disabled": false,
+      "css_class": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+      "is_interactive": true,
+      "description": "Button to view archived templates"
+    },
+    "7_actions_button": {
+      "element_number": 7,
+      "type": "action_button",
+      "label": "Actions",
+      "text": "Actions",
+      "disabled": true,
+      "css_class": "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary",
+      "is_interactive": true,
+      "description": "Actions dropdown menu button"
+    },
+    "8_new_template_button": {
+      "element_number": 8,
+      "type": "action_button",
+      "label": "New Template",
+      "text": "New Template",
+      "disabled": false,
+      "css_class": "ant-btn ant-btn-primary",
+      "is_interactive": true,
+      "description": "Primary button to create a new template"
+    },
+    "12_page_size_dropdown": {
+      "element_number": 12,
+      "type": "dropdown",
+      "label": "Page Size Selector",
+      "value": "Select50",
+      "aria_expanded": "false",
+      "css_class": "ant-select-selection\n            ant-select-selection--single",
+      "is_interactive": true,
+      "description": "Dropdown to select number of items per page (e.g., Select50)"
+    },
+    "13_tab_email": {
+      "element_number": 13,
+      "type": "tab",
+      "label": "Email",
+      "count": 0,
+      "full_text": "Email (0)",
+      "is_active": true,
+      "aria_selected": true,
+      "css_class": "ant-tabs-tab-active ant-tabs-tab",
+      "is_interactive": true,
+      "description": "Email tab showing 0 filtered results"
+    },
+    "14_tab_text": {
+      "element_number": 14,
+      "type": "tab",
+      "label": "Text",
+      "count": 0,
+      "full_text": "Text (0)",
+      "is_active": false,
+      "aria_selected": false,
+      "css_class": " ant-tabs-tab",
+      "is_interactive": true,
+      "description": "Text tab showing 0 filtered results"
+    },
+    "15_tab_live_chat": {
+      "element_number": 15,
+      "type": "tab",
+      "label": "Live Chat",
+      "count": 0,
+      "full_text": "Live Chat (0)",
+      "is_active": false,
+      "aria_selected": false,
+      "css_class": " ant-tabs-tab",
+      "is_interactive": true,
+      "description": "Live Chat tab showing 0 filtered results"
+    },
+    "pagination_prev": {
+      "type": "pagination_button",
+      "label": "Previous Page",
+      "text": "Prev",
+      "disabled": false,
+      "css_class": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a pagination-element pagination-element-button is-disabled ant-btn-tertiary",
+      "is_interactive": true,
+      "description": "Previous page button"
+    },
+    "pagination_next": {
+      "type": "pagination_button",
+      "label": "Next Page",
+      "text": "Next",
+      "disabled": false,
+      "css_class": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a pagination-element pagination-element-button is-disabled ant-btn-tertiary",
+      "is_interactive": true,
+      "description": "Next page button"
+    }
+  },
+  "summary": {
+    "total_important_elements": 12,
+    "filters": 1,
+    "buttons": 4,
+    "tabs": 3,
+    "dropdowns": 1,
+    "template_cards": 0
+  }
+}

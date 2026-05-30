@@ -1,0 +1,81 @@
+{
+  "total_components": 9,
+  "by_type": {
+    "TEXT_TEMPLATE": 2,
+    "INSERT_IMAGE": 1,
+    "INSERT_BUTTON": 1,
+    "INSERT_HORIZONTAL_SEPARATOR": 2,
+    "INSERT_LAYOUT": 1,
+    "INSERT_FOOTER_TEMPLATE": 1,
+    "INSERT_SERVICE_FOOTER": 1
+  },
+  "images": [
+    {
+      "index": 1,
+      "key": "INSERT_IMAGE",
+      "compId": "9744b056-6947-41ed-ad78-9b37db30892c",
+      "mediaId": "630f4b45e21b8400077a8e0c",
+      "width": "34.66476462196862%"
+    }
+  ],
+  "buttons": [
+    {
+      "index": 3,
+      "key": "INSERT_BUTTON",
+      "compId": "de61c024-448e-42af-a4c8-5b42fc1ba837",
+      "hasMediaId": false
+    }
+  ],
+  "text_blocks": [
+    {
+      "index": 0,
+      "key": "TEXT_TEMPLATE",
+      "compId": "4d6c7d99-4167-4c63-b84f-3442dbd29a18",
+      "hasContent": true,
+      "htmlLength": 1911
+    },
+    {
+      "index": 2,
+      "key": "TEXT_TEMPLATE",
+      "compId": "fefb13a0-af0b-479e-b771-505af71902b8",
+      "hasContent": true,
+      "htmlLength": 82
+    }
+  ],
+  "layouts": [
+    {
+      "index": 5,
+      "key": "INSERT_LAYOUT",
+      "compId": "c3efd489-bbbb-4cb3-aafd-24dc2342db12",
+      "columnCount": 2,
+      "hasImages": true
+    }
+  ],
+  "separators": [
+    {
+      "index": 4,
+      "key": "INSERT_HORIZONTAL_SEPARATOR",
+      "compId": "ea696909-7df1-47be-97ba-f82e2507a095"
+    },
+    {
+      "index": 6,
+      "key": "INSERT_HORIZONTAL_SEPARATOR",
+      "compId": "8c342731-f763-4b27-ba3e-55e141739cba"
+    }
+  ],
+  "footers": [
+    {
+      "index": 7,
+      "key": "INSERT_FOOTER_TEMPLATE",
+      "compId": "cbd93bee-d35c-4e84-96a3-840dd876a7e9",
+      "footerId": "6398b4a8cb41f6643ee00668"
+    },
+    {
+      "index": 8,
+      "key": "INSERT_SERVICE_FOOTER",
+      "compId": "ab32ab84-dd63-4385-b2b8-061f12ca8918",
+      "footerId": null
+    }
+  ],
+  "other": []
+}

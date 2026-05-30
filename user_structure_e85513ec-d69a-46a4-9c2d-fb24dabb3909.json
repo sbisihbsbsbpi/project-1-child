@@ -1,0 +1,128 @@
+{
+  "id": "e85513ec-d69a-46a4-9c2d-fb24dabb3909",
+  "userID": "e85513ec-d69a-46a4-9c2d-fb24dabb3909",
+  "tenantName": "dreammotorgroupllc",
+  "fname": "MariaC",
+  "lname": "Caso Escarp",
+  "phone": "7862320364",
+  "username": "maria.casoe85513ec-d69a-46a4-9c2d-fb24dabb3909",
+  "email": "maria.caso@mbcutlerbay.com",
+  "profilePicture": "",
+  "jobTitle": "Accounting Admin",
+  "managerId": "",
+  "status": {
+    "accountid": "auth0|e85513ec-d69a-46a4-9c2d-fb24dabb3909",
+    "firstTimePWDReset": true,
+    "unsuccessfulLoginAttempts": 0,
+    "resetPWDFormattedModifiedTime": "Thu May 21 2026 5:31:50 PM"
+  },
+  "homeDealerId": "7619",
+  "displayName": "MariaC Caso Escarp",
+  "createdByUser": "241",
+  "workspaceEnabled": false,
+  "lastUpdatedByUser": "4f41b4ee-ff61-4826-8532-6fd91998b7de",
+  "createDateTime": 1776391054632,
+  "otpSetupCompleted": false,
+  "lastUpdatedDateTime": 1779399126139,
+  "userType": "TENANT_USER",
+  "type": 2,
+  "employeeDealerMaps": [
+    {
+      "dealerId": "7619",
+      "employeeId": "df4e071c-82bf-498f-a349-f28142cb9e19",
+      "employeeDisplayNumber": "3894",
+      "active": false
+    }
+  ],
+  "employeeId": "df4e071c-82bf-498f-a349-f28142cb9e19",
+  "licenseNumber": "",
+  "employeeDisplayNumber": "3894",
+  "enableClockIn": false,
+  "countryCode": "+1",
+  "mfaMetaData": {
+    "userLevelOverride": false,
+    "allowUserMfaOverride": false,
+    "enabled": false,
+    "authenticators": [
+      {
+        "name": "EMAIL",
+        "primary": true,
+        "setupCompleted": true,
+        "displayName": "E-mail"
+      }
+    ]
+  },
+  "oemMappings": [
+    {
+      "complexListId": "ada6a4fd-3fc0-4f10-809d-aaabc1729606",
+      "complexObjectDisplayName": null,
+      "dealerId": "7619",
+      "oemDetails": [
+        {
+          "complexListId": "de2a415d-e165-4ef1-830d-7bd56d89d473",
+          "complexObjectDisplayName": null,
+          "oem": "benz",
+          "oemId": null,
+          "makeOverrides": [
+            {
+              "complexListId": "39b4fc25-ce28-42de-b955-7e55bec32fbd",
+              "complexObjectDisplayName": null,
+              "make": "mercedesbenz",
+              "oemId": null
+            }
+          ],
+          "makeOverrideDisabled": true
+        }
+      ]
+    },
+    {
+      "complexListId": "cfb531ac-d069-4c8a-b7bd-71b484701716",
+      "complexObjectDisplayName": null,
+      "dealerId": "7616",
+      "oemDetails": [
+        {
+          "complexListId": "de98247b-8b49-47e5-b918-278f371b82df",
+          "complexObjectDisplayName": null,
+          "oem": "benz",
+          "oemId": null,
+          "makeOverrides": [
+            {
+              "complexListId": "58a1d9d0-cf84-4f9c-9b2b-6e81e26b5196",
+              "complexObjectDisplayName": null,
+              "make": "mercedesbenz",
+              "oemId": null
+            }
+          ],
+          "makeOverrideDisabled": true
+        }
+      ]
+    }
+  ],
+  "lockUser": false,
+  "ottSetup": "Welcome_Screen",
+  "removeUserFromUI": false,
+  "dealerOemSites": [],
+  "userSessionCapture": true,
+  "userFeedbackEnabled": false,
+  "tekionWalletEnabled": false,
+  "mfaPhoneSettings": {
+    "mfaPhoneType": "PERSONAL_PHONE_NUMBER",
+    "phone": "7862320364"
+  },
+  "dmsenabled": false,
+  "tenantId": "dreammotorgroupllc",
+  "dealers": [
+    {
+      "dealerLogo": null,
+      "value": "7616",
+      "label": "Mercedes Benz of Coral Gables"
+    },
+    {
+      "dealerLogo": null,
+      "value": "7619",
+      "label": "Mercedes Benz of Cutler Bay"
+    }
+  ],
+  "isActive": true,
+  "active": true
+}

@@ -1,0 +1,559 @@
+{
+  "timestamp": "2026-05-29T17:15:40.588Z",
+  "page_url": "https://preprodapp.tekioncloud.com/templates/list",
+  "elements": {
+    "1_department_filter": {
+      "name": "Department Filter",
+      "html": "<div class=\"ant-dropdown-trigger\"><div id=\"departments\" data-test-id=\"-departments-selectedValues\" class=\"root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR\"><div id=\"antd-pro-ellipsis-178007493912117\" class=\"root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV\"><style nonce=\"\">#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}</style><style class=\"darkreader darkreader--sync\" media=\"screen\"></style>Sales</div><div class=\"root_selectedValues_dropdownIndicator__c4aYqgCDWp root_icon_size__s__5kwhpD8hgW icon-chevron-down\" aria-label=\"icon-chevron-down\" role=\"img\"></div></div></div>",
+      "tag": "DIV",
+      "id": "",
+      "className": "ant-dropdown-trigger",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "ant-dropdown-trigger"
+        }
+      ],
+      "text_content": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales",
+      "clean_text": "Sales",
+      "inner_text": "Sales",
+      "children_count": 1,
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "departments",
+          "className": "root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR",
+          "text": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidde"
+        }
+      ],
+      "data_attributes": []
+    },
+    "1a_department_inner": {
+      "name": "Department Inner Div",
+      "html": "<div id=\"departments\" data-test-id=\"-departments-selectedValues\" class=\"root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR\"><div id=\"antd-pro-ellipsis-178007493912117\" class=\"root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV\"><style nonce=\"\">#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}</style><style class=\"darkreader darkreader--sync\" media=\"screen\"></style>Sales</div><div class=\"root_selectedValues_dropdownIndicator__c4aYqgCDWp root_icon_size__s__5kwhpD8hgW icon-chevron-down\" aria-label=\"icon-chevron-down\" role=\"img\"></div></div>",
+      "tag": "DIV",
+      "id": "departments",
+      "className": "root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR",
+      "attributes": [
+        {
+          "name": "id",
+          "value": "departments"
+        },
+        {
+          "name": "data-test-id",
+          "value": "-departments-selectedValues"
+        },
+        {
+          "name": "class",
+          "value": "root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR"
+        }
+      ],
+      "text_content": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales",
+      "clean_text": "Sales",
+      "inner_text": "Sales",
+      "children_count": 2,
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "antd-pro-ellipsis-178007493912117",
+          "className": "root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV",
+          "text": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidde"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "root_selectedValues_dropdownIndicator__c4aYqgCDWp root_icon_size__s__5kwhpD8hgW icon-chevron-down",
+          "text": ""
+        }
+      ],
+      "data_attributes": [
+        {
+          "name": "data-test-id",
+          "value": "-departments-selectedValues"
+        }
+      ]
+    },
+    "1b_department_ellipsis": {
+      "name": "Department Ellipsis",
+      "html": "<div id=\"antd-pro-ellipsis-178007493912117\" class=\"root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV\"><style nonce=\"\">#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}</style><style class=\"darkreader darkreader--sync\" media=\"screen\"></style>Sales</div>",
+      "tag": "DIV",
+      "id": "antd-pro-ellipsis-178007493912117",
+      "className": "root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV",
+      "attributes": [
+        {
+          "name": "id",
+          "value": "antd-pro-ellipsis-178007493912117"
+        },
+        {
+          "name": "class",
+          "value": "root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV"
+        }
+      ],
+      "text_content": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales",
+      "clean_text": "Sales",
+      "inner_text": "Sales",
+      "children_count": 2,
+      "children": [
+        {
+          "tag": "STYLE",
+          "id": "",
+          "className": "",
+          "text": "#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidde"
+        },
+        {
+          "tag": "STYLE",
+          "id": "",
+          "className": "darkreader darkreader--sync",
+          "text": ""
+        }
+      ],
+      "data_attributes": []
+    },
+    "2_search_input": {
+      "name": "Search Box 1",
+      "html": "<input inputref=\"[object Object]\" placeholder=\"Search here...\" containerclassname=\"\" helptext=\"\" labelclassname=\"\" helptextclassname=\"\" fieldlabelclassname=\"\" infooverlayclassname=\"\" data-test=\"@tekion-appSkeleton-searchPanel-globalSearchInput\" data-test-id=\"@tekion-appSkeleton-searchPanel-globalSearchInput\" class=\"ant-input\" type=\"text\" value=\"\">",
+      "tag": "INPUT",
+      "id": "",
+      "className": "ant-input",
+      "attributes": [
+        {
+          "name": "inputref",
+          "value": "[object Object]"
+        },
+        {
+          "name": "placeholder",
+          "value": "Search here..."
+        },
+        {
+          "name": "containerclassname",
+          "value": ""
+        },
+        {
+          "name": "helptext",
+          "value": ""
+        },
+        {
+          "name": "labelclassname",
+          "value": ""
+        },
+        {
+          "name": "helptextclassname",
+          "value": ""
+        },
+        {
+          "name": "fieldlabelclassname",
+          "value": ""
+        },
+        {
+          "name": "infooverlayclassname",
+          "value": ""
+        },
+        {
+          "name": "data-test",
+          "value": "@tekion-appSkeleton-searchPanel-globalSearchInput"
+        },
+        {
+          "name": "data-test-id",
+          "value": "@tekion-appSkeleton-searchPanel-globalSearchInput"
+        },
+        {
+          "name": "class",
+          "value": "ant-input"
+        },
+        {
+          "name": "type",
+          "value": "text"
+        },
+        {
+          "name": "value",
+          "value": ""
+        }
+      ],
+      "text_content": "",
+      "clean_text": "",
+      "inner_text": "",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": [
+        {
+          "name": "data-test",
+          "value": "@tekion-appSkeleton-searchPanel-globalSearchInput"
+        },
+        {
+          "name": "data-test-id",
+          "value": "@tekion-appSkeleton-searchPanel-globalSearchInput"
+        }
+      ]
+    },
+    "3_search_input": {
+      "name": "Search Box 2",
+      "html": "<input class=\"ant-input root_expandableSearch_expandableInput__2Bbph5vRT9 is-paddingless\" placeholder=\"Search...\" type=\"text\" value=\"\">",
+      "tag": "INPUT",
+      "id": "",
+      "className": "ant-input root_expandableSearch_expandableInput__2Bbph5vRT9 is-paddingless",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "ant-input root_expandableSearch_expandableInput__2Bbph5vRT9 is-paddingless"
+        },
+        {
+          "name": "placeholder",
+          "value": "Search..."
+        },
+        {
+          "name": "type",
+          "value": "text"
+        },
+        {
+          "name": "value",
+          "value": ""
+        }
+      ],
+      "text_content": "",
+      "clean_text": "",
+      "inner_text": "",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": []
+    },
+    "5_drafts_button": {
+      "name": "Drafts Button",
+      "html": "<button type=\"button\" class=\"ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link\"><span>Drafts (0)</span></button>",
+      "tag": "BUTTON",
+      "id": "",
+      "className": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+      "attributes": [
+        {
+          "name": "type",
+          "value": "button"
+        },
+        {
+          "name": "class",
+          "value": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link"
+        }
+      ],
+      "text_content": "Drafts (0)",
+      "clean_text": "Drafts (0)",
+      "inner_text": "Drafts (0)",
+      "children_count": 1,
+      "children": [
+        {
+          "tag": "SPAN",
+          "id": "",
+          "className": "",
+          "text": "Drafts (0)"
+        }
+      ],
+      "data_attributes": []
+    },
+    "6_archive_button": {
+      "name": "Archive Button",
+      "html": "<button type=\"button\" class=\"ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link\"><span>Archive (0)</span></button>",
+      "tag": "BUTTON",
+      "id": "",
+      "className": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+      "attributes": [
+        {
+          "name": "type",
+          "value": "button"
+        },
+        {
+          "name": "class",
+          "value": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link"
+        }
+      ],
+      "text_content": "Archive (0)",
+      "clean_text": "Archive (0)",
+      "inner_text": "Archive (0)",
+      "children_count": 1,
+      "children": [
+        {
+          "tag": "SPAN",
+          "id": "",
+          "className": "",
+          "text": "Archive (0)"
+        }
+      ],
+      "data_attributes": []
+    },
+    "7_actions_button": {
+      "name": "Actions Button",
+      "html": "<button disabled=\"\" type=\"button\" class=\"ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary\" style=\"pointer-events: none;\"><span>Actions&nbsp;</span><div class=\"root_icon_size__s__5kwhpD8hgW icon-chevron-down\" aria-label=\"icon-chevron-down\" role=\"img\"></div></button>",
+      "tag": "BUTTON",
+      "id": "",
+      "className": "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary",
+      "attributes": [
+        {
+          "name": "disabled",
+          "value": ""
+        },
+        {
+          "name": "type",
+          "value": "button"
+        },
+        {
+          "name": "class",
+          "value": "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary"
+        },
+        {
+          "name": "style",
+          "value": "pointer-events: none;"
+        }
+      ],
+      "text_content": "Actions",
+      "clean_text": "Actions",
+      "inner_text": "Actions\u00a0",
+      "children_count": 2,
+      "children": [
+        {
+          "tag": "SPAN",
+          "id": "",
+          "className": "",
+          "text": "Actions"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "root_icon_size__s__5kwhpD8hgW icon-chevron-down",
+          "text": ""
+        }
+      ],
+      "data_attributes": []
+    },
+    "8_new_template_button": {
+      "name": "New Template Button",
+      "html": "<button type=\"button\" class=\"ant-btn ant-btn-primary\"><div>New Template</div></button>",
+      "tag": "BUTTON",
+      "id": "",
+      "className": "ant-btn ant-btn-primary",
+      "attributes": [
+        {
+          "name": "type",
+          "value": "button"
+        },
+        {
+          "name": "class",
+          "value": "ant-btn ant-btn-primary"
+        }
+      ],
+      "text_content": "New Template",
+      "clean_text": "New Template",
+      "inner_text": "New Template",
+      "children_count": 1,
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "",
+          "text": "New Template"
+        }
+      ],
+      "data_attributes": []
+    },
+    "12_page_size_dropdown": {
+      "name": "Page Size Dropdown",
+      "html": "<div class=\"ant-select-selection\n            ant-select-selection--single\" role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"5e54eaba-b590-414b-cb49-92ded938259b\" aria-expanded=\"false\" data-test=\"-resultsPerPage\" data-test-id=\"-resultsPerPage\" tabindex=\"0\"><div class=\"ant-select-selection__rendered\"><div unselectable=\"on\" class=\"ant-select-selection__placeholder\" style=\"display: none; user-select: none;\">Select</div><div class=\"ant-select-selection-selected-value\" title=\"\" style=\"display: block; opacity: 1;\">50</div></div><span class=\"ant-select-arrow\" unselectable=\"on\" style=\"user-select: none;\"><div class=\"d-flex ant-select-arrow-icon\"><div class=\"root_select_popoverClose__5MmiAuoxvC root_icon_size__s__5kwhpD8hgW icon-chevron-down\" aria-label=\"icon-chevron-down\" data-test-id=\"-resultsPerPage-suffixIcon\" role=\"img\"></div></div></span></div>",
+      "tag": "DIV",
+      "id": "",
+      "className": "ant-select-selection\n            ant-select-selection--single",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "ant-select-selection\n            ant-select-selection--single"
+        },
+        {
+          "name": "role",
+          "value": "combobox"
+        },
+        {
+          "name": "aria-autocomplete",
+          "value": "list"
+        },
+        {
+          "name": "aria-haspopup",
+          "value": "true"
+        },
+        {
+          "name": "aria-controls",
+          "value": "5e54eaba-b590-414b-cb49-92ded938259b"
+        },
+        {
+          "name": "aria-expanded",
+          "value": "false"
+        },
+        {
+          "name": "data-test",
+          "value": "-resultsPerPage"
+        },
+        {
+          "name": "data-test-id",
+          "value": "-resultsPerPage"
+        },
+        {
+          "name": "tabindex",
+          "value": "0"
+        }
+      ],
+      "text_content": "Select50",
+      "clean_text": "Select50",
+      "inner_text": "50",
+      "children_count": 2,
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "ant-select-selection__rendered",
+          "text": "Select50"
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "className": "ant-select-arrow",
+          "text": ""
+        }
+      ],
+      "data_attributes": [
+        {
+          "name": "data-test",
+          "value": "-resultsPerPage"
+        },
+        {
+          "name": "data-test-id",
+          "value": "-resultsPerPage"
+        }
+      ]
+    },
+    "13_tab": {
+      "name": "Tab 1",
+      "html": "<div role=\"tab\" aria-disabled=\"false\" aria-selected=\"true\" class=\"ant-tabs-tab-active ant-tabs-tab\" style=\"margin-right: 0px;\">Email (11)</div>",
+      "tag": "DIV",
+      "id": "",
+      "className": "ant-tabs-tab-active ant-tabs-tab",
+      "attributes": [
+        {
+          "name": "role",
+          "value": "tab"
+        },
+        {
+          "name": "aria-disabled",
+          "value": "false"
+        },
+        {
+          "name": "aria-selected",
+          "value": "true"
+        },
+        {
+          "name": "class",
+          "value": "ant-tabs-tab-active ant-tabs-tab"
+        },
+        {
+          "name": "style",
+          "value": "margin-right: 0px;"
+        }
+      ],
+      "text_content": "Email (11)",
+      "clean_text": "Email (11)",
+      "inner_text": "Email (11)",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": []
+    },
+    "14_tab": {
+      "name": "Tab 2",
+      "html": "<div role=\"tab\" aria-disabled=\"false\" aria-selected=\"false\" class=\" ant-tabs-tab\" style=\"margin-right: 0px;\">Text (1)</div>",
+      "tag": "DIV",
+      "id": "",
+      "className": " ant-tabs-tab",
+      "attributes": [
+        {
+          "name": "role",
+          "value": "tab"
+        },
+        {
+          "name": "aria-disabled",
+          "value": "false"
+        },
+        {
+          "name": "aria-selected",
+          "value": "false"
+        },
+        {
+          "name": "class",
+          "value": " ant-tabs-tab"
+        },
+        {
+          "name": "style",
+          "value": "margin-right: 0px;"
+        }
+      ],
+      "text_content": "Text (1)",
+      "clean_text": "Text (1)",
+      "inner_text": "Text (1)",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": []
+    },
+    "15_tab": {
+      "name": "Tab 3",
+      "html": "<div role=\"tab\" aria-disabled=\"false\" aria-selected=\"false\" class=\" ant-tabs-tab\" style=\"margin-right: 0px;\">Live Chat (3)</div>",
+      "tag": "DIV",
+      "id": "",
+      "className": " ant-tabs-tab",
+      "attributes": [
+        {
+          "name": "role",
+          "value": "tab"
+        },
+        {
+          "name": "aria-disabled",
+          "value": "false"
+        },
+        {
+          "name": "aria-selected",
+          "value": "false"
+        },
+        {
+          "name": "class",
+          "value": " ant-tabs-tab"
+        },
+        {
+          "name": "style",
+          "value": "margin-right: 0px;"
+        }
+      ],
+      "text_content": "Live Chat (3)",
+      "clean_text": "Live Chat (3)",
+      "inner_text": "Live Chat (3)",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": []
+    },
+    "17_communication_templates_text": {
+      "name": "Communication Templates Title",
+      "html": "<div sectiontype=\"\" class=\"root_heading_h1__u3GJw8EEfN\" id=\"\">Communication Templates</div>",
+      "tag": "DIV",
+      "id": "",
+      "className": "root_heading_h1__u3GJw8EEfN",
+      "attributes": [
+        {
+          "name": "sectiontype",
+          "value": ""
+        },
+        {
+          "name": "class",
+          "value": "root_heading_h1__u3GJw8EEfN"
+        },
+        {
+          "name": "id",
+          "value": ""
+        }
+      ],
+      "text_content": "Communication Templates",
+      "clean_text": "Communication Templates",
+      "inner_text": "Communication Templates",
+      "children_count": 0,
+      "children": [],
+      "data_attributes": []
+    }
+  }
+}

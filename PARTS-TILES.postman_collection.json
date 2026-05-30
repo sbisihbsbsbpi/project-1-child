@@ -1,0 +1,1854 @@
+{
+	"info": {
+		"_postman_id": "0eadb856-5b09-40cb-b190-f7dab658a151",
+		"name": "PARTS-TILES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "49867593",
+		"_collection_link": "https://lokeshtekion-4452675.postman.co/workspace/TEKION-LOKESH's-Workspace~c0de58e0-67e3-4b0d-87a2-3d219ebf3baf/collection/49867593-0eadb856-5b09-40cb-b190-f7dab658a151?action=share&source=collection_link&creator=49867593"
+	},
+	"item": [
+		{
+			"name": "1.PARTS -pdf_Configuration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"pm.environment.set(",
+							"  \"RETURN\",",
+							"  \"NO RETURNS ON ELECTRICAL OR SPECIAL ORDER ITEMS\\\\nNO REFUNDS AFTER 15 DAYS OR WITHOUT THIS INVOICE\\\\nRETURNED MERCHANDISE MUST BE IN ORIGINAL PACKAGE \\\\n NO RETURNS ON ELECTRICAL OR SPECIAL ORDER ITEMS\");",
+							"",
+							"pm.environment.set(",
+							"  \"WARRANTY\",",
+							"  \"Any warranties on the products sold hereby are those made by the manufacturer. The Seller hereby expressly disclaims all warranties, either expressed or implied, including any implied warranty of merchantability of fitness for a particular purpose, and neither assumes nor authorizes any other person to assume for it any liability in connection with sale of said products.\"",
+							");",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA",
+						"type": "text"
+					},
+					{
+						"key": "clientid",
+						"value": "web",
+						"type": "text"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713",
+						"type": "text"
+					},
+					{
+						"key": "dnt",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "locale",
+						"value": "en_US",
+						"type": "text"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com",
+						"type": "text"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors",
+						"type": "text"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5",
+						"type": "text"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i",
+						"type": "text"
+					},
+					{
+						"key": "productids",
+						"value": "ARC",
+						"type": "text"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT",
+						"type": "text"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/parts-settings/pdf-configuration",
+						"type": "text"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\"",
+						"type": "text"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty",
+						"type": "text"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin",
+						"type": "text"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US",
+						"type": "text"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713",
+						"type": "text"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U",
+						"type": "text"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc",
+						"type": "text"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1",
+						"type": "text"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac",
+						"type": "text"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-9009488d23ab40bebc9a5253181708d6-9fe4ee06611e2bc7-01",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzY4NTA4NTEsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI3ZTg1NjZiZi03YTVmLTQxYjktYTY4MS0xNWI1NmUxZGJlMjUiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzY4NTg2Mjd9.IgWO0OuPTNHnbGx0GPjeKLPnFHYEl1zlOiGlSK0RzGA; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pdfRichTextAreas\": [\n        {\n            \"fieldName\": \"disclaimer\",\n            \"value\": {\n                \"blocks\": [\n                    {\n                        \"key\": \"disclaimer\",\n                        \"text\": \"{{WARRANTY}}\",\n                        \"type\": \"unstyled\",\n                        \"depth\": 0,\n                        \"inlineStyleRanges\": [\n                            {\n                                \"offset\": 0,\n                                \"length\": 2000,\n                                \"style\": \"CUSTOM_FONT_SIZE_1rem\"\n                            }\n                        ],\n                        \"entityRanges\": [],\n                        \"data\": {\n                            \"blockStyle_lineHeight\": 90\n                        }\n                    }\n                ],\n                \"entityMap\": {}\n            },\n            \"visible\": true\n        },\n        {\n            \"fieldName\": \"returnTerms\",\n            \"value\": {\n                \"blocks\": [\n                    {\n                        \"key\": \"returnTerms\",\n                        \"text\": \"{{RETURN}}\",\n                        \"type\": \"unstyled\",\n                        \"depth\": 0,\n                        \"inlineStyleRanges\": [\n                            {\n                                \"offset\": 0,\n                                \"length\": 2000,\n                                \"style\": \"CUSTOM_FONT_SIZE_1rem\"\n                            }\n                        ],\n                        \"entityRanges\": [],\n                        \"data\": {\n                            \"blockStyle_lineHeight\": 90\n                        }\n                    }\n                ],\n                \"entityMap\": {}\n            },\n            \"visible\": true\n        }\n    ],\n    \"pdfType\": \"{{currentPdfType}}\",\n    \"useGeneralSettings\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://preprodapp.tekioncloud.com/api/partTrade/u/settings/part/general/pdfConfiguration",
+					"protocol": "https",
+					"host": [
+						"preprodapp",
+						"tekioncloud",
+						"com"
+					],
+					"path": [
+						"api",
+						"partTrade",
+						"u",
+						"settings",
+						"part",
+						"general",
+						"pdfConfiguration"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Dealer Config-OEM & Makes",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/core/setups/dealer-configuration/dealerDetails"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-72a530cb67afb129effa6821f5917f47-aed7aa8385951ddc-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzY4NTA4NTEsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI3ZTg1NjZiZi03YTVmLTQxYjktYTY4MS0xNWI1NmUxZGJlMjUiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzY4NTg2Mjd9.IgWO0OuPTNHnbGx0GPjeKLPnFHYEl1zlOiGlSK0RzGA; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"oemDetails\": [\n        {\n            \"oem\": \"gm\",\n            \"makeId\": [\n                \"gmc\",\n                \"chevrolet\"\n            ],\n            \"makeDetails\": [\n                {\n                    \"make\": \"gmc\",\n                    \"makeId\": \"gmc\",\n                    \"displayName\": \"gmc\",\n                    \"dealerCode\": \"\",\n                    \"makeLogoUrl\": null\n                },\n                {\n                    \"make\": \"chevrolet\",\n                    \"makeId\": \"chevrolet\",\n                    \"displayName\": \"chevrolet\",\n                    \"dealerCode\": \"\",\n                    \"makeLogoUrl\": null\n                }\n            ],\n            \"make\": [\n                \"gmc\",\n                \"chevrolet\"\n            ]\n        }\n    ],\n    \"dealerCodeWithMake\": [\n        {\n            \"dealerCode\": \"548349\",\n            \"make\": \"gmc\"\n        },\n        {\n            \"make\": \"chevrolet\",\n            \"dealerCode\": \"548349\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/api-core/u/tenant/kellerchevroletinc/dealer-master/7713"
+			},
+			"response": []
+		},
+		{
+			"name": "3.Dealer Config-General TAB",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/core/setups/dealer-configuration/general"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-1c58e13cc6e39c76a9536998db77185f-3b76ad5f31f157ff-01"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"taxRegimeConfig\": {\n        \"languages\": null,\n        \"taxRegimeLabelType\": \"SALES TAX\",\n        \"taxRegimeType\": \"SALES_TAX\",\n        \"defaultSplitType\": \"AFTER_TAX\",\n        \"serviceTypeId\": \"69dfb905fc51a3481a093eef\",\n        \"enableAccountReceivable\": true,\n        \"unifyTaxes\": false,\n        \"taxLabels\": null,\n        \"taxRegimes\": [\n            {\n                \"taxType\": \"SALES_TAX\",\n                \"taxLabelType\": \"Sales Tax\",\n                \"taxPercentage\": 8.75,\n                \"overrideTaxPercentage\": {\n                    \"PARTS_SALES_ORDER\": {\n                        \"override\": false,\n                        \"label\": \"Parts Sales Order\",\n                        \"taxPercentage\": 8.75\n                    }\n                },\n                \"complexListId\": null,\n                \"overrides\": [\n                    {\n                        \"partsTaxable\": true,\n                        \"laborTaxable\": true,\n                        \"subletLaborTaxable\": true,\n                        \"subletPartsTaxable\": true,\n                        \"payType\": \"CUSTOMER_PAY\",\n                        \"override\": \"DEFAULT\"\n                    },\n                    {\n                        \"partsTaxable\": true,\n                        \"subletLaborTaxable\": true,\n                        \"subletPartsTaxable\": true,\n                        \"deductibleTaxable\": true,\n                        \"thirdPartyTaxable\": true,\n                        \"payType\": \"CUSTOMER_PAY\",\n                        \"override\": \"INSURANCE\"\n                    },\n                    {\n                        \"partsTaxable\": true,\n                        \"subletLaborTaxable\": true,\n                        \"subletPartsTaxable\": true,\n                        \"deductibleTaxable\": true,\n                        \"thirdPartyTaxable\": true,\n                        \"payType\": \"CUSTOMER_PAY\",\n                        \"override\": \"HOME_STATE\"\n                    },\n                    {\n                        \"partsTaxable\": true,\n                        \"subletLaborTaxable\": true,\n                        \"subletPartsTaxable\": true,\n                        \"deductibleTaxable\": true,\n                        \"thirdPartyTaxable\": true,\n                        \"payType\": \"CUSTOMER_PAY\",\n                        \"override\": \"OTHER_STATE\"\n                    },\n                    {\n                        \"deductibleTaxable\": true,\n                        \"thirdPartyTaxable\": true,\n                        \"payType\": \"WARRANTY\",\n                        \"override\": \"DEFAULT\"\n                    },\n                    {\n                        \"deductibleTaxable\": true,\n                        \"thirdPartyTaxable\": true,\n                        \"payType\": \"INTERNAL\",\n                        \"override\": \"DEFAULT\"\n                    }\n                ],\n                \"coreSaleTaxable\": true,\n                \"coreReturnTaxable\": true\n            }\n        ]\n    },\n    \"shifts\": [\n        {\n            \"isLastRow\": false,\n            \"startTime\": 25200000,\n            \"shiftNumber\": 1,\n            \"endTime\": 64800000\n        }\n    ],\n    \"employeeHrsDisclaimer\": null,\n    \"roundoffLogic\": \"STANDARD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/api-core/u/tenant/kellerchevroletinc/dealer-master/7713"
+			},
+			"response": []
+		},
+		{
+			"name": "5.manufacturer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/manufacturer"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-9322b1f689e9bb98427aa7635e78a866-6f845e0407c0794c-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"ACTIVE\",\n    \"defaultBinIds\": [\n        \"1e1397140bfd413397dc43e8e9e85810\"\n    ],\n    \"brandCode\": \"GM\",\n    \"subBrandCode\": \"GM\",\n    \"oemCode\": \"GM\",\n    \"vendorId\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/manufacturer"
+			},
+			"response": []
+		},
+		{
+			"name": "6. Appointment Notification Reminder",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/core/setups/dealer-configuration/customerNotifications"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-acf030b8ac7fa22845a8087518df80fb-88f094cc95ac4772-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"updatedReminderSettings\": [],\n    \"addedReminderSettings\": [\n        {\n            \"reminderName\": \"Appointment Reminder\",\n            \"remindBefore\": 1,\n            \"remindBeforeUnit\": \"DAYS\",\n            \"time\": {\n                \"timeInHours\": 10,\n                \"timeInMinutes\": 0\n            },\n            \"textEnabled\": true,\n            \"emailEnabled\": true\n        }\n    ],\n    \"deletedReminderSettings\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/scheduling/u/settings/notification"
+			},
+			"response": []
+		},
+		{
+			"name": "7. Dealer Config- Appointment notification",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/core/setups/dealer-configuration/customerNotifications"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-acf030b8ac7fa22845a8087518df80fb-b368ea2bf536be2e-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": \"6d58c949-d2f2-4c17-87c1-8d850ce41ad0\",\n        \"notificationType\": \"APPOINTMENT_CONFIRMATION\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904f7\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90513\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"318003a5-9e46-422a-b7d5-f1f4d756c4f7\",\n        \"notificationType\": \"APPOINTMENT_RESCHEDULED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904f9\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9050d\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"fab66e83-342f-4409-851d-9397285aeae2\",\n        \"notificationType\": \"APPOINTMENT_REMINDER\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904fd\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90511\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"77bf6930-a8f3-4e23-9ca2-3ecdd709928d\",\n        \"notificationType\": \"APPOINTMENT_CANCELLATION\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904fb\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9050f\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"eca54fbc-a1bf-43e8-8e4c-ba15302f4d5a\",\n        \"notificationType\": \"APPOINTMENT_CONSUMER_SCHEDULING_OTP\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904f5\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90501\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"56173044-a146-49a0-8103-21301fc4aa86\",\n        \"notificationType\": \"APPOINTMENT_CONCIERGE_PICKUP\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904ff\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"2177e447-6d94-476f-933b-e022dec87860\",\n        \"notificationType\": \"APPOINTMENT_CONFIRMATION_CONCIERGE\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc90521\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90527\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"216080c9-8eed-4c56-8c4e-8394dd7515cd\",\n        \"notificationType\": \"APPOINTMENT_RESCHEDULE_CONCIERGE\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc90523\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90529\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"df626fb0-13e3-4150-924a-8e5e099bf3fc\",\n        \"notificationType\": \"APPOINTMENT_REMINDER_CONCIERGE\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc90525\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9052b\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"f2b3aaad-0d6a-4d1b-8661-56e33f020ea6\",\n        \"notificationType\": \"REPAIR_ORDER_CREATED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904e1\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90509\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"0f41150d-2ede-404e-ae4b-e2c93827340b\",\n        \"notificationType\": \"REPAIR_ORDER_INVOICED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904e3\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc904d9\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"a2bd0cc1-2abf-439f-b961-09e76882a236\",\n        \"notificationType\": \"REPAIR_ORDER_DRAFT_RO_PAID\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904eb\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"ee169012-986b-4e2b-b07c-1ea45cf9edea\",\n        \"notificationType\": \"REPAIR_ORDER_REVISED_ESTIMATE\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90507\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"4c523d37-813a-447e-b086-c17d17a6e686\",\n        \"notificationType\": \"REPAIR_ORDER_RECOMMENDATION_SEND_TO_CUSTOMER\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904df\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc904dd\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"978fce7c-6551-4843-ad6b-ffe8da869b10\",\n        \"notificationType\": \"REPAIR_ORDER_CUSTOMER_PAY_CLOSED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904e5\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc904db\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"af18bc76-b3ac-4873-a590-456acd33298c\",\n        \"notificationType\": \"REPAIR_ORDER_CONSUMER_PORTAL_OTP\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904f3\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90505\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"4eed6a3d-7f38-4f87-8bcf-095c22ab3910\",\n        \"notificationType\": \"REPAIR_ORDER_MPVI_VIDEO_ATTACHED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904f1\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"cd906375-2d23-43ef-871d-f9855a67c7fa\",\n        \"notificationType\": \"REPAIR_ORDER_SEND_UPLOAD_LINK\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904ef\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"3fb3977d-a63b-47e5-82fc-c0b00d5205fa\",\n        \"notificationType\": \"REPAIR_ORDER_SA_RETURNED_KEYS\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904ed\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"40952e70-2138-40e7-8740-c82fda268a05\",\n        \"notificationType\": \"REPAIR_ORDER_DRAFT_CREATED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904e7\",\n        \"optInText\": true,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"eb59b3f6-74b5-4c9d-84b0-b958c2ec68be\",\n        \"notificationType\": \"REPAIR_ORDER_DRAFT_INVOICED\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc904e9\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90531\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"eabb0dd5-6ed1-45cb-b811-83f9b9636f2c\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_INVOICE_CUSTOMER\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9051d\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"f0d6a039-259a-42f8-af06-dcf41016f82c\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_DAMAGES_CUSTOMER\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90517\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"97a2d2de-ef90-4654-99a6-215273fea59e\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_INSPECTIONS_AND_RECOMMENDATIONS_CUSTOMER\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9051f\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"70c3700f-d1c1-4f9c-8f38-9999b0ad681e\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_SERVICE_BOOKLET_OEM_SERVICE_BOOKLET\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90519\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"e59cae3e-e13a-483f-a2c7-29c0dafed544\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_VIS_CUSTOMER\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90515\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"1494723c-c4ad-4f17-bf95-9c264f478048\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_ESTIMATE_CUSTOMER\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9051b\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"a3f46ac1-cecb-4f0d-8f28-c7753043d10d\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_INVOICE_DAY_COLLECTION_REPORT\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9052f\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"7d9a2649-7b85-4bf2-a0c4-209b068f297e\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_INVOICE_COLLECTION_SLIP\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9052d\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"2021fa6b-4e00-43c4-8105-f87f4ab1a3aa\",\n        \"notificationType\": \"QUOTES_PDF_ESTIMATE\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9050b\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"5a2c404c-e1c1-4b8d-9586-fc74a2a5a099\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_SERVICE_HISTORY_INVOICE_BULK\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90533\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"9abc6531-f0ab-4eaf-b1d6-e452fa93b850\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_SERVICE_HISTORY_RECAP\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90535\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"17f58223-1be3-4899-8c11-5f6dba8370eb\",\n        \"notificationType\": \"REPAIR_ORDER_PAYMENT_LINK\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc90539\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90537\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"3f2e78af-e125-4c5e-b846-51a3a8f0a3e2\",\n        \"notificationType\": \"REPAIR_ORDER_BULK_DOWNLOAD\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9053b\",\n        \"optInText\": false,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"3f7c4a31-8be1-4618-a65d-5bac9bb7a156\",\n        \"notificationType\": \"CONSUMER_PORTAL_RESEND_LINK\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc9053f\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc9053d\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": true,\n        \"sendNotificationToBillingContact\": true\n    },\n    {\n        \"id\": \"465031b4-17c1-4e29-a0b9-9a7cdb687296\",\n        \"notificationType\": \"REPAIR_ORDER_INSPECTIONS_AND_RECOMMENDATIONS_CUSTOMER\",\n        \"textTemplateId\": \"69dfb90466713c2dcdc90541\",\n        \"emailTemplateId\": \"69dfb90466713c2dcdc90543\",\n        \"optInText\": true,\n        \"optInEmail\": true,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"3b063bf0-93a9-4f1d-9073-bdfe828db873\",\n        \"notificationType\": \"REPAIR_ORDER_PDF_ESIGN\",\n        \"optInText\": false,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": true,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": false\n    },\n    {\n        \"id\": \"5518d088-ff2a-4299-a12d-6a26939b0a4a\",\n        \"notificationType\": \"CONSUMER_KEYLOUNGE_OTP\",\n        \"optInText\": false,\n        \"optInEmail\": false,\n        \"sendNotificationToCustomer\": false,\n        \"sendNotificationToPickUpContact\": false,\n        \"sendNotificationToBillingContact\": false\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/service-communication/u/settings/notification"
+			},
+			"response": []
+		},
+		{
+			"name": "8.price-formula",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const numberOfTiers = 10;",
+							"const tierEnds = [0.1, 0.5, 1, 5, 10, 50, 100, 500, 1000, 999999999];",
+							"const initialStart = 0.01;",
+							"",
+							"// Function to calculate increment based on decimal precision",
+							"function getIncrement(endAmount) {",
+							"    const endStr = endAmount.toString();",
+							"    ",
+							"    // Check if it's a whole number",
+							"    if (endAmount % 1 === 0) {",
+							"        return 1; // Whole numbers: increment by 1",
+							"    }",
+							"    ",
+							"    // Count decimal places",
+							"    const decimalPlaces = endStr.includes('.') ? endStr.split('.')[1].length : 0;",
+							"    ",
+							"    // Return increment: 0.1 for 1 decimal, 0.01 for 2 decimals, etc.",
+							"    return parseFloat((1 / Math.pow(10, decimalPlaces)).toFixed(decimalPlaces));",
+							"}",
+							"",
+							"const priceBreaks = [];",
+							"let currentStart = initialStart;",
+							"",
+							"for (let i = 0; i < numberOfTiers; i++) {",
+							"    const currentEnd = tierEnds[i];",
+							"    ",
+							"    priceBreaks.push({",
+							"        startAmount: parseFloat(currentStart.toFixed(2)),",
+							"        endAmount: currentEnd,",
+							"        expression: {",
+							"            variableType: \"cost\",",
+							"            operator: \"add\",",
+							"            value: i * 5,",
+							"            valueType: \"percentage\"",
+							"        }",
+							"    });",
+							"    ",
+							"    // Calculate next start based on decimal precision",
+							"    const increment = getIncrement(currentEnd);",
+							"    currentStart = parseFloat((currentEnd + increment).toFixed(2));",
+							"}",
+							"",
+							"const requestBody = {",
+							"    baseVariableType: \"cost\",",
+							"    priceBreaks: priceBreaks,",
+							"    name: \"Formula\"",
+							"};",
+							"",
+							"pm.environment.set(\"dynamicPricingBody\", JSON.stringify(requestBody, null, 2));",
+							"",
+							"console.log(\"✅ Generated Price Breaks:\");",
+							"priceBreaks.forEach((pb, index) => {",
+							"    const nextStart = index < priceBreaks.length - 1 ? priceBreaks[index + 1].startAmount : 'N/A';",
+							"    console.log(`Tier ${index + 1}: ${pb.startAmount} → ${pb.endAmount} (Next: ${nextStart})`);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const numberOfTiers = 10;",
+							"const tierEnds = [0.1, 0.5, 1, 5, 10, 50, 100, 500, 1000, 999999999];",
+							"const initialStart = 0.01;",
+							"",
+							"function getIncrement(endAmount) {",
+							"    const endStr = endAmount.toString();",
+							"    if (endAmount % 1 === 0) {",
+							"        return 1;",
+							"    }",
+							"    const decimalPlaces = endStr.includes('.') ? endStr.split('.')[1].length : 0;",
+							"    return parseFloat((1 / Math.pow(10, decimalPlaces)).toFixed(decimalPlaces));",
+							"}",
+							"",
+							"const priceBreaks = [];",
+							"let currentStart = initialStart;",
+							"",
+							"for (let i = 0; i < numberOfTiers; i++) {",
+							"    const currentEnd = tierEnds[i];",
+							"    ",
+							"    priceBreaks.push({",
+							"        startAmount: parseFloat(currentStart.toFixed(2)),",
+							"        endAmount: currentEnd,",
+							"        expression: {",
+							"            variableType: \"list\",",
+							"            operator: \"subtract\",",
+							"            value: 0,",
+							"            valueType: \"percentage\"",
+							"        }",
+							"    });",
+							"    ",
+							"    const increment = getIncrement(currentEnd);",
+							"    currentStart = parseFloat((currentEnd + increment).toFixed(2));",
+							"}",
+							"",
+							"// Build the complete request",
+							"const requestBody = {",
+							"    baseVariableType: \"list\",",
+							"    priceBreaks: priceBreaks,",
+							"    name: \"Formula 3\"",
+							"};",
+							"",
+							"// Try all three storage methods",
+							"pm.globals.set(\"fullRequestBody\", JSON.stringify(requestBody));",
+							"pm.collectionVariables.set(\"fullRequestBody\", JSON.stringify(requestBody));",
+							"pm.environment.set(\"fullRequestBody\", JSON.stringify(requestBody));",
+							"",
+							"console.log(\"✅ Generated\", numberOfTiers, \"price breaks\");",
+							"console.log(\"📦 Stored in globals, collection, and environment variables\");",
+							"console.log(\"🔍 Request Body Preview:\");",
+							"console.log(JSON.stringify(requestBody, null, 2));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/add-price-breaks"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-a62e0511a39d5f6e4d8dcd25386342e6-28379751d001771d-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{fullRequestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/price-formula"
+			},
+			"response": []
+		},
+		{
+			"name": "9. Parts_price-code",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/price-codes/add"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-82b899eb7e0ae112106c2149fafbb646-0aad7de0f89916be-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"EMPp\",\n    \"description\": \"EMP\",\n    \"minimumROSalesGrossProfit\": null,\n    \"minimumSalesOrderGrossProfit\": null,\n    \"defaultRounding\": 0,\n    \"formulas\": [\n        {\n            \"sourceCodeId\": \"Default\",\n            \"expression\": {\n                \"operator\": \"subtract\",\n                \"valueType\": \"percentage\",\n                \"value\": 0,\n                \"variableType\": \"cost\"\n            },\n            \"rounding\": null,\n            \"type\": \"source\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/price-code"
+			},
+			"response": []
+		},
+		{
+			"name": "10. Parts_return-reasons",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/return-reasons"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-88aefd5a42dfa85c6c2c8d1f08dde0de-8fea464f857c243f-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"active\": true,\n    \"reasonCode\": \"Customer Return w/ Restocking\",\n    \"detail\": {\n        \"description\": \"Customer Return w/ Restocking\",\n        \"restocking\": true,\n        \"restockingFee\": \"SALE_PERCENTAGE_FEE\",\n        \"reviewRequired\": false,\n        \"amount\": \"15\",\n        \"refundFreight\": false,\n        \"languages\": null\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/return-reason"
+			},
+			"response": []
+		},
+		{
+			"name": "11. Parts_priority-code",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/priority-codes"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-2a2dada349582f8a7b4ffb752119917f-6563714740bf4a7b-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"OVN\",\n    \"description\": \"Over Night Order\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/priority-code"
+			},
+			"response": []
+		},
+		{
+			"name": "12. Parts_void-reason/23",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "applicationid",
+						"value": "ARC_NA"
+					},
+					{
+						"key": "clientid",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "dealerid",
+						"value": "7713"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "flattenedaecprogramsmap",
+						"value": ""
+					},
+					{
+						"key": "locale",
+						"value": "en_US"
+					},
+					{
+						"key": "origin",
+						"value": "https://preprodapp.tekioncloud.com"
+					},
+					{
+						"key": "original-tenantid",
+						"value": "techmotors"
+					},
+					{
+						"key": "original-userid",
+						"value": "fe3a3333-c9ad-49fd-bef7-79eacaddc1d5"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "productids",
+						"value": "ARC"
+					},
+					{
+						"key": "program",
+						"value": "DEFAULT"
+					},
+					{
+						"key": "referer",
+						"value": "https://preprodapp.tekioncloud.com/parts/void-reasons"
+					},
+					{
+						"key": "roleid",
+						"value": "7713_ISM_Admin"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "subapplicationid",
+						"value": "US"
+					},
+					{
+						"key": "tek-siteid",
+						"value": "-1_7713"
+					},
+					{
+						"key": "tekion-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4MzNiNDI5MC04MDQ0LTRkYjAtYjE1Ny1lOWU4NmEzNWRiYWMiLCJpYXQiOjE3NzczODQxMjMsInN1YiI6IjgzM2I0MjkwLTgwNDQtNGRiMC1iMTU3LWU5ZTg2YTM1ZGJhYyIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiI0YjNmZDI3Yi1lZmRiLTRhNTEtYjA0Mi1iYTcyYjQ0MmY1ZDIiLCJvcmlnaW5hbFVzZXJJZCI6ImZlM2EzMzMzLWM5YWQtNDlmZC1iZWY3LTc5ZWFjYWRkYzFkNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiODMzYjQyOTAtODA0NC00ZGIwLWIxNTctZTllODZhMzVkYmFjIiwiZW1haWwiOiJpc21Aa2VsbGVyY2hldnJvbGV0aW5jLmNvbSIsImV4cCI6MTc3NzM5MTg5OX0.U7RTdADH6KkaZlAszi-8SJ91o4SiSdkx9y6zPMNRV6U"
+					},
+					{
+						"key": "tenantname",
+						"value": "kellerchevroletinc"
+					},
+					{
+						"key": "tracestate",
+						"value": "es=s:1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "userid",
+						"value": "833b4290-8044-4db0-b157-e9e86a35dbac"
+					},
+					{
+						"key": "x-observe-rum-id",
+						"value": "00-2a818ee7907ac2cc58a4c9bcb31c2e80-17b4bf0b5cc61a6f-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "email=tlreddy@tekion.com; authProvider=OKTA_SAML; __stripe_mid=7d579a88-2eb2-4dfc-8738-6afc5551ff57e0ebf6; amp_0685c4=D2ATJRPnU0SIQOCAYJ8LcP.NmIwYWY0OWItOTgxNS00ZjcyLWJhMDEtNDBhNGQ1ZGRlYTg3..1jk0oc2hd.1jk0qe1eg.24.48.6c; amp_54e156=QEru-PTqbgj2nb41qKwcsy...1jmdqs60k.1jmdqs60k.0.0.0; amp_480ace=DDJIGcD378Dpk6h0AuAqDy.dGxyZWRkeUB0ZWtpb24uY29t..1jmdqsn9k.1jmdqsn9n.1.l.m; ph_phc_mRcVSFHc5OWiEBI4A72ribWqA2tXAN9p3zmLTgYzyIc_posthog=%7B%22distinct_id%22%3A%22019a7d4d-e39b-7dc8-b53b-5c8aae3041df%22%2C%22%24sesid%22%3A%5B1776951719209%2C%22019dba93-6c9c-764f-82da-3fc63f918fc5%22%2C1776951717018%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fconscheduling.tekioncloud.com%2Fconsumer-scheduling%2Fsign-in%2Fphone%3FaccessToken%3Dcharlieclarkautogroup_90009557_7117%22%7D%7D; redirected_from=https://preprodapp.tekioncloud.com/accounting/accountPayable; tcache={%22tenantname%22:%22kellerchevroletinc%22}; tcookie={%22roleId%22:%227713_ISM_Admin%22%2C%22userId%22:%22833b4290-8044-4db0-b157-e9e86a35dbac%22%2C%22tenantname%22:%22kellerchevroletinc%22%2C%22dealerId%22:%227713%22%2C%22tek-siteId%22:%22-1_7713%22%2C%22original-userid%22:%22fe3a3333-c9ad-49fd-bef7-79eacaddc1d5%22%2C%22original-tenantid%22:%22techmotors%22%2C%22clientId%22:%22web%22%2C%22locale%22:%22en_US%22%2C%22program%22:%22DEFAULT%22%2C%22applicationId%22:%22ARC_NA%22%2C%22subApplicationId%22:%22US%22%2C%22productIds%22:%22ARC%22%2C%22flattenedAecProgramsMap%22:%22%22}; tekion-api-token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjg1MWU3ZS1lMzczLTQwMTUtYjFmYy0zOGRmODFhYWE4YzUiLCJpYXQiOjE3NzczODY0MjMsInN1YiI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsImlzcyI6IkxvZ2luU2VydmljZSIsInVubG9ja0FjY291bnQiOmZhbHNlLCJub3VuY2UiOiJlMzRlY2I0NC04YmM0LTQxN2ItOTI0MS01ZTlkZDFhMTg5YmMiLCJvcmlnaW5hbFVzZXJJZCI6IjEyODUxZTdlLWUzNzMtNDAxNS1iMWZjLTM4ZGY4MWFhYThjNSIsIm9yaWdpbmFsVGVuYW50SWQiOiJ0ZWNobW90b3JzIiwidXNlcklkIjoiMTI4NTFlN2UtZTM3My00MDE1LWIxZmMtMzhkZjgxYWFhOGM1IiwiZW1haWwiOiJ0bHJlZGR5QHRla2lvbi5jb20iLCJleHAiOjE3NzczOTQxOTl9.9yMdA6g-KgV7xupV8V5E8bdQqsxov_mlCebqIggMrp8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"active\": true,\n    \"detail\": {\n        \"countInLostSale\": true,\n        \"reasonCode\": \"Customer Cancelled - with Lost Sale\",\n        \"languages\": null\n    },\n    \"type\": \"SALES_ORDER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/void-reason/23"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "fullRequestBody",
+			"value": ""
+		}
+	]
+}

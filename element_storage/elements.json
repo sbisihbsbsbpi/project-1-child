@@ -1,0 +1,178 @@
+{
+  "version_id": "20260530_105548_cb3d420b",
+  "timestamp": "2026-05-30T10:55:48.376345",
+  "page_url": "https://preprodapp.tekioncloud.com/templates/list",
+  "elements": {
+    "department_filter": {
+      "text": "#antd-pro-ellipsis-178011874816186{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Sales",
+      "className": "ant-dropdown-trigger",
+      "index": 1
+    },
+    "tabs": [
+      {
+        "index": 1,
+        "text": "Email (11)",
+        "className": "ant-tabs-tab-active ant-tabs-tab",
+        "ariaSelected": "true",
+        "_identifiers": {
+          "primary": ".ant-tabs-tab-active",
+          "xpath": "//*[contains(text(), 'Email (11)')]",
+          "text_signature": "Email (11)",
+          "position_hint": "index_1",
+          "timestamp": "2026-05-30T10:55:48.376303"
+        }
+      },
+      {
+        "index": 2,
+        "text": "Text (1)",
+        "className": " ant-tabs-tab",
+        "ariaSelected": "false",
+        "_identifiers": {
+          "primary": ".ant-tabs-tab",
+          "xpath": "//*[contains(text(), 'Text (1)')]",
+          "text_signature": "Text (1)",
+          "position_hint": "index_2",
+          "timestamp": "2026-05-30T10:55:48.376315"
+        }
+      },
+      {
+        "index": 3,
+        "text": "Live Chat (3)",
+        "className": " ant-tabs-tab",
+        "ariaSelected": "false",
+        "_identifiers": {
+          "primary": ".ant-tabs-tab",
+          "xpath": "//*[contains(text(), 'Live Chat (3)')]",
+          "text_signature": "Live Chat (3)",
+          "position_hint": "index_3",
+          "timestamp": "2026-05-30T10:55:48.376319"
+        }
+      }
+    ],
+    "buttons": [
+      {
+        "index": 1,
+        "text": "00:00 Hrs",
+        "className": "root_profile_clockTile__kzo5HNBrHa ",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".root_profile_clockTile__kzo5HNBrHa",
+          "xpath": "//*[contains(text(), '00:00 Hrs')]",
+          "text_signature": "00:00 Hrs",
+          "position_hint": "index_1",
+          "timestamp": "2026-05-30T10:55:48.376322"
+        }
+      },
+      {
+        "index": 2,
+        "text": "Get Help",
+        "className": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a full-height root_supportChatBtn_supportChatBtn__iZqEtBpYHN ant-btn-tertiary",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Get Help')]",
+          "text_signature": "Get Help",
+          "position_hint": "index_2",
+          "timestamp": "2026-05-30T10:55:48.376325"
+        }
+      },
+      {
+        "index": 4,
+        "text": "1",
+        "className": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a root_multiSortTrigger_multiSortTriggerContainer__itaBDagtK7 root_multiSortTrigger_multiSortPopoverContainer__4YCoyHQo6D root_multiSortTrigger_selected__jBXvsoFLSW ant-btn-tertiary",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), '1')]",
+          "text_signature": "1",
+          "position_hint": "index_4",
+          "timestamp": "2026-05-30T10:55:48.376329"
+        }
+      },
+      {
+        "index": 6,
+        "text": "Drafts (0)",
+        "className": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Drafts (0)')]",
+          "text_signature": "Drafts (0)",
+          "position_hint": "index_6",
+          "timestamp": "2026-05-30T10:55:48.376331"
+        }
+      },
+      {
+        "index": 7,
+        "text": "Archive (0)",
+        "className": "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Archive (0)')]",
+          "text_signature": "Archive (0)",
+          "position_hint": "index_7",
+          "timestamp": "2026-05-30T10:55:48.376333"
+        }
+      },
+      {
+        "index": 8,
+        "text": "Actions",
+        "className": "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary",
+        "disabled": true,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Actions')]",
+          "text_signature": "Actions",
+          "position_hint": "index_8",
+          "timestamp": "2026-05-30T10:55:48.376336"
+        }
+      },
+      {
+        "index": 9,
+        "text": "New Template",
+        "className": "ant-btn ant-btn-primary",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'New Template')]",
+          "text_signature": "New Template",
+          "position_hint": "index_9",
+          "timestamp": "2026-05-30T10:55:48.376338"
+        }
+      },
+      {
+        "index": 11,
+        "text": "Prev",
+        "className": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a pagination-element pagination-element-button is-disabled ant-btn-tertiary",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Prev')]",
+          "text_signature": "Prev",
+          "position_hint": "index_11",
+          "timestamp": "2026-05-30T10:55:48.376341"
+        }
+      },
+      {
+        "index": 12,
+        "text": "Next",
+        "className": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a pagination-element pagination-element-button is-disabled ant-btn-tertiary",
+        "disabled": false,
+        "_identifiers": {
+          "primary": ".ant-btn",
+          "xpath": "//*[contains(text(), 'Next')]",
+          "text_signature": "Next",
+          "position_hint": "index_12",
+          "timestamp": "2026-05-30T10:55:48.376343"
+        }
+      }
+    ]
+  },
+  "element_count": {
+    "department_filter": 1,
+    "tabs": 3,
+    "buttons": 9
+  },
+  "page_signature": "7de37f3d5543bbc1436f647a11765cf5"
+}

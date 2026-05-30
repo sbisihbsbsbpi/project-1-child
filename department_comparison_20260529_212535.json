@@ -1,0 +1,380 @@
+{
+  "timestamp": "20260529_212535",
+  "departments": {
+    "Sales": {
+      "count": 11,
+      "template_ids": [
+        "667f0c5334bfa115c6692f84",
+        "667f0c5334bfa115c6692f83",
+        "667f0c5334bfa115c6692f82",
+        "667f0c5334bfa115c6692f81",
+        "667f0c5234bfa115c6692f80",
+        "667f0c5334bfa115c6692f85",
+        "667f0befd4964026ee7b6ea1",
+        "667f0c5434bfa115c6692f88",
+        "667f0c5434bfa115c6692f87",
+        "667f0c5334bfa115c6692f86",
+        "667f0c5234bfa115c6692f7b"
+      ],
+      "templates": [
+        {
+          "id": "667f0c5334bfa115c6692f84",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+          "name": "Request Completion: Data Deletion (Closed Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f83",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+          "name": "Request Completion: Data Correction",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f82",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+          "name": "Request Completion: Data Export",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f81",
+          "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+          "name": "Request Acknowledgement",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f80",
+          "templateId": "CPRA_FIRST_TIME",
+          "name": "First Time Email",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f85",
+          "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+          "name": "Request Decline: Data Deletion (Open Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0befd4964026ee7b6ea1",
+          "templateId": "667f0befd4964026ee7b6ea2",
+          "name": "Service History Recap PDF",
+          "departments": [
+            "SERVICE",
+            "SALES"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f88",
+          "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+          "name": "Request Decline: Marked As Declined",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f87",
+          "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+          "name": "Request Completion: Sensitive Information Restriction",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f86",
+          "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+          "name": "Request Completion: Do not sell & share with 3rd Parties",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f7b",
+          "templateId": "STANDARD_APPOINTMENT_EMAIL",
+          "name": "Standard Appointment",
+          "departments": [
+            "SALES"
+          ]
+        }
+      ]
+    },
+    "Service": {
+      "count": 11,
+      "template_ids": [
+        "667f0c5334bfa115c6692f84",
+        "667f0c5334bfa115c6692f83",
+        "667f0c5334bfa115c6692f82",
+        "667f0c5334bfa115c6692f81",
+        "667f0c5234bfa115c6692f80",
+        "667f0c5334bfa115c6692f85",
+        "667f0befd4964026ee7b6ea1",
+        "667f0c5434bfa115c6692f88",
+        "667f0c5434bfa115c6692f87",
+        "667f0c5334bfa115c6692f86",
+        "667f0c5234bfa115c6692f7b"
+      ],
+      "templates": [
+        {
+          "id": "667f0c5334bfa115c6692f84",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+          "name": "Request Completion: Data Deletion (Closed Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f83",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+          "name": "Request Completion: Data Correction",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f82",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+          "name": "Request Completion: Data Export",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f81",
+          "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+          "name": "Request Acknowledgement",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f80",
+          "templateId": "CPRA_FIRST_TIME",
+          "name": "First Time Email",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f85",
+          "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+          "name": "Request Decline: Data Deletion (Open Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0befd4964026ee7b6ea1",
+          "templateId": "667f0befd4964026ee7b6ea2",
+          "name": "Service History Recap PDF",
+          "departments": [
+            "SERVICE",
+            "SALES"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f88",
+          "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+          "name": "Request Decline: Marked As Declined",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f87",
+          "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+          "name": "Request Completion: Sensitive Information Restriction",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f86",
+          "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+          "name": "Request Completion: Do not sell & share with 3rd Parties",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f7b",
+          "templateId": "STANDARD_APPOINTMENT_EMAIL",
+          "name": "Standard Appointment",
+          "departments": [
+            "SALES"
+          ]
+        }
+      ]
+    },
+    "Parts": {
+      "count": 11,
+      "template_ids": [
+        "667f0c5334bfa115c6692f84",
+        "667f0c5334bfa115c6692f83",
+        "667f0c5334bfa115c6692f82",
+        "667f0c5334bfa115c6692f81",
+        "667f0c5234bfa115c6692f80",
+        "667f0c5334bfa115c6692f85",
+        "667f0befd4964026ee7b6ea1",
+        "667f0c5434bfa115c6692f88",
+        "667f0c5434bfa115c6692f87",
+        "667f0c5334bfa115c6692f86",
+        "667f0c5234bfa115c6692f7b"
+      ],
+      "templates": [
+        {
+          "id": "667f0c5334bfa115c6692f84",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+          "name": "Request Completion: Data Deletion (Closed Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f83",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+          "name": "Request Completion: Data Correction",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f82",
+          "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+          "name": "Request Completion: Data Export",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f81",
+          "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+          "name": "Request Acknowledgement",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f80",
+          "templateId": "CPRA_FIRST_TIME",
+          "name": "First Time Email",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f85",
+          "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+          "name": "Request Decline: Data Deletion (Open Documents)",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0befd4964026ee7b6ea1",
+          "templateId": "667f0befd4964026ee7b6ea2",
+          "name": "Service History Recap PDF",
+          "departments": [
+            "SERVICE",
+            "SALES"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f88",
+          "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+          "name": "Request Decline: Marked As Declined",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5434bfa115c6692f87",
+          "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+          "name": "Request Completion: Sensitive Information Restriction",
+          "departments": [
+            "SALES",
+            "SERVICE",
+            "PARTS"
+          ]
+        },
+        {
+          "id": "667f0c5334bfa115c6692f86",
+          "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+          "name": "Request Completion: Do not sell & share with 3rd Parties",
+          "departments": [
+            "SALES",
+            "PARTS",
+            "SERVICE"
+          ]
+        },
+        {
+          "id": "667f0c5234bfa115c6692f7b",
+          "templateId": "STANDARD_APPOINTMENT_EMAIL",
+          "name": "Standard Appointment",
+          "departments": [
+            "SALES"
+          ]
+        }
+      ]
+    }
+  }
+}

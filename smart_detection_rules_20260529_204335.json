@@ -1,0 +1,33 @@
+{
+  "timestamp": "20260529_204335",
+  "templates_analyzed": 10,
+  "media_id_patterns": [
+    {
+      "media_id": "6a0c6722864813539e4da7ae",
+      "frequency": 1,
+      "templates": [
+        "Tekion Template Builder"
+      ]
+    }
+  ],
+  "location_patterns": {
+    "bottom-center": 1
+  },
+  "size_patterns": {
+    "259x68": 1
+  },
+  "detection_strategies": [
+    {
+      "type": "position_based",
+      "most_common_location": "bottom-center",
+      "frequency": 1,
+      "description": "Logos most commonly found at: bottom-center"
+    },
+    {
+      "type": "size_based",
+      "most_common_size": "259x68",
+      "frequency": 1,
+      "description": "Logos most commonly sized: 259x68"
+    }
+  ]
+}

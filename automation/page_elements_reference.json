@@ -1,0 +1,175 @@
+{
+  "page_url": "https://preprodapp.tekioncloud.com/templates/list",
+  "page_title": "Tekion Template Builder",
+  "detection_date": "2026-05-29",
+  "status": "verified_working",
+  
+  "elements": {
+    "1_department_filter": {
+      "name": "Department Filter",
+      "selector": ".ant-dropdown-trigger",
+      "inner_id": "#departments",
+      "data_test_id": "-departments-selectedValues",
+      "type": "ant-dropdown",
+      "current_value": "Sales",
+      "options": ["Sales", "Service", "Parts"],
+      "checkbox_selectors": "input[type='checkbox'][data-test*='departments']",
+      "checkbox_mapping": {
+        "0": "Sales",
+        "1": "Service", 
+        "2": "Parts"
+      },
+      "working_code": "automation/department_filter_automation.py"
+    },
+    
+    "2_search_box_global": {
+      "name": "Global Search Box",
+      "selector": "input[data-test='@tekion-appSkeleton-searchPanel-globalSearchInput']",
+      "type": "input",
+      "placeholder": "Search here..."
+    },
+    
+    "3_search_box_local": {
+      "name": "Local Search Box",
+      "selector": "input[placeholder='Search...']",
+      "type": "input",
+      "placeholder": "Search..."
+    },
+    
+    "5_drafts_button": {
+      "name": "Drafts Button",
+      "selector": "button:has-text('Drafts')",
+      "type": "button",
+      "text": "Drafts (0)",
+      "class": "ant-btn root_button_linkButton__mTMyFkB45v",
+      "count_field": true
+    },
+    
+    "6_archive_button": {
+      "name": "Archive Button",
+      "selector": "button:has-text('Archive')",
+      "type": "button",
+      "text": "Archive (0)",
+      "class": "ant-btn root_button_linkButton__mTMyFkB45v",
+      "count_field": true
+    },
+    
+    "7_actions_button": {
+      "name": "Actions Button",
+      "selector": "button:has-text('Actions')",
+      "type": "button",
+      "text": "Actions",
+      "disabled": true,
+      "class": "ant-btn root_button_secondaryButton__ugaZ2SVupS"
+    },
+    
+    "8_new_template_button": {
+      "name": "New Template Button",
+      "selector": "button:has-text('New Template')",
+      "type": "button",
+      "text": "New Template",
+      "class": "ant-btn ant-btn-primary",
+      "primary": true
+    },
+    
+    "12_page_size_dropdown": {
+      "name": "Page Size Selector",
+      "selector": "[role='combobox']",
+      "type": "dropdown",
+      "value": "Select50",
+      "data_test": "-resultsPerPage"
+    },
+    
+    "13_tab_email": {
+      "name": "Email Tab",
+      "selector": "[role='tab']:has-text('Email')",
+      "type": "tab",
+      "label": "Email",
+      "count": 11,
+      "active": true,
+      "aria_selected": "true"
+    },
+    
+    "14_tab_text": {
+      "name": "Text Tab",
+      "selector": "[role='tab']:has-text('Text')",
+      "type": "tab",
+      "label": "Text",
+      "count": 1,
+      "active": false
+    },
+    
+    "15_tab_live_chat": {
+      "name": "Live Chat Tab",
+      "selector": "[role='tab']:has-text('Live Chat')",
+      "type": "tab",
+      "label": "Live Chat",
+      "count": 3,
+      "active": false
+    },
+    
+    "17_page_heading": {
+      "name": "Page Heading",
+      "selector": "div[class*='heading_h1']",
+      "type": "heading",
+      "text": "Communication Templates"
+    },
+    
+    "pagination_prev": {
+      "name": "Previous Page Button",
+      "selector": "button:has-text('Prev')",
+      "type": "button",
+      "disabled": false
+    },
+    
+    "pagination_next": {
+      "name": "Next Page Button",
+      "selector": "button:has-text('Next')",
+      "type": "button",
+      "disabled": false
+    },
+
+    "clear_button": {
+      "name": "Clear Filters Button",
+      "selector": "span[data-test='undefined-clearButton']",
+      "alternative_selector": "span[role='button']:has-text('Clear')",
+      "type": "button",
+      "text": "Clear",
+      "class": "root_defaultFilterToolbar_clear__iojckhYAzp",
+      "data_test": "undefined-clearButton",
+      "location": "filter_toolbar",
+      "function": "Resets all filters to default state",
+      "working_code": "automation/clear_filters_automation.py"
+    }
+  },
+  
+  "automation_scripts": {
+    "department_filter": {
+      "file": "automation/department_filter_automation.py",
+      "function": "change_department_filter",
+      "status": "working",
+      "tested_date": "2026-05-29",
+      "example": "await change_department_filter(['Service', 'Parts'], ['Sales'])"
+    },
+    "clear_filters": {
+      "file": "automation/clear_filters_automation.py",
+      "function": "click_clear_button",
+      "status": "working",
+      "tested_date": "2026-05-29",
+      "example": "await click_clear_button(wait_seconds=5)",
+      "effect": "Resets department filter to 'Select...' and updates all tabs"
+    }
+  },
+  
+  "notes": {
+    "cdp_connection": "Uses existing browser on localhost:9223",
+    "page_url_pattern": "/templates/list (not /templates/edit/)",
+    "wait_times": {
+      "after_dropdown_open": "2 seconds",
+      "after_checkbox_click": "0.5 seconds",
+      "after_filter_change": "20 seconds (configurable)"
+    },
+    "department_filter_behavior": "Multi-select checkboxes, inclusive filtering",
+    "tab_counts_update": "After department filter changes, tab counts update to show filtered results"
+  }
+}

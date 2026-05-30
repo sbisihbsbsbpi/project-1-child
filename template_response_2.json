@@ -1,0 +1,779 @@
+{
+  "data": {
+    "key": null,
+    "count": 11,
+    "hits": [
+      {
+        "id": "667f0c5334bfa115c6692f84",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+        "name": "Request Completion: Data Deletion (Closed Documents)",
+        "tag": "cpraClosed",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a19160b6697f36de6236fb8"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Completion: Data Deletion (Closed Documents)  cpraClosed"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259926,
+        "modifiedTime": 1780028947850,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5334bfa115c6692f83",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+        "name": "Request Completion: Data Correction",
+        "tag": "cpraCorrec",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a1914fb6697f36de6236fb5"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Completion: Data Correction  cpraCorrec"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259901,
+        "modifiedTime": 1780028675045,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5334bfa115c6692f82",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+        "name": "Request Completion: Data Export",
+        "tag": "cpraExport",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a191449710089188b665222"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Completion: Data Export  cpraExport"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259875,
+        "modifiedTime": 1780028491746,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5334bfa115c6692f81",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+        "name": "Request Acknowledgement",
+        "tag": "cpraAcknow",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "SERVICE",
+          "PARTS"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a1913e96697f36de6236fb3"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Acknowledgement  cpraAcknow"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259845,
+        "modifiedTime": 1780028399877,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5234bfa115c6692f80",
+        "nonDeletable": true,
+        "templateId": "CPRA_FIRST_TIME",
+        "name": "First Time Email",
+        "tag": "cpraFirst",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a19139b6697f36de6236fb2"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "First Time Email  cpraFirst"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602258288,
+        "modifiedTime": 1780028318050,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5334bfa115c6692f85",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+        "name": "Request Decline: Data Deletion (Open Documents)",
+        "tag": "cpraOpen",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "6a19137d710089188b665220"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Decline: Data Deletion (Open Documents)  cpraOpen"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259948,
+        "modifiedTime": 1780028287611,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0befd4964026ee7b6ea1",
+        "nonDeletable": false,
+        "templateId": "667f0befd4964026ee7b6ea2",
+        "name": "Service History Recap PDF",
+        "tag": "HistoryRec",
+        "categories": [
+          "Repair Order"
+        ],
+        "nonDeletableCategories": [],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SERVICE",
+          "SALES"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": ""
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Service History Recap PDF  HistoryRec"
+        },
+        "createdByUserId": "e68a7c10-8083-4297-bb30-690523fb737f",
+        "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602159705,
+        "modifiedTime": 1779200581333,
+        "deleted": false,
+        "privacyPreference": "CUSTOMER_SATISFACTION",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US",
+          "en_CA",
+          "fr_CA"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": null,
+        "rules": [],
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5434bfa115c6692f88",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+        "name": "Request Decline: Marked As Declined",
+        "tag": "cpraBefore",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "SERVICE",
+          "PARTS"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "65397188cff47e00076b67a0"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Decline: Marked As Declined  cpraBefore"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "-1",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602260028,
+        "modifiedTime": 1719602260028,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": null,
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5434bfa115c6692f87",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+        "name": "Request Completion: Sensitive Information Restriction",
+        "tag": "cpraSensit",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "SERVICE",
+          "PARTS"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "65397188cff47e00076b67a0"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Completion: Sensitive Information Restriction  cpraSensit"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "-1",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602260000,
+        "modifiedTime": 1719602260000,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": null,
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5334bfa115c6692f86",
+        "nonDeletable": true,
+        "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+        "name": "Request Completion: Do not sell & share with 3rd Parties",
+        "tag": "cpra3rdPar",
+        "categories": [
+          "Data Privacy"
+        ],
+        "nonDeletableCategories": [
+          "Data Privacy"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES",
+          "PARTS",
+          "SERVICE"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "64e4be9346e0fb0007189de3"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Request Completion: Do not sell & share with 3rd Parties  cpra3rdPar"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "-1",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602259974,
+        "modifiedTime": 1719602259974,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "en_US"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": [
+          "USER",
+          "STORE",
+          "DATA_PRIVACY"
+        ],
+        "rules": null,
+        "siteIds": null
+      },
+      {
+        "id": "667f0c5234bfa115c6692f7b",
+        "nonDeletable": true,
+        "templateId": "STANDARD_APPOINTMENT_EMAIL",
+        "name": "Standard Appointment",
+        "tag": "apptremin",
+        "categories": [
+          "Appointment Reminder",
+          "Campaign Blast"
+        ],
+        "nonDeletableCategories": [
+          "Appointment Reminder"
+        ],
+        "type": "CUSTOM",
+        "purposeType": "COMMUNICATION",
+        "purposeSubType": "EMAIL",
+        "departments": [
+          "SALES"
+        ],
+        "thumbnail": {
+          "name": null,
+          "mediaId": "657971aae8288600071df386"
+        },
+        "templateEngine": {
+          "@type": "HTML"
+        },
+        "subject": null,
+        "htmlSubject": null,
+        "body": null,
+        "htmlBody": null,
+        "preHeader": null,
+        "status": "ACTIVE",
+        "campaignIds": null,
+        "statistics": null,
+        "searchDetail": {
+          "description": "Standard Appointment  apptremin"
+        },
+        "createdByUserId": "-1",
+        "updatedByUserId": "-1",
+        "expiryTime": null,
+        "usageTrigger": null,
+        "metadata": null,
+        "visibleOnUI": true,
+        "dealerId": "5939",
+        "tenantId": "dcdautomotive",
+        "createdTime": 1719602258101,
+        "modifiedTime": 1719602258101,
+        "deleted": false,
+        "privacyPreference": "DEALERSHIP_BUSINESS",
+        "privacyPreferenceType": "TRANSACTIONAL",
+        "replyTo": [],
+        "languages": null,
+        "publishedLanguages": [
+          "fr_CA",
+          "en_US",
+          "es_MX",
+          "fr_FR",
+          "en_GB"
+        ],
+        "enterpriseTemplate": false,
+        "nonEditable": false,
+        "publishedBy": null,
+        "dealerList": null,
+        "chatCardType": null,
+        "starredUserIds": null,
+        "allowedTagGroups": null,
+        "rules": null,
+        "siteIds": null
+      }
+    ],
+    "suggest": null,
+    "tekSearchHit": null,
+    "projections": null,
+    "groups": null,
+    "nextPageToken": null,
+    "tekHits": null
+  },
+  "status": "success"
+}

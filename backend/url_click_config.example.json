@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "description": "Example URL-specific click action configurations - Copy patterns from here to url_click_config.json",
+  "url_patterns": [
+    {
+      "id": "tekion-return-reasons-edit",
+      "name": "Tekion - Return Reasons - Edit Customer Return",
+      "url_pattern": "https://preprodapp.tekioncloud.com/parts/return-reasons",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Customer Return w/ Restocking",
+          "wait_after_ms": 2000,
+          "description": "Opens the Edit Reason modal"
+        }
+      ],
+      "enabled": true,
+      "created_at": "2025-11-11",
+      "notes": "Clicks on the 'Customer Return w/ Restocking' row to open the edit modal"
+    },
+    {
+      "id": "tekion-gl-account-mapping-service",
+      "name": "Tekion - GL Account Mapping - Service Module",
+      "url_pattern": "https://preprodapp.tekioncloud.com/accounting/glaccountmapping/list?module=SERVICE",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Customer Pay",
+          "wait_after_ms": 1000,
+          "description": "Expands Customer Pay section"
+        },
+        {
+          "type": "click",
+          "text": "Internal Pay",
+          "wait_after_ms": 1000,
+          "description": "Expands Internal Pay section"
+        },
+        {
+          "type": "click",
+          "text": "Warranty Pay",
+          "wait_after_ms": 1000,
+          "description": "Expands Warranty Pay section"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Expands all payment sections in Service module"
+    },
+    {
+      "id": "tekion-parts-accessories",
+      "name": "Tekion - Parts & Accessories Module",
+      "url_pattern": "https://preprodapp.tekioncloud.com/accounting/glaccountmapping/list?module=PARTS_N_ACCESSORIES",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Parts Sales",
+          "wait_after_ms": 1500,
+          "description": "Expands Parts Sales section"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Expands Parts Sales section"
+    },
+    {
+      "id": "tekion-new-vehicle",
+      "name": "Tekion - New Vehicle Module",
+      "url_pattern": "https://preprodapp.tekioncloud.com/accounting/glaccountmapping/list?module=NEW_VEHICLE",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Vehicle Sales",
+          "wait_after_ms": 1500,
+          "description": "Expands Vehicle Sales section"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Expands Vehicle Sales section"
+    },
+    {
+      "id": "any-tekion-module-contains",
+      "name": "Tekion - Any GL Account Mapping Module (Contains Match)",
+      "url_pattern": "/accounting/glaccountmapping/list?module=",
+      "match_type": "contains",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Expand All",
+          "wait_after_ms": 2000,
+          "description": "Clicks 'Expand All' button if available"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Matches any GL Account Mapping module using 'contains' match type"
+    },
+    {
+      "id": "dashboard-settings-advanced",
+      "name": "Dashboard - Open Advanced Settings (Multiple Clicks)",
+      "url_pattern": "https://example.com/dashboard",
+      "match_type": "exact",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Settings",
+          "wait_after_ms": 1000,
+          "description": "Opens settings menu"
+        },
+        {
+          "type": "click",
+          "text": "Advanced",
+          "wait_after_ms": 1000,
+          "description": "Opens advanced settings tab"
+        },
+        {
+          "type": "click",
+          "text": "Show Details",
+          "wait_after_ms": 2000,
+          "description": "Expands details section"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Multiple sequential clicks with different wait times"
+    },
+    {
+      "id": "product-pages-view-all",
+      "name": "Product Pages - View All Items (Contains Match)",
+      "url_pattern": "/products/",
+      "match_type": "contains",
+      "actions": [
+        {
+          "type": "click",
+          "text": "View All",
+          "wait_after_ms": 1500,
+          "description": "Expands product list"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Matches any URL containing '/products/' using 'contains' match type"
+    },
+    {
+      "id": "user-profile-edit-regex",
+      "name": "User Profile - Edit Mode (Regex Match)",
+      "url_pattern": "https://example\\.com/users/[0-9]+/profile",
+      "match_type": "regex",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Edit Profile",
+          "wait_after_ms": 2000,
+          "description": "Opens profile editor"
+        }
+      ],
+      "enabled": false,
+      "created_at": "2025-11-11",
+      "notes": "Example: Matches URLs like 'https://example.com/users/123/profile' using regex"
+    }
+  ]
+}
+

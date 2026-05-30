@@ -1,0 +1,123 @@
+{
+  "timestamp": "2026-05-29T17:17:57.828Z",
+  "department_filter": {
+    "current_selection": "Sales\nSales\nService\nParts",
+    "trigger_element": {
+      "html": "<div class=\"ant-dropdown-trigger ant-dropdown-open\"><div id=\"departments\" data-test-id=\"-departments-selectedValues\" class=\"root_selectedValues_container__p4MKtvGdNs root_filter_select__wd2GwZ7NRR root_selectedValues_container__visible__7fekDxBJcb\"><div id=\"antd-pro-ellipsis-178007493912117\" class=\"root_ellipsis_ellipsis__pPAtYqJPxA root_ellipsis_lineClamp__b6fAQ8puKV ant-tooltip-open\"><style nonce=\"\">#antd-pro-ellipsis-178007493912117{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: ",
+      "text": "Sales\nSales\nService\nParts",
+      "selector": ".ant-dropdown-trigger"
+    },
+    "dropdown_menu": {
+      "visible": true,
+      "html": "<div class=\"ant-dropdown ant-dropdown-placement-bottomCenter\" style=\"left: 189px; top: 252px;\"><div class=\"root_withMultiSelect_overlay__eS6iqekQFf css-2b097c-container\" id=\"departments\"><span aria-live=\"polite\" class=\"css-1laao21-a11yText\"><p id=\"aria-selection-event\">&nbsp;</p><p id=\"aria-context\">&nbsp;  3 results available. Select is focused ,type to refine list, press Down to open the menu,  press left to focus selected values</p></span><div class=\" css-1so95g7-control\"><div class=\" css-1jt2rif\"><div class=\" css-yrpxub-placeholder\">Search</div><div class=\"css-mxa45a\"><div class=\"\" style=\"display: inline-block;\"><input autocapitalize=\"none\" autocomplete=\"off\" autocorrect=\"off\" id=\"-departments-multiSelect\" spellcheck=\"false\" tabindex=\"0\" type=\"text\" aria-autocomplete=\"list\" value=\"\" style=\"box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit; --darkreader-inline-bgimage: initial; --darkr",
+      "className": "ant-dropdown ant-dropdown-placement-bottomCenter"
+    },
+    "options": [
+      {
+        "index": 1,
+        "text": "",
+        "is_checked": true,
+        "selector": ".ant-checkbox-wrapper:nth-child(1)",
+        "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper ant-checkbox-wrapper-checked\"><span class=\"ant-checkbox ant-checkbox-checked\"><input type=\"checkbox\" class=\"a"
+      },
+      {
+        "index": 2,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(2)",
+        "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test=\"-departments-multiSe"
+      },
+      {
+        "index": 3,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(3)",
+        "html": "<label class=\"create-emotion-1k9ek97 root_option_checkbox__fMFLMvo8Hh ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test=\"-departments-multiSe"
+      },
+      {
+        "index": 4,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(4)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-header-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></sp"
+      },
+      {
+        "index": 5,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(5)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 6,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(6)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 7,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(7)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 8,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(8)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 9,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(9)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 10,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(10)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 11,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(11)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 12,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(12)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 13,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(13)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 14,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(14)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      },
+      {
+        "index": 15,
+        "text": "",
+        "is_checked": false,
+        "selector": ".ant-checkbox-wrapper:nth-child(15)",
+        "html": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></sp"
+      }
+    ]
+  }
+}

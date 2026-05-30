@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-29T23:10:35.058064",
+  "page_url": "https://preprodapp.tekioncloud.com/templates/list",
+  "clear_buttons_found": 1,
+  "clear_buttons_in_dropdown": 0,
+  "buttons": [
+    {
+      "tag": "SPAN",
+      "text": "Clear",
+      "className": "root_textualAction_container__6WdZPFT1TG root_defaultFilterToolbar_clear__iojckh",
+      "visible": true,
+      "clickable": null,
+      "html": "<span role=\"button\" tabindex=\"0\" class=\"root_textualAction_container__6WdZPFT1TG root_defaultFilterToolbar_clear__iojckhYAzp\" data-test=\"undefined-clearButton\" data-test-id=\"undefined-clearButton\">Clear</span>"
+    }
+  ],
+  "dropdown_buttons": []
+}

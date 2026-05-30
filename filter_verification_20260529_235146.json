@@ -1,0 +1,375 @@
+{
+  "timestamp": "2026-05-29T23:51:46.091356",
+  "departments_selected": [
+    "Service",
+    "Parts"
+  ],
+  "departments_unselected": [
+    "Sales"
+  ],
+  "before": {
+    "timestamp": "2026-05-29T18:21:22.907Z",
+    "tabs": [
+      {
+        "label": "Email",
+        "count": 39,
+        "active": true
+      },
+      {
+        "label": "Text",
+        "count": 1,
+        "active": false
+      },
+      {
+        "label": "Live Chat",
+        "count": 3,
+        "active": false
+      }
+    ],
+    "templates": [
+      "Results Per Page"
+    ],
+    "table_info": {
+      "headers": [
+        "Name",
+        "Quick Search Tag",
+        "Department",
+        "Communication Type",
+        "Categories",
+        "Expiry Date",
+        "Created By",
+        "Created Date",
+        "Last Updated by",
+        "Last Updated date",
+        "Published By"
+      ],
+      "row_count": 39,
+      "visible_rows": [
+        [
+          "RO Payment Link",
+          "#roPayLink",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "RO Created",
+          "#Estimate",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Collection Slip",
+          "#collection",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Consumer Scheduling OTP",
+          "#OPTSched",
+          "Service",
+          "Required Dealership Business",
+          "Service Miscellaneous",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Deletion (Closed Documents)",
+          "#cpraClosed",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Correction",
+          "#cpraCorrec",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Export",
+          "#cpraExport",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Acknowledgement",
+          "#cpraAcknow",
+          "Sales,Service,Parts",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "First Time Email",
+          "#cpraFirst",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Decline: Data Deletion (Open Documents)",
+          "#cpraOpen",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ]
+      ]
+    },
+    "department_badges": [],
+    "current_filter": [
+      "#antd-pro-ellipsis-178007869486141{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Service, Parts"
+    ]
+  },
+  "after": {
+    "timestamp": "2026-05-29T18:21:46.082Z",
+    "tabs": [
+      {
+        "label": "Email",
+        "count": 39,
+        "active": true
+      },
+      {
+        "label": "Text",
+        "count": 1,
+        "active": false
+      },
+      {
+        "label": "Live Chat",
+        "count": 3,
+        "active": false
+      }
+    ],
+    "templates": [
+      "Results Per Page"
+    ],
+    "table_info": {
+      "headers": [
+        "Name",
+        "Quick Search Tag",
+        "Department",
+        "Communication Type",
+        "Categories",
+        "Expiry Date",
+        "Created By",
+        "Created Date",
+        "Last Updated by",
+        "Last Updated date",
+        "Published By"
+      ],
+      "row_count": 39,
+      "visible_rows": [
+        [
+          "RO Payment Link",
+          "#roPayLink",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "RO Created",
+          "#Estimate",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Collection Slip",
+          "#collection",
+          "Service",
+          "Required Dealership Business",
+          "Repair Order",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Consumer Scheduling OTP",
+          "#OPTSched",
+          "Service",
+          "Required Dealership Business",
+          "Service Miscellaneous",
+          "-",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Deletion (Closed Documents)",
+          "#cpraClosed",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Correction",
+          "#cpraCorrec",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Completion: Data Export",
+          "#cpraExport",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Acknowledgement",
+          "#cpraAcknow",
+          "Sales,Service,Parts",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "First Time Email",
+          "#cpraFirst",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ],
+        [
+          "Request Decline: Data Deletion (Open Documents)",
+          "#cpraOpen",
+          "Sales,Parts,Service",
+          "Required Dealership Business",
+          "Data Privacy",
+          "-",
+          "System",
+          "Jun 28 2024",
+          "IAism admin",
+          "May 29 2026",
+          "NTNucar Automall of Tilton"
+        ]
+      ]
+    },
+    "department_badges": [],
+    "current_filter": [
+      "#antd-pro-ellipsis-178007869486141{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Service, PartsSalesServiceParts"
+    ]
+  },
+  "comparison": {
+    "filter_changed": true,
+    "data_changed": false,
+    "tab_counts_changed": false,
+    "table_changed": false,
+    "details": {
+      "filter": {
+        "before": [
+          "#antd-pro-ellipsis-178007869486141{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Service, Parts"
+        ],
+        "after": [
+          "#antd-pro-ellipsis-178007869486141{-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;display: -webkit-box}Service, PartsSalesServiceParts"
+        ],
+        "changed": true
+      },
+      "tab_changes": [],
+      "table": {
+        "before_rows": 39,
+        "after_rows": 39,
+        "delta": 0
+      }
+    }
+  }
+}

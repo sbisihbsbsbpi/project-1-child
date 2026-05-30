@@ -1,0 +1,293 @@
+[
+  {
+    "key": "TEXT_TEMPLATE",
+    "componentProps": {
+      "html": "<div style=\"text-align: center;\"><span class=\"\">Hi</span><b class=\"\">&nbsp;</b><b class=\"\"><span class=\"dynamic_tag tagId_1658242356663\" contenteditable=\"false\" data-tag=\"ro_customer_full_name\" data-locale=\"en_US\">&lt;<span style=\"color: rgb(73, 135, 169);\"><b>ro_customer_full_name</b></span>&gt;</span>,</b><b>&nbsp;</b></div><div> <div><div style=\"text-align: center;\"><b class=\"\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b><span style=\"text-align: center;\" class=\"\">Your payment $</span><b class=\"\"><span data-locale=\"en_US\" data-tag=\"ro_payment_link_amount\" contenteditable=\"false\" class=\"dynamic_tag tagId_1658242008898\">&lt;<span style=\"color: rgb(73, 135, 169);\"><b>ro_payment_link_amount</b></span>&gt;</span></b><span class=\"\">&nbsp;</span><span class=\"\">is</span><span class=\"\"> </span>due for <span class=\"\">Repair</span><b class=\"\"> </b><span class=\"\">Order</span><b class=\"\"> <span data-locale=\"en_US\" data-tag=\"ro_no\" contenteditable=\"false\" class=\"dynamic_tag tagId_1658242069956\">&lt;<span style=\"color: rgb(73, 135, 169);\"><b>ro_no</b></span>&gt;</span></b>. Please click on <a style=\"background-color: rgb(255, 255, 255);\" href=\"ro_payment_link\" class=\"text_link dynamic_tag_link unresolved_tag_link focus_node\" data-tag=\"ro_payment_link\" data-offset=\"0\" data-text-offset=\"7\">Pay Now</a>&nbsp;to complete the payment on or <span class=\"\">before&nbsp;<span style=\"font-weight: bold;\" data-locale=\"en_US\" data-tag=\"ro_payment_link_expiry\" contenteditable=\"false\" class=\"dynamic_tag tagId_1658242136507\">&lt;<span style=\"color: rgb(73, 135, 169);\"><b>ro_payment_link_expiry</b></span>&gt;</span></span>.&nbsp;</div><span class=\"\"><div style=\"text-align: center;\"><span class=\"\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Thank you for your business! We greatly value your trust and sincerely appreciate your loyalty to our business</span><b class=\"\">.</b></div></span></div></div>"
+    },
+    "configuration": {
+      "selectable": false,
+      "editable": true,
+      "draggable": false,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "4d6c7d99-4167-4c63-b84f-3442dbd29a18"
+  },
+  {
+    "key": "INSERT_IMAGE",
+    "componentProps": {
+      "selectedImage": {
+        "mediaId": "630f4b45e21b8400077a8e0c",
+        "publicUrl": null,
+        "tempUrl": true
+      },
+      "imageDimensions": {
+        "width": "34.66476462196862%"
+      }
+    },
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": true,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "9744b056-6947-41ed-ad78-9b37db30892c"
+  },
+  {
+    "key": "TEXT_TEMPLATE",
+    "componentProps": {
+      "html": "<div style=\"font-style: normal;font-weight: 700;text-decoration: none;\"><br></div>"
+    },
+    "configuration": {
+      "selectable": false,
+      "editable": true,
+      "draggable": false,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "fefb13a0-af0b-479e-b771-505af71902b8"
+  },
+  {
+    "key": "INSERT_BUTTON",
+    "componentProps": {
+      "url": "",
+      "buttonText": "Pay Now",
+      "buttonStyle": {
+        "backgroundColor": "#00bfa5",
+        "color": "#ffffff",
+        "border": "1px solid #D4D5D6"
+      },
+      "selectedTag": {
+        "displayName": "RO Payment Link",
+        "entityType": "REPAIR_ORDER",
+        "group": "Repair Order",
+        "id": "62d107507cafea608c3b4bd3",
+        "label": "ro_payment_link",
+        "translatedLabel": "ro_payment_link"
+      },
+      "buttonDefaultName": "Custom Button",
+      "buttonAlignment": "center",
+      "selectedTagValue": {}
+    },
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": true,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "de61c024-448e-42af-a4c8-5b42fc1ba837"
+  },
+  {
+    "key": "INSERT_HORIZONTAL_SEPARATOR",
+    "componentProps": {},
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": true,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "ea696909-7df1-47be-97ba-f82e2507a095"
+  },
+  {
+    "key": "INSERT_LAYOUT",
+    "componentProps": {
+      "layout": [
+        1,
+        1
+      ],
+      "shouldWrapColumn": true,
+      "columns": [
+        {
+          "tMartId": "TEMPLATE_MART_TEMPLATE_BUILDER_APP_LAYOUT_TEMPLATE_MART_31e67a96-12d3-4fe0-ab48-7cb171149139",
+          "list": [
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": "<span style=\"background-color: rgb(255, 255, 255);\" class=\"\"><span style=\"font-weight: bolder;\">D</span></span><span style=\"font-weight: bolder;\" class=\"\">ealership Information</span><div><span style=\"font-weight: bolder;\"><br></span></div><div class=\"\"><span class=\"dynamic_tag tagId_1630075189617\" contenteditable=\"false\" data-tag=\"dealership_name\" data-locale=\"en_US\">&lt;<span style=\"color: rgb(73, 135, 169);\"><span style=\"font-weight: bolder;\" class=\"focus_node\" data-offset=\"0\" data-text-offset=\"12\">dealership_name</span></span>&gt;</span></div><div class=\"\"><span data-locale=\"en_US\" data-tag=\"dealership_service_address1\" contenteditable=\"false\" class=\"dynamic_tag tagId_1658241395669\">&lt;<span style=\"color: rgb(73, 135, 169);\"><b>dealership_service_address1</b></span>&gt;</span>&nbsp;<span class=\"dynamic_tag tagId_1630181605720\" contenteditable=\"false\" data-tag=\"dealership_service_address2\" data-locale=\"en_US\">&lt;<span style=\"color: rgb(73, 135, 169);\"><span style=\"font-weight: bolder;\" class=\"\">dealership_service_address2</span></span>&gt;</span></div><div class=\"\"><span class=\"dynamic_tag tagId_1630181612388\" contenteditable=\"false\" data-tag=\"dealership_service_city\" data-locale=\"en_US\">&lt;<span style=\"color: rgb(73, 135, 169);\"><span style=\"font-weight: bolder;\">dealership_service_city</span></span>&gt;</span>&nbsp;<span class=\"dynamic_tag tagId_1630181616902\" contenteditable=\"false\" data-tag=\"dealership_service_zipcode\" data-locale=\"en_US\">&lt;<span style=\"color: rgb(73, 135, 169);\"><span style=\"font-weight: bolder;\" class=\"\">dealership_service_zipcode</span></span>&gt;</span></div><div class=\"\"><br></div><div class=\"\"><span style=\"font-weight: bolder;\"><a href=\"dealership_service_location_url\" class=\"text_link dynamic_tag_link unresolved_tag_link\" data-tag=\"dealership_service_location_url\">Get Directions</a></span></div>"
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "4d46d88a-4a9a-43b3-8b44-0bd73d36c5a9"
+            },
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": "<div style=\"font-style: normal;font-weight: 400;text-decoration: none;\" class=\"focus_node\" data-offset=\"0\"><br></div>"
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "4e556612-931b-447b-b7d4-e5190b6c17e7"
+            }
+          ],
+          "axis": "x"
+        },
+        {
+          "tMartId": "TEMPLATE_MART_TEMPLATE_BUILDER_APP_LAYOUT_TEMPLATE_MART_170ecf72-0d2f-4660-9dea-45db3c1b5b66",
+          "list": [
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": ""
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "0882a709-6d4a-41b6-8bec-3156144073a3"
+            },
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": ""
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "e7386ff0-e5cc-44c2-8341-230b85a7702a"
+            },
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": ""
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "919d9e46-820f-48d2-92a2-fd73a29fb6c6"
+            },
+            {
+              "key": "INSERT_IMAGE",
+              "componentProps": {
+                "selectedImage": {
+                  "mediaId": "6a19132b6697f36de6236fb1",
+                  "publicUrl": null,
+                  "tempUrl": true
+                },
+                "imageDimensions": {
+                  "width": "73.0593607305936%"
+                },
+                "imageAlignment": "center"
+              },
+              "configuration": {
+                "selectable": true,
+                "editable": true,
+                "draggable": true,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "1db688ca-6458-43e2-be07-fd31e64855ae"
+            },
+            {
+              "key": "TEXT_TEMPLATE",
+              "componentProps": {
+                "html": ""
+              },
+              "configuration": {
+                "selectable": false,
+                "editable": true,
+                "draggable": false,
+                "freezed": false,
+                "focusable": true,
+                "deletable": true
+              },
+              "compId": "27da4f13-6d88-493b-9662-a5686bd1bbb7"
+            }
+          ],
+          "axis": "x"
+        }
+      ]
+    },
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": true,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "c3efd489-bbbb-4cb3-aafd-24dc2342db12"
+  },
+  {
+    "key": "INSERT_HORIZONTAL_SEPARATOR",
+    "componentProps": {},
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": true,
+      "freezed": false,
+      "focusable": true,
+      "deletable": true
+    },
+    "compId": "8c342731-f763-4b27-ba3e-55e141739cba"
+  },
+  {
+    "key": "INSERT_FOOTER_TEMPLATE",
+    "componentProps": {
+      "id": "6398b4a8cb41f6643ee00668",
+      "html": "\n  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" data-type=\"TEXT_TEMPLATE\">\n    <tbody>\n      <tr>\n        <td class=\"\" style=\"padding: 6px 0px;padding-bottom: 6px;padding-left: 0px;padding-right: 0px;padding-top: 6px;\">\n          <div style=\"height: auto;width: 100%;\"><div class=\"\" id=\"fd0b44a7-9603-4373-9f9a-ac97323083f8\" style=\"cursor: text;height: 100%;\" contenteditable=\"false\">We do not rent, sell or exchange email addresses. We encourage you not to unsubscribe so that we can keep you informed about promotions, new vehicles, service tips and service specials, but if you choose to, you can opt out here. </div></div>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n<div style=\"height: auto;width: 100%;\"><div class=\"\" id=\"a60255c3-c5cf-48b2-83f3-4c26474af8df\" style=\"cursor: text;height: 100%;\" contenteditable=\"false\"><span style=\"letter-spacing: 0.3px;\" class=\"focus_node\" data-offset=\"0\" data-text-offset=\"52\">If you prefer not to receive further emails from us,</span> <a target=\"_self\" class=\"\" href=\"{{UNSUBSCRIBE_LINK}}\">Click here to Unsubscribe</a></div></div>\n  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" data-type=\"TEXT_TEMPLATE\">\n    <tbody>\n      <tr>\n        <td class=\"\" style=\"padding: 6px 0px;padding-bottom: 6px;padding-left: 0px;padding-right: 0px;padding-top: 6px;\">\n          <div style=\"height: auto;width: 100%;\"><div class=\"\" id=\"4f20ef8c-c2b8-4c0b-a6ae-a5152de851c3\" style=\"cursor: text;height: 100%;\" contenteditable=\"false\"></div></div>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n"
+    },
+    "configuration": {
+      "selectable": false,
+      "editable": true,
+      "draggable": false,
+      "freezed": true,
+      "focusable": false,
+      "deletable": true,
+      "footerProps": {
+        "order": 100
+      }
+    },
+    "compId": "cbd93bee-d35c-4e84-96a3-840dd876a7e9"
+  },
+  {
+    "key": "INSERT_SERVICE_FOOTER",
+    "componentProps": {},
+    "configuration": {
+      "selectable": true,
+      "editable": true,
+      "draggable": false,
+      "freezed": true,
+      "focusable": false,
+      "deletable": true,
+      "footerProps": {
+        "order": 101
+      }
+    },
+    "compId": "ab32ab84-dd63-4385-b2b8-061f12ca8918"
+  }
+]

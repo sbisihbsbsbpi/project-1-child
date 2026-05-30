@@ -1,0 +1,10 @@
+{
+  "important_docs": [
+    {
+      "name": "screenshot_service_readme",
+      "path": "services/screenshot-service/README.md",
+      "description": "Documentation for the Screenshot Service microservice running on port 8005, called by the main backend on port 8001."
+    }
+  ]
+}
+
