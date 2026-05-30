@@ -173,8 +173,170 @@ async def replace_logo(page: Page, logo_idx: int, logo_media_id: str) -> bool:
         return False
 
 
+async def add_header_with_logo(page: Page) -> bool:
+    """
+    Add new header using the discovered workflow (from parallel_logo_warning_updater.py).
+    Used for templates without logo containers (e.g., CPRA templates).
+    """
+    logger.info("      ➕ Adding new header with logo...")
+
+    try:
+        # Step 1: Wait for #HEADER button to become active
+        logger.info("      Step 1: Checking #HEADER button state...")
+
+        button_state = await page.evaluate("""
+            () => {
+                const headerBtn = document.querySelector('#HEADER');
+                if (!headerBtn) return { found: false };
+
+                const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                return {
+                    found: true,
+                    opacity: opacity,
+                    active: opacity === 1.0
+                };
+            }
+        """)
+
+        if not button_state['found']:
+            logger.error("      ❌ #HEADER button not found in DOM")
+            return False
+
+        if not button_state['active']:
+            logger.error(f"      ❌ #HEADER button is grayed (opacity={button_state['opacity']})")
+            return False
+
+        logger.info(f"      ✅ #HEADER button is active (opacity={button_state['opacity']})")
+
+        # Click the button
+        header_clicked = await page.evaluate("""
+            () => {
+                const headerBtn = document.querySelector('#HEADER');
+                if (!headerBtn) return false;
+                headerBtn.click();
+                return true;
+            }
+        """)
+
+        if not header_clicked:
+            logger.error("      ❌ Failed to click #HEADER button")
+            return False
+
+        logger.info("      ✅ #HEADER button clicked")
+        await asyncio.sleep(2)
+
+        # Step 2: Find and click "+ Add Header" placeholder
+        logger.info("      Step 2: Finding '+ Add Header' button...")
+        add_header_btn_found = await page.evaluate("""
+            () => {
+                const buttons = Array.from(document.querySelectorAll('button'));
+                for (const btn of buttons) {
+                    if (btn.textContent.trim() === '+ Add Header') {
+                        btn.setAttribute('data-add-header-btn', 'true');
+                        return true;
+                    }
+                }
+                return false;
+            }
+        """)
+
+        if not add_header_btn_found:
+            logger.error("      ❌ '+ Add Header' button not found")
+            return False
+
+        logger.info("      Clicking '+ Add Header' button...")
+        add_header_btn = await page.query_selector('[data-add-header-btn="true"]')
+        await add_header_btn.click()
+        await asyncio.sleep(2)
+
+        # Step 3: Verify "Insert Header" popup opened
+        logger.info("      Step 3: Verifying 'Insert Header' popup...")
+        popup_opened = await page.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                if (!modal) return false;
+
+                const title = modal.querySelector('.ant-modal-title');
+                return title && title.textContent.includes('Insert Header');
+            }
+        """)
+
+        if not popup_opened:
+            logger.error("      ❌ 'Insert Header' popup not found")
+            return False
+
+        logger.info("      ✅ 'Insert Header' popup opened")
+
+        # Step 4: Select first template (radio button)
+        logger.info("      Step 4: Selecting template...")
+        radio_clicked = await page.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                if (!modal) return false;
+
+                const radio = modal.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.click();
+                    return true;
+                }
+                return false;
+            }
+        """)
+
+        if not radio_clicked:
+            logger.error("      ❌ Radio button not found")
+            return False
+
+        logger.info("      ✅ Template selected")
+        await asyncio.sleep(1)
+
+        # Step 5: Click Insert button
+        logger.info("      Step 5: Clicking Insert...")
+        insert_clicked = await page.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                if (!modal) return false;
+
+                const buttons = modal.querySelectorAll('button');
+                for (const btn of buttons) {
+                    if (btn.textContent.trim() === 'Insert') {
+                        btn.click();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        """)
+
+        if not insert_clicked:
+            logger.error("      ❌ Insert button not found")
+            return False
+
+        logger.info("      ✅ Insert clicked")
+        await asyncio.sleep(3)
+
+        # Step 6: Verify header was added
+        logger.info("      Step 6: Verifying header added...")
+        header_added = await page.evaluate("""
+            () => {
+                const headerBtn = document.querySelector('#HEADER');
+                if (!headerBtn) return false;
+
+                const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                return opacity < 1;  // Should be grayed again
+            }
+        """)
+
+        logger.info(f"      Header added: {header_added}")
+        return header_added
+
+    except Exception as e:
+        logger.error(f"      ❌ Error adding header: {e}")
+        return False
+
+
 async def process_template_tab(page: Page, template_info: dict, idx: int, total: int):
-    """Process logos in a single template tab"""
+    """Process logos in a single template tab - with two-check system"""
 
     logger.info(f"\n{'='*100}")
     logger.info(f"📄 TEMPLATE {idx}/{total}: {template_info['title'][:60]}")
@@ -182,12 +344,16 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
     logger.info(f"   URL: {template_info['url'][:80]}")
     logger.info(f"{'='*100}")
 
+    template_id = template_info['templateId']
+
     try:
         # Bring page to front
         await page.bring_to_front()
         await asyncio.sleep(2)
 
-        # Find logos with warnings
+        # ============================================================
+        # CHECK #1: Look for logo containers (warning icons)
+        # ============================================================
         logos_info = await page.evaluate("""
             () => {
                 const warnings = Array.from(
@@ -207,48 +373,116 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             }
         """)
 
-        if not logos_info['found']:
-            logger.info("   ℹ️  No logos with warnings - skipping")
-            return {
-                'template': template_info['title'],
-                'id': template_info['templateId'],
-                'status': 'skipped',
-                'reason': 'No logos with warnings',
-                'logos_processed': 0
-            }
+        if logos_info['found']:
+            # Has logo containers - process normally
+            logger.info(f"   ✅ Found {logos_info['count']} logo(s) with warnings")
 
         logger.info(f"   ✅ Found {logos_info['count']} logo(s) with warnings")
 
-        # Process each logo
-        logos_processed = 0
-        for logo_idx in range(1, logos_info['count'] + 1):
-            logger.info(f"\n   🎯 Processing logo {logo_idx}/{logos_info['count']}...")
+            # Process each logo
+            logos_processed = 0
+            for logo_idx in range(1, logos_info['count'] + 1):
+                logger.info(f"\n   🎯 Processing logo {logo_idx}/{logos_info['count']}...")
 
-            success = await replace_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
+                success = await replace_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
 
-            if success:
-                logos_processed += 1
-                logger.info(f"   ✅ Logo {logo_idx} replaced successfully")
+                if success:
+                    logos_processed += 1
+                    logger.info(f"   ✅ Logo {logo_idx} replaced successfully")
+                else:
+                    logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
+
+            # Return results
+            if logos_processed == logos_info['count']:
+                status = 'success'
+            elif logos_processed > 0:
+                status = 'partial'
             else:
-                logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
+                status = 'failed'
 
-        # Return results
-        if logos_processed == logos_info['count']:
-            status = 'success'
-        elif logos_processed > 0:
-            status = 'partial'
-        else:
-            status = 'failed'
+            logger.info(f"\n   ✅ Template complete: {logos_processed}/{logos_info['count']} logos replaced")
 
-        logger.info(f"\n   ✅ Template complete: {logos_processed}/{logos_info['count']} logos replaced")
+            return {
+                'template': template_info['title'],
+                'id': template_id,
+                'status': status,
+                'action': 'logo_replacement',
+                'logos_found': logos_info['count'],
+                'logos_processed': logos_processed
+            }
 
-        return {
-            'template': template_info['title'],
-            'id': template_info['templateId'],
-            'status': status,
-            'logos_found': logos_info['count'],
-            'logos_processed': logos_processed
-        }
+        # ============================================================
+        # No logo containers detected - TWO MORE CHECKS NEEDED
+        # ============================================================
+
+        # CHECK #2A: Is this a CPRA template? (naming convention)
+        is_cpra_template = template_id.startswith('CPRA_')
+
+        if is_cpra_template:
+            logger.info(f"   ℹ️  CPRA template detected: {template_id}")
+
+        # CHECK #2B: Check header button state
+        logger.info("   🔍 No logos with warnings - checking header button state...")
+        button_state = await page.evaluate("""
+            () => {
+                const btn = document.querySelector('#HEADER');
+                if (!btn) return { found: false };
+
+                const opacity = parseFloat(getComputedStyle(btn).opacity);
+                return {
+                    found: true,
+                    opacity: opacity,
+                    isGrayed: opacity < 1.0,
+                    isActive: opacity === 1.0
+                };
+            }
+        """)
+
+        if not button_state['found']:
+            logger.error("   ❌ #HEADER button not found")
+            return {
+                'template': template_info['title'],
+                'id': template_id,
+                'status': 'error',
+                'reason': 'Header button not found',
+                'logos_processed': 0
+            }
+
+        if button_state['isGrayed']:
+            # Has header structure (just no logos with warnings)
+            logger.info(f"   ℹ️  Header exists (opacity={button_state['opacity']}) - skipping")
+            return {
+                'template': template_info['title'],
+                'id': template_id,
+                'status': 'skipped',
+                'reason': 'Header exists, no logos with warnings',
+                'logos_processed': 0
+            }
+
+        elif button_state['isActive']:
+            # No header structure - ADD header with logo
+            logger.info(f"   ➕ No header (opacity={button_state['opacity']}) - adding header...")
+
+            added = await add_header_with_logo(page)
+
+            if added:
+                logger.info("   ✅ Header added successfully")
+                return {
+                    'template': template_info['title'],
+                    'id': template_id,
+                    'status': 'success',
+                    'action': 'header_added',
+                    'logos_processed': 1  # Count as 1 logo added
+                }
+            else:
+                logger.error("   ❌ Failed to add header")
+                return {
+                    'template': template_info['title'],
+                    'id': template_id,
+                    'status': 'failed',
+                    'reason': 'Header addition failed',
+                    'logos_processed': 0
+                }
 
     except Exception as e:
         logger.exception(f"   ❌ Error processing template: {e}")
@@ -268,9 +502,10 @@ async def main():
     results = []
 
     logger.info("=" * 100)
-    logger.info("🚀 PROCESS LOGOS ON ALREADY-OPENED TEMPLATES")
+    logger.info("🚀 PROCESS LOGOS ON ALREADY-OPENED TEMPLATES (WITH TWO-CHECK SYSTEM)")
     logger.info("=" * 100)
     logger.info("Logo Media ID: 6a19132b6697f36de6236fb1 (Tilton.png)")
+    logger.info("Features: Logo Replacement + Header Addition for CPRA templates")
     logger.info("=" * 100)
 
     async with async_playwright() as playwright:
@@ -322,10 +557,16 @@ async def main():
             skipped = sum(1 for r in results if r['status'] == 'skipped')
             failed = sum(1 for r in results if r['status'] in ['failed', 'error'])
 
+            # Count actions
+            logo_replacements = sum(1 for r in results if r.get('action') == 'logo_replacement')
+            headers_added = sum(1 for r in results if r.get('action') == 'header_added')
+
             logger.info("\n" + "=" * 100)
             logger.info("📊 FINAL SUMMARY")
             logger.info("=" * 100)
             logger.info(f"✅ Successful: {successful}")
+            logger.info(f"   - Logo Replacements: {logo_replacements}")
+            logger.info(f"   - Headers Added: {headers_added}")
             logger.info(f"⚠️  Partial: {partial}")
             logger.info(f"ℹ️  Skipped: {skipped}")
             logger.info(f"❌ Failed: {failed}")
