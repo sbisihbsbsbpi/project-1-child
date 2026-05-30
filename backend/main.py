@@ -3,7 +3,7 @@ FastAPI Backend for Screenshot Tool
 Handles screenshot capture, quality checks, and document generation
 """
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware  # ⚡ OPTIMIZATION: Response compression
 from fastapi.responses import FileResponse, JSONResponse
@@ -18,7 +18,7 @@ from pathlib import Path
 from uuid import uuid4
 from cachetools import TTLCache
 import psutil
-import httpx  # 🔄 MICROSERVICES: HTTP client for calling Document Service
+import httpx  # For network proxy endpoint only
 
 from screenshot_service import ScreenshotService
 from document_service import DocumentService
@@ -26,6 +26,19 @@ from quality_checker import QualityChecker
 from logging_config import setup_logging, log_request_start, log_request_complete, log_cancellation
 from config import settings  # ✅ PHASE 3: Centralized configuration
 from api_extraction_service import APIExtractionService  # 🌐 API extraction and documentation
+from template_removal_service import template_removal_service  # 🎨 Template logo removal service
+from template_logo_addition_service import template_logo_addition_service  # ✨ Template logo addition service
+from template_page_detector import template_page_detector  # 🔍 Template page comprehensive detector
+from app.core.exceptions import (
+    CaptureTimeoutError,
+    CaptureCancelledError,
+    URLValidationError,
+    PathValidationError,
+    SSRFAttemptError,
+    ScreenshotToolError,
+    DocumentGenerationError,
+)
+from app.core.path_security import PathSecurityValidator
 
 # ✅ FIXED: Structured logging instead of print statements
 logger = setup_logging(__name__)
@@ -42,15 +55,129 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.allowed_origins_list,  # ✅ From config.py
     allow_credentials=True,
-    allow_methods=["GET", "POST", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],  # 🌐 Support all HTTP methods for API testing
     allow_headers=["*"],
 )
+
+
+# ✅ TYPED EXCEPTIONS: Exception handlers for structured error responses
+@app.exception_handler(PathValidationError)
+async def path_validation_handler(request: Request, exc: PathValidationError):
+    """Handle path validation errors with 400 Bad Request."""
+    logger.warning(f"Path validation failed: {exc.path} - {exc.reason}")
+    return JSONResponse(
+        status_code=400,
+        content={
+            "detail": str(exc),
+            "error_type": "PathValidationError",
+            "context": {"path": exc.path, "reason": exc.reason}
+        }
+    )
+
+
+@app.exception_handler(URLValidationError)
+async def url_validation_handler(request: Request, exc: URLValidationError):
+    """Handle URL validation errors with 400 Bad Request."""
+    logger.warning(f"URL validation failed: {exc.url} - {exc.reason}")
+    return JSONResponse(
+        status_code=400,
+        content={
+            "detail": str(exc),
+            "error_type": "URLValidationError",
+            "context": {"url": exc.url, "reason": exc.reason}
+        }
+    )
+
+
+@app.exception_handler(SSRFAttemptError)
+async def ssrf_handler(request: Request, exc: SSRFAttemptError):
+    """Handle SSRF attempts with 403 Forbidden."""
+    logger.error(f"SSRF attempt detected: {str(exc)}")
+    return JSONResponse(
+        status_code=403,
+        content={
+            "detail": str(exc),
+            "error_type": "SSRFAttemptError",
+            "context": {}
+        }
+    )
+
+
+@app.exception_handler(CaptureTimeoutError)
+async def capture_timeout_handler(request: Request, exc: CaptureTimeoutError):
+    """Handle capture timeout errors with 500 Internal Server Error."""
+    logger.error(f"Capture timeout: {exc.url} after {exc.timeout_s}s")
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": str(exc),
+            "error_type": "CaptureTimeoutError",
+            "context": {
+                "url": exc.url,
+                "timeout_s": exc.timeout_s,
+                "reason": exc.reason
+            }
+        }
+    )
+
+
+@app.exception_handler(CaptureCancelledError)
+async def capture_cancelled_handler(request: Request, exc: CaptureCancelledError):
+    """Handle cancelled operations with 499 Client Closed Request."""
+    logger.info(f"Capture cancelled: {exc.url} (request_id={exc.request_id})")
+    return JSONResponse(
+        status_code=499,
+        content={
+            "detail": str(exc),
+            "error_type": "CaptureCancelledError",
+            "context": {
+                "url": exc.url,
+                "request_id": exc.request_id,
+                "reason": exc.reason
+            }
+        }
+    )
+
+
+@app.exception_handler(DocumentGenerationError)
+async def document_generation_handler(request: Request, exc: DocumentGenerationError):
+    """Handle document generation errors with 500 Internal Server Error."""
+    logger.error(f"Document generation failed: {exc.reason} (files={exc.file_count})")
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": str(exc),
+            "error_type": "DocumentGenerationError",
+            "context": {
+                "reason": exc.reason,
+                "file_count": exc.file_count
+            }
+        }
+    )
+
+
+@app.exception_handler(ScreenshotToolError)
+async def generic_screenshot_error_handler(request: Request, exc: ScreenshotToolError):
+    """Generic handler for all other ScreenshotToolError subclasses."""
+    logger.error(f"Screenshot tool error ({exc.__class__.__name__}): {str(exc)}")
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": str(exc),
+            "error_type": exc.__class__.__name__,
+            "context": vars(exc) if hasattr(exc, '__dict__') else {}
+        }
+    )
+
 
 # Services
 screenshot_service = ScreenshotService()
 document_service = DocumentService()
-quality_checker = QualityChecker()  # 🔄 MICROSERVICES: Will be replaced by Quality Service call
+quality_checker = QualityChecker()  # ✅ MONOLITH: Local quality checker
 api_extraction_service = APIExtractionService()  # 🌐 API extraction and documentation
+
+# 🎨 Initialize template removal service with screenshot service for resource sharing
+template_removal_service.screenshot_service = screenshot_service
 
 # ✅ FIXED: Request-scoped cancellation tracking with TTL to prevent memory leaks
 # Key: request_id (UUID), Value: {"cancelled": bool}
@@ -58,10 +185,10 @@ api_extraction_service = APIExtractionService()  # 🌐 API extraction and docum
 cancellation_contexts: TTLCache = TTLCache(maxsize=1000, ttl=3600)
 
 
-# 🔄 MICROSERVICES: Helper function to call Quality Service
+# ✅ MONOLITH: Direct call to quality checker (no HTTP overhead)
 async def check_quality_via_service(screenshot_path: str) -> Dict:
     """
-    Check screenshot quality via Quality Service microservice
+    Check screenshot quality using local quality checker
 
     Args:
         screenshot_path: Path to screenshot file
@@ -69,65 +196,10 @@ async def check_quality_via_service(screenshot_path: str) -> Dict:
     Returns:
         Dict with quality check results
     """
-    try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(
-                f"{settings.quality_service_url}/check",
-                json={"screenshot_path": screenshot_path}
-            )
-
-            if response.status_code != 200:
-                logger.error(f"❌ Quality Service returned error: {response.status_code}")
-                # Fallback to local quality checker
-                logger.warning("⚠️  Falling back to local quality checker")
-                return await quality_checker.check(screenshot_path)
-
-            result = response.json()
-            return {
-                "passed": result["passed"],
-                "score": result["score"],
-                "issues": result["issues"]
-            }
-    except httpx.RequestError as e:
-        # Network error - fallback to local quality checker
-        logger.warning(f"⚠️  Quality Service unavailable: {e}. Using local checker.")
-        return await quality_checker.check(screenshot_path)
-    except Exception as e:
-        # Other errors - fallback to local quality checker
-        logger.error(f"❌ Error calling Quality Service: {e}. Using local checker.")
-        return await quality_checker.check(screenshot_path)
+    return await quality_checker.check(screenshot_path)
 
 
-# 🔄 MICROSERVICES: Helper functions to call API Extraction Service
-async def _call_api_service(endpoint: str, data: dict) -> dict:
-    """
-    Call API Extraction Service microservice
-
-    Args:
-        endpoint: API endpoint (e.g., "generate-metadata")
-        data: Request data
-
-    Returns:
-        Response data from service
-    """
-    try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(
-                f"{settings.api_service_url}/{endpoint}",
-                json=data
-            )
-
-            if response.status_code != 200:
-                logger.error(f"❌ API Service returned error: {response.status_code}")
-                return None
-
-            return response.json()
-    except httpx.RequestError as e:
-        logger.warning(f"⚠️  API Service unavailable: {e}")
-        return None
-    except Exception as e:
-        logger.error(f"❌ Error calling API Service: {e}")
-        return None
+# ✅ MONOLITH: API Service helper removed - using direct calls instead
 
 
 def _get_backend_resource_usage() -> Optional[dict]:
@@ -201,6 +273,7 @@ def _get_backend_resource_usage() -> Optional[dict]:
 
 
 # ✅ SECURITY: Path validation helper
+# ✅ PHASE 1 (Path Security): Using centralized PathSecurityValidator
 def validate_screenshot_path(file_path: str) -> Path:
     """
     Validate file path to prevent directory traversal attacks.
@@ -213,27 +286,15 @@ def validate_screenshot_path(file_path: str) -> Path:
         Validated Path object
 
     Raises:
-        HTTPException: If path is invalid or outside allowed directory
+        PathValidationError: If path is invalid or outside allowed directory
     """
-    try:
-        # Resolve absolute paths
-        requested_path = Path(file_path).resolve()
-        screenshots_dir = settings.screenshots_dir.resolve()  # ✅ PHASE 3: From config
-
-        # Check if path is within allowed directory
-        if not requested_path.is_relative_to(screenshots_dir):
-            raise ValueError("Path outside screenshots directory")
-
-        # Check if file exists
-        if not requested_path.exists():
-            raise ValueError("File not found")
-
-        return requested_path
-    except Exception as e:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Invalid file path: {str(e)}"
-        )
+    return PathSecurityValidator.validate_path(
+        path=file_path,
+        base_dir=settings.screenshots_dir,
+        must_exist=True,
+        allow_symlinks=False,
+        allowed_extensions=PathSecurityValidator.SCREENSHOT_EXTENSIONS,
+    )
 
 
 # Models
@@ -264,6 +325,9 @@ class URLRequest(BaseModel):
     # ✅ NEW: Max parallel URLs per text box (for Real Browser Mode)
     max_parallel_urls: int = Field(default=5, ge=1, le=10,
                                    description="Max parallel URLs (1-10, Real Browser Mode only)")
+    # ✅ NEW: Rolling parallelization mode
+    enable_rolling_parallelization: bool = Field(default=False,
+                                                 description="Enable rolling parallelization (start next URL as soon as one finishes)")
     # ✅ NEW: Auto expand dropdowns/collapsible sections
     auto_expand_dropdowns: bool = False  # Automatically expand all collapsed sections before screenshot
     # ✅ NEW: Click elements before screenshot
@@ -281,20 +345,30 @@ class URLRequest(BaseModel):
 
         Returns:
             Validated list of URLs
+
+        Raises:
+            URLValidationError: If URLs are invalid
+            SSRFAttemptError: If dangerous URL patterns detected
         """
         if not v:
-            raise ValueError('URL list cannot be empty')
+            raise URLValidationError(reason='URL list cannot be empty')
         if len(v) > 500:
-            raise ValueError('Too many URLs (max 500 per request)')
+            raise URLValidationError(reason='Too many URLs (max 500 per request)')
 
         for url in v:
             # Check protocol
             if not url.startswith(('http://', 'https://')):
-                raise ValueError(f'Invalid URL protocol (must be http:// or https://): {url}')
+                raise URLValidationError(
+                    url=url,
+                    reason='Invalid URL protocol (must be http:// or https://)'
+                )
 
             # Check length
             if len(url) > 2048:
-                raise ValueError(f'URL too long (max 2048 characters): {url[:100]}...')
+                raise URLValidationError(
+                    url=url,
+                    reason=f'URL too long (max 2048 characters)'
+                )
 
             # Block dangerous protocols
             dangerous_patterns = ['file://', 'javascript:', 'data:', 'ftp://', 'file:', 'localhost', '127.0.0.1',
@@ -302,7 +376,7 @@ class URLRequest(BaseModel):
             url_lower = url.lower()
             for pattern in dangerous_patterns:
                 if pattern in url_lower and not url_lower.startswith('http'):
-                    raise ValueError(f'Dangerous URL pattern detected: {pattern}')
+                    raise SSRFAttemptError(f'Dangerous URL pattern detected: {pattern}')
 
         return v
 
@@ -465,7 +539,7 @@ def _group_urls_by_domain(urls: List[str]) -> Dict[str, List[str]]:
 
 
 def _create_smart_batches(urls: List[str], enable_batch: bool = True, max_parallel: int = 5,
-                          use_real_browser: bool = False) -> List[List[str]]:
+                          use_real_browser: bool = False, enable_rolling: bool = False) -> List[List[str]]:
     """
     Create smart batches based on domain detection and user settings.
 
@@ -475,11 +549,18 @@ def _create_smart_batches(urls: List[str], enable_batch: bool = True, max_parall
     - This respects the frontend's batching strategy
     - max_parallel is used by Real Browser Mode to control browser tabs
 
+    ✅ ROLLING PARALLELIZATION MODE:
+    - When enable_rolling=True, ALL URLs are processed in a single batch
+    - Semaphore controls concurrency (only max_parallel URLs run at once)
+    - As soon as one URL finishes, the next URL starts immediately
+    - This eliminates idle time between batches
+
     Args:
         urls: List of URLs to batch (already batched by frontend)
         enable_batch: Whether to enable batch processing
         max_parallel: Maximum parallel URLs (for Real Browser Mode tab control)
         use_real_browser: Whether using Real Browser Mode
+        enable_rolling: Whether to enable rolling parallelization
 
     Returns:
         List of batches (each batch is a list of URLs)
@@ -488,7 +569,14 @@ def _create_smart_batches(urls: List[str], enable_batch: bool = True, max_parall
         # Sequential processing - one URL at a time
         return [[url] for url in urls]
 
-    # ✅ NEW: Frontend already batched URLs across text boxes
+    # ✅ ROLLING MODE: Process ALL URLs in a single batch with semaphore control
+    # The semaphore ensures only max_parallel URLs run concurrently
+    # As URLs complete, new ones start immediately (no idle time)
+    if enable_rolling:
+        logger.info(f"⚡ Rolling parallelization enabled: {len(urls)} URLs, {max_parallel} concurrent")
+        return [urls]  # Single batch containing ALL URLs
+
+    # ✅ FIXED BATCH MODE: Frontend already batched URLs across text boxes
     # Process all URLs in this request as a SINGLE batch
     # The frontend controls the batch size (e.g., 5 URLs per request)
     # The backend processes all URLs in the request in parallel
@@ -619,14 +707,13 @@ async def _capture_single_url(
                     )
                     screenshot_paths = None
             except asyncio.TimeoutError:
-                mode = "real browser" if request.use_real_browser else "headless"
-                raise Exception(f"Screenshot capture timed out after {capture_timeout}s ({mode} mode)")
+                raise CaptureTimeoutError(url=url, timeout_s=capture_timeout)
 
             # Check cancellation after capture
             if cancellation_contexts[request_id]["cancelled"]:
-                raise Exception("Operation cancelled by user")
+                raise CaptureCancelledError(url=url, request_id=request_id)
 
-            # Quality check - 🔄 MICROSERVICES: Call Quality Service
+            # Quality check - ✅ MONOLITH: Direct call to quality checker
             quality_result = await check_quality_via_service(screenshot_path)
 
             # ✅ NEW: Calculate processing time
@@ -711,13 +798,20 @@ async def capture_screenshots(request: URLRequest):
         request.urls,
         enable_batch,
         max_parallel=request.max_parallel_urls,  # ✅ NEW: User-configurable
-        use_real_browser=request.use_real_browser
+        use_real_browser=request.use_real_browser,
+        enable_rolling=request.enable_rolling_parallelization  # ✅ NEW: Rolling parallelization
     )
 
     if enable_batch and screenshot_service.ENABLE_BATCH_PROCESSING:
-        logger.info(f"⚡ Smart batch processing enabled: {len(batches)} batches for {len(request.urls)} URLs")
-        if request.use_real_browser:
-            logger.info(f"   🌐 Real Browser Mode: Will open up to {request.max_parallel_urls} tabs at once")
+        if request.enable_rolling_parallelization:
+            logger.info(f"⚡ Rolling parallelization mode: {len(request.urls)} URLs, {request.max_parallel_urls} concurrent")
+            logger.info(f"   🔄 URLs will start immediately as slots become available (no idle time)")
+            if request.use_real_browser:
+                logger.info(f"   🌐 Real Browser Mode: Up to {request.max_parallel_urls} tabs open at once")
+        else:
+            logger.info(f"⚡ Smart batch processing enabled: {len(batches)} batches for {len(request.urls)} URLs")
+            if request.use_real_browser:
+                logger.info(f"   🌐 Real Browser Mode: Will open up to {request.max_parallel_urls} tabs at once")
     else:
         logger.info(f"📋 Sequential processing: {len(request.urls)} URLs")
 
@@ -732,7 +826,10 @@ async def capture_screenshots(request: URLRequest):
                 break
 
             if len(batch) > 1:
-                logger.info(f"🚀 Processing batch {batch_num}/{len(batches)} ({len(batch)} URLs in parallel)...")
+                if request.enable_rolling_parallelization:
+                    logger.info(f"🔄 Rolling mode: Processing {len(batch)} URLs ({request.max_parallel_urls} concurrent)...")
+                else:
+                    logger.info(f"🚀 Processing batch {batch_num}/{len(batches)} ({len(batch)} URLs in parallel)...")
 
             # Create tasks for this batch
             # ✅ FIX: Use max_parallel_urls setting to control concurrency, not batch size
@@ -746,24 +843,40 @@ async def capture_screenshots(request: URLRequest):
                 for i, url in enumerate(batch)
             ]
 
+            # Calculate timeout for this batch
+            # ✅ ROLLING MODE: Scale timeout based on total URLs and concurrency
+            # Formula: batch_timeout × (total_urls / max_parallel)
+            # Example: 900s × (49 / 7) = 6300s (~105 minutes)
+            if request.enable_rolling_parallelization:
+                # Scale timeout proportionally to number of URLs
+                scaling_factor = len(batch) / request.max_parallel_urls
+                calculated_timeout = (request.batch_timeout if request.batch_timeout else 300) * scaling_factor
+                # Cap at 2 hours (7200s) for safety
+                batch_timeout_value = min(calculated_timeout, 7200)
+                logger.info(f"   ⏱️  Rolling mode timeout: {batch_timeout_value:.0f}s (scaled for {len(batch)} URLs)")
+            else:
+                # Fixed batch mode: use batch_timeout as-is
+                batch_timeout_value = request.batch_timeout if request.batch_timeout else 300
+
             # Execute batch in parallel with batch timeout
             # ✅ FIXED: Apply batch_timeout to ENTIRE batch, not per URL
             try:
                 batch_results = await asyncio.wait_for(
                     asyncio.gather(*batch_tasks),
-                    timeout=request.batch_timeout if request.batch_timeout else 300  # Default 5 minutes
+                    timeout=batch_timeout_value
                 )
                 results.extend(batch_results)
                 url_index += len(batch)
             except asyncio.TimeoutError:
                 # Batch timed out - mark all URLs in batch as failed
+                timeout_msg = f"Rolling mode timeout after {batch_timeout_value:.0f}s" if request.enable_rolling_parallelization else f"Batch timed out after {batch_timeout_value}s"
                 for i, url in enumerate(batch):
                     results.append(ScreenshotResult(
                         url=url,
                         status="error",
-                        error=f"Batch timed out after {request.batch_timeout}s",
+                        error=timeout_msg,
                         timestamp=datetime.now().isoformat(),
-                        processing_time=float(request.batch_timeout) if request.batch_timeout else 300.0
+                        processing_time=float(batch_timeout_value)
                     ))
                 url_index += len(batch)
 
@@ -782,7 +895,7 @@ async def capture_screenshots(request: URLRequest):
             if failed_urls and not cancellation_contexts[request_id]["cancelled"]:
                 logger.info(f"\n🔄 Retrying {len(failed_urls)} failed URLs...")
 
-                retry_results = []
+                # 🔧 FIX: Removed unused retry_results list
                 for url in failed_urls:
                     # Check cancellation before each retry
                     if cancellation_contexts[request_id]["cancelled"]:
@@ -797,9 +910,8 @@ async def capture_screenshots(request: URLRequest):
                             0, len(failed_urls),
                             asyncio.Semaphore(1)  # One at a time for retries
                         )
-                        retry_results.append(retry_result)
 
-                        # Update original result
+                        # Update original result in the results list directly
                         for i, r in enumerate(results):
                             if r.url == url:
                                 results[i] = retry_result
@@ -899,7 +1011,7 @@ async def capture_screenshots_sequential(request: URLRequest):
 
                 # Check cancellation before starting capture
                 if cancellation_contexts[request_id]["cancelled"]:
-                    raise Exception("Operation cancelled by user")
+                    raise CaptureCancelledError(url=url, request_id=request_id)
 
                 # Capture screenshot with timeout
                 # Use longer timeout for real browser mode and stealth mode (needs more time to load)
@@ -970,14 +1082,13 @@ async def capture_screenshots_sequential(request: URLRequest):
                         )
                         screenshot_paths = None
                 except asyncio.TimeoutError:
-                    mode = "real browser" if request.use_real_browser else "headless"
-                    raise Exception(f"Screenshot capture timed out after {capture_timeout}s ({mode} mode)")
+                    raise CaptureTimeoutError(url=url, timeout_s=capture_timeout)
 
                 # Check cancellation after capture
                 if cancellation_contexts[request_id]["cancelled"]:
-                    raise Exception("Operation cancelled by user")
+                    raise CaptureCancelledError(url=url, request_id=request_id)
 
-                # Quality check (use first screenshot for segmented mode) - 🔄 MICROSERVICES
+                # Quality check (use first screenshot for segmented mode) - ✅ MONOLITH
                 quality_result = await check_quality_via_service(screenshot_path)
 
                 result = ScreenshotResult(
@@ -1126,7 +1237,7 @@ async def retry_screenshot(url: str, viewport_width: int = 1920, viewport_height
             full_page=True
         )
 
-        # 🔄 MICROSERVICES: Call Quality Service
+        # ✅ MONOLITH: Direct call to quality checker
         quality_result = await check_quality_via_service(screenshot_path)
 
         return ScreenshotResult(
@@ -1150,49 +1261,29 @@ async def retry_screenshot(url: str, viewport_width: int = 1920, viewport_height
 async def generate_document(request: DocumentRequest):
     """
     Generate Word document from screenshots
-    🔄 MICROSERVICES: Calls Document Service (port 8002) instead of local service
+    ✅ MONOLITH: Direct call to local document service
     """
     try:
-        logger.info(f"📄 Calling Document Service to generate document with {len(request.screenshot_paths)} screenshots")
+        logger.info(f"📄 Generating document with {len(request.screenshot_paths)} screenshots")
 
-        # 🔄 MICROSERVICES: Call Document Service microservice
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            response = await client.post(
-                f"{settings.document_service_url}/generate",
-                json={
-                    "screenshot_paths": request.screenshot_paths,
-                    "output_path": request.output_path,
-                    "title": request.title
-                }
-            )
-
-            # Check if request was successful
-            if response.status_code != 200:
-                logger.error(f"❌ Document Service returned error: {response.status_code}")
-                raise HTTPException(
-                    status_code=response.status_code,
-                    detail=f"Document Service error: {response.text}"
-                )
-
-            result = response.json()
-            logger.info(f"✅ Document generated successfully: {result.get('document_path')}")
-
-            return {
-                "status": "success",
-                "output_path": result.get("document_path"),
-                "screenshot_count": result.get("screenshot_count"),
-                "generated_at": result.get("generated_at")
-            }
-
-    except httpx.RequestError as e:
-        # Network/connection errors
-        logger.error(f"❌ Failed to connect to Document Service: {e}")
-        raise HTTPException(
-            status_code=503,
-            detail=f"Document Service unavailable: {str(e)}. Make sure the service is running on port 8002."
+        # ✅ MONOLITH: Direct call to local document service
+        # ✅ FIXED: Added await for async function call
+        output_path = await document_service.generate(
+            screenshot_paths=request.screenshot_paths,
+            output_path=request.output_path,
+            title=request.title
         )
+
+        logger.info(f"✅ Document generated successfully: {output_path}")
+
+        return {
+            "status": "success",
+            "output_path": output_path,
+            "screenshot_count": len(request.screenshot_paths),
+            "generated_at": datetime.now().isoformat()
+        }
+
     except Exception as e:
-        # Other errors
         logger.error(f"❌ Error generating document: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -1592,31 +1683,29 @@ async def launch_debug_chrome():
 
         logger.info("🔴 Debug Chrome launch requested")
 
-        # ✅ FIXED (Bug #13): Validate and sanitize file path
+        # ✅ PHASE 1 (Path Security): Validate launcher path
         launcher_path_str = os.path.expanduser(
             "~/Library/Application Support/Google/Chrome-Debug/🔴 CLICK HERE TO LAUNCH DEBUG CHROME.command"
         )
-        launcher_path = Path(launcher_path_str).resolve()
 
-        # Validate path is within expected directory
         expected_base = Path.home() / "Library" / "Application Support" / "Google" / "Chrome-Debug"
+
         try:
-            launcher_path.relative_to(expected_base)
-        except ValueError:
-            logger.error(f"❌ Launcher path outside expected directory: {launcher_path}")
+            launcher_path = PathSecurityValidator.validate_path(
+                path=launcher_path_str,
+                base_dir=expected_base,
+                must_exist=True,
+                allow_symlinks=False,
+                allowed_extensions={".command"},
+            )
+        except PathValidationError as e:
+            logger.error(f"❌ Launcher path validation failed: {e}")
             raise HTTPException(
                 status_code=400,
-                detail="Invalid launcher path - security violation"
+                detail=f"Invalid launcher path: {e}"
             )
 
-        # Check if launcher exists and is a file
-        if not launcher_path.exists():
-            logger.error(f"❌ Launcher not found at: {launcher_path}")
-            raise HTTPException(
-                status_code=404,
-                detail="Debug Chrome launcher not found. Please run setup-all-chrome-profiles.sh first."
-            )
-
+        # Additional check: must be a file
         if not launcher_path.is_file():
             logger.error(f"❌ Launcher path is not a file: {launcher_path}")
             raise HTTPException(
@@ -1712,30 +1801,24 @@ async def launch_brave_cdp():
             )
 
         # 2) Prepare Brave paths (macOS)
-        # ✅ FIXED (Bug #13): Validate browser executable path
+        # ✅ PHASE 1 (Path Security): Validate browser executable path
         brave_path_str = "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
-        brave_path = Path(brave_path_str).resolve()
 
-        # Validate path is in /Applications
         try:
-            brave_path.relative_to("/Applications")
-        except ValueError:
-            logger.error(f"❌ Brave path outside /Applications: {brave_path}")
+            brave_path = PathSecurityValidator.validate_path(
+                path=brave_path_str,
+                base_dir=Path("/Applications"),
+                must_exist=True,
+                allow_symlinks=False,
+            )
+        except PathValidationError as e:
+            logger.error(f"❌ Brave path validation failed: {e}")
             raise HTTPException(
                 status_code=400,
-                detail="Invalid browser path - security violation"
+                detail=f"Invalid browser path: {e}"
             )
 
-        if not brave_path.exists():
-            logger.error(f"❌ Brave Browser not found at: {brave_path}")
-            raise HTTPException(
-                status_code=404,
-                detail=(
-                    "Brave Browser not found at the expected location. "
-                    "Please install Brave or adjust the path in the backend."
-                ),
-            )
-
+        # Additional check: must be a file
         if not brave_path.is_file():
             logger.error(f"❌ Brave path is not a file: {brave_path}")
             raise HTTPException(
@@ -1743,20 +1826,22 @@ async def launch_brave_cdp():
                 detail="Browser path must be a file"
             )
 
-        # Validate user data directory
+        # ✅ PHASE 1 (Path Security): Validate user data directory
         user_data_dir = os.path.expanduser(
             "~/Library/Application Support/BraveSoftware/Brave-Browser"
         )
-        user_data_path = Path(user_data_dir).resolve()
 
-        # Ensure it's within user's home directory
         try:
-            user_data_path.relative_to(Path.home())
-        except ValueError:
-            logger.error(f"❌ User data dir outside home: {user_data_path}")
+            user_data_path = PathSecurityValidator.validate_directory_creation(
+                path=user_data_dir,
+                allowed_parent=Path.home(),
+                max_depth=10,
+            )
+        except PathValidationError as e:
+            logger.error(f"❌ User data dir validation failed: {e}")
             raise HTTPException(
                 status_code=400,
-                detail="Invalid user data directory - security violation"
+                detail=f"Invalid user data directory: {e}"
             )
 
         # ✅ FIX: Close existing Brave instances before launching with CDP
@@ -1867,6 +1952,47 @@ async def get_file_paths():
     }
 
 
+# ✅ PHASE 4: Security audit endpoints
+@app.get("/api/security/audit-events")
+async def get_security_audit_events(
+    event_type: Optional[str] = None,
+    limit: int = 100
+):
+    """
+    Get recent security audit events
+
+    Query parameters:
+    - event_type: Filter by event type (optional)
+    - limit: Maximum number of events (default: 100, max: 1000)
+    """
+    limit = min(limit, 1000)  # Cap at 1000
+    events = PathSecurityValidator.get_audit_events(event_type=event_type, limit=limit)
+    return {
+        "events": events,
+        "count": len(events),
+        "event_type_filter": event_type
+    }
+
+
+@app.get("/api/security/audit-summary")
+async def get_security_audit_summary():
+    """Get summary statistics of security audit events"""
+    summary = PathSecurityValidator.get_audit_summary()
+    return summary
+
+
+@app.delete("/api/security/audit-events")
+async def clear_security_audit_events():
+    """Clear all security audit events"""
+    count = PathSecurityValidator.clear_audit_events()
+    return {
+        "status": "success",
+        "events_cleared": count
+    }
+
+
+
+
 @app.post("/api/config/paths")
 async def update_file_paths(paths: dict):
     """
@@ -1879,22 +2005,35 @@ async def update_file_paths(paths: dict):
     """
     try:
         if "screenshots_dir" in paths:
-            new_dir = Path(paths["screenshots_dir"]).expanduser()
-            new_dir.mkdir(parents=True, exist_ok=True)
+            # ✅ PHASE 1 (Path Security): Validate user-controlled directory path
+            user_input = paths["screenshots_dir"]
+
+            # Validate directory creation with security checks
+            validated_dir = PathSecurityValidator.validate_directory_creation(
+                path=user_input,
+                allowed_parent=Path.home(),
+                max_depth=10,
+            )
+
+            # Create directory with restricted permissions
+            validated_dir.mkdir(parents=True, exist_ok=True, mode=0o755)
 
             # Update the service's output directory
-            screenshot_service.output_dir = new_dir
+            screenshot_service.output_dir = validated_dir
 
-            logger.info(f"📁 Updated screenshots directory to: {new_dir}")
+            logger.info(f"📁 Updated screenshots directory to: {validated_dir}")
 
             return {
                 "status": "success",
-                "screenshots_dir": str(new_dir),
-                "screenshots_dir_absolute": str(new_dir.resolve())
+                "screenshots_dir": str(validated_dir),
+                "screenshots_dir_absolute": str(validated_dir.resolve())
             }
 
         return {"status": "error", "message": "No valid paths provided"}
 
+    except PathValidationError as e:
+        logger.error(f"Path validation failed: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Failed to update file paths: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -1922,6 +2061,590 @@ class APIExtractionResult(BaseModel):
     metadata: dict
     extracted_fields: dict
     raw_response: Optional[dict] = None
+
+
+# ========================================
+# 🌐 API PROXY (POSTMAN-LIKE) MODELS
+# ========================================
+
+class ProxyRequest(BaseModel):
+    """Request model for API proxy - Postman-like functionality"""
+    url: str = Field(..., description="Target API URL")
+    method: str = Field("GET", description="HTTP method (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS)")
+    headers: Dict[str, str] = Field(default_factory=dict, description="Request headers")
+    body: Optional[str] = Field(None, description="Request body (JSON string or raw text)")
+    pre_request_script: Optional[str] = Field(None, description="JavaScript to run before request")
+    post_response_script: Optional[str] = Field(None, description="JavaScript to run after response")
+    timeout: int = Field(30, ge=1, le=300, description="Request timeout in seconds")
+
+
+class ProxyResponse(BaseModel):
+    """Response model for API proxy"""
+    status: int
+    status_text: str
+    headers: Dict[str, str]
+    body: str
+    json: Optional[dict] = None
+    size: int
+    time: float  # milliseconds
+
+
+@app.post("/api/proxy-request")
+async def proxy_api_request(request: ProxyRequest):
+    """
+    🌐 API Proxy - Postman-like functionality
+
+    Proxies API requests to bypass CORS restrictions.
+    Supports all HTTP methods, custom headers, and request/response scripts.
+
+    This is the core endpoint for the Business Apps API Testing tool.
+    """
+    import time as time_module
+
+    try:
+        logger.info(f"🌐 Proxying {request.method} request to: {request.url}")
+        logger.info(f"📋 Headers count: {len(request.headers) if request.headers else 0}")
+        logger.info(f"📦 Body size: {len(request.body) if request.body else 0} bytes")
+
+        # Log body preview for debugging
+        if request.body:
+            logger.info(f"📄 Body preview: {request.body[:500]}")
+
+        # Start timing
+        start_time = time_module.time()
+
+        # TODO: Execute pre-request script (Phase 2)
+        # For now, we'll skip script execution and implement it in next iteration
+
+        # Prepare request headers (convert to dict for httpx)
+        headers = dict(request.headers) if request.headers else {}
+
+        # Log headers before modification
+        header_keys_lower = {k.lower() for k in headers.keys()}
+        logger.info(f"📋 Received headers: {list(headers.keys())[:10]}...")  # Show first 10
+        logger.info(f"🔍 Has content-type: {'content-type' in header_keys_lower}")
+
+        # CRITICAL FIX: Ensure Content-Type is set for requests with body
+        # HTTP 415 (Unsupported Media Type) occurs when this header is missing or wrong
+        if request.body:
+            if 'content-type' not in header_keys_lower:
+                headers['Content-Type'] = 'application/json'
+                logger.warning("⚠️ Added missing Content-Type: application/json header")
+            else:
+                # Find the actual key (could be 'Content-Type' or 'content-type')
+                actual_ct_key = next((k for k in headers.keys() if k.lower() == 'content-type'), None)
+                if actual_ct_key:
+                    logger.info(f"✅ Content-Type already present: {headers[actual_ct_key]}")
+
+        # Prepare request body
+        body_content = None
+        if request.body:
+            body_content = request.body.encode('utf-8')
+
+        # Make the proxied request
+        async with httpx.AsyncClient(timeout=request.timeout, follow_redirects=True) as client:
+            response = await client.request(
+                method=request.method.upper(),
+                url=request.url,
+                headers=headers,
+                content=body_content
+            )
+
+        # Calculate response time
+        elapsed_ms = (time_module.time() - start_time) * 1000
+
+        logger.info(f"📥 Response: {response.status_code} ({elapsed_ms:.0f}ms)")
+        logger.info(f"📊 Response size: {len(response.content)} bytes")
+
+        # Parse response body
+        response_body = response.text
+        response_json = None
+
+        # Try to parse as JSON
+        try:
+            response_json = response.json()
+            # Log error responses for debugging
+            if response.status_code >= 400:
+                logger.error(f"❌ Error response JSON: {response_json}")
+        except Exception:
+            # Not JSON, that's okay
+            if response.status_code >= 400:
+                logger.error(f"❌ Error response (non-JSON): {response_body[:500]}")
+
+        # TODO: Execute post-response script (Phase 2)
+
+        # Build response
+        result = ProxyResponse(
+            status=response.status_code,
+            status_text=response.reason_phrase or str(response.status_code),
+            headers=dict(response.headers),
+            body=response_body,
+            json=response_json,
+            size=len(response.content),
+            time=round(elapsed_ms, 2)
+        )
+
+        if response.status_code >= 400:
+            logger.warning(f"⚠️ Proxy request completed with error: {response.status_code} in {elapsed_ms:.2f}ms")
+        else:
+            logger.info(f"✅ Proxy request completed: {response.status_code} in {elapsed_ms:.2f}ms")
+
+        return result
+
+    except httpx.TimeoutException as e:
+        logger.error(f"❌ Proxy request timeout: {e}")
+        raise HTTPException(
+            status_code=504,
+            detail=f"Request timeout after {request.timeout}s"
+        )
+    except httpx.RequestError as e:
+        logger.error(f"❌ Proxy request failed: {e}")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Proxy error: {str(e)}"
+        )
+    except Exception as e:
+        logger.error(f"❌ Unexpected proxy error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+
+
+# ========================================
+# 🎯 PRIORITY CODE SYNC ENDPOINT
+# ========================================
+
+class PriorityCodeSyncResponse(BaseModel):
+    """Response from priority code synchronization"""
+    success: bool
+    total_existing: int
+    required_codes: List[str]
+    deleted_codes: List[dict]
+    created_codes: List[dict]
+    failed_deletes: List[dict]
+    failed_creates: List[dict]
+    kept_codes: List[str]
+    summary: str
+
+
+@app.post("/api/priority-code/sync", response_model=PriorityCodeSyncResponse)
+async def sync_priority_codes(request: Request):
+    """
+    🎯 Priority Code Synchronization
+
+    Ensures exactly 5 required priority codes exist:
+    - SPAC: Back Order Part Order
+    - STK: Stock Order
+    - KEY: Key Order
+    - OVN: Over Night Order
+    - CSO: Customer Order (default)
+
+    Workflow:
+    1. GET existing codes
+    2. Soft-delete codes not in required list (SEQUENTIAL)
+    3. Create missing required codes (SEQUENTIAL)
+
+    Returns detailed summary of all operations.
+
+    Note: This endpoint receives headers via HTTP request headers
+    (forwarded by /api/proxy-request).
+    """
+    try:
+        logger.info("=" * 80)
+        logger.info("🎯 PRIORITY CODE SYNC - START")
+        logger.info("=" * 80)
+
+        # Define required codes
+        REQUIRED_CODES = [
+            {"code": "SPAC", "description": "Back Order Part Order", "default": False},
+            {"code": "STK", "description": "Stock Order", "default": False},
+            {"code": "KEY", "description": "Key Order", "default": False},
+            {"code": "OVN", "description": "Over Night Order", "default": False},
+            {"code": "CSO", "description": "Customer Order", "default": True}
+        ]
+
+        logger.info(f"📋 Required codes: {[c['code'] for c in REQUIRED_CODES]}")
+
+        # Extract Tekion headers from incoming HTTP request headers
+        # The /api/proxy-request endpoint forwards headers from the frontend
+        tekion_headers = dict(request.headers)
+        logger.info(f"📨 Received {len(tekion_headers)} total headers (including infrastructure)")
+
+        # Remove FastAPI/infrastructure headers, keep only Tekion headers
+        headers_to_remove = ['host', 'user-agent', 'accept-encoding', 'connection', 'content-length', 'content-type']
+        for header in headers_to_remove:
+            tekion_headers.pop(header, None)
+
+        if not tekion_headers or len(tekion_headers) < 5:
+            logger.error(f"❌ SYNC FAILED: Insufficient headers received: {len(tekion_headers)} headers")
+            raise HTTPException(
+                status_code=400,
+                detail=f"No Tekion headers provided. Please ensure unified headers are configured in Parts Tab. Received: {list(tekion_headers.keys())}"
+            )
+
+        logger.info(f"✅ Validated {len(tekion_headers)} Tekion headers")
+        logger.info(f"🔑 Key headers: dealerid={tekion_headers.get('dealerid')}, tenantname={tekion_headers.get('tenantname')}, userid={tekion_headers.get('userid')[:8]}...")
+
+        base_url = "https://preprodapp.tekioncloud.com/api/parts/proxy/u/settings/priority-code"
+        logger.info(f"🌐 Target API: {base_url}")
+
+        # STEP 1: GET existing priority codes
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("📥 STEP 1: FETCH EXISTING PRIORITY CODES")
+        logger.info("─" * 80)
+        logger.info(f"🌐 GET {base_url}")
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            get_response = await client.get(base_url, headers=tekion_headers)
+
+            logger.info(f"📥 Response status: {get_response.status_code}")
+            logger.info(f"📊 Response size: {len(get_response.content)} bytes")
+
+            if get_response.status_code != 200:
+                logger.error(f"❌ FETCH FAILED: Status {get_response.status_code}")
+                logger.error(f"📄 Error response: {get_response.text[:500]}")
+                raise HTTPException(
+                    status_code=get_response.status_code,
+                    detail=f"Failed to fetch priority codes: {get_response.text}"
+                )
+
+            try:
+                response_data = get_response.json()
+                logger.info(f"📊 Response type: {type(response_data)}")
+                logger.info(f"📄 Response preview: {str(response_data)[:300]}")
+
+                # Handle both direct array and wrapped response
+                if isinstance(response_data, list):
+                    existing_codes = response_data
+                elif isinstance(response_data, dict):
+                    # Common API patterns: {"data": [...]} or {"results": [...]} or {"priorityCodes": [...]}
+                    if "data" in response_data:
+                        existing_codes = response_data["data"]
+                    elif "results" in response_data:
+                        existing_codes = response_data["results"]
+                    elif "priorityCodes" in response_data:
+                        existing_codes = response_data["priorityCodes"]
+                    elif "items" in response_data:
+                        existing_codes = response_data["items"]
+                    else:
+                        # Log all keys to help debug
+                        logger.error(f"❌ Response is dict but no known wrapper key found. Keys: {list(response_data.keys())}")
+                        raise HTTPException(
+                            status_code=500,
+                            detail=f"Unexpected response structure. Keys: {list(response_data.keys())[:10]}"
+                        )
+                else:
+                    logger.error(f"❌ Expected list or dict, got {type(response_data)}: {str(response_data)[:200]}")
+                    raise HTTPException(
+                        status_code=500,
+                        detail=f"Invalid response type from Tekion API: {type(response_data).__name__}"
+                    )
+
+                # Validate that we now have a list
+                if not isinstance(existing_codes, list):
+                    logger.error(f"❌ After unwrapping, expected list, got {type(existing_codes)}")
+                    raise HTTPException(
+                        status_code=500,
+                        detail=f"Invalid data structure: expected list, got {type(existing_codes).__name__}"
+                    )
+
+                logger.info(f"✅ Successfully fetched {len(existing_codes)} existing priority codes")
+                if existing_codes:
+                    sample_codes = [c.get('code', 'N/A') for c in existing_codes[:5] if isinstance(c, dict)]
+                    logger.info(f"📋 Sample codes: {sample_codes}{' ...' if len(existing_codes) > 5 else ''}")
+
+            except HTTPException:
+                raise
+            except Exception as e:
+                logger.error(f"❌ Failed to parse JSON response: {e}")
+                logger.error(f"📄 Response text: {get_response.text[:500]}")
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"Failed to parse Tekion API response: {str(e)}"
+                )
+
+        # STEP 2: Identify codes to delete
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("🔍 STEP 2: ANALYZE EXISTING CODES")
+        logger.info("─" * 80)
+
+        required_code_strings = [c["code"] for c in REQUIRED_CODES]
+        logger.info(f"📋 Required codes: {required_code_strings}")
+
+        unwanted_codes = [
+            c for c in existing_codes
+            if isinstance(c, dict) and c.get("code") not in required_code_strings and not c.get("deleted", False)
+        ]
+
+        kept_codes = [
+            c["code"] for c in existing_codes
+            if isinstance(c, dict) and c.get("code") in required_code_strings and not c.get("deleted", False)
+        ]
+
+        already_deleted = [
+            c["code"] for c in existing_codes
+            if isinstance(c, dict) and c.get("deleted", False)
+        ]
+
+        logger.info(f"✅ Keeping {len(kept_codes)} required codes: {kept_codes}")
+        logger.info(f"⚠️ Found {len(unwanted_codes)} unwanted codes to delete: {[c['code'] for c in unwanted_codes if isinstance(c, dict)]}")
+        if already_deleted:
+            logger.info(f"🗑️ Already deleted: {already_deleted}")
+
+        # STEP 3: Soft-delete unwanted codes (SEQUENTIAL)
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("🗑️ STEP 3: DELETE UNWANTED CODES (SEQUENTIAL)")
+        logger.info("─" * 80)
+
+        deleted_codes = []
+        failed_deletes = []
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            if unwanted_codes:
+                logger.info(f"🔄 Processing {len(unwanted_codes)} deletions sequentially...")
+            else:
+                logger.info("✅ No unwanted codes to delete")
+
+            for idx, unwanted in enumerate(unwanted_codes, 1):
+                delete_url = f"{base_url}/{unwanted['id']}"
+                delete_body = {
+                    "id": unwanted["id"],
+                    "priorityCode": unwanted["code"],  # API uses 'priorityCode' not 'code'
+                    "description": unwanted["description"],
+                    "isDefault": unwanted.get("default", False),  # API uses 'isDefault'
+                    "deleted": True
+                }
+
+                logger.info(f"🗑️ [{idx}/{len(unwanted_codes)}] Deleting '{unwanted['code']}' (ID: {unwanted['id'][:8]}...)")
+                logger.info(f"   🌐 PUT {delete_url}")
+
+                try:
+                    delete_response = await client.put(
+                        delete_url,
+                        json=delete_body,
+                        headers=tekion_headers,
+                        timeout=10.0
+                    )
+
+                    logger.info(f"   📥 Response: {delete_response.status_code}")
+
+                    if delete_response.status_code in [200, 201, 204]:
+                        deleted_codes.append({
+                            "id": unwanted["id"],
+                            "code": unwanted["code"],
+                            "description": unwanted["description"]
+                        })
+                        logger.info(f"   ✅ Successfully deleted '{unwanted['code']}'")
+                    else:
+                        error_msg = delete_response.text[:200]
+                        failed_deletes.append({
+                            "code": unwanted["code"],
+                            "status": delete_response.status_code,
+                            "error": error_msg
+                        })
+                        logger.error(f"   ❌ Failed: {delete_response.status_code} - {error_msg}")
+
+                except httpx.TimeoutError:
+                    failed_deletes.append({
+                        "code": unwanted["code"],
+                        "error": "Timeout after 10s"
+                    })
+                    logger.error(f"   ❌ Timeout after 10s")
+
+                except Exception as e:
+                    failed_deletes.append({
+                        "code": unwanted["code"],
+                        "error": str(e)[:200]
+                    })
+                    logger.error(f"   ❌ Exception: {e}")
+
+            if unwanted_codes:
+                logger.info(f"📊 Delete summary: {len(deleted_codes)} succeeded, {len(failed_deletes)} failed")
+
+        # STEP 4: Identify missing required codes
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("🔍 STEP 4: IDENTIFY MISSING CODES")
+        logger.info("─" * 80)
+
+        existing_active_codes = [
+            c["code"] for c in existing_codes
+            if isinstance(c, dict) and not c.get("deleted", False)
+        ]
+
+        missing_codes = [
+            c for c in REQUIRED_CODES
+            if c["code"] not in existing_active_codes
+        ]
+
+        logger.info(f"📊 Existing active codes: {existing_active_codes}")
+        logger.info(f"➕ Missing codes to create: {[c['code'] for c in missing_codes]}")
+
+        # STEP 5: Create missing codes (SEQUENTIAL)
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("➕ STEP 5: CREATE MISSING CODES (SEQUENTIAL)")
+        logger.info("─" * 80)
+
+        created_codes = []
+        failed_creates = []
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            if missing_codes:
+                logger.info(f"🔄 Processing {len(missing_codes)} creations sequentially...")
+            else:
+                logger.info("✅ No missing codes to create - all required codes exist")
+
+            for idx, missing in enumerate(missing_codes, 1):
+                create_body = {
+                    "code": missing["code"],  # API uses 'code' for POST
+                    "description": missing["description"]
+                }
+
+                logger.info(f"➕ [{idx}/{len(missing_codes)}] Creating '{missing['code']}' ({missing['description']})")
+                logger.info(f"   🌐 POST {base_url}")
+
+                try:
+                    create_response = await client.post(
+                        base_url,
+                        json=create_body,
+                        headers=tekion_headers,
+                        timeout=10.0
+                    )
+
+                    logger.info(f"   📥 Response: {create_response.status_code}")
+
+                    if create_response.status_code in [200, 201]:
+                        response_data = create_response.json()
+                        created_id = response_data.get("id", "unknown")
+                        created_codes.append({
+                            "code": missing["code"],
+                            "description": missing["description"],
+                            "id": created_id
+                        })
+                        logger.info(f"   ✅ Successfully created '{missing['code']}' (ID: {created_id[:8] if created_id != 'unknown' else 'unknown'}...)")
+                    else:
+                        error_msg = create_response.text[:200]
+                        failed_creates.append({
+                            "code": missing["code"],
+                            "status": create_response.status_code,
+                            "error": error_msg
+                        })
+                        logger.error(f"   ❌ Failed: {create_response.status_code} - {error_msg}")
+
+                except httpx.TimeoutError:
+                    failed_creates.append({
+                        "code": missing["code"],
+                        "error": "Timeout after 10s"
+                    })
+                    logger.error(f"   ❌ Timeout after 10s")
+
+                except Exception as e:
+                    failed_creates.append({
+                        "code": missing["code"],
+                        "error": str(e)[:200]
+                    })
+                    logger.error(f"   ❌ Exception: {e}")
+
+            if missing_codes:
+                logger.info(f"📊 Create summary: {len(created_codes)} succeeded, {len(failed_creates)} failed")
+
+        # STEP 6: Build final summary
+        logger.info("")
+        logger.info("─" * 80)
+        logger.info("📊 STEP 6: FINAL SUMMARY")
+        logger.info("─" * 80)
+
+        kept_codes = [
+            c["code"] for c in existing_codes
+            if isinstance(c, dict) and c.get("code") in required_code_strings and not c.get("deleted", False)
+        ]
+
+        # Build summary
+        total_operations = len(deleted_codes) + len(created_codes)
+        total_failures = len(failed_deletes) + len(failed_creates)
+
+        summary = f"Sync complete: {len(deleted_codes)} deleted, {len(created_codes)} created, {len(kept_codes)} kept"
+        if total_failures > 0:
+            summary += f" ({total_failures} failures)"
+
+        logger.info(f"📈 Operations Summary:")
+        logger.info(f"   • Total existing codes before: {len(existing_codes)}")
+        logger.info(f"   • Deleted: {len(deleted_codes)}")
+        logger.info(f"   • Created: {len(created_codes)}")
+        logger.info(f"   • Kept: {len(kept_codes)}")
+        logger.info(f"   • Total operations: {total_operations}")
+        logger.info(f"   • Failures: {total_failures}")
+        logger.info(f"")
+        logger.info(f"🎯 Final state: {len(kept_codes) + len(created_codes)} active codes")
+        logger.info(f"✅ Required codes: {required_code_strings}")
+
+        if total_failures == 0:
+            logger.info(f"🎉 SUCCESS: {summary}")
+        else:
+            logger.warning(f"⚠️ PARTIAL SUCCESS: {summary}")
+            if failed_deletes:
+                logger.error(f"   Failed deletes: {[f['code'] for f in failed_deletes]}")
+            if failed_creates:
+                logger.error(f"   Failed creates: {[f['code'] for f in failed_creates]}")
+
+        logger.info("=" * 80)
+        logger.info("🎯 PRIORITY CODE SYNC - END")
+        logger.info("=" * 80)
+
+        return PriorityCodeSyncResponse(
+            success=total_failures == 0,
+            total_existing=len(existing_codes),
+            required_codes=required_code_strings,
+            deleted_codes=deleted_codes,
+            created_codes=created_codes,
+            failed_deletes=failed_deletes,
+            failed_creates=failed_creates,
+            kept_codes=kept_codes,
+            summary=summary
+        )
+
+    except httpx.HTTPStatusError as e:
+        logger.error("=" * 80)
+        logger.error(f"❌ SYNC FAILED: HTTP Status Error")
+        logger.error(f"   Status: {e.response.status_code}")
+        logger.error(f"   Detail: {e.response.text[:300]}")
+        logger.error("=" * 80)
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Tekion API error: {e.response.text}"
+        )
+    except httpx.RequestError as e:
+        logger.error("=" * 80)
+        logger.error(f"❌ SYNC FAILED: Network/Request Error")
+        logger.error(f"   Error: {str(e)}")
+        logger.error("=" * 80)
+        raise HTTPException(
+            status_code=502,
+            detail=f"Network error: {str(e)}"
+        )
+    except HTTPException:
+        # Re-raise HTTPExceptions without wrapping
+        logger.error("=" * 80)
+        logger.error(f"❌ SYNC FAILED: Validation/Business Logic Error")
+        logger.error("=" * 80)
+        raise
+    except Exception as e:
+        logger.error("=" * 80)
+        logger.error(f"❌ SYNC FAILED: Unexpected Error")
+        logger.error(f"   Type: {type(e).__name__}")
+        logger.error(f"   Message: {str(e)}")
+        logger.error("=" * 80)
+        import traceback
+        logger.error(f"Traceback:\n{traceback.format_exc()}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Sync failed: {str(e)}"
+        )
 
 
 @app.post("/api/network/extract")
@@ -1970,18 +2693,7 @@ async def generate_metadata(response_data: dict):
 
         logger.info(f"🌐 Generating metadata for API response (prefix: {prefix})")
 
-        # 🔄 MICROSERVICES: Call API Service
-        result = await _call_api_service("generate-metadata", {
-            "data": data,
-            "prefix": prefix,
-            "max_depth": max_depth
-        })
-
-        if result:
-            return JSONResponse(result)
-
-        # Fallback to local service
-        logger.warning("⚠️  Using local API extraction service")
+        # ✅ MONOLITH: Direct call to local API extraction service
         metadata = api_extraction_service.auto_generate_metadata(
             data,
             prefix=prefix,
@@ -2016,17 +2728,7 @@ async def extract_fields(request_data: dict):
 
         logger.info(f"🌐 Extracting {len(field_mappings)} fields from API response")
 
-        # 🔄 MICROSERVICES: Call API Service
-        result = await _call_api_service("extract-fields", {
-            "response_data": response_data,
-            "field_mappings": field_mappings
-        })
-
-        if result:
-            return JSONResponse(result)
-
-        # Fallback to local service
-        logger.warning("⚠️  Using local API extraction service")
+        # ✅ MONOLITH: Direct call to local API extraction service
         extracted = api_extraction_service.extract_fields_from_response(
             response_data,
             field_mappings
@@ -2060,17 +2762,7 @@ async def validate_response(request_data: dict):
 
         logger.info(f"🌐 Validating API response against {len(metadata)} fields")
 
-        # 🔄 MICROSERVICES: Call API Service
-        result = await _call_api_service("validate", {
-            "response_data": response_data,
-            "metadata": metadata
-        })
-
-        if result:
-            return JSONResponse(result)
-
-        # Fallback to local service
-        logger.warning("⚠️  Using local API extraction service")
+        # ✅ MONOLITH: Direct call to local API extraction service
         validation = api_extraction_service.validate_response(
             response_data,
             metadata
@@ -2105,16 +2797,7 @@ async def compare_environments(request_data: dict):
 
         logger.info(f"🌐 Comparing API responses across {len(extractions)} environments")
 
-        # 🔄 MICROSERVICES: Call API Service
-        result = await _call_api_service("compare-environments", {
-            "extractions": extractions
-        })
-
-        if result:
-            return JSONResponse(result)
-
-        # Fallback to local service
-        logger.warning("⚠️  Using local API extraction service")
+        # ✅ MONOLITH: Direct call to local API extraction service
         comparison = api_extraction_service.compare_environments(extractions)
 
         return JSONResponse({
@@ -2293,14 +2976,14 @@ async def add_manual_api(request_data: dict):
 async def force_cleanup_tabs():
     """
     Force cleanup ALL open tabs in the browser (including failed ones)
-    
+
     This endpoint will close ALL tabs that were opened by the screenshot service,
     including failed/timed-out tabs that are normally kept for debugging.
     Useful when tabs are left open after timeouts or errors.
     """
     try:
         logger.info("🧹 Force cleanup requested - closing ALL tabs (including failed)...")
-        
+
         # Close ALL tabs, not just successful ones
         closed_count = 0
         for url, info in list(screenshot_service.tab_registry.tabs.items()):
@@ -2313,9 +2996,9 @@ async def force_cleanup_tabs():
                 logger.warning(f"⚠️  Error closing tab {url}: {e}")
                 # Remove from registry anyway
                 del screenshot_service.tab_registry.tabs[url]
-        
+
         logger.info(f"🧹 Cleanup complete: {closed_count} tabs closed")
-        
+
         return {
             "success": True,
             "closed_count": closed_count,
@@ -2330,13 +3013,13 @@ async def force_cleanup_tabs():
 async def get_tabs_status():
     """
     Get the current status of open tabs
-    
+
     Returns information about tabs currently tracked by the service.
     """
     try:
         # Get tab registry status
         tab_count = len(screenshot_service.tab_registry.tabs) if hasattr(screenshot_service, 'tab_registry') else 0
-        
+
         return {
             "success": True,
             "tracked_tabs": tab_count,
@@ -2348,10 +3031,283 @@ async def get_tabs_status():
 
 
 # ============================================================================
+# TEMPLATE LOGO REMOVAL ENDPOINTS
+# ============================================================================
+
+class TemplateRemovalRequest(BaseModel):
+    base_url: str = Field(..., description="Base URL of Tekion app (e.g., https://preprodapp.tekioncloud.com)")
+    max_rows: int = Field(200, description="Maximum number of templates to fetch from API (1-500)")
+    custom_limit: Optional[int] = Field(None, description="Custom limit on how many templates to process (optional)")
+    keep_tabs_open: bool = Field(False, description="Keep tabs open for manual verification (default: False)")
+
+
+@app.post("/api/templates/start-logo-removal")
+async def start_logo_removal(request: TemplateRemovalRequest):
+    """
+    Start bulk Tekion logo removal from all templates
+
+    Returns job_id for tracking progress via WebSocket
+    """
+    job_id = str(uuid4())
+    logger.info(f"🎨 ===============================================")
+    logger.info(f"🎨 Starting template logo removal job")
+    logger.info(f"🎨 Job ID: {job_id}")
+    logger.info(f"🎨 Base URL: {request.base_url}")
+    logger.info(f"🎨 ===============================================")
+
+    # Start the job in background
+    asyncio.create_task(
+        template_removal_service.start_removal_job(
+            base_url=request.base_url,
+            job_id=job_id,
+            max_parallel=5,  # Process 5 templates at once
+            max_rows=request.max_rows,  # Max rows to fetch from API
+            custom_limit=request.custom_limit,  # Custom limit on processing
+            keep_tabs_open=request.keep_tabs_open  # ✅ Keep tabs open toggle
+        )
+    )
+
+    logger.info(f"🎨 Job {job_id} started in background")
+
+    return {
+        "status": "started",
+        "job_id": job_id,
+        "message": "Template logo removal job started"
+    }
+
+
+@app.get("/api/templates/job-status/{job_id}")
+async def get_job_status(job_id: str):
+    """Get status of a template removal job"""
+    status = template_removal_service.get_job_status(job_id)
+
+    if not status:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    return status
+
+
+@app.post("/api/templates/cancel-job/{job_id}")
+async def cancel_job(job_id: str):
+    """Cancel a running template removal job"""
+    success = template_removal_service.cancel_job(job_id)
+
+    if not success:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    return {
+        "status": "cancelled",
+        "job_id": job_id
+    }
+
+
+# WebSocket for real-time progress updates
+@app.websocket("/ws/template-removal/{job_id}")
+async def websocket_template_removal(websocket: WebSocket, job_id: str):
+    """
+    WebSocket endpoint for real-time template removal progress updates
+    """
+    await websocket.accept()
+    logger.info(f"WebSocket connected for job {job_id}")
+
+    try:
+        # Send updates every second
+        while True:
+            status = template_removal_service.get_job_status(job_id)
+
+            if not status:
+                await websocket.send_json({"error": "Job not found"})
+                break
+
+            await websocket.send_json(status)
+
+            # Stop if job is complete or failed
+            if status.get("status") in ["completed", "failed", "cancelled"]:
+                logger.info(f"Job {job_id} finished with status: {status.get('status')}")
+                break
+
+            await asyncio.sleep(1)
+
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for job {job_id}")
+        # ✅ Cancel the job when frontend disconnects (page reload, close, etc.)
+        logger.info(f"🛑 Cancelling job {job_id} due to frontend disconnect...")
+        template_removal_service.cancel_job(job_id)
+    except Exception as e:
+        logger.error(f"WebSocket error for job {job_id}: {str(e)}")
+        try:
+            await websocket.send_json({"error": str(e)})
+        except:
+            pass
+
+
+# ============================================================================
+# TEMPLATE LOGO ADDITION ENDPOINTS
+# ============================================================================
+
+class TemplateAdditionRequest(BaseModel):
+    base_url: str = Field(..., description="Base URL of Tekion app")
+    max_rows: int = Field(200, description="Maximum number of templates to fetch (1-500)")
+    custom_limit: Optional[int] = Field(None, description="Custom limit on processing")
+    keep_tabs_open: bool = Field(True, description="Keep tabs open for verification")
+    logo_media_id: str = Field("6a19132b6697f36de6236fb1", description="Media ID of logo to add (Tilton.png)")
+    logo_width: int = Field(160, description="Width of logo in pixels")
+
+
+@app.post("/api/templates/start-logo-addition")
+async def start_logo_addition(request: TemplateAdditionRequest):
+    """
+    Start bulk logo addition to all templates
+
+    Returns job_id for tracking progress via WebSocket
+    """
+    job_id = str(uuid4())
+    logger.info(f"✨ ===============================================")
+    logger.info(f"✨ Starting template logo addition job")
+    logger.info(f"✨ Job ID: {job_id}")
+    logger.info(f"✨ Base URL: {request.base_url}")
+    logger.info(f"✨ Logo Media ID: {request.logo_media_id}")
+    logger.info(f"✨ Logo Width: {request.logo_width}px")
+    logger.info(f"✨ ===============================================")
+
+    # Create job
+    template_logo_addition_service.create_job(
+        job_id=job_id,
+        base_url=request.base_url,
+        max_rows=request.max_rows,
+        custom_limit=request.custom_limit,
+        keep_tabs_open=request.keep_tabs_open,
+        logo_media_id=request.logo_media_id,
+        logo_width=request.logo_width
+    )
+
+    # Get browser instance from screenshot service
+    from screenshot_service import screenshot_service
+    browser = screenshot_service.browser
+
+    if not browser:
+        raise HTTPException(status_code=500, detail="Browser not connected")
+
+    # Start job in background
+    asyncio.create_task(
+        template_logo_addition_service.run_logo_addition(job_id, browser)
+    )
+
+    logger.info(f"✨ Job {job_id} started in background")
+
+    return {
+        "status": "started",
+        "job_id": job_id,
+        "message": "Template logo addition job started"
+    }
+
+
+@app.get("/api/templates/addition-status/{job_id}")
+async def get_addition_status(job_id: str):
+    """Get status of a template logo addition job"""
+    if job_id not in template_logo_addition_service.jobs:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    return template_logo_addition_service.jobs[job_id]
+
+
+@app.websocket("/ws/template-addition/{job_id}")
+async def websocket_template_addition(websocket: WebSocket, job_id: str):
+    """
+    WebSocket endpoint for real-time template logo addition progress updates
+    """
+    await websocket.accept()
+    logger.info(f"WebSocket connected for logo addition job {job_id}")
+
+    try:
+        while True:
+            if job_id not in template_logo_addition_service.jobs:
+                await websocket.send_json({"error": "Job not found"})
+                break
+
+            job = template_logo_addition_service.jobs[job_id]
+            await websocket.send_json(job)
+
+            # Stop if job is complete or failed
+            if job.get("status") in ["completed", "failed"]:
+                logger.info(f"Logo addition job {job_id} finished with status: {job.get('status')}")
+                break
+
+            await asyncio.sleep(1)
+
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for logo addition job {job_id}")
+    except Exception as e:
+        logger.error(f"WebSocket error for logo addition job {job_id}: {str(e)}")
+        try:
+            await websocket.send_json({"error": str(e)})
+        except:
+            pass
+
+
+# ============================================================================
+# TEMPLATE PAGE DETECTION ENDPOINT
+# ============================================================================
+
+@app.post("/api/templates/detect-all")
+async def detect_all_page_elements():
+    """
+    Detect ALL elements on the Tekion templates list page
+    Returns comprehensive analysis of filters, UI, API, templates, etc.
+    """
+    logger.info("🔍 ===============================================")
+    logger.info("🔍 Starting comprehensive page detection")
+    logger.info("🔍 ===============================================")
+
+    # Get browser instance
+    from screenshot_service import screenshot_service
+    browser = screenshot_service.browser
+
+    if not browser:
+        raise HTTPException(status_code=500, detail="Browser not connected")
+
+    # Run detection
+    results = await template_page_detector.detect_all(browser)
+
+    logger.info("🔍 Detection complete")
+
+    return results
+
+
+@app.get("/reports/{filename}")
+async def download_report(filename: str):
+    """
+    Download an Excel report
+    """
+    file_path = os.path.join("backend/reports", filename)
+
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    return FileResponse(
+        path=file_path,
+        filename=filename,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+
+# ============================================================================
 # APPLICATION STARTUP
 # ============================================================================
 
-if __name__ == "__main__":
-    import uvicorn
 
-    uvicorn.run("main:app", host="127.0.0.1", port=settings.api_port, reload=True)
+def create_app() -> FastAPI:
+	"""Return the configured FastAPI application.
+
+	For now this simply returns the module-level ``app`` instance so that
+	tests and external tooling can import ``main:create_app`` without
+	requiring a full application factory refactor yet.
+	"""
+
+	return app
+
+
+if __name__ == "__main__":
+	import uvicorn
+
+	uvicorn.run("main:app", host="127.0.0.1", port=settings.api_port, reload=True)

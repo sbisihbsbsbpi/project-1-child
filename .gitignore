@@ -1,0 +1,81 @@
+.gitnexus
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.venv
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+backend/logs/
+
+# Screenshots & Output
+screenshots/
+backend/screenshots/
+*.png
+*.jpg
+*.jpeg
+
+# Data files (keep examples, ignore generated)
+*.csv
+*.xlsx
+!backend/url_click_config.example.json
+!logo_ignore_list.json
+!context.json
+
+# Reports
+*_analysis_*.csv
+*_analysis_*.json
+*_analysis_*.xlsx
+*_templates_*.csv
+*_templates_*.html
+*_templates_*.json
+*_templates_*.xlsx
+header_logo_analysis_*.csv
+header_logo_analysis_*.json
+
+# Backup & Archive
+.archive/
+.backup/
+archive/
+version-0/
+
+# Node modules (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+
+# Generated JSON files (keep specific ones)
+api_response_*.json
+api_verification_*.json
+template_page_detection_*.json
+important_elements_*.json
+service_parts_analysis_*.json

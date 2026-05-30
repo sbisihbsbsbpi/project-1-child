@@ -1,0 +1,82 @@
+{
+  "description": "Elements to ignore when searching for logos in templates",
+  "ignore_elements": [
+    {
+      "type": "DEALER_LOGO_BUTTON",
+      "id": "DEALER_LOGO",
+      "selector": "[id='DEALER_LOGO']",
+      "className_contains": "templates_Button_buttonContainer",
+      "location": "Left sidebar - Draggable button",
+      "position": "top=316px, left=174px",
+      "size": "76x148px",
+      "reason": "This is the UI control button, not the actual logo in the template"
+    },
+    {
+      "type": "DEALER_LOGO_MINI_BUTTON",
+      "id": "DEALER_LOGO",
+      "selector": "[id='DEALER_LOGO'].templates_Button_minBtnContainer__tGQDbBVBtt",
+      "className_contains": "templates_Button_minBtnContainer",
+      "location": "Template canvas area - Mini button",
+      "position": "top=769px, left=750px",
+      "size": "38x22px",
+      "reason": "This is the UI control button in canvas, not the actual logo in the template"
+    },
+    {
+      "type": "LOGO_ICON",
+      "selector": ".icon-dealership-logo",
+      "className_contains": "icon-dealership",
+      "location": "Various UI elements",
+      "reason": "These are UI icons, not the actual logo images in templates"
+    },
+    {
+      "type": "SIDE_NAV_LOGO",
+      "selector": ".root_sideNav_logoPanel__jY9KXvUhAF",
+      "className_contains": "root_sideNav_logoPanel",
+      "location": "Top left sidebar",
+      "position": "top=0px, left=11px",
+      "size": "52x64px",
+      "reason": "Application navigation logo, not template content"
+    },
+    {
+      "type": "HEADER_LOGO",
+      "selector": ".root_headerSkeleton_logoPanel__724Vc5EbwR",
+      "className_contains": "root_headerSkeleton_logoPanel",
+      "location": "Top header area",
+      "position": "top=0px, left=79px",
+      "size": "208x63px",
+      "reason": "Application navigation logo, not template content"
+    },
+    {
+      "type": "BRAND_LOGO_LINK",
+      "selector": ".root_logo_logo__jKbdgWD2mE",
+      "className_contains": "root_logo_logo",
+      "location": "Top header",
+      "position": "top=24px, left=79px",
+      "size": "130x16px",
+      "reason": "Application branding logo, not template content"
+    }
+  ],
+  "ignore_patterns": {
+    "class_names": [
+      "root_sideNav_logoPanel",
+      "root_headerSkeleton_logoPanel",
+      "root_logo_logo",
+      "templates_Button_buttonContainer",
+      "templates_Button_minBtnContainer",
+      "icon-dealership",
+      "icon-dealership-logo"
+    ],
+    "ids": [
+      "DEALER_LOGO"
+    ],
+    "parent_selectors": [
+      ".templates_Button_buttonContainer__kq2SVPms85",
+      ".templates_Button_minBtnContainer__tGQDbBVBtt"
+    ]
+  },
+  "notes": [
+    "These elements are UI controls and navigation elements, not the actual logo images in email templates",
+    "The ACTUAL logo to replace will be an <img> tag inside the email template preview/editor",
+    "Look for images with src containing 'nucar' or 'tilton' that are NOT inside these ignored elements"
+  ]
+}

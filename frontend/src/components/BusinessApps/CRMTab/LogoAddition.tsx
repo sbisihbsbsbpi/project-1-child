@@ -1,0 +1,477 @@
+/**
+ * Logo Addition Component
+ * Handles bulk addition of custom logos to Tekion email templates
+ */
+
+import React, { useState } from 'react';
+
+interface LogoAdditionProps {
+  addLog: (message: string) => void;
+  clearLogs: () => void;
+}
+
+export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs }) => {
+  const [showSettings, setShowSettings] = useState(false);
+  const [additionStatus, setAdditionStatus] = useState<'idle' | 'running' | 'completed' | 'failed'>('idle');
+  const [jobId, setJobId] = useState<string | null>(null);
+  
+  // Settings
+  const [maxRows, setMaxRows] = useState('200');
+  const [customLimit, setCustomLimit] = useState('');
+  const [keepTabsOpen, setKeepTabsOpen] = useState(true);
+  const [logoMediaId, setLogoMediaId] = useState('6a19132b6697f36de6236fb1'); // Tilton.png
+  const [logoWidth, setLogoWidth] = useState('160');
+
+  const handleLogoAdditionClick = () => {
+    setShowSettings(true);
+  };
+
+  const startLogoAddition = async () => {
+    setShowSettings(false);
+    
+    const baseUrl = 'https://preprodapp.tekioncloud.com';
+    
+    try {
+      console.log('✨ Starting Logo Addition...');
+      setAdditionStatus('running');
+      
+      clearLogs();
+      addLog('✨ ========================================');
+      addLog('✨ Logo Addition - Starting...');
+      addLog('✨ ========================================');
+      addLog(`🌐 Base URL: ${baseUrl}`);
+      addLog(`⚡ Connecting to backend...`);
+      
+      const customLimitNum = customLimit ? parseInt(customLimit) : undefined;
+      
+      const response = await fetch('http://localhost:8001/api/templates/start-logo-addition', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          base_url: baseUrl,
+          max_rows: parseInt(maxRows),
+          custom_limit: customLimitNum,
+          keep_tabs_open: keepTabsOpen,
+          logo_media_id: logoMediaId,
+          logo_width: parseInt(logoWidth)
+        }),
+      });
+      
+      const data = await response.json();
+      const newJobId = data.job_id;
+      setJobId(newJobId);
+      
+      console.log('✅ Job started:', newJobId);
+      addLog(`✅ Job started: ${newJobId}`);
+      
+      // Connect to WebSocket for real-time updates
+      const ws = new WebSocket(`ws://localhost:8001/ws/template-addition/${newJobId}`);
+      
+      let lastLogIndex = 0;
+      
+      ws.onmessage = (event) => {
+        const update = JSON.parse(event.data);
+        
+        if (update.error) {
+          addLog(`❌ Error: ${update.error}`);
+          setAdditionStatus('failed');
+          ws.close();
+          return;
+        }
+        
+        // Display new logs
+        if (update.logs && update.logs.length > lastLogIndex) {
+          const newLogs = update.logs.slice(lastLogIndex);
+          newLogs.forEach((log: any) => {
+            addLog(`[${log.timestamp}] ${log.message}`);
+          });
+          lastLogIndex = update.logs.length;
+        }
+        
+        // Check if complete
+        if (update.status === 'completed') {
+          setAdditionStatus('completed');
+          addLog('');
+          addLog('🎉 ========================================');
+          addLog('🎉 LOGO ADDITION COMPLETED SUCCESSFULLY!');
+          addLog('🎉 ========================================');
+          ws.close();
+        } else if (update.status === 'failed') {
+          setAdditionStatus('failed');
+          addLog('❌ Logo addition failed');
+          ws.close();
+        }
+      };
+      
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        addLog('❌ Connection error');
+        setAdditionStatus('failed');
+      };
+      
+      ws.onclose = () => {
+        console.log('WebSocket closed');
+      };
+      
+    } catch (error: any) {
+      console.error('Error starting logo addition:', error);
+      addLog(`❌ Error: ${error.message}`);
+      setAdditionStatus('failed');
+    }
+  };
+
+  return (
+    <div style={{
+      padding: '32px',
+      maxWidth: '800px',
+      margin: '0 auto'
+    }}>
+      {/* Header */}
+      <div style={{
+        marginBottom: '32px',
+        borderBottom: '2px solid #FF6B6B',
+        paddingBottom: '16px'
+      }}>
+        <h2 style={{
+          margin: '0 0 8px 0',
+          fontSize: '28px',
+          color: '#FF6B6B',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <span style={{ fontSize: '32px' }}>✨</span>
+          Logo Addition
+        </h2>
+        <p style={{
+          margin: 0,
+          fontSize: '14px',
+          color: '#666'
+        }}>
+          Bulk add custom logos to email templates
+        </p>
+      </div>
+
+      {/* Main Action Button */}
+      <button
+        onClick={handleLogoAdditionClick}
+        disabled={additionStatus === 'running'}
+        style={{
+          width: '100%',
+          padding: '16px 24px',
+          backgroundColor: additionStatus === 'running' ? '#ccc' : '#FF6B6B',
+          color: 'white',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '16px',
+          fontWeight: '600',
+          cursor: additionStatus === 'running' ? 'not-allowed' : 'pointer',
+          transition: 'all 0.3s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          boxShadow: '0 2px 8px rgba(255, 107, 107, 0.2)'
+        }}
+        onMouseEnter={(e) => {
+          if (additionStatus !== 'running') {
+            e.currentTarget.style.backgroundColor = '#EE5A6F';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 107, 107, 0.3)';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (additionStatus !== 'running') {
+            e.currentTarget.style.backgroundColor = '#FF6B6B';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 107, 107, 0.2)';
+          }
+        }}
+      >
+        <span style={{ fontSize: '20px' }}>✨</span>
+        {additionStatus === 'running' ? 'Adding Logos...' : 'Start Logo Addition'}
+      </button>
+
+      {/* Settings Modal */}
+      {showSettings && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '32px',
+            maxWidth: '500px',
+            width: '90%',
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)'
+          }}>
+            <h2 style={{
+              margin: '0 0 24px 0',
+              fontSize: '24px',
+              color: '#FF6B6B',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <span style={{ fontSize: '28px' }}>✨</span>
+              Logo Addition Settings
+            </h2>
+
+            {/* Max Rows */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#333'
+              }}>
+                Max Rows to Fetch (from API)
+              </label>
+              <input
+                type="number"
+                value={maxRows}
+                onChange={(e) => setMaxRows(e.target.value)}
+                min="1"
+                max="500"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}
+              />
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '12px',
+                color: '#666'
+              }}>
+                Maximum number of templates to fetch from API (1-500)
+              </p>
+            </div>
+
+            {/* Custom Limit */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#333'
+              }}>
+                Custom Processing Limit (Optional)
+              </label>
+              <input
+                type="number"
+                value={customLimit}
+                onChange={(e) => setCustomLimit(e.target.value)}
+                placeholder="Leave empty to process all"
+                min="1"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}
+              />
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '12px',
+                color: '#666'
+              }}>
+                Limit how many templates to process (leave empty for all)
+              </p>
+            </div>
+
+            {/* Logo Media ID */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#333'
+              }}>
+                Logo Media ID
+              </label>
+              <input
+                type="text"
+                value={logoMediaId}
+                onChange={(e) => setLogoMediaId(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontFamily: 'monospace'
+                }}
+              />
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '12px',
+                color: '#666'
+              }}>
+                Media ID of the logo to add (default: Tilton.png)
+              </p>
+            </div>
+
+            {/* Logo Width */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#333'
+              }}>
+                Logo Width (px)
+              </label>
+              <input
+                type="number"
+                value={logoWidth}
+                onChange={(e) => setLogoWidth(e.target.value)}
+                min="50"
+                max="500"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}
+              />
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '12px',
+                color: '#666'
+              }}>
+                Width of the logo in pixels (recommended: 160px)
+              </p>
+            </div>
+
+            {/* Keep Tabs Open */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                cursor: 'pointer',
+                padding: '12px',
+                backgroundColor: '#f5f5f5',
+                borderRadius: '6px'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={keepTabsOpen}
+                  onChange={(e) => setKeepTabsOpen(e.target.checked)}
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer'
+                  }}
+                />
+                <div>
+                  <div style={{
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    color: '#333'
+                  }}>
+                    Keep Tabs Open
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#666'
+                  }}>
+                    Keep template tabs open for manual verification
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            {/* Info Box */}
+            <div style={{
+              padding: '16px',
+              backgroundColor: '#fff3e0',
+              border: '2px solid #ff9800',
+              borderRadius: '8px',
+              marginBottom: '24px'
+            }}>
+              <h4 style={{
+                margin: '0 0 12px 0',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#e65100'
+              }}>
+                What this will do:
+              </h4>
+              <ul style={{
+                margin: 0,
+                paddingLeft: '20px',
+                fontSize: '13px',
+                color: '#666',
+                lineHeight: '1.6'
+              }}>
+                <li>Fetch all EMAIL templates from Tekion</li>
+                <li>Open each template in editor</li>
+                <li>Add the specified logo to each template</li>
+                <li>Resize logo to {logoWidth}px width</li>
+                <li>Center the logo</li>
+                <li>Click Publish and save changes</li>
+                <li>Generate Excel report with results</li>
+              </ul>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setShowSettings(false)}
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  backgroundColor: '#f5f5f5',
+                  color: '#666',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={startLogoAddition}
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  backgroundColor: '#FF6B6B',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                🚀 Start Addition
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

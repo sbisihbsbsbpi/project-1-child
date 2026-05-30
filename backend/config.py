@@ -23,10 +23,18 @@ class Settings(BaseSettings):
     api_port: int = Field(default=8001, description="API server port")
 
     # ===== CORS Settings =====
+    # Include both the Tauri shell origins and the local Vite dev server
+    # ports (5173/5174) so the web UI and desktop app can talk to the
+    # backend without CORS errors during development.
     allowed_origins: str = Field(
-        default="http://localhost:5174,tauri://localhost,https://tauri.localhost",
-        description="Comma-separated list of allowed CORS origins"
-    )
+	        default=(
+	            "http://localhost:5173,"  # Vite dev server
+	            "http://localhost:5174,"  # legacy/dev variant
+	            "tauri://localhost,"
+	            "https://tauri.localhost"
+	        ),
+	        description="Comma-separated list of allowed CORS origins",
+	    )
 
     @property
     def allowed_origins_list(self) -> List[str]:
@@ -102,6 +110,14 @@ class Settings(BaseSettings):
         description="Timeout for segmented captures (seconds)"
     )
 
+    # ✅ FIX 2.2: Maximum batch timeout cap (configurable)
+    max_batch_timeout_seconds: int = Field(
+        default=7200,  # 2 hours
+        ge=300,  # Minimum 5 minutes
+        le=28800,  # Maximum 8 hours
+        description="Maximum timeout cap for batch operations in seconds (default: 2 hours)"
+    )
+
     # ===== Quality Check Settings =====
     quality_min_score: float = Field(
         default=50.0,
@@ -160,25 +176,18 @@ class Settings(BaseSettings):
         description="Directory for browser session data"
     )
 
-    # ===== Microservice URLs =====
-    document_service_url: str = Field(
-        default="http://localhost:8002",
-        description="Document Service base URL"
-    )
-
-    quality_service_url: str = Field(
-        default="http://localhost:8003",
-        description="Quality Service base URL"
-    )
-
-    api_service_url: str = Field(
-        default="http://localhost:8004",
-        description="API Extraction Service base URL"
-    )
+    # ✅ MONOLITH: Microservice URLs removed - using direct function calls
 
     # ===== Development Settings =====
     debug: bool = Field(default=False, description="Enable debug mode")
     reload: bool = Field(default=False, description="Enable auto-reload")
+    allow_restart_endpoint: bool = Field(
+        default=True,
+        description=(
+            "Allow the /api/restart endpoint to be called by the UI "
+            "to trigger a backend reload."
+        ),
+    )
 
     class Config:
         env_file = ".env"
@@ -217,10 +226,13 @@ def get_timeout(capture_mode: str, use_real_browser: bool, use_stealth: bool) ->
 
 
 def ensure_directories():
-    """Create required directories if they don't exist"""
-    settings.screenshots_dir.mkdir(exist_ok=True)
-    settings.browser_sessions_dir.mkdir(exist_ok=True)
-    Path("logs").mkdir(exist_ok=True)
+    """
+    Create required directories if they don't exist
+    ✅ PHASE 1 (Path Security): Use restricted permissions
+    """
+    settings.screenshots_dir.mkdir(exist_ok=True, mode=0o755)
+    settings.browser_sessions_dir.mkdir(exist_ok=True, mode=0o755)
+    Path("logs").mkdir(exist_ok=True, mode=0o755)
 
 
 # Initialize directories on import
