@@ -1,0 +1,131 @@
+{
+  "timestamp": "20260530_195704",
+  "template1": {
+    "id": "667f0befd4964026ee7b6ea2",
+    "name": "Service History Recap PDF",
+    "analysis": {
+      "templateName": null,
+      "logos": [
+        {
+          "index": 1,
+          "zone": "header",
+          "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-",
+          "coordinates": {
+            "top": 366,
+            "left": 687,
+            "width": 259,
+            "height": 68
+          },
+          "container": {
+            "id": "CONTAINER_1",
+            "className": "templates_SortableItem_element__jTMuD11Qhm",
+            "tagName": "DIV",
+            "dataType": "",
+            "dataComponentKey": "",
+            "dataKey": "",
+            "id_attribute": "",
+            "outerHTML": "<div class=\"templates_SortableItem_element__jTMuD11Qhm\"><div class=\"templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross\" aria-label=\"icon-cross\" role=\"presentation\" tabindex=\"-1\"></div><div role=\"button\" tabindex=\"-1\" class=\"templates_Image_imageComponent__tqwK7j9G7"
+          }
+        },
+        {
+          "index": 2,
+          "zone": "body",
+          "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-",
+          "coordinates": {
+            "top": 873,
+            "left": 1041,
+            "width": 259,
+            "height": 68
+          },
+          "container": {
+            "id": "CONTAINER_2",
+            "className": "templates_SortableItem_element__jTMuD11Qhm",
+            "tagName": "DIV",
+            "dataType": "",
+            "dataComponentKey": "",
+            "dataKey": "",
+            "id_attribute": "",
+            "outerHTML": "<div class=\"templates_SortableItem_element__jTMuD11Qhm\"><div class=\"templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross\" aria-label=\"icon-cross\" role=\"presentation\" tabindex=\"-1\"></div><div role=\"button\" tabindex=\"-1\" class=\"templates_Image_imageComponent__tqwK7j9G7"
+          }
+        }
+      ],
+      "containers": [
+        {
+          "id": "CONTAINER_1",
+          "logoCount": 1,
+          "logos": [
+            "Logo #1 (header)"
+          ]
+        },
+        {
+          "id": "CONTAINER_2",
+          "logoCount": 1,
+          "logos": [
+            "Logo #2 (body)"
+          ]
+        }
+      ],
+      "sharedContainers": false,
+      "headerButtonState": {
+        "found": true,
+        "opacity": 1,
+        "isGrayed": false,
+        "state": "ACTIVE"
+      },
+      "architecture": "SEPARATE_IMAGES",
+      "rawData": {},
+      "totalLogos": 2,
+      "totalContainers": 2
+    }
+  },
+  "template2": {
+    "id": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+    "name": "Request Completion: Data Correction",
+    "analysis": {
+      "templateName": null,
+      "logos": [
+        {
+          "index": 1,
+          "zone": "header",
+          "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a191313710089188b66521e/Tilton.png?X-Amz-Algorithm",
+          "coordinates": {
+            "top": 326,
+            "left": 818,
+            "width": 345,
+            "height": 90
+          },
+          "container": {
+            "id": "CONTAINER_1",
+            "className": "templates_SortableItem_element__jTMuD11Qhm",
+            "tagName": "DIV",
+            "dataType": "",
+            "dataComponentKey": "",
+            "dataKey": "",
+            "id_attribute": "",
+            "outerHTML": "<div class=\"templates_SortableItem_element__jTMuD11Qhm\"><div class=\"templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross\" aria-label=\"icon-cross\" role=\"presentation\" tabindex=\"-1\"></div><span class=\"templates_SortableItem_hidden__3AtcPcG2Va\"><div class=\"root_icon_siz"
+          }
+        }
+      ],
+      "containers": [
+        {
+          "id": "CONTAINER_1",
+          "logoCount": 1,
+          "logos": [
+            "Logo #1 (header)"
+          ]
+        }
+      ],
+      "sharedContainers": false,
+      "headerButtonState": {
+        "found": true,
+        "opacity": 0.3,
+        "isGrayed": true,
+        "state": "GRAYED"
+      },
+      "architecture": "SINGLE_IMAGE",
+      "rawData": {},
+      "totalLogos": 1,
+      "totalContainers": 1
+    }
+  }
+}
