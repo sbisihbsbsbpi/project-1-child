@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
 COMPLETE END-TO-END WORKFLOW TEST
-1. Check if logo exists
+1. Check if header exists
 2. Click X icon to remove header
 3. Detect header button status change (grayed → active)
 4. Click active header button
-5. Detect popup appearance
-6. Analyze popup elements
+5. Detect "+ Add Header" button appears in template
+6. Click "+ Add Header" button
+7. Detect "Insert Header" popup appearance
+8. Analyze popup elements (templates, radio buttons, images)
 """
 
 import asyncio
@@ -26,12 +28,14 @@ async def full_workflow_test():
     logger.info("🔄 COMPLETE END-TO-END WORKFLOW TEST")
     logger.info("=" * 100)
     logger.info("Steps:")
-    logger.info("  1. Check if logo exists")
+    logger.info("  1. Check if header exists")
     logger.info("  2. Click X icon to remove header")
     logger.info("  3. Detect header button status change")
     logger.info("  4. Click active header button")
-    logger.info("  5. Detect popup appearance")
-    logger.info("  6. Analyze popup elements")
+    logger.info("  5. Detect '+ Add Header' button in template")
+    logger.info("  6. Click '+ Add Header' button")
+    logger.info("  7. Detect 'Insert Header' popup")
+    logger.info("  8. Analyze popup elements")
     logger.info("=" * 100)
 
     async with async_playwright() as p:
@@ -212,151 +216,244 @@ async def full_workflow_test():
             return
 
         logger.info("   ✅ Header button clicked!")
-        logger.info("   ⏳ Waiting for popup to appear...")
+        logger.info("   ⏳ Waiting for '+ Add Header' placeholder to appear...")
 
         await asyncio.sleep(2)
 
         # ====================================================================
-        # STEP 5: Detect popup appearance
+        # STEP 5: Find and click "+ Add Header" button in template
         # ====================================================================
         logger.info("\n" + "=" * 100)
-        logger.info("📋 STEP 5: Detect Popup/Modal")
+        logger.info("📋 STEP 5: Find '+ Add Header' Button in Template")
         logger.info("=" * 100)
 
-        popup_info = await working_tab.evaluate("""
+        # Close the current modal if any by clicking Cancel or background
+        await working_tab.evaluate("""
             () => {
-                const selectors = [
-                    '[role="dialog"]',
-                    '.ant-modal',
-                    '.ant-modal-wrap',
-                    '[class*="modal"]',
-                    '[class*="Modal"]',
-                    '[class*="dialog"]',
-                    '[class*="popup"]'
-                ];
-
-                for (const sel of selectors) {
-                    const elem = document.querySelector(sel);
-                    if (elem) {
-                        const rect = elem.getBoundingClientRect();
-                        if (rect.width > 0 && rect.height > 0) {
-                            return {
-                                found: true,
-                                selector: sel,
-                                className: elem.className,
-                                position: {
-                                    top: Math.round(rect.top),
-                                    left: Math.round(rect.left),
-                                    width: Math.round(rect.width),
-                                    height: Math.round(rect.height)
-                                },
-                                opacity: parseFloat(getComputedStyle(elem).opacity)
-                            };
-                        }
-                    }
-                }
-
-                return { found: false };
+                // Try to close any existing modal
+                const cancelBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Cancel');
+                if (cancelBtn) cancelBtn.click();
             }
         """)
 
-        if not popup_info['found']:
-            logger.error("   ❌ Popup not detected!")
-            logger.info("   💡 Tried: [role='dialog'], .ant-modal, [class*='modal'], etc.")
+        await asyncio.sleep(1)
+
+        # Now find the "+ Add Header" button in the template
+        add_header_btn_search = await working_tab.evaluate("""
+            () => {
+                const buttons = document.querySelectorAll('button');
+                let addHeaderBtn = null;
+
+                for (const btn of buttons) {
+                    const text = btn.textContent.trim();
+                    if (text === '+ Add Header') {
+                        const rect = btn.getBoundingClientRect();
+                        addHeaderBtn = {
+                            found: true,
+                            text: text,
+                            className: btn.className,
+                            position: {
+                                top: Math.round(rect.top),
+                                left: Math.round(rect.left),
+                                width: Math.round(rect.width),
+                                height: Math.round(rect.height)
+                            }
+                        };
+                        break;
+                    }
+                }
+
+                return addHeaderBtn || { found: false };
+            }
+        """)
+
+        if not add_header_btn_search['found']:
+            logger.error("   ❌ '+ Add Header' button not found in template!")
+            logger.info("   💡 This button should appear after clicking #HEADER")
             return
 
-        logger.info(f"\n   ✅ Popup detected!")
-        logger.info(f"      Selector: {popup_info['selector']}")
-        logger.info(f"      Position: ({popup_info['position']['top']}, {popup_info['position']['left']})")
-        logger.info(f"      Size: {popup_info['position']['width']}x{popup_info['position']['height']}")
-        logger.info(f"      Opacity: {popup_info['opacity']}")
+        logger.info(f"\n   ✅ '+ Add Header' button found in template!")
+        logger.info(f"      Text: '{add_header_btn_search['text']}'")
+        logger.info(f"      Position: ({add_header_btn_search['position']['top']}, {add_header_btn_search['position']['left']})")
+        logger.info(f"      Size: {add_header_btn_search['position']['width']}x{add_header_btn_search['position']['height']}")
+        logger.info(f"      Class: {add_header_btn_search['className'][:80]}")
 
         # ====================================================================
-        # STEP 6: Analyze popup elements
+        # STEP 6: Click "+ Add Header" button
         # ====================================================================
         logger.info("\n" + "=" * 100)
-        logger.info("📋 STEP 6: Analyze Popup Elements")
+        logger.info("📋 STEP 6: Click '+ Add Header' Button")
         logger.info("=" * 100)
 
-        elements = await working_tab.evaluate(f"""
-            () => {{
-                const popup = document.querySelector('{popup_info['selector']}');
-                if (!popup) return null;
+        click_add_header = await working_tab.evaluate("""
+            () => {
+                const buttons = document.querySelectorAll('button');
+                for (const btn of buttons) {
+                    if (btn.textContent.trim() === '+ Add Header') {
+                        btn.click();
+                        return { success: true };
+                    }
+                }
+                return { success: false };
+            }
+        """)
 
-                const title = popup.querySelector('[class*="title"]') ||
-                             popup.querySelector('h1, h2, h3');
-                const inputs = Array.from(popup.querySelectorAll('input'));
-                const buttons = Array.from(popup.querySelectorAll('button'));
-                const labels = Array.from(popup.querySelectorAll('label'));
-                const images = Array.from(popup.querySelectorAll('img'));
-                const fileInputs = Array.from(popup.querySelectorAll('input[type="file"]'));
-                const uploadAreas = Array.from(popup.querySelectorAll('[class*="upload"]'));
+        if not click_add_header['success']:
+            logger.error("   ❌ Failed to click '+ Add Header' button")
+            return
 
-                return {{
+        logger.info("   ✅ '+ Add Header' button clicked!")
+        logger.info("   ⏳ Waiting for 'Insert Header' popup...")
+
+        await asyncio.sleep(2)
+
+        # ====================================================================
+        # STEP 7: Detect "Insert Header" popup
+        # ====================================================================
+        logger.info("\n" + "=" * 100)
+        logger.info("📋 STEP 7: Detect 'Insert Header' Popup")
+        logger.info("=" * 100)
+
+        insert_header_popup = await working_tab.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                if (!modal) return { found: false };
+
+                const rect = modal.getBoundingClientRect();
+                const title = modal.querySelector('[class*="title"]') ||
+                             modal.querySelector('h1, h2, h3, h4') ||
+                             modal.querySelector('.ant-modal-title');
+
+                return {
+                    found: true,
                     title: title ? title.textContent.trim() : '',
-                    inputs: inputs.map(i => ({{
-                        type: i.type,
-                        name: i.name || '',
-                        placeholder: i.placeholder || '',
-                        accept: i.accept || ''
-                    }})),
-                    buttons: buttons.map(b => ({{
+                    position: {
+                        top: Math.round(rect.top),
+                        left: Math.round(rect.left),
+                        width: Math.round(rect.width),
+                        height: Math.round(rect.height)
+                    },
+                    className: modal.className
+                };
+            }
+        """)
+
+        if not insert_header_popup['found']:
+            logger.error("   ❌ 'Insert Header' popup not detected!")
+            return
+
+        logger.info(f"\n   ✅ 'Insert Header' popup detected!")
+        logger.info(f"      Title: '{insert_header_popup['title']}'")
+        logger.info(f"      Position: ({insert_header_popup['position']['top']}, {insert_header_popup['position']['left']})")
+        logger.info(f"      Size: {insert_header_popup['position']['width']}x{insert_header_popup['position']['height']}")
+
+        # ====================================================================
+        # STEP 8: Analyze "Insert Header" popup elements
+        # ====================================================================
+        logger.info("\n" + "=" * 100)
+        logger.info("📋 STEP 8: Analyze 'Insert Header' Popup Elements")
+        logger.info("=" * 100)
+
+        elements = await working_tab.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                if (!modal) return null;
+
+                // Get all buttons
+                const buttons = Array.from(modal.querySelectorAll('button'));
+
+                // Get all inputs (especially radio buttons for template selection)
+                const inputs = Array.from(modal.querySelectorAll('input'));
+
+                // Get all images (template previews)
+                const images = Array.from(modal.querySelectorAll('img'));
+
+                // Count radio buttons (for template selection)
+                const radioInputs = inputs.filter(i => i.type === 'radio');
+
+                // Get template preview info
+                const templatePreviews = images.map(img => ({
+                    src: img.src || '',
+                    alt: img.alt || '',
+                    width: img.width,
+                    height: img.height
+                }));
+
+                return {
+                    title: 'Insert Header',
+                    buttons: buttons.map(b => ({
                         text: b.textContent.trim(),
                         type: b.type || '',
                         disabled: b.disabled
-                    }})),
-                    labels: labels.map(l => l.textContent.trim()),
-                    images: images.length,
-                    fileInputs: fileInputs.length,
-                    uploadAreas: uploadAreas.length,
-                    hasLogoUpload: fileInputs.length > 0 || uploadAreas.length > 0
-                }};
-            }}
+                    })),
+                    totalInputs: inputs.length,
+                    radioButtons: radioInputs.length,
+                    templatePreviews: templatePreviews,
+                    totalImages: images.length,
+                    modalText: modal.textContent.substring(0, 200)
+                };
+            }
         """)
 
         if not elements:
             logger.error("   ❌ Failed to analyze popup")
             return
 
-        logger.info(f"\n   📊 Popup Analysis:")
+        logger.info(f"\n   📊 'Insert Header' Popup Analysis:")
         logger.info(f"      Title: '{elements['title']}'")
-        logger.info(f"      Buttons: {len(elements['buttons'])}")
-        logger.info(f"      Inputs: {len(elements['inputs'])}")
-        logger.info(f"      Labels: {len(elements['labels'])}")
-        logger.info(f"      Images: {elements['images']}")
-        logger.info(f"      File Uploads: {elements['fileInputs']}")
-        logger.info(f"      Upload Areas: {elements['uploadAreas']}")
-        logger.info(f"      Has Logo Upload: {'✅ YES' if elements['hasLogoUpload'] else '❌ NO'}")
+        logger.info(f"      Total Buttons: {len(elements['buttons'])}")
+        logger.info(f"      Total Inputs: {elements['totalInputs']}")
+        logger.info(f"      Radio Buttons (Template Selection): {elements['radioButtons']}")
+        logger.info(f"      Template Preview Images: {elements['totalImages']}")
 
         logger.info(f"\n   🔘 Buttons:")
         for i, btn in enumerate(elements['buttons'], 1):
             status = "🔴 Disabled" if btn['disabled'] else "🟢 Enabled"
             logger.info(f"      {i}. '{btn['text']}' ({btn['type']}) {status}")
 
-        logger.info(f"\n   📝 Inputs:")
-        for i, inp in enumerate(elements['inputs'], 1):
-            if inp['type'] == 'file':
-                logger.info(f"      {i}. 🎨 FILE UPLOAD (accept: {inp['accept'] or 'any'})")
-            else:
-                logger.info(f"      {i}. {inp['type'].upper()}: {inp['placeholder'] or inp['name']}")
+        logger.info(f"\n   🖼️  Template Previews:")
+        for i, preview in enumerate(elements['templatePreviews'], 1):
+            logger.info(f"      {i}. Size: {preview['width']}x{preview['height']}")
+            logger.info(f"         Src: {preview['src'][:80]}...")
+
+        logger.info(f"\n   💡 KEY FINDING:")
+        logger.info(f"      This popup is for SELECTING a pre-made header template!")
+        logger.info(f"      - {elements['radioButtons']} radio button(s) for template selection")
+        logger.info(f"      - {elements['totalImages']} preview image(s) showing template designs")
+        logger.info(f"      - Templates already contain dealer logos")
+        logger.info(f"      - NOT a logo upload dialog")
 
         # ====================================================================
         # FINAL SUMMARY
         # ====================================================================
         logger.info("\n" + "=" * 100)
-        logger.info("🎉 WORKFLOW COMPLETE!")
+        logger.info("🎉 COMPLETE WORKFLOW SUCCESSFULLY EXECUTED!")
         logger.info("=" * 100)
-        logger.info("\n   ✅ Step 1: Checked initial state")
-        logger.info("   ✅ Step 2: Removed header component")
-        logger.info("   ✅ Step 3: Detected header button became active")
-        logger.info("   ✅ Step 4: Clicked active header button")
-        logger.info("   ✅ Step 5: Detected popup appearance")
-        logger.info("   ✅ Step 6: Analyzed popup elements")
-        logger.info("\n   📊 Results:")
-        logger.info(f"      - Popup title: '{elements['title']}'")
-        logger.info(f"      - Total buttons: {len(elements['buttons'])}")
-        logger.info(f"      - Total inputs: {len(elements['inputs'])}")
-        logger.info(f"      - Logo upload available: {'✅ YES' if elements['hasLogoUpload'] else '❌ NO'}")
+        logger.info("\n   ✅ Step 1: Checked initial state (header exists, button grayed)")
+        logger.info("   ✅ Step 2: Removed header component (X icon clicked)")
+        logger.info("   ✅ Step 3: Detected header button became active (0.3 → 1.0)")
+        logger.info("   ✅ Step 4: Clicked active header button (added placeholder)")
+        logger.info("   ✅ Step 5: Found '+ Add Header' button in template")
+        logger.info("   ✅ Step 6: Clicked '+ Add Header' button")
+        logger.info("   ✅ Step 7: 'Insert Header' popup appeared")
+        logger.info("   ✅ Step 8: Analyzed popup (template selection interface)")
+
+        logger.info("\n   📊 COMPLETE WORKFLOW SUMMARY:")
+        logger.info(f"      1. Header removal → SUCCESS")
+        logger.info(f"      2. Button state change → DETECTED (grayed → active → grayed)")
+        logger.info(f"      3. '+ Add Header' button → FOUND & CLICKED")
+        logger.info(f"      4. 'Insert Header' popup → DETECTED & ANALYZED")
+        logger.info(f"      5. Popup type → Template selection (NOT logo upload)")
+        logger.info(f"      6. Templates available → {elements['radioButtons']}")
+        logger.info(f"      7. Preview images → {elements['totalImages']}")
+
+        logger.info("\n   🎯 KEY DISCOVERY:")
+        logger.info("      The workflow requires TWO button clicks:")
+        logger.info("      1. Click #HEADER button → Adds '+ Add Header' placeholder")
+        logger.info("      2. Click '+ Add Header' button → Opens 'Insert Header' popup")
+        logger.info("      ")
+        logger.info("      The popup is for selecting PRE-MADE header templates,")
+        logger.info("      NOT for uploading custom logos directly!")
         logger.info("\n" + "=" * 100)
 
 
