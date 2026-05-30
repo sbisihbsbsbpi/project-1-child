@@ -188,8 +188,9 @@ async def main():
                 const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
                 if (!popup) return { found: false };
 
-                // 🎯 STRATEGY 1: Find radio buttons (most reliable)
-                const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
+                // 🎯 STRATEGY 1: Find radio buttons or checkboxes (most reliable)
+                // Tekion uses ant-checkbox-input for selection, not radio buttons
+                const radios = Array.from(popup.querySelectorAll('input[type="radio"], input[type="checkbox"].ant-checkbox-input'));
 
                 const radioLogos = radios.map((radio, idx) => {
                     // Find the container for this radio
@@ -389,7 +390,7 @@ async def main():
                         if (!tile) return {{ found: false }};
 
                         // Get state BEFORE hover
-                        const beforeRadios = tile.querySelectorAll('input[type="radio"]').length;
+                        const beforeRadios = tile.querySelectorAll('input[type="radio"], input[type="checkbox"].ant-checkbox-input').length;
                         const beforeDelete = tile.querySelectorAll('[aria-label*="delete" i], [class*="delete" i], [title*="delete" i]').length;
 
                         // Trigger hover
@@ -399,7 +400,7 @@ async def main():
                         await new Promise(resolve => setTimeout(resolve, 300));
 
                         // Get state AFTER hover
-                        const afterRadios = tile.querySelectorAll('input[type="radio"]');
+                        const afterRadios = tile.querySelectorAll('input[type="radio"], input[type="checkbox"].ant-checkbox-input');
                         const afterDelete = tile.querySelectorAll('[aria-label*="delete" i], [class*="delete" i], [title*="delete" i]');
 
                         // Get img info
@@ -566,8 +567,13 @@ async def main():
                 const targetSrc = targetImg?.src || '';
                 const targetMediaId = targetSrc.match(/([a-f0-9]{24})/)?.[1] || 'unknown';
 
-                // Click the target tile
-                targetTile.click();
+                // Click the image directly (not the tile container)
+                // This properly triggers the checkbox selection
+                if (targetImg) {
+                    targetImg.click();
+                } else {
+                    targetTile.click();  // Fallback if no image found
+                }
 
                 // Wait for state to update
                 return new Promise(resolve => {
@@ -604,8 +610,8 @@ async def main():
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
                     if (!popup) return { found: false };
 
-                    const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
-                    if (radios.length === 0) return { found: false, reason: 'No radio buttons visible' };
+                    const radios = Array.from(popup.querySelectorAll('input[type="radio"], input[type="checkbox"].ant-checkbox-input'));
+                    if (radios.length === 0) return { found: false, reason: 'No radio/checkbox buttons visible' };
 
                     radios.forEach(radio => {
                         const container = radio.closest('div, label, li');
