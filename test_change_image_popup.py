@@ -17,33 +17,73 @@ logger = logging.getLogger(__name__)
 
 async def main():
     logger.info("=" * 100)
-    logger.info("🔍 TESTING CHANGE IMAGE POPUP - DETECT & ANALYZE")
+    logger.info("🔍 COMPLETE FLOW: LIST → EDIT → POPUP → RADIO BUTTONS")
     logger.info("=" * 100)
-    
+
     template_id = "667f0befd4964026ee7b6ea2"  # Service History Recap PDF
-    url = f"https://preprodapp.tekioncloud.com/templates/edit/{template_id}"
-    
+
     async with async_playwright() as playwright:
         # Connect to existing browser
         browser = await playwright.chromium.connect_over_cdp("http://localhost:9223")
         context = browser.contexts[0]
 
-        # Get or create page
+        # ====================================================================
+        # STEP 0: Start from Template List Page
+        # ====================================================================
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 0: Starting from Template List Page")
+        logger.info("=" * 100)
+
         pages = context.pages
+        list_page = None
+
+        # Check if template list is already open
+        for existing_page in pages:
+            if '/templates/list' in existing_page.url and '/edit/' not in existing_page.url:
+                list_page = existing_page
+                logger.info(f"✅ Found existing template list page")
+                break
+
+        if not list_page:
+            logger.info("Opening template list page...")
+            list_page = await context.new_page()
+            await list_page.goto("https://preprodapp.tekioncloud.com/templates/list",
+                               wait_until='domcontentloaded', timeout=15000)
+            await asyncio.sleep(3)
+            logger.info(f"✅ Opened template list page")
+
+        logger.info(f"Current URL: {list_page.url}")
+
+        # ====================================================================
+        # STEP 0b: Navigate to Specific Template (by ID)
+        # ====================================================================
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 0b: Navigating to Specific Template")
+        logger.info("=" * 100)
+
+        # Check if template edit page is already open
         page = None
         for existing_page in pages:
             if template_id in existing_page.url:
                 page = existing_page
-                logger.info(f"✅ Found existing template page")
+                logger.info(f"✅ Found existing template edit page")
                 break
 
         if not page:
-            logger.info(f"Opening template: {url}")
-            page = await context.new_page()
-            await page.goto(url)
-            await asyncio.sleep(20)  # Wait for load
+            # Navigate to the template edit page from list
+            edit_url = f"https://preprodapp.tekioncloud.com/templates/edit/{template_id}"
+            logger.info(f"Navigating to template: {template_id}")
+            logger.info(f"URL: {edit_url}")
+
+            # Use the list page to navigate
+            await list_page.goto(edit_url, wait_until='domcontentloaded', timeout=15000)
+            page = list_page
+
+            logger.info("⏳ Waiting for template to fully load (20 seconds)...")
+            await asyncio.sleep(20)
+            logger.info("✅ Template editor loaded")
         else:
-            logger.info(f"Using existing template page (no reload)")
+            logger.info(f"Using existing template editor (no reload)")
         
         logger.info("\n" + "=" * 100)
         logger.info("STEP 1: Finding logo with warning")
@@ -83,47 +123,59 @@ async def main():
         logger.info("STEP 3: Clicking CHANGE IMAGE icon (icon-switch) to open popup")
         logger.info("=" * 100)
 
-        # Click the "Change Image" icon (icon-switch with title="Change Image")
-        logger.info("\n   Attempting to click Change Image icon...")
-        change_clicked = await page.evaluate("""
+        # Check if popup is already open
+        popup_already_open = await page.evaluate("""
             () => {
-                const container = document.querySelector('[data-logo-to-inspect="true"]');
-                if (!container) return { clicked: false, reason: 'No container' };
-
-                // Find Change Image icon (icon-switch)
-                const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
-                                  container.querySelector('[title="Change Image"]');
-
-                if (changeIcon) {
-                    changeIcon.click();
-                    return { clicked: true, icon: 'icon-switch (Change Image)' };
-                }
-
-                return { clicked: false, reason: 'Change Image icon not found' };
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                return popup && popup.getBoundingClientRect().width > 0;
             }
         """)
 
-        if change_clicked['clicked']:
-            logger.info(f"✅ Change Image icon clicked!")
-            await asyncio.sleep(3)  # Wait for popup to appear
-
-            # Check if popup opened
-            popup_opened = await page.evaluate("""
+        if popup_already_open:
+            logger.info("✅ Popup already open! Skipping click step.")
+        else:
+            # Click the "Change Image" icon (icon-switch with title="Change Image")
+            logger.info("\n   Attempting to click Change Image icon...")
+            change_clicked = await page.evaluate("""
                 () => {
-                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    return popup && popup.getBoundingClientRect().width > 0;
+                    const container = document.querySelector('[data-logo-to-inspect="true"]');
+                    if (!container) return { clicked: false, reason: 'No container' };
+
+                    // Find Change Image icon (icon-switch)
+                    const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                                      container.querySelector('[title="Change Image"]');
+
+                    if (changeIcon) {
+                        changeIcon.click();
+                        return { clicked: true, icon: 'icon-switch (Change Image)' };
+                    }
+
+                    return { clicked: false, reason: 'Change Image icon not found in toolbar' };
                 }
             """)
 
-            if popup_opened:
-                logger.info("✅ Popup opened after clicking Change Image icon!")
+            if change_clicked['clicked']:
+                logger.info(f"✅ Change Image icon clicked!")
+                await asyncio.sleep(3)  # Wait for popup to appear
+
+                # Check if popup opened
+                popup_opened = await page.evaluate("""
+                    () => {
+                        const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                        return popup && popup.getBoundingClientRect().width > 0;
+                    }
+                """)
+
+                if popup_opened:
+                    logger.info("✅ Popup opened after clicking Change Image icon!")
+                else:
+                    logger.warning("⚠️  No popup appeared after clicking Change Image icon")
+                    return
             else:
-                logger.warning("⚠️  No popup appeared after clicking Change Image icon")
+                logger.error(f"❌ {change_clicked.get('reason', 'Unknown error')}")
+                logger.info("\n💡 Tip: The Change Image icon only appears when hovering over the logo")
+                logger.info("   If popup is already open in browser, the script will detect it and continue.")
                 return
-        else:
-            logger.error(f"❌ Change Image icon not found: {change_clicked.get('reason', 'Unknown')}")
-            logger.info("\n📝 Change Image icon only appears on hover. Make sure logo is hovered.")
-            return
 
         await asyncio.sleep(1)
         
@@ -292,9 +344,148 @@ async def main():
         else:
             logger.error("❌ Popup not found")
         
-        # Step 5: HIGHLIGHT radio buttons or selection items (VISUAL INSPECTION)
+        # Step 5: HOVER OVER TILES TO REVEAL HIDDEN ELEMENTS (Radio Buttons & Delete Icons)
         logger.info("\n" + "=" * 100)
-        logger.info("STEP 5: HIGHLIGHTING SELECTION ELEMENTS FOR VISUAL INSPECTION")
+        logger.info("STEP 5: HOVERING OVER TILES TO REVEAL RADIO BUTTONS & DELETE ICONS")
+        logger.info("=" * 100)
+
+        # First, get all tiles
+        tiles_info = await page.evaluate("""
+            () => {
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                if (!popup) return { found: false, tiles: [] };
+
+                const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+
+                return {
+                    found: true,
+                    tileCount: tiles.length,
+                    tiles: tiles.map((tile, idx) => ({
+                        index: idx,
+                        isSelected: tile.className.includes('itemChecked')
+                    }))
+                };
+            }
+        """)
+
+        if not tiles_info['found']:
+            logger.warning("⚠️  No media tiles found in popup")
+        else:
+            logger.info(f"✅ Found {tiles_info['tileCount']} media tiles")
+            logger.info(f"   Hovering over each tile to detect hidden elements...")
+
+            # Hover over each tile and detect what appears
+            hover_results = []
+
+            for tile_idx in range(tiles_info['tileCount']):
+                logger.info(f"\n   🖱️  Hovering over tile #{tile_idx + 1}...")
+
+                hover_detection = await page.evaluate(f"""
+                    async () => {{
+                        const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                        const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                        const tile = tiles[{tile_idx}];
+
+                        if (!tile) return {{ found: false }};
+
+                        // Get state BEFORE hover
+                        const beforeRadios = tile.querySelectorAll('input[type="radio"]').length;
+                        const beforeDelete = tile.querySelectorAll('[aria-label*="delete" i], [class*="delete" i], [title*="delete" i]').length;
+
+                        // Trigger hover
+                        tile.dispatchEvent(new MouseEvent('mouseenter', {{ bubbles: true }}));
+
+                        // Wait for hover effects to appear
+                        await new Promise(resolve => setTimeout(resolve, 300));
+
+                        // Get state AFTER hover
+                        const afterRadios = tile.querySelectorAll('input[type="radio"]');
+                        const afterDelete = tile.querySelectorAll('[aria-label*="delete" i], [class*="delete" i], [title*="delete" i]');
+
+                        // Get img info
+                        const img = tile.querySelector('img');
+                        const src = img?.src || '';
+                        const mediaId = src.match(/([a-f0-9]{{24}})/)?.[1] || 'unknown';
+
+                        // Get file name if visible
+                        const fileName = tile.textContent.includes('.png') || tile.textContent.includes('.jpg') ?
+                                        tile.textContent.match(/[^\\s]+\\.(png|jpg|jpeg|gif|svg)/i)?.[0] : null;
+
+                        const result = {{
+                            found: true,
+                            tileIndex: {tile_idx},
+                            mediaId: mediaId,
+                            fileName: fileName,
+                            isSelected: tile.className.includes('itemChecked'),
+                            beforeHover: {{
+                                radioButtons: beforeRadios,
+                                deleteIcons: beforeDelete
+                            }},
+                            afterHover: {{
+                                radioButtons: afterRadios.length,
+                                deleteIcons: afterDelete.length,
+                                radioDetails: Array.from(afterRadios).map(r => ({{
+                                    checked: r.checked,
+                                    id: r.id,
+                                    name: r.name,
+                                    value: r.value
+                                }})),
+                                deleteDetails: Array.from(afterDelete).map(d => ({{
+                                    ariaLabel: d.getAttribute('aria-label'),
+                                    className: d.className.substring(0, 50),
+                                    tagName: d.tagName
+                                }}))
+                            }}
+                        }};
+
+                        // Keep hover active for inspection
+                        return result;
+                    }}
+                """)
+
+                if hover_detection['found']:
+                    after = hover_detection['afterHover']
+
+                    # Log what was found
+                    logger.info(f"      Media ID: {hover_detection['mediaId']}")
+                    if hover_detection['fileName']:
+                        logger.info(f"      File Name: {hover_detection['fileName']}")
+
+                    if after['radioButtons'] > 0:
+                        logger.info(f"      ✅ Radio Button appeared! ({after['radioButtons']} found)")
+                        for radio in after['radioDetails']:
+                            checked_str = "🔴 CHECKED" if radio['checked'] else "⭕ UNCHECKED"
+                            logger.info(f"         {checked_str} - ID: {radio['id']}")
+                    else:
+                        logger.info(f"      ❌ No radio button on hover")
+
+                    if after['deleteIcons'] > 0:
+                        logger.info(f"      🗑️  Delete Icon appeared! ({after['deleteIcons']} found)")
+                        for delete_icon in after['deleteDetails']:
+                            logger.info(f"         Tag: {delete_icon['tagName']}, Label: {delete_icon['ariaLabel']}")
+                    else:
+                        logger.info(f"      ❌ No delete icon on hover")
+
+                    hover_results.append(hover_detection)
+
+                # Small delay between hovers
+                await asyncio.sleep(0.3)
+
+            # Summary
+            logger.info("\n" + "=" * 80)
+            logger.info("📊 HOVER DETECTION SUMMARY")
+            logger.info("=" * 80)
+
+            tiles_with_radios = [r for r in hover_results if r['afterHover']['radioButtons'] > 0]
+            tiles_with_delete = [r for r in hover_results if r['afterHover']['deleteIcons'] > 0]
+
+            logger.info(f"\n   Total tiles hovered: {len(hover_results)}")
+            logger.info(f"   Tiles with radio buttons: {len(tiles_with_radios)}")
+            logger.info(f"   Tiles with delete icons: {len(tiles_with_delete)}")
+
+        # Step 5b: HIGHLIGHT elements after hover detection
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 5b: HIGHLIGHTING SELECTION ELEMENTS FOR VISUAL INSPECTION")
         logger.info("=" * 100)
 
         # Highlight all selectable elements
@@ -303,7 +494,7 @@ async def main():
                 const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
                 if (!popup) return { found: false };
 
-                // Check for radio buttons first
+                // Check for radio buttons first (they should be visible now after hovering)
                 const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
 
                 if (radios.length > 0) {
