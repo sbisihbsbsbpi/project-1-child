@@ -52,22 +52,24 @@ This script implements the complete integration workflow:
 
 ## 🚀 Usage
 
-### **Basic Usage (10 templates):**
+### **Basic Usage (Opens ALL templates):**
 ```bash
 python3 filter_and_open_templates.py
 ```
 
-### **Open All Templates:**
+This will open **all 39 Service & Parts templates** in browser tabs.
+
+### **Limit to Specific Number:**
 Edit the script and change:
 ```python
-max_templates=10  # Change to None
+max_templates=None  # Change to a number (e.g., 10, 20)
 ```
 
 Or modify the `main()` function:
 ```python
 result = await filter_and_open_templates(
     departments=['Service', 'Parts'],
-    max_templates=None,  # Open ALL templates
+    max_templates=10,  # Limit to 10 templates
     cdp_url="http://localhost:9223"
 )
 ```

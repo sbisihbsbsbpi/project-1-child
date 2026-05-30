@@ -341,7 +341,7 @@ async def main():
 
     result = await filter_and_open_templates(
         departments=['Service', 'Parts'],
-        max_templates=10,  # Limit to 10 for testing (change to None for all)
+        max_templates=None,  # Open ALL templates (was 10 for testing)
         cdp_url="http://localhost:9223"
     )
 
