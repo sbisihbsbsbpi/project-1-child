@@ -203,7 +203,7 @@ class ParallelLogoUpdater:
         return opened_pages
 
     async def wait_for_template_loaded(self, page: Page):
-        """Wait for template editor to fully load"""
+        """Wait for template editor to fully load with progress updates"""
         logger.info("      ⏳ Waiting for template to load...")
 
         try:
@@ -216,9 +216,12 @@ class ParallelLogoUpdater:
                 }
             """, timeout=10000)
 
-            # Wait for content to render
+            # Wait for content to render with progress
+            logger.info("      🔄 Loading template content...")
             await asyncio.sleep(5)  # Template content
+            logger.info("      🖼️  Loading images...")
             await asyncio.sleep(6)  # Images/logos
+            logger.info("      ⚙️  Finalizing state...")
             await asyncio.sleep(6)  # Header state finalization
 
             logger.info("      ✅ Template fully loaded (17s total)")
