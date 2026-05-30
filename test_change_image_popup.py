@@ -292,92 +292,281 @@ async def main():
         else:
             logger.error("❌ Popup not found")
         
-        # Step 5: Select an alternative logo
+        # Step 5: HIGHLIGHT radio buttons or selection items (VISUAL INSPECTION)
         logger.info("\n" + "=" * 100)
-        logger.info("STEP 5: SELECTING ALTERNATIVE LOGO (Avoiding broken logos)")
+        logger.info("STEP 5: HIGHLIGHTING SELECTION ELEMENTS FOR VISUAL INSPECTION")
         logger.info("=" * 100)
 
-        # Known broken logo ID
-        BROKEN_LOGO_ID = "6a0c6722864813539e4da7ae"
-        GOOD_LOGO_ID = "6a19132b6697f36de6236fb1"  # Tilton.png
+        # Highlight all selectable elements
+        highlight_result = await page.evaluate("""
+            () => {
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                if (!popup) return { found: false };
 
-        # Find the good logo (not broken)
-        available_logos = [l for l in popup_info.get('imageLogos', [])
-                          if l['mediaId'] != 'unknown' and l['mediaId'] != BROKEN_LOGO_ID]
+                // Check for radio buttons first
+                const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
 
-        if available_logos:
-            # Prefer the known good logo
-            target_logo = next((l for l in available_logos if l['mediaId'] == GOOD_LOGO_ID), available_logos[0])
+                if (radios.length > 0) {
+                    // Highlight radio buttons
+                    radios.forEach((radio, idx) => {
+                        const container = radio.closest('div, label, li');
+                        if (container) {
+                            if (radio.checked) {
+                                container.style.outline = '5px solid red';
+                                container.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                            } else {
+                                container.style.outline = '5px solid green';
+                                container.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+                            }
+                        }
+                    });
 
-            logger.info(f"\n🎯 Target logo to select:")
-            logger.info(f"   Media ID: {target_logo['mediaId']}")
-            logger.info(f"   Size: {target_logo['width']}x{target_logo['height']}px")
-            logger.info(f"   Currently Selected: {target_logo['isSelected']}")
-            logger.info(f"   URL: {target_logo['src']}")
+                    return {
+                        found: true,
+                        type: 'radio buttons',
+                        count: radios.length,
+                        checked: radios.filter(r => r.checked).length
+                    };
+                } else {
+                    // Highlight media tiles (visual selection)
+                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
 
-            # Click the logo to select it
-            selection_result = await page.evaluate(f"""
-                () => {{
+                    tiles.forEach((tile, idx) => {
+                        const isSelected = tile.className.includes('itemChecked');
+                        const img = tile.querySelector('img');
+                        const src = img?.src || '';
+
+                        // Extract media ID
+                        const mediaId = src.match(/([a-f0-9]{24})/)?.[1] || 'unknown';
+
+                        // Color code: Red = selected, Green = available, Yellow = broken logo
+                        const isBroken = mediaId === '6a0c6722864813539e4da7ae';
+
+                        if (isSelected) {
+                            tile.style.outline = '5px solid red';
+                            tile.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                        } else if (isBroken) {
+                            tile.style.outline = '5px solid orange';
+                            tile.style.backgroundColor = 'rgba(255, 165, 0, 0.2)';
+                        } else {
+                            tile.style.outline = '5px solid green';
+                            tile.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+                        }
+
+                        // Add label
+                        const label = document.createElement('div');
+                        label.style.position = 'absolute';
+                        label.style.top = '5px';
+                        label.style.left = '5px';
+                        label.style.background = 'black';
+                        label.style.color = 'white';
+                        label.style.padding = '5px';
+                        label.style.fontSize = '12px';
+                        label.style.fontWeight = 'bold';
+                        label.style.zIndex = '9999';
+
+                        if (isSelected) {
+                            label.innerText = `SELECTED (${idx + 1})`;
+                        } else if (isBroken) {
+                            label.innerText = `BROKEN (${idx + 1})`;
+                        } else {
+                            label.innerText = `AVAILABLE (${idx + 1})`;
+                        }
+
+                        tile.style.position = 'relative';
+                        tile.appendChild(label);
+                    });
+
+                    return {
+                        found: true,
+                        type: 'visual selection (media tiles)',
+                        count: tiles.length,
+                        selected: tiles.filter(t => t.className.includes('itemChecked')).length
+                    };
+                }
+            }
+        """)
+
+        logger.info(f"\n🎨 Highlighting complete!")
+        logger.info(f"   Type: {highlight_result.get('type', 'unknown')}")
+        logger.info(f"   Total items: {highlight_result.get('count', 0)}")
+
+        if highlight_result.get('type') == 'radio buttons':
+            logger.info(f"   Checked (RED): {highlight_result.get('checked', 0)}")
+            logger.info(f"   Unchecked (GREEN): {highlight_result.get('count', 0) - highlight_result.get('checked', 0)}")
+        else:
+            logger.info(f"   Selected (RED): {highlight_result.get('selected', 0)}")
+            logger.info(f"   Available (GREEN): Items not selected or broken")
+            logger.info(f"   Broken (ORANGE): Known broken logo")
+
+        # Step 6: DETECT INSERT BUTTON (BEFORE radio change)
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 6: DETECTING INSERT BUTTON (BEFORE Selection Change)")
+        logger.info("=" * 100)
+
+        insert_before = await page.evaluate("""
+            () => {
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                if (!popup) return { found: false };
+
+                const buttons = Array.from(popup.querySelectorAll('button'));
+                const insertBtn = buttons.find(b =>
+                    b.textContent.trim().toLowerCase().includes('insert') ||
+                    b.textContent.trim().toLowerCase().includes('update') ||
+                    b.textContent.trim().toLowerCase().includes('save')
+                );
+
+                if (!insertBtn) return { found: false };
+
+                return {
+                    found: true,
+                    text: insertBtn.textContent.trim(),
+                    disabled: insertBtn.disabled,
+                    className: insertBtn.className
+                };
+            }
+        """)
+
+        if insert_before['found']:
+            logger.info(f"✅ Insert button found!")
+            logger.info(f"   Text: {insert_before['text']}")
+            logger.info(f"   Disabled: {insert_before['disabled']}")
+            logger.info(f"   State: {'🔴 DISABLED' if insert_before['disabled'] else '🟢 ENABLED'}")
+        else:
+            logger.warning("⚠️  Insert button not found in popup")
+
+        # Step 7: CHANGE RADIO BUTTON SELECTION
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 7: CHANGING RADIO BUTTON SELECTION")
+        logger.info("=" * 100)
+
+        # Get current radio state and select a different one
+        radio_change_result = await page.evaluate("""
+            () => {
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                if (!popup) return { changed: false, reason: 'Popup not found' };
+
+                const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
+                if (radios.length === 0) return { changed: false, reason: 'No radio buttons found' };
+
+                // Find currently checked radio
+                const checkedRadio = radios.find(r => r.checked);
+                const checkedIndex = radios.indexOf(checkedRadio);
+
+                // Find first unchecked radio
+                const uncheckedRadio = radios.find(r => !r.checked);
+
+                if (!uncheckedRadio) {
+                    return { changed: false, reason: 'No unchecked radio buttons available' };
+                }
+
+                const uncheckedIndex = radios.indexOf(uncheckedRadio);
+
+                // Click the unchecked radio
+                uncheckedRadio.click();
+
+                // Wait a bit for state to update
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        resolve({
+                            changed: true,
+                            previousIndex: checkedIndex,
+                            newIndex: uncheckedIndex,
+                            nowChecked: uncheckedRadio.checked
+                        });
+                    }, 500);
+                });
+            }
+        """)
+
+        if radio_change_result['changed']:
+            logger.info(f"✅ Radio selection changed!")
+            logger.info(f"   Previous: Radio #{radio_change_result.get('previousIndex', 'N/A')}")
+            logger.info(f"   New: Radio #{radio_change_result['newIndex']}")
+            logger.info(f"   Confirmed checked: {radio_change_result['nowChecked']}")
+
+            await asyncio.sleep(1)  # Wait for UI to update
+
+            # Step 8: DETECT INSERT BUTTON (AFTER radio change)
+            logger.info("\n" + "=" * 100)
+            logger.info("STEP 8: DETECTING INSERT BUTTON (AFTER Selection Change)")
+            logger.info("=" * 100)
+
+            insert_after = await page.evaluate("""
+                () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return {{ success: false, reason: 'Popup not found' }};
+                    if (!popup) return { found: false };
 
-                    // Find all images
-                    const allImages = Array.from(popup.querySelectorAll('img'));
-                    const targetImg = allImages[{target_logo['index']}];
+                    const buttons = Array.from(popup.querySelectorAll('button'));
+                    const insertBtn = buttons.find(b =>
+                        b.textContent.trim().toLowerCase().includes('insert') ||
+                        b.textContent.trim().toLowerCase().includes('update') ||
+                        b.textContent.trim().toLowerCase().includes('save')
+                    );
 
-                    if (!targetImg) return {{ success: false, reason: 'Target image not found' }};
+                    if (!insertBtn) return { found: false };
 
-                    // Find clickable container (media tile)
-                    const container = targetImg.closest('[class*="mediaTile"]') || targetImg.parentElement;
+                    // Highlight the Insert button
+                    insertBtn.style.outline = '5px solid yellow';
+                    insertBtn.style.backgroundColor = 'rgba(255, 255, 0, 0.4)';
+                    insertBtn.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.8)';
 
-                    if (!container) return {{ success: false, reason: 'Container not found' }};
-
-                    // Click the container to select it
-                    container.click();
-
-                    return {{
-                        success: true,
-                        mediaId: '{target_logo['mediaId']}',
-                        clicked: 'media tile container'
-                    }};
-                }}
+                    return {
+                        found: true,
+                        text: insertBtn.textContent.trim(),
+                        disabled: insertBtn.disabled,
+                        className: insertBtn.className
+                    };
+                }
             """)
 
-            if selection_result['success']:
-                logger.info(f"\n✅ Logo clicked!")
-                logger.info(f"   Clicked: {selection_result['clicked']}")
-                logger.info(f"   Media ID: {selection_result['mediaId']}")
+            if insert_after['found']:
+                logger.info(f"✅ Insert button detected after change!")
+                logger.info(f"   Text: {insert_after['text']}")
+                logger.info(f"   Disabled: {insert_after['disabled']}")
+                logger.info(f"   State: {'🔴 DISABLED' if insert_after['disabled'] else '🟢 ENABLED'}")
+                logger.info(f"   💛 Button highlighted in YELLOW")
 
-                await asyncio.sleep(1)
+                # Compare states
+                logger.info("\n" + "=" * 100)
+                logger.info("📊 INSERT BUTTON STATE COMPARISON")
+                logger.info("=" * 100)
 
-                # Now click Insert button
-                logger.info(f"\n📤 Clicking Insert button...")
-                insert_clicked = await page.evaluate("""
-                    () => {
-                        const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                        if (!popup) return { success: false, reason: 'Popup not found' };
+                logger.info(f"\n   BEFORE radio change:")
+                logger.info(f"      Disabled: {insert_before.get('disabled', 'N/A')}")
 
-                        // Find Insert button
-                        const buttons = Array.from(popup.querySelectorAll('button'));
-                        const insertBtn = buttons.find(b => b.innerText === 'Insert');
+                logger.info(f"\n   AFTER radio change:")
+                logger.info(f"      Disabled: {insert_after['disabled']}")
 
-                        if (!insertBtn) return { success: false, reason: 'Insert button not found' };
-
-                        insertBtn.click();
-                        return { success: true };
-                    }
-                """)
-
-                if insert_clicked['success']:
-                    logger.info(f"✅ Insert button clicked!")
-                    await asyncio.sleep(2)
-                    logger.info(f"\n🎉 Logo replacement complete!")
+                if insert_before.get('disabled') != insert_after['disabled']:
+                    logger.info(f"\n   🎯 STATE CHANGED!")
+                    if not insert_after['disabled']:
+                        logger.info(f"      ✅ Button is now ENABLED - Ready to insert!")
+                    else:
+                        logger.info(f"      ❌ Button became DISABLED")
                 else:
-                    logger.error(f"❌ Failed to click Insert: {insert_clicked.get('reason', 'Unknown')}")
+                    logger.info(f"\n   ℹ️  Button state remained the same")
             else:
-                logger.error(f"\n❌ Failed to select logo: {selection_result.get('reason', 'Unknown')}")
+                logger.warning("⚠️  Insert button not found after change")
         else:
-            logger.warning("\n⚠️  No alternative logos found (all are either unknown or broken)")
+            logger.warning(f"⚠️  Could not change radio selection: {radio_change_result.get('reason', 'Unknown')}")
+
+        logger.info("\n" + "=" * 100)
+        logger.info("⏸️  PAUSED FOR VISUAL INSPECTION")
+        logger.info("=" * 100)
+        logger.info("\n📋 Color Legend:")
+        logger.info("   🔴 RED    = Currently selected / checked radio button")
+        logger.info("   🟢 GREEN  = Available to select")
+        logger.info("   🟠 ORANGE = Broken logo (should avoid)")
+        logger.info("   💛 YELLOW = Insert/Update button (highlighted after radio change)")
+        logger.info("\n✋ Script paused. Check the browser to see highlighted elements.")
+        logger.info("   Press Ctrl+C when done inspecting...")
+
+        # Keep browser open for inspection
+        try:
+            await asyncio.sleep(3600)  # Wait 1 hour or until Ctrl+C
+        except KeyboardInterrupt:
+            logger.info("\n\n✅ Inspection complete. Exiting...")
 
         logger.info("\n" + "=" * 100)
         logger.info("✅ TEST COMPLETE - Popup analyzed and alternative logo selected")
