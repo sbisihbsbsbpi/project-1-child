@@ -657,12 +657,18 @@ async def main():
                 const targetSrc = targetImg?.src || '';
                 const targetMediaId = targetSrc.match(/([a-f0-9]{24})/)?.[1] || 'unknown';
 
-                // Click the image directly (not the tile container)
-                // This properly triggers the checkbox selection
-                if (targetImg) {
+                // Click the TOP LAYER overlay (not the image or tile container)
+                // The top layer has role="button" and is the actual clickable element
+                // It's absolutely positioned on top of the image
+                const topLayer = targetTile.querySelector('[class*="topLayer"]');
+                if (topLayer) {
+                    topLayer.click();
+                } else if (targetImg) {
+                    // Fallback: try clicking image if no top layer
                     targetImg.click();
                 } else {
-                    targetTile.click();  // Fallback if no image found
+                    // Last resort: click tile container
+                    targetTile.click();
                 }
 
                 // Wait for state to update
