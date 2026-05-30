@@ -63,21 +63,12 @@ async def filter_and_open_templates(
 
             print("✅ Connected to browser via CDP\n")
 
-            # Find or navigate to templates page
-            page = None
-            for p in context.pages:
-                if '/templates/list' in p.url:
-                    page = p
-                    print(f"✅ Found templates page: {p.url}")
-                    break
-
-            if not page:
-                page = await context.new_page()
-                templates_url = "https://preprodapp.tekioncloud.com/templates/list"
-                print(f"🌐 Navigating to: {templates_url}")
-                await page.goto(templates_url, wait_until='domcontentloaded', timeout=15000)
-                await asyncio.sleep(3)
-
+            # Always navigate to templates list page (fresh start)
+            page = await context.new_page()
+            templates_url = "https://preprodapp.tekioncloud.com/templates/list"
+            print(f"🌐 Navigating to: {templates_url}")
+            await page.goto(templates_url, wait_until='domcontentloaded', timeout=15000)
+            await asyncio.sleep(3)
             await page.bring_to_front()
 
             # STEP 1: Set up API monitoring
