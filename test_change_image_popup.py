@@ -42,6 +42,11 @@ async def main():
             page = await context.new_page()
             await page.goto(url)
             await asyncio.sleep(20)  # Wait for load
+        else:
+            # Reload the page to ensure fresh state
+            logger.info(f"Reloading template page...")
+            await page.reload()
+            await asyncio.sleep(5)
         
         logger.info("\n" + "=" * 100)
         logger.info("STEP 1: Finding logo with warning")
