@@ -453,8 +453,8 @@ class ParallelLogoUpdater:
         # No logos at all - add header
         return 'UPDATE_ADD_NEW'
 
-    async def remove_single_logo_with_warning(self, page: Page) -> bool:
-        """Remove ONE logo that has warning icon (used in loop)"""
+    async def replace_single_logo_with_warning(self, page: Page, new_logo_media_id: str = "6a19132b6697f36de6236fb1") -> bool:
+        """Replace ONE logo that has warning icon using Change Image approach"""
         try:
             # Step 1: Find FIRST logo container with warning
             container_found = await page.evaluate("""
@@ -464,7 +464,7 @@ class ParallelLogoUpdater:
 
                     const sortableItem = warningIcon.closest('[class*="SortableItem"]');
                     if (sortableItem) {
-                        sortableItem.setAttribute('data-logo-to-remove', 'true');
+                        sortableItem.setAttribute('data-logo-to-replace', 'true');
                         return true;
                     }
                     return false;
@@ -472,51 +472,129 @@ class ParallelLogoUpdater:
             """)
 
             if not container_found:
+                logger.warning("      ⚠️  No logo with warning found")
                 return False
 
-            # Step 2: Hover to reveal X button
-            container = await page.query_selector('[data-logo-to-remove="true"]')
-            await container.hover(force=True)  # Use force to bypass overlays
+            # Step 2: Hover to reveal toolbar (with Change Image icon)
+            container = await page.query_selector('[data-logo-to-replace="true"]')
+            await container.hover(force=True)
             await asyncio.sleep(1.5)
+            logger.info("      ✅ Hovered, toolbar should be visible")
 
-            # Step 3: Click X button
-            remove_clicked = await page.evaluate("""
+            # Step 3: Click "Change Image" icon (arrow/switch icon)
+            logger.info("      🔄 Clicking 'Change Image' icon...")
+            change_clicked = await page.evaluate("""
                 () => {
-                    const container = document.querySelector('[data-logo-to-remove="true"]');
+                    const container = document.querySelector('[data-logo-to-replace="true"]');
                     if (!container) return false;
 
-                    // Try specific selector first, then generic
-                    const removeBtn = container.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ') ||
-                                     container.querySelector('[class*="removeBtn"]');
+                    // Look for Change Image button (arrow/switch icon)
+                    const changeBtn = container.querySelector('[title="Change Image"]') ||
+                                     container.querySelector('[aria-label="icon-switch"]') ||
+                                     container.querySelector('[class*="switch"]');
 
-                    if (removeBtn) {
-                        removeBtn.click();
-                        // Clean up marker
-                        container.removeAttribute('data-logo-to-remove');
+                    if (changeBtn) {
+                        changeBtn.click();
                         return true;
                     }
                     return false;
                 }
             """)
 
-            if not remove_clicked:
+            if not change_clicked:
+                logger.error("      ❌ Change Image button not found")
                 return False
 
-            await asyncio.sleep(2)  # Wait for DOM update
+            logger.info("      ✅ Change Image clicked")
+            await asyncio.sleep(2)
+
+            # Step 4: Wait for popup/modal to appear
+            logger.info("      ⏳ Waiting for media library popup...")
+            try:
+                await page.wait_for_selector('[role="dialog"]', timeout=5000)
+                logger.info("      ✅ Popup opened")
+            except Exception as e:
+                logger.error(f"      ❌ Popup did not appear: {e}")
+                return False
+
+            # Step 5: Select new logo from media library
+            logger.info(f"      🖼️  Selecting new logo (media ID: {new_logo_media_id})...")
+            logo_selected = await page.evaluate(f"""
+                () => {{
+                    const NEW_ID = "{new_logo_media_id}";
+                    const images = Array.from(document.querySelectorAll('img'));
+
+                    for (const img of images) {{
+                        if (img.src.includes(NEW_ID)) {{
+                            const parent = img.closest('div[class]');
+                            if (parent) {{
+                                parent.click();
+                                return true;
+                            }}
+                        }}
+                    }}
+                    return false;
+                }}
+            """)
+
+            if not logo_selected:
+                logger.error(f"      ❌ New logo not found in media library")
+                return False
+
+            logger.info("      ✅ New logo selected")
+            await asyncio.sleep(1)
+
+            # Step 6: Click Insert button
+            logger.info("      📥 Clicking Insert button...")
+            insert_clicked = await page.evaluate("""
+                () => {
+                    const buttons = Array.from(document.querySelectorAll('button'));
+                    const insertBtn = buttons.find(b => b.innerText && b.innerText.includes('Insert'));
+                    if (insertBtn) {
+                        insertBtn.click();
+                        return true;
+                    }
+                    return false;
+                }
+            """)
+
+            if not insert_clicked:
+                logger.error("      ❌ Insert button not found")
+                return False
+
+            logger.info("      ✅ Insert clicked")
+            await asyncio.sleep(2)
+
+            # Wait for popup to close
+            logger.info("      ⏳ Waiting for popup to close...")
+            try:
+                await page.wait_for_selector('[role="dialog"]', state='hidden', timeout=5000)
+                logger.info("      ✅ Popup closed")
+            except:
+                logger.warning("      ⚠️  Popup didn't close automatically")
+
+            # Clean up marker
+            await page.evaluate("""
+                () => {
+                    const container = document.querySelector('[data-logo-to-replace="true"]');
+                    if (container) container.removeAttribute('data-logo-to-replace');
+                }
+            """)
+
             return True
 
         except Exception as e:
-            logger.error(f"      ❌ Error removing logo: {e}")
+            logger.error(f"      ❌ Error replacing logo: {e}")
             return False
 
     async def remove_logo_with_warning(self, page: Page) -> bool:
         """
-        Remove ALL logos that have warning icons.
+        Replace ALL logos that have warning icons using Change Image approach.
         Loops until all warnings are cleared.
 
         This handles templates with multiple broken logos (e.g., Service History Recap PDF).
         """
-        logger.info("      🗑️  Removing logo(s) with warnings...")
+        logger.info("      🔄 Replacing logo(s) with warnings using Change Image...")
 
         try:
             # Count initial warnings
@@ -533,26 +611,31 @@ class ParallelLogoUpdater:
 
             # Loop until all warnings removed
             while True:
+                # Wait a moment for DOM to update
+                await asyncio.sleep(1)
+
                 # Check remaining warnings
                 warning_count = await page.evaluate("""
                     () => document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb').length
                 """)
 
+                logger.info(f"      🔍 Current warning count: {warning_count}")
+
                 if warning_count == 0:
-                    logger.info(f"      ✅ All {warnings_removed} logo(s) removed successfully")
+                    logger.info(f"      ✅ All {warnings_removed} logo(s) replaced successfully")
                     break
 
-                logger.info(f"      🔄 Removing logo {warnings_removed + 1} ({warning_count} remaining)...")
+                logger.info(f"      🔄 Replacing logo {warnings_removed + 1} ({warning_count} remaining)...")
 
-                # Remove FIRST remaining logo (DOM updates after each removal)
-                removed = await self.remove_single_logo_with_warning(page)
+                # Replace FIRST remaining logo (DOM updates after each replacement)
+                removed = await self.replace_single_logo_with_warning(page)
 
                 if not removed:
-                    logger.error(f"      ❌ Failed to remove logo {warnings_removed + 1}")
+                    logger.error(f"      ❌ Failed to replace logo {warnings_removed + 1}")
                     return False
 
                 warnings_removed += 1
-                logger.info(f"      ✅ Logo {warnings_removed} removed")
+                logger.info(f"      ✅ Logo {warnings_removed} replaced")
 
                 # Safety check: prevent infinite loop
                 if warnings_removed > 10:
