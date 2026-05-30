@@ -377,8 +377,6 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             # Has logo containers - process normally
             logger.info(f"   ✅ Found {logos_info['count']} logo(s) with warnings")
 
-        logger.info(f"   ✅ Found {logos_info['count']} logo(s) with warnings")
-
             # Process each logo
             logos_processed = 0
             for logo_idx in range(1, logos_info['count'] + 1):
