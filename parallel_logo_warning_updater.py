@@ -453,12 +453,10 @@ class ParallelLogoUpdater:
         # No logos at all - add header
         return 'UPDATE_ADD_NEW'
 
-    async def remove_logo_with_warning(self, page: Page) -> bool:
-        """Remove logo that has warning icon"""
-        logger.info("      🗑️  Removing logo with warning...")
-
+    async def remove_single_logo_with_warning(self, page: Page) -> bool:
+        """Remove ONE logo that has warning icon (used in loop)"""
         try:
-            # Step 1: Find logo container with warning
+            # Step 1: Find FIRST logo container with warning
             container_found = await page.evaluate("""
                 () => {
                     const warningIcon = document.querySelector('.templates_Image_warningIcon__hCZHMuhEmb');
@@ -474,25 +472,27 @@ class ParallelLogoUpdater:
             """)
 
             if not container_found:
-                logger.error("      ❌ Logo container not found")
                 return False
 
             # Step 2: Hover to reveal X button
-            logger.info("      Hovering to reveal remove button...")
             container = await page.query_selector('[data-logo-to-remove="true"]')
-            await container.hover()
+            await container.hover(force=True)  # Use force to bypass overlays
             await asyncio.sleep(1.5)
 
             # Step 3: Click X button
-            logger.info("      Clicking remove button...")
             remove_clicked = await page.evaluate("""
                 () => {
                     const container = document.querySelector('[data-logo-to-remove="true"]');
                     if (!container) return false;
 
-                    const removeBtn = container.querySelector('[class*="removeBtn"]');
+                    // Try specific selector first, then generic
+                    const removeBtn = container.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ') ||
+                                     container.querySelector('[class*="removeBtn"]');
+
                     if (removeBtn) {
                         removeBtn.click();
+                        // Clean up marker
+                        container.removeAttribute('data-logo-to-remove');
                         return true;
                     }
                     return false;
@@ -500,28 +500,79 @@ class ParallelLogoUpdater:
             """)
 
             if not remove_clicked:
-                logger.error("      ❌ Remove button not found")
                 return False
 
-            logger.info("      ✅ Logo removed")
-            await asyncio.sleep(2)
-
-            # Step 4: Verify header button becomes active
-            header_active = await page.evaluate("""
-                () => {
-                    const headerBtn = document.querySelector('#HEADER');
-                    if (!headerBtn) return false;
-
-                    const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
-                    return opacity === 1.0;
-                }
-            """)
-
-            logger.info(f"      Header button active: {header_active}")
+            await asyncio.sleep(2)  # Wait for DOM update
             return True
 
         except Exception as e:
             logger.error(f"      ❌ Error removing logo: {e}")
+            return False
+
+    async def remove_logo_with_warning(self, page: Page) -> bool:
+        """
+        Remove ALL logos that have warning icons.
+        Loops until all warnings are cleared.
+
+        This handles templates with multiple broken logos (e.g., Service History Recap PDF).
+        """
+        logger.info("      🗑️  Removing logo(s) with warnings...")
+
+        try:
+            # Count initial warnings
+            initial_count = await page.evaluate("""
+                () => document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb').length
+            """)
+
+            if initial_count == 0:
+                logger.info("      ℹ️  No warnings found")
+                return True
+
+            logger.info(f"      📊 Found {initial_count} logo(s) with warnings")
+            warnings_removed = 0
+
+            # Loop until all warnings removed
+            while True:
+                # Check remaining warnings
+                warning_count = await page.evaluate("""
+                    () => document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb').length
+                """)
+
+                if warning_count == 0:
+                    logger.info(f"      ✅ All {warnings_removed} logo(s) removed successfully")
+                    break
+
+                logger.info(f"      🔄 Removing logo {warnings_removed + 1} ({warning_count} remaining)...")
+
+                # Remove FIRST remaining logo (DOM updates after each removal)
+                removed = await self.remove_single_logo_with_warning(page)
+
+                if not removed:
+                    logger.error(f"      ❌ Failed to remove logo {warnings_removed + 1}")
+                    return False
+
+                warnings_removed += 1
+                logger.info(f"      ✅ Logo {warnings_removed} removed")
+
+                # Safety check: prevent infinite loop
+                if warnings_removed > 10:
+                    logger.error("      ❌ Safety limit reached (10 logos)")
+                    return False
+
+            # Final verification: Check that ALL warnings are gone
+            final_count = await page.evaluate("""
+                () => document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb').length
+            """)
+
+            if final_count > 0:
+                logger.error(f"      ❌ Still have {final_count} warnings after removal!")
+                return False
+
+            logger.info(f"      ✅ Verification passed - all warnings cleared")
+            return True
+
+        except Exception as e:
+            logger.error(f"      ❌ Error in removal loop: {e}")
             return False
 
     async def add_header_with_logo(self, page: Page) -> bool:
