@@ -793,19 +793,53 @@ class ParallelLogoUpdater:
             elif action == 'UPDATE_REMOVE_READD':
                 logger.info("   🔄 UPDATING - Remove and re-add logo")
 
-                # Remove existing logo with warning
+                # Remove existing logo(s) with warning
                 removed = await self.remove_logo_with_warning(page)
                 if not removed:
                     result['error'] = "Failed to remove logo"
                     return result
 
-                # Add new header
-                added = await self.add_header_with_logo(page)
-                if added:
+                # Check button state after removal
+                logger.info("      🔍 Checking template structure after removal...")
+                button_state = await page.evaluate("""
+                    () => {
+                        const btn = document.querySelector('#HEADER');
+                        if (!btn) return { found: false };
+
+                        const opacity = parseFloat(getComputedStyle(btn).opacity);
+                        return {
+                            found: true,
+                            opacity: opacity,
+                            isGrayed: opacity < 1.0,
+                            isActive: opacity === 1.0
+                        };
+                    }
+                """)
+
+                if not button_state['found']:
+                    logger.warning("      ⚠️  #HEADER button not found in DOM")
+                    result['error'] = "Header button not found after removal"
+                    return result
+
+                # Decide based on button state
+                if button_state['isGrayed']:
+                    # Template has container structure - removal is sufficient
+                    logger.info(f"      ✅ Button is grayed (opacity={button_state['opacity']})")
+                    logger.info("      📦 Template has container structure")
+                    logger.info("      ✅ Logos removed successfully, containers ready for upload")
                     result['success'] = True
-                    result['message'] = "Logo removed and re-added successfully"
+                    result['message'] = "Logos removed, template has container structure (ready for upload)"
                 else:
-                    result['error'] = "Failed to add new header"
+                    # Button is active - can add new header
+                    logger.info(f"      ✅ Button is active (opacity={button_state['opacity']})")
+                    logger.info("      ➕ No container structure, adding new header...")
+
+                    added = await self.add_header_with_logo(page)
+                    if added:
+                        result['success'] = True
+                        result['message'] = "Logo removed and new header added successfully"
+                    else:
+                        result['error'] = "Failed to add new header"
 
             elif action == 'UPDATE_ADD_NEW':
                 logger.info("   ➕ UPDATING - Add new logo")
