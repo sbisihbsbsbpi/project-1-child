@@ -587,19 +587,37 @@ class TemplateRemovalService:
                 logger.error("❌ Could not get container element")
                 return False
 
-            # ✅ KEY FIX: Use Playwright's REAL hover (physically moves mouse!)
-            logger.info("🖱️  Hovering mouse over element...")
-            await container.hover()
-            logger.info("✅ Mouse is hovering (delete button should appear now)")
+            # ✅ KEY FIX: Use Playwright's REAL hover with force=True
+            logger.info("🖱️  Forcing hover over element...")
+            try:
+                await container.hover(force=True, timeout=5000)
+                logger.info("✅ Mouse is hovering (delete button should appear now)")
+            except Exception as e:
+                logger.warning(f"⚠️  Force hover failed: {e}, trying JavaScript hover...")
+                # Fallback to JavaScript hover
+                await page.evaluate("""
+                    () => {
+                        const container = document.querySelector('[data-tekion-logo-container="true"]');
+                        if (container) {
+                            container.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+                            container.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+                        }
+                    }
+                """)
+                logger.info("✅ JavaScript hover dispatched")
 
-            # Wait 800ms for delete button to appear
-            await asyncio.sleep(0.8)
-            logger.info("⏱️  Waited 800ms")
+            # Wait for delete button to appear
+            await asyncio.sleep(2)
+            logger.info("⏱️  Waited 2 seconds for X icon to appear")
 
             # Try to find and click delete button
             logger.info("🔍 Searching for delete button...")
 
             delete_selectors = [
+                # ✅ Specific working selector for header logos (discovered 2026-05-30)
+                '.templates_SortableItem_removeBtn__osvYZsTyqJ',
+                # Generic selectors (fallback)
+                '[class*="removeBtn"]',
                 '[class*="icon-cross"]',
                 '[class*="icon-close"]',
                 '[class*="icon-delete"]',

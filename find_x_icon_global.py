@@ -118,22 +118,74 @@ async def main():
         if container_info['className']:
             logger.info(f"      Class: {container_info['className'][:100]}")
 
-        # Hover over the container using Playwright
+        # Hover over the container using Playwright with force=True
         try:
             container = await working_tab.query_selector('[data-logo-container-temp="true"]')
             if container:
-                logger.info("   ✅ Hovering over outer container...")
-                await container.hover()
-                logger.info("   ✅ Mouse hovering over container")
-                await asyncio.sleep(1.5)  # Wait for X to appear
+                logger.info("   ✅ Forcing hover over outer container...")
+                # Use force=True to bypass element interception
+                await container.hover(force=True, timeout=5000)
+                logger.info("   ✅ Mouse hovering over container (forced)")
+                await asyncio.sleep(2)  # Wait for X icon to appear
             else:
                 logger.error("   ❌ Container not found")
                 return
         except Exception as e:
             logger.error(f"   ❌ Hover failed: {e}")
-            return
-        
-        logger.info("\n📋 Step 3: Get all buttons AFTER hover and find NEW ones")
+            # Try JavaScript hover as fallback
+            logger.info("   🔄 Trying JavaScript hover as fallback...")
+            await working_tab.evaluate("""
+                () => {
+                    const container = document.querySelector('[data-logo-container-temp="true"]');
+                    if (container) {
+                        container.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+                        container.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+                    }
+                }
+            """)
+            await asyncio.sleep(2)
+            logger.info("   ✅ JavaScript hover dispatched")
+
+        logger.info("\n📋 Step 3: Check for specific X icon selector first")
+
+        # Try the known working selector first
+        specific_x_icon = await working_tab.evaluate("""
+            () => {
+                // Known working selector from successful detection
+                const removeBtn = document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ');
+
+                if (removeBtn) {
+                    const rect = removeBtn.getBoundingClientRect();
+                    const style = getComputedStyle(removeBtn);
+
+                    return {
+                        found: true,
+                        tagName: removeBtn.tagName,
+                        className: removeBtn.className,
+                        visible: rect.width > 0 && rect.height > 0,
+                        opacity: parseFloat(style.opacity),
+                        display: style.display,
+                        position: { top: Math.round(rect.top), left: Math.round(rect.left) },
+                        size: { width: Math.round(rect.width), height: Math.round(rect.height) }
+                    };
+                }
+
+                return { found: false };
+            }
+        """)
+
+        if specific_x_icon['found'] and specific_x_icon['visible'] and specific_x_icon['opacity'] > 0:
+            logger.info("   🎯 FOUND SPECIFIC X ICON!")
+            logger.info(f"      Selector: .templates_SortableItem_removeBtn__osvYZsTyqJ")
+            logger.info(f"      Element: <{specific_x_icon['tagName']}>")
+            logger.info(f"      Size: {specific_x_icon['size']['width']}x{specific_x_icon['size']['height']}")
+            logger.info(f"      Position: ({specific_x_icon['position']['top']}, {specific_x_icon['position']['left']})")
+            logger.info(f"      Class: {specific_x_icon['className'][:80]}")
+            logger.info("\n   ✅ This is the X icon to click!")
+        else:
+            logger.info("   ⚠️  Specific selector not found, will search generically...")
+
+        logger.info("\n📋 Step 4: Get all buttons AFTER hover and find NEW ones")
         
         after_buttons = await working_tab.evaluate("""
             () => {
