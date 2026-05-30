@@ -344,7 +344,97 @@ async def main():
                         logger.info(f"      - Media ID: {logo['mediaId']} ({logo['width']}x{logo['height']}px)")
         else:
             logger.error("❌ Popup not found")
-        
+
+        # Step 4b: HIGHLIGHT ALL ELEMENTS IN POPUP FOR DEBUGGING
+        logger.info("\n" + "=" * 100)
+        logger.info("STEP 4b: HIGHLIGHTING ALL ELEMENTS IN POPUP")
+        logger.info("=" * 100)
+
+        highlight_info = await page.evaluate("""
+            () => {
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                if (!popup) return { found: false };
+
+                const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+
+                tiles.forEach((tile, idx) => {
+                    // Highlight tile container
+                    tile.style.outline = '2px solid cyan';
+                    tile.style.outlineOffset = '2px';
+
+                    // Highlight image
+                    const img = tile.querySelector('img');
+                    if (img) {
+                        img.style.outline = '3px solid orange';
+                        img.style.outlineOffset = '-3px';
+                        img.style.cursor = 'pointer';
+                    }
+
+                    // Highlight topLayer
+                    const topLayer = tile.querySelector('[class*="topLayer"]');
+                    if (topLayer) {
+                        topLayer.style.outline = '3px solid magenta';
+                        topLayer.style.outlineOffset = '-6px';
+                        topLayer.style.cursor = 'pointer';
+                    }
+
+                    // Highlight checkbox wrapper
+                    const checkboxWrapper = tile.querySelector('.ant-checkbox-wrapper');
+                    if (checkboxWrapper) {
+                        checkboxWrapper.style.outline = '3px solid yellow';
+                        checkboxWrapper.style.backgroundColor = 'rgba(255, 255, 0, 0.3)';
+                    }
+
+                    // Highlight checkbox input
+                    const checkbox = tile.querySelector('input[type="checkbox"]');
+                    if (checkbox) {
+                        const parent = checkbox.closest('.ant-checkbox');
+                        if (parent) {
+                            parent.style.outline = '4px solid red';
+                            parent.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+                        }
+                    }
+
+                    // Add info label
+                    const label = document.createElement('div');
+                    label.style.position = 'absolute';
+                    label.style.bottom = '5px';
+                    label.style.left = '5px';
+                    label.style.background = 'black';
+                    label.style.color = 'white';
+                    label.style.padding = '5px';
+                    label.style.fontSize = '10px';
+                    label.style.zIndex = '99999';
+                    label.style.fontFamily = 'monospace';
+                    label.innerHTML = `#${idx + 1}<br>` +
+                                     `Img: ${img ? '✓' : '✗'}<br>` +
+                                     `TopLayer: ${topLayer ? '✓' : '✗'}<br>` +
+                                     `Checkbox: ${checkbox ? (checkbox.checked ? '☑' : '☐') : '✗'}`;
+                    tile.style.position = 'relative';
+                    tile.appendChild(label);
+                });
+
+                return {
+                    found: true,
+                    totalTiles: tiles.length
+                };
+            }
+        """)
+
+        if highlight_info['found']:
+            logger.info(f"✅ Highlighted {highlight_info['totalTiles']} tiles with element overlays")
+            logger.info(f"\n🎨 Color Legend:")
+            logger.info(f"   🔵 CYAN (2px)    = Tile container (outer)")
+            logger.info(f"   🟠 ORANGE (3px)  = Image element (behind overlay)")
+            logger.info(f"   🟣 MAGENTA (3px) = Top layer overlay (role='button')")
+            logger.info(f"   🟡 YELLOW (3px)  = Checkbox wrapper (label)")
+            logger.info(f"   🔴 RED (4px)     = Checkbox input (actual checkbox)")
+            logger.info(f"\n💡 Check browser to see which elements are layered on top!")
+        else:
+            logger.warning("❌ Could not highlight elements")
+
+        await asyncio.sleep(2)  # Give time to inspect
+
         # Step 5: HOVER OVER TILES TO REVEAL HIDDEN ELEMENTS (Radio Buttons & Delete Icons)
         logger.info("\n" + "=" * 100)
         logger.info("STEP 5: HOVERING OVER TILES TO REVEAL RADIO BUTTONS & DELETE ICONS")
