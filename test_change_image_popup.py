@@ -76,8 +76,8 @@ async def main():
         
         container = await page.query_selector('[data-logo-to-inspect="true"]')
         await container.hover(force=True)
-        await asyncio.sleep(2)
-        logger.info("✅ Hovered")
+        await asyncio.sleep(3)  # Wait longer for toolbar animations
+        logger.info("✅ Hovered and toolbar revealed")
         
         logger.info("\n" + "=" * 100)
         logger.info("STEP 3: Clicking CHANGE IMAGE icon (icon-switch) to open popup")
