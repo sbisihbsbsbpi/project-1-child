@@ -586,23 +586,53 @@ class ParallelLogoUpdater:
         logger.info("      ➕ Adding new header with logo...")
 
         try:
-            # Step 1: Click #HEADER button
-            logger.info("      Step 1: Clicking #HEADER button...")
+            # Step 1: Wait for #HEADER button to become active (after logo removal)
+            logger.info("      Step 1: Waiting for #HEADER button to become active...")
+
+            header_active = False
+            for attempt in range(5):  # Try up to 5 times (10 seconds total)
+                button_state = await page.evaluate("""
+                    () => {
+                        const headerBtn = document.querySelector('#HEADER');
+                        if (!headerBtn) return { found: false };
+
+                        const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                        return {
+                            found: true,
+                            opacity: opacity,
+                            active: opacity === 1.0
+                        };
+                    }
+                """)
+
+                if not button_state['found']:
+                    logger.error("      ❌ #HEADER button not found in DOM")
+                    return False
+
+                if button_state['active']:
+                    header_active = True
+                    logger.info(f"      ✅ #HEADER button is active (opacity={button_state['opacity']})")
+                    break
+
+                logger.info(f"      ⏳ Button not active yet (opacity={button_state['opacity']}), waiting... (attempt {attempt + 1}/5)")
+                await asyncio.sleep(2)
+
+            if not header_active:
+                logger.error("      ❌ #HEADER button did not become active after 10 seconds")
+                return False
+
+            # Click the button
             header_clicked = await page.evaluate("""
                 () => {
                     const headerBtn = document.querySelector('#HEADER');
                     if (!headerBtn) return false;
-
-                    const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
-                    if (opacity < 1) return false;  // Not active
-
                     headerBtn.click();
                     return true;
                 }
             """)
 
             if not header_clicked:
-                logger.error("      ❌ #HEADER button not active or not found")
+                logger.error("      ❌ Failed to click #HEADER button")
                 return False
 
             logger.info("      ✅ #HEADER button clicked")
