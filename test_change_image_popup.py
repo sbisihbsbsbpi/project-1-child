@@ -78,106 +78,123 @@ async def main():
         logger.info("✅ Hovered")
         
         logger.info("\n" + "=" * 100)
-        logger.info("STEP 3: Finding toolbar buttons")
+        logger.info("STEP 3: Clicking WARNING ICON to open popup")
         logger.info("=" * 100)
 
-        # First, detect all buttons/icons in the toolbar
-        toolbar_info = await page.evaluate("""
-            () => {
-                const container = document.querySelector('[data-logo-to-inspect="true"]');
-                if (!container) return { found: false };
-
-                // Find all clickable elements (buttons, icons, etc.)
-                const buttons = Array.from(container.querySelectorAll('button, [role="button"], svg, [class*="btn"], [class*="icon"]'));
-
-                return {
-                    found: true,
-                    buttonCount: buttons.length,
-                    buttons: buttons.map((btn, idx) => ({
-                        index: idx,
-                        tagName: btn.tagName,
-                        title: btn.getAttribute('title') || '',
-                        ariaLabel: btn.getAttribute('aria-label') || '',
-                        className: btn.className || '',
-                        innerText: btn.innerText || ''
-                    }))
-                };
-            }
-        """)
-
-        if toolbar_info['found']:
-            logger.info(f"✅ Found {toolbar_info['buttonCount']} toolbar elements:")
-            for btn in toolbar_info['buttons']:
-                logger.info(f"   [{btn['index']}] {btn['tagName']}")
-                if btn['title']:
-                    logger.info(f"       Title: {btn['title']}")
-                if btn['ariaLabel']:
-                    logger.info(f"       Aria-Label: {btn['ariaLabel']}")
-                if btn['className']:
-                    logger.info(f"       Class: {btn['className'][:100]}")
-
-        # Now try to click Change Image
-        logger.info("\n   Attempting to click Change Image...")
-        change_clicked = await page.evaluate("""
+        # Click the warning icon to see if it opens a popup
+        logger.info("\n   Attempting to click warning icon...")
+        warning_clicked = await page.evaluate("""
             () => {
                 const container = document.querySelector('[data-logo-to-inspect="true"]');
                 if (!container) return { clicked: false, reason: 'No container' };
 
-                // Try multiple selectors
-                const selectors = [
-                    '[title="Change Image"]',
-                    '[aria-label="icon-switch"]',
-                    '[class*="switch"]',
-                    'button[title*="Change"]',
-                    'button[title*="Replace"]'
-                ];
+                // Find warning icon
+                const warningIcon = container.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') ||
+                                   container.querySelector('[aria-label="icon-alert1"]') ||
+                                   container.querySelector('[class*="warningIcon"]');
 
-                for (const selector of selectors) {
-                    const btn = container.querySelector(selector);
-                    if (btn) {
-                        btn.click();
-                        return { clicked: true, selector: selector };
-                    }
+                if (warningIcon) {
+                    warningIcon.click();
+                    return { clicked: true, icon: 'warning icon' };
                 }
 
-                return { clicked: false, reason: 'No matching button found' };
+                return { clicked: false, reason: 'Warning icon not found' };
             }
         """)
 
-        if not change_clicked['clicked']:
-            logger.error(f"❌ Change Image button not found: {change_clicked.get('reason', 'Unknown')}")
-            logger.info("\n📝 Available buttons listed above. Update selectors if needed.")
-            return
+        if warning_clicked['clicked']:
+            logger.info(f"✅ Warning icon clicked!")
+            await asyncio.sleep(2)  # Wait for popup to appear
 
-        logger.info(f"✅ Change Image clicked (using: {change_clicked['selector']})")
+            # Check if popup opened
+            popup_opened = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return popup && popup.getBoundingClientRect().width > 0;
+                }
+            """)
 
-        await asyncio.sleep(3)
+            if popup_opened:
+                logger.info("✅ Popup opened after clicking warning icon!")
+            else:
+                logger.warning("⚠️  No popup appeared after clicking warning icon")
+        else:
+            logger.error(f"❌ Warning icon not clickable: {warning_clicked.get('reason', 'Unknown')}")
+            logger.info("\n📝 Trying alternative approach: Click X icon and trigger media selection...")
+
+            # Alternative: We know X icon exists, so the script continues below
+            # but we note that there's no popup from warning icon
+            logger.info("   (Continuing to popup analysis in case it exists from another action)")
+
+        await asyncio.sleep(1)
         
         logger.info("\n" + "=" * 100)
-        logger.info("STEP 4: ANALYZING POPUP - DETECTING ALL LOGOS")
+        logger.info("STEP 4: ANALYZING POPUP - DETECTING RADIO BUTTONS & LOGOS")
         logger.info("=" * 100)
 
         popup_info = await page.evaluate("""
             () => {
-                const popup = document.querySelector('[role="dialog"]');
+                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
                 if (!popup) return { found: false };
 
-                // Find all logo images in the popup
-                const allImages = Array.from(popup.querySelectorAll('img'));
+                // 🎯 STRATEGY 1: Find radio buttons (most reliable)
+                const radios = Array.from(popup.querySelectorAll('input[type="radio"]'));
 
-                const logos = allImages.map((img, idx) => {
-                    const src = img.src || '';
-                    const parent = img.closest('div[class*="item"], div[role="button"], div[class*="card"]');
+                const radioLogos = radios.map((radio, idx) => {
+                    // Find the container for this radio
+                    const container = radio.closest('div[class*="item"], label, div[role="button"], div[class*="card"], li');
 
-                    // Check if this logo is selected/active
-                    const isSelected = parent?.className?.includes('selected') ||
-                                      parent?.className?.includes('active') ||
-                                      parent?.getAttribute('aria-selected') === 'true' ||
-                                      parent?.querySelector('[class*="check"]') !== null;
+                    // Find associated image
+                    const img = container?.querySelector('img');
+                    const src = img?.src || '';
 
                     // Extract media ID from URL
                     const mediaIdMatch = src.match(/media_([a-f0-9]{24})/);
                     const mediaId = mediaIdMatch ? mediaIdMatch[1] : 'unknown';
+
+                    return {
+                        index: idx,
+                        isChecked: radio.checked,  // ✅ Source of truth
+                        radioId: radio.id || 'no-id',
+                        radioName: radio.name || 'no-name',
+                        mediaId: mediaId,
+                        src: src.substring(0, 150),
+                        width: img?.width || 0,
+                        height: img?.height || 0,
+                        containerClasses: container?.className || 'no container',
+                        hasImage: img !== null
+                    };
+                });
+
+                // 🎯 STRATEGY 2: Find all images (fallback if no radios)
+                const allImages = Array.from(popup.querySelectorAll('img'));
+
+                const imageLogos = allImages.map((img, idx) => {
+                    const src = img.src || '';
+
+                    // Find closest media tile container (Tekion specific)
+                    const parent = img.closest('[class*="mediaTile"]') ||
+                                  img.closest('div[class*="item"]') ||
+                                  img.closest('div[role="button"]') ||
+                                  img.closest('div[class*="card"]') ||
+                                  img.closest('li');
+
+                    // Check if this logo is selected/active (Tekion specific: itemChecked class)
+                    const isSelected = parent?.className?.includes('itemChecked') ||
+                                      parent?.className?.includes('selected') ||
+                                      parent?.className?.includes('active') ||
+                                      parent?.getAttribute('aria-selected') === 'true' ||
+                                      parent?.querySelector('[class*="check"]') !== null;
+
+                    // Extract media ID from URL (handle both formats)
+                    // Format 1: media_6a0c6722864813539e4da7ae_.png (with trailing underscore)
+                    // Format 2: 6a19132b6697f36de6236fb1/Tilton.png (just the ID)
+                    let mediaId = 'unknown';
+                    const match1 = src.match(/([a-f0-9]{24})/);  // Any 24-char hex ID
+
+                    if (match1) {
+                        mediaId = match1[1];
+                    }
 
                     return {
                         index: idx,
@@ -193,8 +210,11 @@ async def main():
                 return {
                     found: true,
                     title: popup.querySelector('h2, h3, .ant-modal-title')?.innerText || 'No title',
-                    totalLogos: logos.length,
-                    logos: logos,
+                    hasRadioButtons: radios.length > 0,
+                    radioCount: radios.length,
+                    radioLogos: radioLogos,
+                    imageCount: allImages.length,
+                    imageLogos: imageLogos,
                     buttons: Array.from(popup.querySelectorAll('button')).map(b => b.innerText),
                     hasSearchBox: popup.querySelector('input[type="search"], input[placeholder*="search" i]') !== null
                 };
@@ -205,33 +225,163 @@ async def main():
             logger.info("✅ POPUP DETECTED!")
             logger.info(f"\n📋 POPUP DETAILS:")
             logger.info(f"   Title: {popup_info['title']}")
-            logger.info(f"   Total Logos Found: {popup_info['totalLogos']}")
+            logger.info(f"   Has Radio Buttons: {popup_info['hasRadioButtons']}")
+            logger.info(f"   Radio Count: {popup_info['radioCount']}")
+            logger.info(f"   Image Count: {popup_info['imageCount']}")
             logger.info(f"   Has Search Box: {popup_info['hasSearchBox']}")
             logger.info(f"   Buttons: {popup_info['buttons']}")
 
-            logger.info(f"\n🖼️  LOGO DETAILS:")
-            for logo in popup_info['logos']:
-                selected_emoji = "✅ SELECTED" if logo['isSelected'] else "⭕ Available"
-                logger.info(f"\n   Logo #{logo['index'] + 1}: {selected_emoji}")
-                logger.info(f"      Media ID: {logo['mediaId']}")
-                logger.info(f"      Size: {logo['width']}x{logo['height']}px")
-                logger.info(f"      Selected: {logo['isSelected']}")
-                logger.info(f"      Parent Classes: {logo['parentClasses'][:100]}")
-                logger.info(f"      URL: {logo['src']}")
+            # Display radio button information (PRIMARY SOURCE)
+            if popup_info['hasRadioButtons']:
+                logger.info(f"\n📻 RADIO BUTTON LOGOS (Source of Truth):")
+                logger.info("=" * 80)
 
-            # Find logos that are NOT selected (candidates for replacement)
-            available_logos = [l for l in popup_info['logos'] if not l['isSelected']]
-            logger.info(f"\n🎯 AVAILABLE LOGOS (not selected, no warnings):")
-            logger.info(f"   Count: {len(available_logos)}")
-            if available_logos:
-                logger.info(f"\n   Recommended to use:")
-                for logo in available_logos[:3]:  # Show first 3
-                    logger.info(f"      - Media ID: {logo['mediaId']} ({logo['width']}x{logo['height']}px)")
+                for radio in popup_info['radioLogos']:
+                    checked_emoji = "✅ CHECKED (Currently Selected)" if radio['isChecked'] else "⭕ Unchecked (Available)"
+                    logger.info(f"\n   Radio #{radio['index'] + 1}: {checked_emoji}")
+                    logger.info(f"      Has Image: {radio['hasImage']}")
+                    if radio['hasImage']:
+                        logger.info(f"      Media ID: {radio['mediaId']}")
+                        logger.info(f"      Size: {radio['width']}x{radio['height']}px")
+                        logger.info(f"      URL: {radio['src']}")
+                    logger.info(f"      Radio ID: {radio['radioId']}")
+                    logger.info(f"      Radio Name: {radio['radioName']}")
+                    logger.info(f"      Container Classes: {radio['containerClasses'][:100]}")
+
+                # Find available (unchecked) radios
+                unchecked_radios = [r for r in popup_info['radioLogos'] if not r['isChecked']]
+                checked_radios = [r for r in popup_info['radioLogos'] if r['isChecked']]
+
+                logger.info(f"\n🎯 SELECTION STATUS:")
+                logger.info(f"   Currently Selected (checked): {len(checked_radios)}")
+                if checked_radios:
+                    for radio in checked_radios:
+                        logger.info(f"      ✅ Radio #{radio['index'] + 1} - Media ID: {radio['mediaId']}")
+
+                logger.info(f"\n   Available (unchecked): {len(unchecked_radios)}")
+                if unchecked_radios:
+                    logger.info(f"   Recommended to select:")
+                    for radio in unchecked_radios[:3]:  # Show first 3
+                        if radio['hasImage']:
+                            logger.info(f"      ⭕ Radio #{radio['index'] + 1} - Media ID: {radio['mediaId']} ({radio['width']}x{radio['height']}px)")
+                        else:
+                            logger.info(f"      ⭕ Radio #{radio['index'] + 1} - (No image associated)")
+
+            # Display image information (FALLBACK)
+            else:
+                logger.info(f"\n🖼️  IMAGE LOGOS (Visual State Detection):")
+                logger.info("=" * 80)
+                logger.info("   ⚠️  No radio buttons found, using visual state detection")
+
+                for logo in popup_info['imageLogos']:
+                    selected_emoji = "✅ SELECTED" if logo['isSelected'] else "⭕ Available"
+                    logger.info(f"\n   Logo #{logo['index'] + 1}: {selected_emoji}")
+                    logger.info(f"      Media ID: {logo['mediaId']}")
+                    logger.info(f"      Size: {logo['width']}x{logo['height']}px")
+                    logger.info(f"      Selected: {logo['isSelected']}")
+                    logger.info(f"      Parent Classes: {logo['parentClasses'][:100]}")
+                    logger.info(f"      URL: {logo['src']}")
+
+                # Find logos that are NOT selected (candidates for replacement)
+                available_logos = [l for l in popup_info['imageLogos'] if not l['isSelected']]
+                logger.info(f"\n🎯 AVAILABLE LOGOS (not selected):")
+                logger.info(f"   Count: {len(available_logos)}")
+                if available_logos:
+                    logger.info(f"\n   Recommended to use:")
+                    for logo in available_logos[:3]:  # Show first 3
+                        logger.info(f"      - Media ID: {logo['mediaId']} ({logo['width']}x{logo['height']}px)")
         else:
             logger.error("❌ Popup not found")
         
+        # Step 5: Select an alternative logo
         logger.info("\n" + "=" * 100)
-        logger.info("✅ TEST COMPLETE - Popup analyzed")
+        logger.info("STEP 5: SELECTING ALTERNATIVE LOGO (Avoiding broken logos)")
+        logger.info("=" * 100)
+
+        # Known broken logo ID
+        BROKEN_LOGO_ID = "6a0c6722864813539e4da7ae"
+        GOOD_LOGO_ID = "6a19132b6697f36de6236fb1"  # Tilton.png
+
+        # Find the good logo (not broken)
+        available_logos = [l for l in popup_info.get('imageLogos', [])
+                          if l['mediaId'] != 'unknown' and l['mediaId'] != BROKEN_LOGO_ID]
+
+        if available_logos:
+            # Prefer the known good logo
+            target_logo = next((l for l in available_logos if l['mediaId'] == GOOD_LOGO_ID), available_logos[0])
+
+            logger.info(f"\n🎯 Target logo to select:")
+            logger.info(f"   Media ID: {target_logo['mediaId']}")
+            logger.info(f"   Size: {target_logo['width']}x{target_logo['height']}px")
+            logger.info(f"   Currently Selected: {target_logo['isSelected']}")
+            logger.info(f"   URL: {target_logo['src']}")
+
+            # Click the logo to select it
+            selection_result = await page.evaluate(f"""
+                () => {{
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return {{ success: false, reason: 'Popup not found' }};
+
+                    // Find all images
+                    const allImages = Array.from(popup.querySelectorAll('img'));
+                    const targetImg = allImages[{target_logo['index']}];
+
+                    if (!targetImg) return {{ success: false, reason: 'Target image not found' }};
+
+                    // Find clickable container (media tile)
+                    const container = targetImg.closest('[class*="mediaTile"]') || targetImg.parentElement;
+
+                    if (!container) return {{ success: false, reason: 'Container not found' }};
+
+                    // Click the container to select it
+                    container.click();
+
+                    return {{
+                        success: true,
+                        mediaId: '{target_logo['mediaId']}',
+                        clicked: 'media tile container'
+                    }};
+                }}
+            """)
+
+            if selection_result['success']:
+                logger.info(f"\n✅ Logo clicked!")
+                logger.info(f"   Clicked: {selection_result['clicked']}")
+                logger.info(f"   Media ID: {selection_result['mediaId']}")
+
+                await asyncio.sleep(1)
+
+                # Now click Insert button
+                logger.info(f"\n📤 Clicking Insert button...")
+                insert_clicked = await page.evaluate("""
+                    () => {
+                        const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                        if (!popup) return { success: false, reason: 'Popup not found' };
+
+                        // Find Insert button
+                        const buttons = Array.from(popup.querySelectorAll('button'));
+                        const insertBtn = buttons.find(b => b.innerText === 'Insert');
+
+                        if (!insertBtn) return { success: false, reason: 'Insert button not found' };
+
+                        insertBtn.click();
+                        return { success: true };
+                    }
+                """)
+
+                if insert_clicked['success']:
+                    logger.info(f"✅ Insert button clicked!")
+                    await asyncio.sleep(2)
+                    logger.info(f"\n🎉 Logo replacement complete!")
+                else:
+                    logger.error(f"❌ Failed to click Insert: {insert_clicked.get('reason', 'Unknown')}")
+            else:
+                logger.error(f"\n❌ Failed to select logo: {selection_result.get('reason', 'Unknown')}")
+        else:
+            logger.warning("\n⚠️  No alternative logos found (all are either unknown or broken)")
+
+        logger.info("\n" + "=" * 100)
+        logger.info("✅ TEST COMPLETE - Popup analyzed and alternative logo selected")
         logger.info("=" * 100)
         logger.info("\n✅ Analysis complete. Browser remains open for inspection.")
 
