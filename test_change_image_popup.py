@@ -834,23 +834,79 @@ async def main():
     
                     logger.info(f"\n   💛 Insert button is HIGHLIGHTED in YELLOW")
                     logger.info(f"   🔴 Selected radio button (if visible) is HIGHLIGHTED in RED")
-                    logger.info(f"\n   ✋ Ready to click Insert button manually if desired")
-    
+
+                    # Click the Insert button to apply the change
+                    logger.info("\n" + "=" * 100)
+                    logger.info(f"STEP 9: CLICKING INSERT BUTTON (Logo #{logo_idx})")
+                    logger.info("=" * 100)
+
+                    await asyncio.sleep(1)  # Brief pause to see highlights
+
+                    insert_clicked = await page.evaluate("""
+                        () => {
+                            const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                            if (!popup) return { clicked: false, reason: 'No popup' };
+
+                            const buttons = Array.from(popup.querySelectorAll('button'));
+                            const insertBtn = buttons.find(b =>
+                                b.textContent.trim().toLowerCase().includes('insert') ||
+                                b.textContent.trim().toLowerCase().includes('update') ||
+                                b.textContent.trim().toLowerCase().includes('save')
+                            );
+
+                            if (!insertBtn) return { clicked: false, reason: 'Insert button not found' };
+                            if (insertBtn.disabled) return { clicked: false, reason: 'Insert button is disabled' };
+
+                            insertBtn.click();
+                            return { clicked: true };
+                        }
+                    """)
+
+                    if insert_clicked['clicked']:
+                        logger.info(f"✅ Insert button clicked!")
+                        await asyncio.sleep(2)  # Wait for the change to be applied
+
+                        # Check if popup closed (indicates success)
+                        popup_closed = await page.evaluate("""
+                            () => {
+                                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                                return !popup || popup.getBoundingClientRect().width === 0;
+                            }
+                        """)
+
+                        if popup_closed:
+                            logger.info(f"✅ Logo #{logo_idx} change APPLIED successfully! Popup closed.")
+                        else:
+                            logger.warning(f"⚠️  Popup still open after clicking Insert - change may not have been applied")
+                    else:
+                        logger.error(f"❌ Could not click Insert button: {insert_clicked.get('reason', 'Unknown error')}")
+
             else:
                 logger.warning("⚠️  Insert button not found after change")
         else:
             logger.warning(f"⚠️  Could not change selection: {radio_change_result.get('reason', 'Unknown')}")
 
-        # Close popup if not the last logo
+        # Wait a bit before moving to next logo (if Insert was clicked, popup should already be closed)
         if logo_idx < logos_info['count']:
             logger.info("\n" + "=" * 100)
-            logger.info(f"CLOSING POPUP - Moving to next logo...")
+            logger.info(f"Waiting before processing next logo...")
             logger.info("=" * 100)
+            await asyncio.sleep(2)  # Give time for popup to close and changes to apply
 
-            # Close popup by pressing Escape
-            await page.keyboard.press('Escape')
-            await asyncio.sleep(2)
-            logger.info("✅ Popup closed, ready for next logo")
+            # Check if popup is still open (shouldn't be if Insert was clicked)
+            popup_still_open = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return popup && popup.getBoundingClientRect().width > 0;
+                }
+            """)
+
+            if popup_still_open:
+                logger.warning("⚠️  Popup still open - closing it manually")
+                await page.keyboard.press('Escape')
+                await asyncio.sleep(1)
+
+            logger.info("✅ Ready for next logo")
 
         # End of logo processing loop
 
