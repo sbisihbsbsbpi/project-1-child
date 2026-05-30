@@ -131,37 +131,104 @@ async def remove_header_logo():
         logger.info("   ⏳ Waiting 2 seconds for X icon to appear...")
         await asyncio.sleep(2)
         
-        logger.info("\n📋 Step 3: Click X icon")
-        
-        # Try specific selector first, then generic patterns
+        logger.info("\n📋 Step 3: Check initial header state")
+
+        # Check header state BEFORE removal
+        initial_header = await working_tab.evaluate("""
+            () => {
+                const headerBtn = document.querySelector('#HEADER');
+                if (!headerBtn) return { found: false };
+
+                const hasDisabledClass = headerBtn.className.includes('disabledButton') ||
+                                        headerBtn.className.includes('disabled');
+                const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                const pointerEvents = getComputedStyle(headerBtn).pointerEvents;
+
+                return {
+                    found: true,
+                    grayed: hasDisabledClass || opacity < 1 || pointerEvents === 'none',
+                    opacity: opacity
+                };
+            }
+        """)
+
+        if initial_header['found']:
+            logger.info(f"   🔘 Header button before: {'🔴 Grayed (opacity {:.1f})'.format(initial_header['opacity']) if initial_header['grayed'] else '🟢 Active'}")
+
+        logger.info("\n📋 Step 4: Click X icon (ONLY correct selector)")
+
+        # ONLY use the proven correct selector - never click wrong elements!
         result = await working_tab.evaluate("""
             () => {
-                // Try specific known selector first
+                // ONLY use the specific verified selector for header logo remove button
+                // This prevents clicking wrong elements like popover close buttons
                 const removeBtn = document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ');
+
                 if (removeBtn) {
-                    removeBtn.click();
-                    return { success: true, method: 'specific selector (.templates_SortableItem_removeBtn__)' };
+                    // Verify it's visible and within reasonable bounds
+                    const rect = removeBtn.getBoundingClientRect();
+                    const style = getComputedStyle(removeBtn);
+
+                    if (rect.width > 0 && rect.height > 0 &&
+                        parseFloat(style.opacity) > 0 &&
+                        style.display !== 'none') {
+                        removeBtn.click();
+                        return {
+                            success: true,
+                            selector: '.templates_SortableItem_removeBtn__osvYZsTyqJ',
+                            position: { top: Math.round(rect.top), left: Math.round(rect.left) },
+                            size: { width: Math.round(rect.width), height: Math.round(rect.height) }
+                        };
+                    }
                 }
 
-                // Try generic removeBtn pattern
-                const genericRemove = document.querySelector('[class*="removeBtn"]');
-                if (genericRemove) {
-                    genericRemove.click();
-                    return { success: true, method: 'generic removeBtn selector' };
+                // Try generic removeBtn ONLY if it's NOT a popover/workspace close button
+                const genericBtns = document.querySelectorAll('[class*="removeBtn"]');
+                for (const btn of genericBtns) {
+                    const className = btn.className || '';
+                    // Skip popover/workspace/notification close buttons
+                    if (className.includes('popover') ||
+                        className.includes('workspace') ||
+                        className.includes('notification') ||
+                        className.includes('Close')) {
+                        continue;
+                    }
+
+                    const rect = btn.getBoundingClientRect();
+                    const style = getComputedStyle(btn);
+
+                    if (rect.width > 0 && rect.height > 0 &&
+                        parseFloat(style.opacity) > 0 &&
+                        style.display !== 'none') {
+                        btn.click();
+                        return {
+                            success: true,
+                            selector: '[class*="removeBtn"] (filtered)',
+                            className: className
+                        };
+                    }
                 }
 
-                return { success: false, error: 'X icon not found' };
+                return { success: false, error: 'X icon not found or not visible' };
             }
         """)
 
         if result['success']:
-            logger.info(f"   ✅ X icon clicked! (Method: {result['method']})")
+            logger.info(f"   ✅ X icon clicked!")
+            logger.info(f"      Selector: {result['selector']}")
+            if result.get('position'):
+                logger.info(f"      Position: ({result['position']['top']}, {result['position']['left']})")
+                logger.info(f"      Size: {result['size']['width']}x{result['size']['height']}")
 
-            await asyncio.sleep(1)
+            logger.info("\n   ⏳ Waiting 2 seconds for removal to complete...")
+            await asyncio.sleep(2)
 
-            # Verify logo is removed
-            logo_check = await working_tab.evaluate("""
+            logger.info("\n📋 Step 5: Verify removal and header state change")
+
+            # Check final state - both logo and header button
+            final_state = await working_tab.evaluate("""
                 () => {
+                    // Check if logo still exists
                     const allImgs = document.querySelectorAll('img');
                     let headerLogoFound = false;
 
@@ -176,20 +243,56 @@ async def remove_header_logo():
                         }
                     }
 
-                    return { logoStillPresent: headerLogoFound };
+                    // Check header button state
+                    const headerBtn = document.querySelector('#HEADER');
+                    let headerState = { found: false };
+
+                    if (headerBtn) {
+                        const hasDisabledClass = headerBtn.className.includes('disabledButton') ||
+                                                headerBtn.className.includes('disabled');
+                        const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                        const pointerEvents = getComputedStyle(headerBtn).pointerEvents;
+
+                        headerState = {
+                            found: true,
+                            grayed: hasDisabledClass || opacity < 1 || pointerEvents === 'none',
+                            opacity: opacity
+                        };
+                    }
+
+                    return {
+                        logoStillPresent: headerLogoFound,
+                        header: headerState
+                    };
                 }
             """)
 
-            if logo_check['logoStillPresent']:
-                logger.warning("   ⚠️  Logo still present after click")
+            logger.info(f"\n   📊 Results:")
+            logger.info(f"      Logo removed: {'❌ No (still present)' if final_state['logoStillPresent'] else '✅ Yes'}")
+
+            if final_state['header']['found']:
+                logger.info(f"      Header button after: {'🔴 Grayed (opacity {:.1f})'.format(final_state['header']['opacity']) if final_state['header']['grayed'] else '🟢 Active (opacity {:.1f})'.format(final_state['header']['opacity'])}")
+
+                # Compare before and after
+                if initial_header['found'] and initial_header['grayed'] and not final_state['header']['grayed']:
+                    logger.info(f"\n   🎉 Header became ACTIVE! (was grayed, now enabled)")
+                    logger.info(f"      → Entire header component removed")
+                elif initial_header['found'] and initial_header['grayed'] and final_state['header']['grayed']:
+                    logger.info(f"\n   ⚠️  Header still grayed (only logo removed)")
+
+            if final_state['logoStillPresent']:
+                logger.warning("\n❌ FAILED - Logo still present after click")
                 return False
             else:
                 logger.info("\n" + "=" * 100)
                 logger.info("🎉 SUCCESS! Header logo removed!")
+                if final_state['header']['found'] and not final_state['header']['grayed']:
+                    logger.info("✅ Header button is now ACTIVE - header option available!")
                 logger.info("=" * 100)
                 return True
         else:
             logger.error(f"   ❌ {result.get('error', 'Unknown error')}")
+            logger.error("   💡 Make sure you hover over the logo container first")
             return False
 
 

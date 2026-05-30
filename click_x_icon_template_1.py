@@ -14,6 +14,92 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
 
+async def verify_and_report_results(working_tab, initial_state, ignore_list, logger):
+    """Verify logo removal and header state change, then report results"""
+
+    logger.info("\n" + "=" * 100)
+    logger.info("📋 STEP 5: VERIFY RESULTS")
+    logger.info("=" * 100)
+
+    # Check final state
+    final_state = await working_tab.evaluate("""
+        (ignorePatterns) => {
+            function isIgnored(el) {
+                if (!el) return true;
+                if (ignorePatterns.ids.includes(el.id)) return true;
+                const classes = el.className || '';
+                for (const pattern of ignorePatterns.class_names) {
+                    if (classes.includes(pattern)) return true;
+                }
+                for (const parentSelector of ignorePatterns.parent_selectors) {
+                    if (el.closest(parentSelector)) return true;
+                }
+                return false;
+            }
+
+            // Check if logo still exists
+            const allImgs = document.querySelectorAll('img');
+            let logoFound = false;
+
+            for (const img of allImgs) {
+                if (isIgnored(img)) continue;
+                const src = img.src || '';
+                const rect = img.getBoundingClientRect();
+                if (src.includes('amazonaws.com') && src.includes('media_')) {
+                    if (rect.width > 50 && rect.height > 20 && rect.top < 600) {
+                        logoFound = true;
+                        break;
+                    }
+                }
+            }
+
+            // Check header button
+            const headerBtn = document.querySelector('#HEADER');
+            const headerGrayed = headerBtn ? (
+                headerBtn.classList.contains('templates_Button_disabledButton__5QXhWoXLh5') ||
+                parseFloat(getComputedStyle(headerBtn).opacity) < 1
+            ) : null;
+            const headerOpacity = headerBtn ? parseFloat(getComputedStyle(headerBtn).opacity) : null;
+
+            return {
+                logoStillExists: logoFound,
+                headerGrayed: headerGrayed,
+                headerOpacity: headerOpacity
+            };
+        }
+    """, ignore_list['ignore_patterns'])
+
+    logger.info(f"\n📊 FINAL STATE:")
+    logger.info(f"   Logo still exists: {final_state['logoStillExists']}")
+    logger.info(f"   Header button grayed: {final_state['headerGrayed']}")
+    logger.info(f"   Header button opacity: {final_state['headerOpacity']}")
+
+    # Take final screenshot
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    screenshot = f"template_1_after_x_click_{timestamp}.png"
+    await working_tab.screenshot(path=screenshot, full_page=True)
+    logger.info(f"\n📸 Screenshot: {screenshot}")
+
+    logger.info("\n" + "=" * 100)
+    logger.info("✅ RESULTS")
+    logger.info("=" * 100)
+
+    if not final_state['logoStillExists']:
+        logger.info("\n✅ Logo REMOVED!")
+    else:
+        logger.info("\n❌ Logo still exists")
+
+    if initial_state['headerGrayed'] and not final_state['headerGrayed']:
+        logger.info("✅ Header button is now ACTIVE!")
+        logger.info("   → Entire header component was removed (Option B)")
+        logger.info(f"   → Header opacity changed: {initial_state['headerOpacity']} → {final_state['headerOpacity']}")
+    elif initial_state['headerGrayed'] and final_state['headerGrayed']:
+        logger.info("⚠️  Header button still grayed")
+        logger.info("   → Only logo image removed, header component remains (Option A)")
+
+    logger.info("\n" + "=" * 100)
+
+
 async def main():
     logger.info("=" * 100)
     logger.info("🗑️  REMOVE LOGO FROM TEMPLATE #1 - Click X Icon")
@@ -162,7 +248,74 @@ async def main():
         await asyncio.sleep(0.5)
 
         logger.info("\n" + "=" * 100)
-        logger.info("📋 STEP 3: FIND X ICON IN TOP-RIGHT CORNER")
+        logger.info("📋 STEP 3: CHECK FOR SPECIFIC X ICON SELECTOR FIRST")
+        logger.info("=" * 100)
+
+        # Try the proven working selector FIRST
+        specific_x_icon = await working_tab.evaluate("""
+            () => {
+                const removeBtn = document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ');
+
+                if (removeBtn) {
+                    const rect = removeBtn.getBoundingClientRect();
+                    const style = getComputedStyle(removeBtn);
+
+                    if (rect.width > 0 && rect.height > 0 &&
+                        parseFloat(style.opacity) > 0 &&
+                        style.display !== 'none') {
+                        return {
+                            found: true,
+                            className: removeBtn.className,
+                            position: { top: Math.round(rect.top), left: Math.round(rect.left) },
+                            size: { width: Math.round(rect.width), height: Math.round(rect.height) }
+                        };
+                    }
+                }
+
+                return { found: false };
+            }
+        """)
+
+        if specific_x_icon['found']:
+            logger.info(f"\n🎯 FOUND SPECIFIC X ICON!")
+            logger.info(f"   Selector: .templates_SortableItem_removeBtn__osvYZsTyqJ")
+            logger.info(f"   Size: {specific_x_icon['size']['width']}x{specific_x_icon['size']['height']}")
+            logger.info(f"   Position: ({specific_x_icon['position']['top']}, {specific_x_icon['position']['left']})")
+            logger.info(f"\n   ✅ Will use this verified selector (skip generic search)")
+
+            # Skip to clicking
+            logger.info("\n" + "=" * 100)
+            logger.info("📋 STEP 4: CLICK VERIFIED X ICON")
+            logger.info("=" * 100)
+
+            click_result = await working_tab.evaluate("""
+                () => {
+                    const removeBtn = document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ');
+                    if (removeBtn) {
+                        removeBtn.click();
+                        return { success: true, clicked: true };
+                    }
+                    return { success: false, error: 'Button disappeared' };
+                }
+            """)
+
+            if not click_result['success']:
+                logger.error(f"❌ {click_result.get('error')}")
+                return
+
+            logger.info("✅ X icon CLICKED!")
+            logger.info("⏳ Waiting for deletion...")
+            await asyncio.sleep(2)
+
+            # Jump to verification
+            await verify_and_report_results(working_tab, initial_state, ignore_list, logger)
+            return
+
+        logger.info("   ⚠️  Specific selector not found, falling back to generic search...")
+        logger.info("   (This may find wrong elements - use with caution!)")
+
+        logger.info("\n" + "=" * 100)
+        logger.info("📋 STEP 3B: GENERIC SEARCH (FALLBACK)")
         logger.info("=" * 100)
 
         # Search for X icon - BROADER SEARCH (anywhere on page)
@@ -268,7 +421,7 @@ async def main():
                 logger.info(f"      HTML: {candidate['innerHTML'][:60]}...")
             logger.info("")
 
-        # Look for X or close icon
+        # Look for X or close icon - BUT EXCLUDE wrong elements
         x_icon = None
         for idx, candidate in enumerate(x_icon_result['candidates']):
             className = candidate['className'].lower()
@@ -277,12 +430,24 @@ async def main():
             innerHTML = candidate['innerHTML'].lower()
             dataAction = candidate['dataAction'].lower()
 
-            # Check for X, close, delete, remove patterns
+            # SKIP popover, workspace, notification close buttons (wrong elements!)
+            if any(exclude in className for exclude in ['popover', 'workspace', 'notification', 'selectedworkspace']):
+                continue
+
+            # Check for X, close, delete, remove patterns (but only for logo removal)
             all_text = className + ariaLabel + title + innerHTML + dataAction
-            if any(keyword in all_text for keyword in ['close', 'cross', 'delete', 'remove', 'times', '×']):
+
+            # ONLY accept if it has "remove" or "delete" (not just "close")
+            # This prevents clicking popover/modal close buttons
+            if 'removebtn' in className or 'remove' in className and 'btn' in className:
                 x_icon = idx
                 logger.info(f"\n🎯 FOUND X ICON: Candidate [{idx + 1}]")
-                logger.info(f"   Matched keyword in: {className[:50] if 'close' in className or 'cross' in className or 'delete' in className else ''}")
+                logger.info(f"   Matched removeBtn pattern in: {className[:50]}")
+                break
+            elif any(keyword in all_text for keyword in ['delete', 'trash']):
+                x_icon = idx
+                logger.info(f"\n🎯 FOUND X ICON: Candidate [{idx + 1}]")
+                logger.info(f"   Matched delete/trash keyword")
                 break
 
         if x_icon is None and len(x_icon_result['candidates']) > 0:

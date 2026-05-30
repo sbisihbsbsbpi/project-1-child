@@ -146,12 +146,13 @@ async def main():
             await asyncio.sleep(2)
             logger.info("   ✅ JavaScript hover dispatched")
 
-        logger.info("\n📋 Step 3: Check for specific X icon selector first")
+        logger.info("\n📋 Step 3: Check for specific X icon selector (RECOMMENDED)")
 
-        # Try the known working selector first
+        # Try the known working selector first - THIS IS THE CORRECT ONE
         specific_x_icon = await working_tab.evaluate("""
             () => {
-                // Known working selector from successful detection
+                // Known working selector from successful detection (2026-05-30)
+                // This is the CORRECT selector for header logo remove button
                 const removeBtn = document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ');
 
                 if (removeBtn) {
@@ -175,17 +176,26 @@ async def main():
         """)
 
         if specific_x_icon['found'] and specific_x_icon['visible'] and specific_x_icon['opacity'] > 0:
-            logger.info("   🎯 FOUND SPECIFIC X ICON!")
+            logger.info("   🎯 FOUND SPECIFIC X ICON! ✅")
             logger.info(f"      Selector: .templates_SortableItem_removeBtn__osvYZsTyqJ")
             logger.info(f"      Element: <{specific_x_icon['tagName']}>")
             logger.info(f"      Size: {specific_x_icon['size']['width']}x{specific_x_icon['size']['height']}")
             logger.info(f"      Position: ({specific_x_icon['position']['top']}, {specific_x_icon['position']['left']})")
             logger.info(f"      Class: {specific_x_icon['className'][:80]}")
-            logger.info("\n   ✅ This is the X icon to click!")
+            logger.info("\n   ✅ This is the CORRECT X icon to click!")
+            logger.info("   ✅ Use this selector to click (skip generic search)")
+            logger.info("\n" + "=" * 100)
+            logger.info("🎉 SUCCESS - Correct X icon identified!")
+            logger.info("=" * 100)
+            logger.info("\nTo click this X icon, use:")
+            logger.info("   await page.evaluate(\"document.querySelector('.templates_SortableItem_removeBtn__osvYZsTyqJ').click()\")")
+            return
         else:
-            logger.info("   ⚠️  Specific selector not found, will search generically...")
+            logger.info("   ⚠️  Specific selector not found")
+            logger.info("   ⚠️  WARNING: Generic search may find WRONG elements!")
+            logger.info("   ⚠️  (e.g., popover close, workspace close buttons)")
 
-        logger.info("\n📋 Step 4: Get all buttons AFTER hover and find NEW ones")
+        logger.info("\n📋 Step 4: Generic search (FALLBACK - use with caution)")
         
         after_buttons = await working_tab.evaluate("""
             () => {
