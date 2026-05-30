@@ -701,61 +701,24 @@ async def main():
                 else:
                     logger.info(f"\n   ℹ️  Button state remained the same")
 
-                # Step 9: CLICK INSERT BUTTON
+                # Final Summary
                 logger.info("\n" + "=" * 100)
-                logger.info("STEP 9: CLICKING INSERT BUTTON")
+                logger.info("📊 LOGO SELECTION SUMMARY")
                 logger.info("=" * 100)
 
-                if not insert_after['disabled']:
-                    logger.info("🖱️  Clicking Insert button...")
+                logger.info(f"\n   BEFORE Selection Change:")
+                logger.info(f"      Selected Tile: #{radio_change_result.get('previousIndex', -1) + 1}")
+                logger.info(f"      (This was the original logo)")
 
-                    click_result = await page.evaluate("""
-                        () => {
-                            const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                            if (!popup) return { clicked: false, reason: 'No popup found' };
+                logger.info(f"\n   AFTER Selection Change:")
+                logger.info(f"      Selected Tile: #{radio_change_result['newIndex'] + 1}")
+                logger.info(f"      Media ID: {radio_change_result['newMediaId']}")
+                logger.info(f"      (This is the NEW logo - Tilton.png)")
 
-                            const buttons = Array.from(popup.querySelectorAll('button'));
-                            const insertBtn = buttons.find(b =>
-                                b.textContent.trim().toLowerCase().includes('insert') ||
-                                b.textContent.trim().toLowerCase().includes('update') ||
-                                b.textContent.trim().toLowerCase().includes('save')
-                            );
+                logger.info(f"\n   💛 Insert button is HIGHLIGHTED in YELLOW")
+                logger.info(f"   🔴 Selected radio button (if visible) is HIGHLIGHTED in RED")
+                logger.info(f"\n   ✋ Ready to click Insert button manually if desired")
 
-                            if (!insertBtn) return { clicked: false, reason: 'Insert button not found' };
-                            if (insertBtn.disabled) return { clicked: false, reason: 'Button is disabled' };
-
-                            insertBtn.click();
-                            return {
-                                clicked: true,
-                                buttonText: insertBtn.textContent.trim()
-                            };
-                        }
-                    """)
-
-                    if click_result['clicked']:
-                        logger.info(f"✅ Insert button clicked: '{click_result['buttonText']}'")
-
-                        # Wait for popup to close
-                        await asyncio.sleep(2)
-
-                        # Check if popup closed
-                        popup_closed = await page.evaluate("""
-                            () => {
-                                const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                                return !popup || popup.getBoundingClientRect().width === 0;
-                            }
-                        """)
-
-                        if popup_closed:
-                            logger.info("✅ Popup closed successfully")
-                            logger.info("✅ Logo replacement complete!")
-                        else:
-                            logger.warning("⚠️  Popup still open after clicking Insert")
-                    else:
-                        logger.error(f"❌ Failed to click Insert button: {click_result.get('reason')}")
-                else:
-                    logger.warning("⚠️  Insert button is DISABLED - cannot click")
-                    logger.info("   Will pause for manual inspection instead")
             else:
                 logger.warning("⚠️  Insert button not found after change")
         else:
@@ -764,13 +727,14 @@ async def main():
         logger.info("\n" + "=" * 100)
         logger.info("⏸️  PAUSED FOR VISUAL INSPECTION")
         logger.info("=" * 100)
-        logger.info("\n📋 Color Legend:")
-        logger.info("   🔴 RED    = Currently selected / checked radio button")
-        logger.info("   🟢 GREEN  = Available to select")
-        logger.info("   🟠 ORANGE = Broken logo (should avoid)")
-        logger.info("   💛 YELLOW = Insert/Update button (highlighted after radio change)")
-        logger.info("\n✋ Script paused. Check the browser to see highlighted elements.")
-        logger.info("   Press Ctrl+C when done inspecting...")
+        logger.info("\n📋 What to Check in Browser:")
+        logger.info("   1. Look at the popup - which logo is highlighted/selected?")
+        logger.info("   2. The Insert button should be highlighted in 💛 YELLOW")
+        logger.info("   3. If radio buttons are visible, selected one should be 🔴 RED")
+        logger.info("   4. The logo changed from the original to Tilton.png (6a19132b6697f36de6236fb1)")
+        logger.info("\n✋ Script STOPPED - Did NOT click Insert button")
+        logger.info("   You can manually click Insert if you want to complete the replacement")
+        logger.info("   Or press Ctrl+C to exit without saving changes")
 
         # Keep browser open for inspection
         try:
