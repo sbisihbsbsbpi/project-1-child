@@ -1,15 +1,15 @@
-# Complete Flow Summary: Template List → Edit → Popup Detection
+# Complete Flow Summary: Template List → Edit → Popup Detection → Selection Change
 
-**Date**: 2026-05-30  
-**Script**: `test_change_image_popup.py`  
-**Branch**: `refactor/phase-1-quick-fixes`  
-**Commit**: `c5a72ca`
+**Date**: 2026-05-30
+**Script**: `test_change_image_popup.py`
+**Branch**: `refactor/phase-1-quick-fixes`
+**Latest Commit**: `f931d6b`
 
 ---
 
 ## 🎯 Objective
 
-Updated the script to execute the **complete user workflow** starting from the template list page, navigating to a template editor, and detecting the "Change Image" popup elements including radio buttons and Insert button state.
+Execute the **complete logo replacement workflow** starting from the template list page, navigating to a template editor, detecting the "Change Image" popup, changing the logo selection, highlighting the Insert button, and **pausing for manual inspection** before committing the change.
 
 ---
 
@@ -51,16 +51,18 @@ STEP 8: Visual Highlighting
 
 ## ✅ What Works
 
-1. ✅ **Starts from template list** - No longer assumes you're already on edit page
+1. ✅ **Starts from template list** - Navigates from `/templates/list`
 2. ✅ **Navigates to specific template** - Uses template ID to open correct page
 3. ✅ **Waits for full page load** - 20 second wait for template editor
 4. ✅ **Finds logo with warning** - Detects warning icon on logos
 5. ✅ **Hovers to reveal toolbar** - Shows change image icon
 6. ✅ **Opens popup** - Clicks "Change Image" icon successfully
-7. ✅ **Detects media tiles** - Found 11 tiles in popup
-8. ✅ **Hovers over tiles** - Attempts to reveal hidden elements
-9. ✅ **Detects Insert button** - Tracks enabled/disabled state
-10. ✅ **Visual highlighting** - Color-codes elements for inspection
+7. ✅ **Detects currently selected logo** - Shows which logo is selected (Tile #6 originally)
+8. ✅ **Changes logo selection** - Clicks on different tile (Tile #1 - Tilton.png)
+9. ✅ **Skips logo highlighting** - Does NOT highlight logos (only radio buttons & Insert button)
+10. ✅ **Highlights Insert button** - Shows button in YELLOW after selection change
+11. ✅ **Pauses for inspection** - Does NOT click Insert automatically
+12. ✅ **Shows before/after summary** - Clear comparison of original vs new selection
 
 ---
 
@@ -78,7 +80,7 @@ STEP 8: Visual Highlighting
 
 ---
 
-## 📊 Detection Results (Last Run)
+## 📊 Detection Results (Last Run - f931d6b)
 
 ```
 Template ID: 667f0befd4964026ee7b6ea2 (Service History Recap PDF)
@@ -89,12 +91,18 @@ Popup Details:
 - Image Count: 3 (visible)
 - Media Tiles Count: 11 (total)
 - Buttons: ['', '', 'Cancel', 'Insert']
-- Insert Button State: 🟢 ENABLED
+- Insert Button State: 🟢 ENABLED (before and after selection)
 
-Logos Detected:
+Logos Detected Initially:
 - Logo #1: ✅ SELECTED (80x73px, data:image/svg+xml)
 - Logo #2: ⭕ Available (6a19132b6697f36de6236fb1, Tilton.png)
-- Logo #3: ⭕ Available (6a0c6722864813539e4da7ae, _.png)
+- Logo #3: ⭕ Available (6a0c6722864813539e4da7ae, _.png - BROKEN)
+
+Selection Change:
+- BEFORE: Tile #6 (original logo)
+- AFTER: Tile #1 (Media ID: 6a19132b6697f36de6236fb1 - Tilton.png)
+- Insert Button: Highlighted in 💛 YELLOW
+- Script: PAUSED (did NOT click Insert)
 
 Hover Detection:
 - Total tiles hovered: 11
