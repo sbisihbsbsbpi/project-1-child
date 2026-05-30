@@ -43,10 +43,7 @@ async def main():
             await page.goto(url)
             await asyncio.sleep(20)  # Wait for load
         else:
-            # Reload the page to ensure fresh state
-            logger.info(f"Reloading template page...")
-            await page.reload()
-            await asyncio.sleep(5)
+            logger.info(f"Using existing template page (no reload)")
         
         logger.info("\n" + "=" * 100)
         logger.info("STEP 1: Finding logo with warning")
@@ -83,33 +80,32 @@ async def main():
         logger.info("✅ Hovered")
         
         logger.info("\n" + "=" * 100)
-        logger.info("STEP 3: Clicking WARNING ICON to open popup")
+        logger.info("STEP 3: Clicking CHANGE IMAGE icon (icon-switch) to open popup")
         logger.info("=" * 100)
 
-        # Click the warning icon to see if it opens a popup
-        logger.info("\n   Attempting to click warning icon...")
-        warning_clicked = await page.evaluate("""
+        # Click the "Change Image" icon (icon-switch with title="Change Image")
+        logger.info("\n   Attempting to click Change Image icon...")
+        change_clicked = await page.evaluate("""
             () => {
                 const container = document.querySelector('[data-logo-to-inspect="true"]');
                 if (!container) return { clicked: false, reason: 'No container' };
 
-                // Find warning icon
-                const warningIcon = container.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') ||
-                                   container.querySelector('[aria-label="icon-alert1"]') ||
-                                   container.querySelector('[class*="warningIcon"]');
+                // Find Change Image icon (icon-switch)
+                const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                                  container.querySelector('[title="Change Image"]');
 
-                if (warningIcon) {
-                    warningIcon.click();
-                    return { clicked: true, icon: 'warning icon' };
+                if (changeIcon) {
+                    changeIcon.click();
+                    return { clicked: true, icon: 'icon-switch (Change Image)' };
                 }
 
-                return { clicked: false, reason: 'Warning icon not found' };
+                return { clicked: false, reason: 'Change Image icon not found' };
             }
         """)
 
-        if warning_clicked['clicked']:
-            logger.info(f"✅ Warning icon clicked!")
-            await asyncio.sleep(2)  # Wait for popup to appear
+        if change_clicked['clicked']:
+            logger.info(f"✅ Change Image icon clicked!")
+            await asyncio.sleep(3)  # Wait for popup to appear
 
             # Check if popup opened
             popup_opened = await page.evaluate("""
@@ -120,16 +116,14 @@ async def main():
             """)
 
             if popup_opened:
-                logger.info("✅ Popup opened after clicking warning icon!")
+                logger.info("✅ Popup opened after clicking Change Image icon!")
             else:
-                logger.warning("⚠️  No popup appeared after clicking warning icon")
+                logger.warning("⚠️  No popup appeared after clicking Change Image icon")
+                return
         else:
-            logger.error(f"❌ Warning icon not clickable: {warning_clicked.get('reason', 'Unknown')}")
-            logger.info("\n📝 Trying alternative approach: Click X icon and trigger media selection...")
-
-            # Alternative: We know X icon exists, so the script continues below
-            # but we note that there's no popup from warning icon
-            logger.info("   (Continuing to popup analysis in case it exists from another action)")
+            logger.error(f"❌ Change Image icon not found: {change_clicked.get('reason', 'Unknown')}")
+            logger.info("\n📝 Change Image icon only appears on hover. Make sure logo is hovered.")
+            return
 
         await asyncio.sleep(1)
         
