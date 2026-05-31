@@ -13,15 +13,193 @@ Handles bulk addition of custom logos to Tekion email templates
    8. Sequential processing
    9. Excel reporting with comprehensive stats
    10. Enhanced detection logging
+   11. Robust production-grade logging system ✨ NEW
 """
 
 import asyncio
 import logging
+import sys
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
+import json
 from playwright.async_api import Page, Browser, BrowserContext, Error as PlaywrightError
+
+# ============================================================================
+# ENHANCED LOGGING SYSTEM - FROM FINAL VERSION
+# ============================================================================
+
+class EnhancedLogger:
+    """
+    Enhanced logger with detailed tracking and file output
+    FROM FINAL VERSION (Lines 48-209)
+    """
+
+    def __init__(self, log_file: str = None):
+        """Initialize enhanced logger with file and console output"""
+
+        # Create logs directory if it doesn't exist
+        log_dir = Path("backend") / "logs"
+        log_dir.mkdir(exist_ok=True, parents=True)
+
+        # Generate log filename with timestamp
+        if log_file is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            log_file = log_dir / f"logo_automation_{timestamp}.log"
+        else:
+            log_file = log_dir / log_file
+
+        self.log_file = log_file
+
+        # Setup logger
+        self.logger = logging.getLogger(f"EnhancedLogger_{id(self)}")
+        self.logger.setLevel(logging.DEBUG)
+
+        # Remove existing handlers
+        self.logger.handlers.clear()
+
+        # Console handler - INFO level
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler.setLevel(logging.INFO)
+        console_formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        console_handler.setFormatter(console_formatter)
+
+        # File handler - DEBUG level (captures everything)
+        file_handler = logging.FileHandler(log_file, mode='w', encoding='utf-8')
+        file_handler.setLevel(logging.DEBUG)
+        file_formatter = logging.Formatter(
+            '%(asctime)s - [%(levelname)8s] - %(funcName)25s:%(lineno)4d - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        file_handler.setFormatter(file_formatter)
+
+        # Add handlers
+        self.logger.addHandler(console_handler)
+        self.logger.addHandler(file_handler)
+
+        # Detection tracking
+        self.detection_log = []
+
+        self.info("=" * 100)
+        self.info(f"📝 ENHANCED LOGGING INITIALIZED")
+        self.info(f"📄 Log file: {log_file}")
+        self.info("=" * 100)
+
+    def info(self, msg: str):
+        """Log info message"""
+        self.logger.info(msg)
+
+    def debug(self, msg: str):
+        """Log debug message (file only)"""
+        self.logger.debug(msg)
+
+    def warning(self, msg: str):
+        """Log warning message"""
+        self.logger.warning(msg)
+
+    def error(self, msg: str):
+        """Log error message"""
+        self.logger.error(msg)
+
+    def exception(self, msg: str):
+        """Log exception with traceback"""
+        self.logger.exception(msg)
+
+    def log_detection_detailed(self, template_name: str, detection_result: Dict):
+        """Log detailed detection results to file"""
+
+        entry = {
+            'timestamp': datetime.now().isoformat(),
+            'template': template_name,
+            'warnings_count': detection_result.get('warningsCount', 0),
+            'empty_containers_count': detection_result.get('emptyCount', 0),
+            'header_containers_count': detection_result.get('headerCount', 0),
+            'replace_count': detection_result.get('replaceCount', 0),
+            'empty_containers': detection_result.get('emptyContainers', []),
+            'header_containers': detection_result.get('headerContainers', [])
+        }
+
+        self.detection_log.append(entry)
+
+        # Log to file
+        self.debug("=" * 80)
+        self.debug(f"DETECTION RESULT for: {template_name}")
+        self.debug("-" * 80)
+
+        # Print JavaScript debug output
+        if 'debug' in detection_result:
+            self.debug("JavaScript Detection Debug Output:")
+            for line in detection_result['debug'][:50]:  # First 50 lines
+                self.debug(f"  {line}")
+            self.debug("-" * 80)
+
+        self.debug(f"SUMMARY:")
+        self.debug(f"  Warnings detected: {entry['warnings_count']}")
+        self.debug(f"  Logos to replace (table-based): {entry['replace_count']}")
+        self.debug(f"  Empty Logo 1/2 containers: {entry['empty_containers_count']}")
+        self.debug(f"  Empty header containers: {entry['header_containers_count']}")
+
+        # Detailed container check results
+        if 'containerCheckResults' in detection_result:
+            self.debug("")
+            self.debug("Logo 1/2 Container Check Results:")
+            for check in detection_result['containerCheckResults']:
+                self.debug(f"  {check['name']:15s} → found={check['found']}, "
+                          f"hasImage={check.get('hasImage', False)}, "
+                          f"isEmpty={check.get('isEmpty', False)}")
+
+        # Detailed header check results
+        if 'headerCheckResults' in detection_result:
+            self.debug("")
+            self.debug("Header Container Check Results:")
+            for check in detection_result['headerCheckResults']:
+                self.debug(f"  Position {check['position']} → "
+                          f"hasContainer={check['hasContainer']}, "
+                          f"hasImage={check['hasImage']}, "
+                          f"isEmpty={check['isEmpty']}")
+
+        if entry['empty_containers']:
+            self.debug("")
+            self.debug("Empty containers to process:")
+            for container in entry['empty_containers']:
+                self.debug(f"  - {container.get('name')}: ID={container.get('id')}")
+
+        if entry['header_containers']:
+            self.debug("")
+            self.debug("Header containers to process:")
+            for header in entry['header_containers']:
+                self.debug(f"  - {header.get('name')}: Position={header.get('position')}")
+
+        self.debug("=" * 80)
+
+    def log_action_detailed(self, action: str, target: str, success: bool, details: str = ""):
+        """Log action taken on a logo with detailed info"""
+
+        status = "✅ SUCCESS" if success else "❌ FAILED"
+        msg = f"[{action:15s}] {target:30s} → {status}"
+        if details:
+            msg += f" | {details}"
+
+        if success:
+            self.debug(msg)
+        else:
+            self.warning(msg)
+
+    def save_detection_log(self, filename: str = None):
+        """Save detection log as JSON"""
+
+        if filename is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = Path("backend") / "logs" / f"detection_log_{timestamp}.json"
+
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(self.detection_log, f, indent=2)
+
+        self.info(f"📊 Detection log saved: {filename}")
 
 logger = logging.getLogger(__name__)
 
@@ -30,12 +208,14 @@ class TemplateLogoAdditionService:
     """
     Service for adding custom logos to Tekion templates
     Integrated with all features from temp_logo_adding_FINAL.py
+    ✨ NOW WITH ROBUST ENHANCED LOGGING
     """
 
     def __init__(self):
         self.jobs: Dict[str, Dict[str, Any]] = {}
         self.active_tasks: Dict[str, asyncio.Task] = {}
-        logger.info("✨ Template Logo Addition Service initialized (FINAL VERSION INTEGRATED)")
+        self.enhanced_loggers: Dict[str, EnhancedLogger] = {}  # Enhanced logger per job
+        logger.info("✨ Template Logo Addition Service initialized (FINAL VERSION + ROBUST LOGGING)")
 
     def create_job(self, job_id: str, base_url: str, max_rows: int = 200,
                    custom_limit: Optional[int] = None, keep_tabs_open: bool = True,
@@ -43,7 +223,13 @@ class TemplateLogoAdditionService:
                    logo_width: int = 160,
                    departments: Optional[List[str]] = None,
                    auto_publish: bool = True) -> Dict[str, Any]:
-        """Create a new logo addition job with all FINAL features"""
+        """Create a new logo addition job with all FINAL features + Enhanced Logging"""
+
+        # Initialize enhanced logger for this job
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_filename = f"job_{job_id[:8]}_{timestamp}.log"
+        enhanced_logger = EnhancedLogger(log_filename)
+        self.enhanced_loggers[job_id] = enhanced_logger
 
         job = {
             "job_id": job_id,
@@ -66,19 +252,27 @@ class TemplateLogoAdditionService:
             "enlarged_count": 0,   # NEW: Track enlarged logos
             "templates": [],
             "results": [],
-            "detection_log": []  # NEW: Detailed detection results
+            "detection_log": [],  # NEW: Detailed detection results
+            "log_file": str(enhanced_logger.log_file)  # NEW: Enhanced log file path
         }
 
         self.jobs[job_id] = job
+
+        # Log job creation with enhanced logger
+        enhanced_logger.info("🚀 NEW LOGO ADDITION JOB CREATED")
+        enhanced_logger.info(f"Job ID: {job_id}")
+        enhanced_logger.info(f"Base URL: {base_url}")
+        enhanced_logger.info(f"Departments: {', '.join(job['departments'])}")
+        enhanced_logger.info(f"Max Templates (API): {max_rows}")
+        enhanced_logger.info(f"Custom Limit: {custom_limit if custom_limit else 'None (process all)'}")
+        enhanced_logger.info(f"Keep tabs open: {keep_tabs_open}")
+        enhanced_logger.info(f"Logo Media ID: {logo_media_id}")
+        enhanced_logger.info(f"Logo Width: {logo_width}px")
+        enhanced_logger.info(f"Auto-publish: {'✅ ENABLED' if auto_publish else '❌ DISABLED'}")
+
+        # Also log to standard logger
         logger.info(f"✨ Created logo addition job: {job_id}")
-        logger.info(f"   Base URL: {base_url}")
-        logger.info(f"   Departments: {', '.join(departments or ['ALL'])}")
-        logger.info(f"   Max rows: {max_rows}")
-        logger.info(f"   Custom limit: {custom_limit}")
-        logger.info(f"   Keep tabs open: {keep_tabs_open}")
-        logger.info(f"   Logo Media ID: {logo_media_id}")
-        logger.info(f"   Logo Width: {logo_width}px")
-        logger.info(f"   Auto-publish: {auto_publish}")
+        logger.info(f"   Enhanced log file: {enhanced_logger.log_file}")
 
         return job
 
@@ -108,7 +302,7 @@ class TemplateLogoAdditionService:
             logger.info(log_message)
 
     def log_detection(self, job_id: str, template_name: str, detection_result: Dict):
-        """Log detailed detection results (from FINAL version)"""
+        """Log detailed detection results (from FINAL version) with Enhanced Logging"""
         if job_id not in self.jobs:
             return
 
@@ -126,13 +320,17 @@ class TemplateLogoAdditionService:
 
         self.jobs[job_id]["detection_log"].append(entry)
 
-        # Log summary
+        # Log summary to UI
         self.add_log(job_id, f"   📊 Detection: {entry['warnings_count']} warnings, "
                      f"{entry['replace_count']} to replace, {entry['empty_containers_count']} empty, "
                      f"{entry['header_containers_count']} headers", "info")
 
+        # Log detailed detection to enhanced logger (file)
+        if job_id in self.enhanced_loggers:
+            self.enhanced_loggers[job_id].log_detection_detailed(template_name, detection_result)
+
     def log_action(self, job_id: str, action: str, target: str, success: bool, details: str = ""):
-        """Log action taken on a logo (from FINAL version)"""
+        """Log action taken on a logo (from FINAL version) with Enhanced Logging"""
         if job_id not in self.jobs:
             return
 
@@ -143,6 +341,10 @@ class TemplateLogoAdditionService:
 
         level = "success" if success else "warning"
         self.add_log(job_id, msg, level)
+
+        # Log detailed action to enhanced logger (file)
+        if job_id in self.enhanced_loggers:
+            self.enhanced_loggers[job_id].log_action_detailed(action, target, success, details)
     
     async def run_logo_addition(self, job_id: str, browser: Browser):
         """Main execution flow with FINAL version features integrated"""
@@ -230,12 +432,39 @@ class TemplateLogoAdditionService:
             self.add_log(job_id, f"Duration: {duration:.1f}s", "info")
             self.add_log(job_id, "=" * 60, "info")
 
+            # Save enhanced detection log
+            if job_id in self.enhanced_loggers:
+                enhanced_logger = self.enhanced_loggers[job_id]
+                enhanced_logger.save_detection_log()
+                enhanced_logger.info("")
+                enhanced_logger.info("=" * 100)
+                enhanced_logger.info("✅ JOB COMPLETED SUCCESSFULLY")
+                enhanced_logger.info("=" * 100)
+                enhanced_logger.info(f"Total Templates: {len(templates)}")
+                enhanced_logger.info(f"Processed: {job['processed']}")
+                enhanced_logger.info(f"Successful: {job['successful']}")
+                enhanced_logger.info(f"Failed: {job['failed']}")
+                enhanced_logger.info(f"Published: {job['published_count']}")
+                enhanced_logger.info(f"Centered: {job['centered_count']}")
+                enhanced_logger.info(f"Enlarged: {job['enlarged_count']}")
+                enhanced_logger.info(f"Duration: {duration:.1f}s")
+                enhanced_logger.info("=" * 100)
+
             job["status"] = "completed"
             job["end_time"] = datetime.now()
 
         except Exception as e:
             logger.exception(f"Error in logo addition job {job_id}")
             self.add_log(job_id, f"❌ Fatal error: {str(e)}", "error")
+
+            # Log error to enhanced logger
+            if job_id in self.enhanced_loggers:
+                enhanced_logger = self.enhanced_loggers[job_id]
+                enhanced_logger.error("=" * 100)
+                enhanced_logger.error("❌ JOB FAILED")
+                enhanced_logger.error("=" * 100)
+                enhanced_logger.exception(f"Fatal error: {str(e)}")
+
             job["status"] = "failed"
             job["error"] = str(e)
 
