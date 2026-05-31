@@ -360,9 +360,10 @@ class TemplateLogoAdditionService:
 
             warnings_count = detection_result['warningsCount']
             empty_count = detection_result['emptyCount']
+            header_count = detection_result.get('headerCount', 0)
             replace_count = detection_result.get('replaceCount', 0)
 
-            if warnings_count == 0 and empty_count == 0 and replace_count == 0:
+            if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
                 self.add_log(job_id, "   ℹ️  No logos need processing - skipping", "info")
                 result["status"] = "skipped"
                 result["reason"] = "No logos to process"
@@ -417,6 +418,18 @@ class TemplateLogoAdditionService:
                         logos_processed += 1
                     else:
                         self.log_action(job_id, "INSERT", container_info['name'], False)
+
+            # STEP 5.5: Insert into header containers
+            header_count = detection_result.get('headerCount', 0)
+            if header_count > 0:
+                self.add_log(job_id, f"\n   📋 Inserting into {header_count} header container(s)...", "info")
+                for header_info in detection_result.get('headerContainers', []):
+                    self.add_log(job_id, f"      Inserting into {header_info['name']}...", "info")
+                    if await self._insert_logo_to_header(page, header_info, job['logo_media_id']):
+                        self.log_action(job_id, "INSERT_HEADER", header_info['name'], True)
+                        logos_processed += 1
+                    else:
+                        self.log_action(job_id, "INSERT_HEADER", header_info['name'], False)
 
             # STEP 6: Auto-publish if enabled
             published = False
@@ -593,11 +606,77 @@ class TemplateLogoAdditionService:
                     }
                 });
 
+                // LAYER 4: Header container detection
+                debug.push('\\n=== LAYER 4: HEADER CONTAINER DETECTION ===');
+                const headerContainers = [];
+                const headerCheckResults = [];
+                const tables = Array.from(document.querySelectorAll('table'));
+                debug.push(`Found ${tables.length} tables`);
+
+                for (const table of tables) {
+                    const firstRow = table.querySelector('tr');
+                    if (!firstRow) continue;
+
+                    const tds = Array.from(firstRow.querySelectorAll('td'));
+                    debug.push(`  Table has ${tds.length} cells in first row`);
+
+                    if (tds.length === 3) {
+                        debug.push(`  Checking first 2 cells for header logos...`);
+                        for (let i = 0; i < 2; i++) {
+                            const td = tds[i];
+                            const elementContainer = td.querySelector('[class*="elementContainer"]');
+
+                            const headerCheck = {
+                                position: i + 1,
+                                hasContainer: elementContainer !== null,
+                                hasImage: false,
+                                hasTextTemplate: false,
+                                isEmpty: false
+                            };
+
+                            if (elementContainer) {
+                                const hasImage = elementContainer.querySelector('img') !== null;
+                                const textTemplate = elementContainer.querySelector('.TEXT_TEMPLATE') ||
+                                                    elementContainer.querySelector('[contenteditable="true"]');
+
+                                headerCheck.hasImage = hasImage;
+                                headerCheck.hasTextTemplate = textTemplate !== null;
+                                headerCheck.isEmpty = !hasImage && textTemplate !== null;
+
+                                if (!hasImage && textTemplate) {
+                                    const headerId = textTemplate.id || `header-${Date.now()}-${i}`;
+                                    textTemplate.setAttribute('data-empty-header', `header-${i + 1}`);
+                                    elementContainer.setAttribute('data-header-container', `header-${i + 1}`);
+
+                                    headerContainers.push({
+                                        index: headerContainers.length + 1,
+                                        id: headerId,
+                                        name: `Header Logo ${i + 1}`,
+                                        type: 'header',
+                                        position: i + 1
+                                    });
+                                }
+                            }
+
+                            headerCheckResults.push(headerCheck);
+                            debug.push(`    Position ${i + 1}: hasContainer=${headerCheck.hasContainer}, hasImage=${headerCheck.hasImage}, isEmpty=${headerCheck.isEmpty}`);
+                        }
+
+                        if (headerContainers.length > 0) {
+                            debug.push(`  Found ${headerContainers.length} empty header containers, stopping table search`);
+                            break;
+                        }
+                    }
+                }
+
                 return {
                     warningsCount: warnings.length,
                     emptyCount: emptyContainers.length,
+                    headerCount: headerContainers.length,
                     emptyContainers: emptyContainers,
+                    headerContainers: headerContainers,
                     containerCheckResults: containerCheckResults,
+                    headerCheckResults: headerCheckResults,
                     logoTables: logoTables,
                     logosToReplace: logosToReplace,
                     replaceCount: logosToReplace.length,
@@ -913,6 +992,93 @@ class TemplateLogoAdditionService:
                 return False
 
             # Click Insert Image button
+            try:
+                await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=5000)
+                await asyncio.sleep(2.5)
+            except:
+                return False
+
+            # Select logo from media library
+            selection = await page.evaluate("""
+                async () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { clicked: false };
+
+                    const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                    if (allTiles.length === 0) return { clicked: false };
+
+                    const tile = allTiles[0];
+                    const topLayer = tile.querySelector('[class*="topLayer"]') ||
+                                    tile.querySelector('[role="button"]');
+
+                    if (topLayer) {
+                        topLayer.click();
+                        return { clicked: true };
+                    }
+                    return { clicked: false };
+                }
+            """)
+
+            if not selection['clicked']:
+                return False
+
+            await asyncio.sleep(2)
+
+            # Click INSERT
+            insert_result = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { clicked: false };
+
+                    const buttons = Array.from(popup.querySelectorAll('button'));
+                    const insertBtn = buttons.find(b => b.textContent.trim().toLowerCase().includes('insert'));
+
+                    if (insertBtn && !insertBtn.disabled) {
+                        insertBtn.click();
+                        return { clicked: true };
+                    }
+                    return { clicked: false };
+                }
+            """)
+
+            if not insert_result['clicked']:
+                return False
+
+            await asyncio.sleep(2)
+            return True
+
+        except:
+            return False
+
+    async def _insert_logo_to_header(self, page: Page, header_info: Dict, logo_media_id: str) -> bool:
+        """
+        Insert logo into empty header container - FROM FINAL (Lines 1592-1691)
+        """
+        try:
+            # Click the header container by position
+            clicked = await page.evaluate(f"""
+                () => {{
+                    const headerContainer = document.querySelector('[data-header-container="header-{header_info['position']}"]');
+                    if (!headerContainer) return {{ success: false }};
+
+                    const textTemplate = headerContainer.querySelector('.TEXT_TEMPLATE') ||
+                                        headerContainer.querySelector('[contenteditable="true"]');
+
+                    if (textTemplate) {{
+                        textTemplate.click();
+                        textTemplate.focus();
+                        return {{ success: true }};
+                    }}
+                    return {{ success: false }};
+                }}
+            """)
+
+            if not clicked['success']:
+                return False
+
+            await asyncio.sleep(1.5)
+
+            # Click Insert Image
             try:
                 await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=5000)
                 await asyncio.sleep(2.5)
