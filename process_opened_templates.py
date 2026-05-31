@@ -166,10 +166,164 @@ async def replace_logo(page: Page, logo_idx: int, logo_media_id: str) -> bool:
             }
         """)
 
-        return popup_closed
+        if not popup_closed:
+            logger.warning("      Popup did not close after insert")
+            return False
+
+        # Step 6: Mark the replaced logo container for post-processing
+        await page.evaluate(f"""
+            () => {{
+                const container = document.querySelector('[data-logo-to-inspect="logo-{logo_idx}"]');
+                if (container) {{
+                    container.setAttribute('data-logo-replaced', 'true');
+                }}
+            }}
+        """)
+
+        return True
 
     except Exception as e:
         logger.exception(f"      Error replacing logo: {e}")
+        return False
+
+
+async def center_align_logo(page: Page, logo_idx: int, logo_media_id: str) -> bool:
+    """Center align a logo after replacement"""
+
+    try:
+        logger.info(f"      📍 Center aligning logo {logo_idx}...")
+
+        # Find the logo container
+        container = await page.query_selector(f'[data-logo-to-inspect="logo-{logo_idx}"]')
+        if not container:
+            logger.warning(f"      Container not found for centering")
+            return False
+
+        # Hover to reveal toolbar
+        await container.hover(force=True)
+        await asyncio.sleep(1.5)
+
+        # Click center align button
+        center_result = await page.evaluate(f"""
+            () => {{
+                const container = document.querySelector('[data-logo-to-inspect="logo-{logo_idx}"]');
+                if (!container) return {{ clicked: false, reason: 'Container not found' }};
+
+                // Look for center align button in toolbar (same line as change image)
+                const centerBtn = container.querySelector('[title="Center Align"]') ||
+                                 container.querySelector('[aria-label="icon-center-align"]') ||
+                                 container.querySelector('[aria-label*="Center"]') ||
+                                 document.querySelector('[title="Center Align"]') ||
+                                 document.querySelector('[aria-label="icon-center-align"]');
+
+                if (centerBtn) {{
+                    centerBtn.click();
+                    return {{ clicked: true }};
+                }}
+
+                return {{ clicked: false, reason: 'Button not found' }};
+            }}
+        """)
+
+        if center_result['clicked']:
+            logger.info(f"      ✅ Logo {logo_idx} centered")
+            await asyncio.sleep(0.5)
+            return True
+        else:
+            logger.warning(f"      ⚠️  Center button not found: {center_result.get('reason', 'unknown')}")
+            return False
+
+    except Exception as e:
+        logger.exception(f"      Error centering logo: {e}")
+        return False
+
+
+async def enlarge_logo_if_small(page: Page, logo_idx: int, logo_media_id: str, target_width: int = 160) -> bool:
+    """Enlarge logo if it's smaller than target width"""
+
+    try:
+        logger.info(f"      📏 Checking logo {logo_idx} size...")
+
+        # Check current size and enlarge if needed
+        result = await page.evaluate(f"""
+            () => {{
+                const MEDIA_ID = "{logo_media_id}";
+                const TARGET_WIDTH = {target_width};
+
+                // Find the logo image by media ID
+                const img = Array.from(document.querySelectorAll('img'))
+                    .find(i => i.src.includes(MEDIA_ID));
+
+                if (!img) return {{ found: false, reason: 'Image not found' }};
+
+                const rect = img.getBoundingClientRect();
+                const currentWidth = Math.round(rect.width);
+                const currentHeight = Math.round(rect.height);
+
+                // Check if logo is small
+                if (currentWidth >= TARGET_WIDTH) {{
+                    return {{
+                        found: true,
+                        isSmall: false,
+                        width: currentWidth,
+                        height: currentHeight,
+                        message: 'Logo is already large enough'
+                    }};
+                }}
+
+                // Logo is small - enlarge it
+                let container = img.parentElement;
+                for (let i = 0; i < 5; i++) {{
+                    if (!container) break;
+                    if ((container.className || '').includes('resizable')) break;
+                    container = container.parentElement;
+                }}
+
+                if (!container) container = img.parentElement;
+
+                // Set width
+                container.style.width = TARGET_WIDTH + 'px';
+                container.style.maxWidth = TARGET_WIDTH + 'px';
+
+                img.style.width = TARGET_WIDTH + 'px';
+                img.style.maxWidth = TARGET_WIDTH + 'px';
+                img.style.height = 'auto';
+
+                container.offsetHeight; // Force reflow
+
+                const newRect = img.getBoundingClientRect();
+                const newWidth = Math.round(newRect.width);
+                const newHeight = Math.round(newRect.height);
+
+                return {{
+                    found: true,
+                    isSmall: true,
+                    beforeWidth: currentWidth,
+                    beforeHeight: currentHeight,
+                    afterWidth: newWidth,
+                    afterHeight: newHeight,
+                    enlarged: true
+                }};
+            }}
+        """)
+
+        if not result.get('found'):
+            logger.warning(f"      ⚠️  {result.get('reason', 'Image not found')}")
+            return False
+
+        if not result.get('isSmall'):
+            logger.info(f"      ℹ️  Logo is already {result['width']}x{result['height']}px (no enlargement needed)")
+            return True
+
+        if result.get('enlarged'):
+            logger.info(f"      ✅ Logo enlarged: {result['beforeWidth']}x{result['beforeHeight']}px → {result['afterWidth']}x{result['afterHeight']}px")
+            await asyncio.sleep(0.5)
+            return True
+
+        return False
+
+    except Exception as e:
+        logger.exception(f"      Error enlarging logo: {e}")
         return False
 
 
@@ -379,14 +533,28 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
 
             # Process each logo
             logos_processed = 0
+            logos_centered = 0
+            logos_enlarged = 0
+
             for logo_idx in range(1, logos_info['count'] + 1):
                 logger.info(f"\n   🎯 Processing logo {logo_idx}/{logos_info['count']}...")
 
+                # Step 1: Replace logo
                 success = await replace_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
 
                 if success:
                     logos_processed += 1
                     logger.info(f"   ✅ Logo {logo_idx} replaced successfully")
+
+                    # Step 2: Center align the logo
+                    center_success = await center_align_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
+                    if center_success:
+                        logos_centered += 1
+
+                    # Step 3: Enlarge if small (< 160px)
+                    enlarge_success = await enlarge_logo_if_small(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=160)
+                    if enlarge_success:
+                        logos_enlarged += 1
                 else:
                     logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
 
@@ -398,7 +566,10 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             else:
                 status = 'failed'
 
-            logger.info(f"\n   ✅ Template complete: {logos_processed}/{logos_info['count']} logos replaced")
+            logger.info(f"\n   ✅ Template complete:")
+            logger.info(f"      - Logos replaced: {logos_processed}/{logos_info['count']}")
+            logger.info(f"      - Logos centered: {logos_centered}/{logos_processed}")
+            logger.info(f"      - Logos enlarged: {logos_enlarged}/{logos_processed}")
 
             return {
                 'template': template_info['title'],
@@ -406,7 +577,9 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
                 'status': status,
                 'action': 'logo_replacement',
                 'logos_found': logos_info['count'],
-                'logos_processed': logos_processed
+                'logos_processed': logos_processed,
+                'logos_centered': logos_centered,
+                'logos_enlarged': logos_enlarged
             }
 
         # ============================================================
