@@ -201,58 +201,231 @@ Then process ALL winning results (not just first match)
 
 ---
 
-## ❓ Open Questions (Awaiting Clarification)
+## ✅ FINAL CLARIFICATIONS (Confirmed 2026-05-31)
 
 ### **Q1: Logo at Non-Center Position with Warning**
 **Scenario:** Logo 1 LEFT has warning icon, Logo 1 CENTER is empty
 
-**Option A:** Replace LEFT logo → Move to CENTER alignment
-**Option B:** Replace LEFT logo → Leave at LEFT + Insert new logo at CENTER
-**Option C:** Skip LEFT → Insert new logo at CENTER only
+**✅ CONFIRMED ACTION:**
+```
+1. Replace LEFT logo using "Change Image"
+2. Move logo to CENTER alignment
+3. Result: Logo 1 CENTER has new logo, LEFT is empty
+```
 
-**Which approach should we use?**
+**Implementation:**
+- Detect logo at any position (LEFT/CENTER/RIGHT) with warning
+- Replace logo using Change Image workflow
+- Check current alignment
+- If not centered → Click alignment icon → Select center
+- Verify logo moved to CENTER position
 
 ---
 
 ### **Q2: Alignment Icon Detection Timing**
 **Question:** When exactly should we check and apply center alignment?
 
-**Option A:** Always after replacing any logo (proactive)
-**Option B:** Only when detected as not centered (reactive)
-**Option C:** Always after both insert and replace operations
+**✅ CONFIRMED ACTION:**
+```
+Apply CENTER alignment in TWO cases:
+1. After REPLACING any logo that's not already centered
+2. When ADDING logo for the first time (insert operation)
+```
 
-**Which approach is correct?**
+**Implementation:**
+```python
+# After replace operation
+if logo_replaced:
+    current_alignment = detect_logo_alignment(page, logo_idx)
+    if current_alignment != 'center':
+        apply_center_alignment(page, logo_idx)
 
----
-
-### **Q3: Service History Recap PDF Handling**
-**Current state:** Has 2 Nucar logos, no warning icons, container IDs don't match
-
-**Option A:** Skip entirely (add to manual review)
-**Option B:** Try generic logo detection and replacement
-**Option C:** Special handling for PDF templates with dynamic detection
-
-**What should the script do?**
-
----
-
-### **Q4: Multiple Logos in Same Container**
-**Scenario:** Logo 1 container has logos at both LEFT and CENTER positions
-
-**Option A:** Process both positions
-**Option B:** Process only CENTER, ignore LEFT
-**Option C:** Move LEFT to CENTER, delete LEFT position
-
-**Expected behavior?**
+# After insert operation (always center)
+if logo_inserted:
+    apply_center_alignment(page, logo_idx)
+```
 
 ---
 
-### **Q5: Manual Review Report Format**
+### **Q3: Manual Review Report Format**
 **Question:** How should manual review items be reported?
 
-**Option A:** Separate Excel sheet named "Manual Review"
-**Option B:** Dedicated JSON file `manual_review_TIMESTAMP.json`
-**Option C:** Flag column in main Excel report
-**Option D:** All of the above
+**✅ CONFIRMED ACTION:**
+```
+Implement ALL THREE:
+1. Log template name + reason to console/log file
+2. Generate separate Excel sheet named "Manual Review"
+3. Add flag column in main Excel report
+```
 
-**Preferred format?**
+**Excel Sheet Structure:**
+```
+Manual Review Sheet:
+- Template Name
+- Template ID
+- Department
+- Reason
+- Detection Details
+- URL
+- Timestamp
+
+Main Report Flag:
+- Add column: "Manual Review Required" (Yes/No)
+- Add column: "Review Reason"
+```
+
+---
+
+### **Q4: Service History Recap PDF - Implementation Plan**
+**Current state:** Has 2 Nucar logos, no warning icons, container IDs don't match
+
+**✅ ACTION PLAN:**
+```
+Phase 1 (Current): Add to manual review list
+  - Reason: "Has logos but IDs don't match hardcoded list"
+  - Flag for manual inspection
+
+Phase 2 (Future Enhancement): Dynamic detection
+  - Detect Logo 1/2 containers by structure, not IDs
+  - Process logos even without warning icons
+  - Support PDF template layouts
+```
+
+---
+
+### **Q5: Multiple Logos in Same Container - Clarification**
+**Scenario:** Logo 1 container has logos at both LEFT and CENTER positions
+
+**✅ EXPECTED BEHAVIOR:**
+```
+Process ALL positions with logos:
+1. LEFT has logo with warning → Replace → Move to CENTER
+2. CENTER has logo with warning → Replace → Keep at CENTER
+3. RIGHT has logo with warning → Replace → Move to CENTER
+
+Final state: Only CENTER position has logo, LEFT/RIGHT are empty
+```
+
+**Note:** This scenario is rare but should be handled by:
+- Processing each position independently
+- Always moving result to CENTER
+- Consolidating multiple logos to CENTER position only
+
+---
+
+## 🚀 Implementation Roadmap
+
+### **Phase 1: Core Functionality (Current)**
+- ✅ Warning logo detection and replacement
+- ✅ Empty container detection and insertion
+- ✅ Header addition for templates without containers
+- ✅ Auto-publish functionality
+- ✅ Enhanced logging system
+
+### **Phase 2: Alignment & Centering (Next)**
+- 🔄 Detect current logo alignment (LEFT/CENTER/RIGHT)
+- 🔄 Click alignment icon after replace operations
+- 🔄 Select center alignment option
+- 🔄 Verify logo moved to center position
+- 🔄 Apply centering after insert operations
+
+### **Phase 3: Manual Review System (Next)**
+- 🔄 Create manual review tracking list
+- 🔄 Log templates that fail detection
+- 🔄 Generate "Manual Review" Excel sheet
+- 🔄 Add flag columns to main report
+- 🔄 Include detection details and reasons
+
+### **Phase 4: Enhanced Detection (Future)**
+- ⏳ Dynamic Logo 1/2 container detection (not hardcoded IDs)
+- ⏳ Detect logos without warning icons
+- ⏳ Support PDF template layouts
+- ⏳ Selected logo detection (pre-checked radio buttons)
+- ⏳ Generic logo container pattern matching
+
+### **Phase 5: Edge Case Handling (Future)**
+- ⏳ Multiple logos in same container consolidation
+- ⏳ Logo position migration (LEFT/RIGHT → CENTER)
+- ⏳ Conflict resolution (contradictory detection results)
+- ⏳ Template structure variation support
+
+---
+
+## 📝 Implementation Notes
+
+### **Alignment Detection Strategy**
+```python
+async def detect_logo_alignment(page: Page, logo_idx: int) -> str:
+    """
+    Detect current alignment of logo (left/center/right)
+
+    Returns: 'left', 'center', or 'right'
+    """
+    # Check container's alignment class or style
+    # Look for alignment indicators in parent elements
+    # Return detected alignment
+    pass
+
+async def apply_center_alignment(page: Page, logo_idx: int) -> bool:
+    """
+    Apply center alignment to logo
+
+    Steps:
+    1. Hover over logo to reveal toolbar
+    2. Click alignment icon
+    3. Wait for alignment menu
+    4. Click center option
+    5. Verify alignment changed
+    """
+    # Implementation details
+    pass
+```
+
+### **Manual Review List Structure**
+```python
+manual_review_items = []
+
+# Add item to review list
+manual_review_items.append({
+    'timestamp': datetime.now().isoformat(),
+    'template_name': template_name,
+    'template_id': template_id,
+    'department': departments,
+    'reason': 'Has logos but IDs dont match',
+    'detection_details': {
+        'warnings_found': warnings_count,
+        'containers_found': container_found_count,
+        'has_images': has_any_logos,
+    },
+    'url': edit_url
+})
+```
+
+### **Excel Report Updates**
+```python
+# Main report with flag
+df_main = pd.DataFrame(results)
+df_main['Manual Review Required'] = df_main['status'].apply(
+    lambda x: 'Yes' if x == 'needs_review' else 'No'
+)
+
+# Separate manual review sheet
+df_manual_review = pd.DataFrame(manual_review_items)
+
+# Write both to Excel
+with pd.ExcelWriter(report_path) as writer:
+    df_main.to_excel(writer, sheet_name='Main Report', index=False)
+    if len(manual_review_items) > 0:
+        df_manual_review.to_excel(writer, sheet_name='Manual Review', index=False)
+```
+
+---
+
+## ✅ Ready for Implementation
+
+All clarifications confirmed. Ready to proceed with:
+1. ✅ Alignment detection and centering logic
+2. ✅ Manual review tracking system
+3. ✅ Enhanced Excel reporting
+
+Current code state: All logic requirements documented and confirmed.
