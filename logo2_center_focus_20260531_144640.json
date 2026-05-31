@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-05-31T09:16:40.819Z",
+  "target_element": {
+    "id": "983932ae-d79a-40fe-a9ba-df07c9beee47",
+    "tag": "DIV",
+    "className": "",
+    "contenteditable": null,
+    "placeholder": null,
+    "data-offset": null,
+    "textContent": "",
+    "innerHTML": "<div style=\"width: 100%; height: auto;\"><div class=\"TEXT_TEMPLATE\" id=\"983932ae-d79a-40fe-a9ba-df07c9beee47\" placeholder=\"\" contenteditable=\"true\" style=\"cursor: text; height: 100%;\"></div></div>"
+  },
+  "structure": {
+    "contenteditable_div": null,
+    "parent_wrapper": null,
+    "sortable_padding": {
+      "tag": "DIV",
+      "className": "sortableItemDisplayPadding"
+    },
+    "unselectable_div": {
+      "tag": "DIV",
+      "className": "templates_SortableItem_elementUnselectable__3cVv8L95sj"
+    },
+    "delete_icon": {
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "aria-label": "icon-cross",
+      "hidden": true
+    }
+  },
+  "rect": {
+    "top": 1141.2109375,
+    "left": 1113.046875,
+    "width": 94.828125,
+    "height": 17.0078125,
+    "bottom": 1158.21875,
+    "right": 1207.875
+  },
+  "nearest_insert_button": {
+    "distance": 638.1465424042659,
+    "position": {
+      "top": 775,
+      "left": 590.4375
+    },
+    "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image"
+  }
+}

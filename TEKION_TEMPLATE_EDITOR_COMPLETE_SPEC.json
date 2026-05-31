@@ -1,0 +1,187 @@
+{
+  "detection_summary": {
+    "page_url": "https://preprodapp.tekioncloud.com/templates/edit/667f0befd4964026ee7b6e48",
+    "template_id": "667f0befd4964026ee7b6e48",
+    "detection_date": "2026-05-31",
+    "total_elements_detected": {
+      "contenteditable_elements": 19,
+      "text_template_elements": 18,
+      "sortable_items": 124,
+      "tables": 34,
+      "table_rows": 89,
+      "table_cells": 271,
+      "element_containers": 36,
+      "focus_nodes": 1
+    }
+  },
+  
+  "editable_cell_structure": {
+    "description": "Each editable cell in the template follows a nested div structure",
+    "html_pattern": "<td><div class='elementContainer'><div class='sortableItemDisplayPadding'><div class='elementUnselectable'><div class='icon-cross hidden'></div><div id='UUID' role='presentation'><div style='width: 100%; height: auto;'><div class='TEXT_TEMPLATE focus_node' id='UUID' contenteditable='true' placeholder='' data-offset='0'>[CONTENT]</div></div></div></div></div></div></td>",
+    
+    "key_classes": {
+      "elementContainer": "templates_SortableItem_elementContainer__mqxpcPKqc1",
+      "displayPadding": "sortableItemDisplayPadding",
+      "unselectable": "templates_SortableItem_elementUnselectable__3cVv8L95sj",
+      "hidden_icon": "templates_SortableItem_hidden__3AtcPcG2Va",
+      "text_template": "TEXT_TEMPLATE",
+      "focus_node": "focus_node"
+    },
+    
+    "identifiers": {
+      "editable_class": "TEXT_TEMPLATE focus_node",
+      "contenteditable": "true",
+      "data_offset": "0",
+      "role": "presentation",
+      "cursor": "text",
+      "unique_id": "UUID (different for each cell)"
+    },
+    
+    "delete_icon": {
+      "class": "icon-cross",
+      "aria_label": "icon-cross",
+      "default_state": "hidden",
+      "visibility_classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW"
+    }
+  },
+  
+  "example_elements": {
+    "empty_cell": {
+      "id": "6f0b8570-c4dc-45bd-b746-40e3af9af3bb",
+      "class": "TEXT_TEMPLATE",
+      "contenteditable": "true",
+      "content": "",
+      "placeholder": "",
+      "data_offset": "0"
+    },
+    
+    "cell_with_content": {
+      "id": "4fdda424-2081-4336-943c-8fd28f5f4f44",
+      "class": "TEXT_TEMPLATE",
+      "contenteditable": "true",
+      "content": "Payment ReceivedHi <ro_customer_full_name>,Thank you for you",
+      "placeholder": "",
+      "data_offset": "0"
+    },
+    
+    "subject_line": {
+      "id": "b1eb4d65-9ea2-4698-b5af-ab4e4e7f2a20",
+      "class": "",
+      "contenteditable": "true",
+      "content": "Payment for your <ro_vehicle_year_make_model> has been received",
+      "cursor": "text"
+    }
+  },
+  
+  "table_structure": {
+    "total_tables": 34,
+    "description": "Template uses multiple nested tables for layout",
+    "main_content_table": {
+      "rows": 89,
+      "cells": 271,
+      "example_row_1": {
+        "cells": 18,
+        "editable_cells": 6,
+        "description": "First row contains multiple editable cells in a grid layout"
+      },
+      "example_row_2": {
+        "cells": 3,
+        "editable_cells": 3,
+        "description": "Second row is a 3-column layout - all cells editable"
+      }
+    },
+    "cell_types": {
+      "editable_with_sortable": "Cell contains both contenteditable div and sortable wrapper",
+      "sortable_only": "Cell contains sortable wrapper but no editable content",
+      "empty": "Cell with no special components"
+    }
+  },
+  
+  "sortable_items": {
+    "total_count": 124,
+    "description": "Sortable items allow drag-and-drop reordering of content blocks",
+    "structure": {
+      "has_container": true,
+      "has_cross_icon": true,
+      "cross_icon_hidden_by_default": true,
+      "has_editable": "varies (some items are just containers)"
+    },
+    "example_with_content": {
+      "has_editable": true,
+      "has_cross_icon": true,
+      "content": "Payment for your <ro_vehicle_year_make_model> has been received"
+    },
+    "example_empty": {
+      "has_editable": false,
+      "has_cross_icon": false,
+      "content": ""
+    }
+  },
+  
+  "dynamic_content_tokens": {
+    "description": "Template uses dynamic tokens that get replaced with actual data",
+    "examples": [
+      "<ro_customer_full_name>",
+      "<ro_vehicle_year_make_model>",
+      "<dealership_name>",
+      "<dealership_service_address2>",
+      "<dealership_service_city>",
+      "<dealership_service_zipcode>"
+    ],
+    "format": "Enclosed in angle brackets < >"
+  },
+  
+  "detection_techniques": {
+    "find_all_editable_cells": {
+      "selector": "[contenteditable='true']",
+      "filter_by_class": ".TEXT_TEMPLATE",
+      "check_parent": ".templates_SortableItem_elementContainer__mqxpcPKqc1"
+    },
+    "find_table_cells": {
+      "selector": "td",
+      "check_for_editable": "td [contenteditable='true']",
+      "check_for_sortable": "td [class*='SortableItem']"
+    },
+    "get_cell_content": {
+      "method": "element.textContent.trim()",
+      "preserve_tokens": "Keep < > tokens intact",
+      "handle_empty": "Empty cells have no content"
+    },
+    "identify_delete_icons": {
+      "selector": ".icon-cross",
+      "default_hidden": "templates_SortableItem_hidden__3AtcPcG2Va",
+      "visible_on_hover": "Hidden class removed on hover"
+    }
+  },
+  
+  "automation_selectors": {
+    "all_editable_cells": "[contenteditable='true']",
+    "text_template_cells": ".TEXT_TEMPLATE.focus_node",
+    "sortable_containers": "[class*='SortableItem_elementContainer']",
+    "delete_icons": ".icon-cross[aria-label='icon-cross']",
+    "table_cells_with_content": "td [contenteditable='true']"
+  },
+  
+  "use_cases": {
+    "bulk_edit_content": {
+      "description": "Edit content in all editable cells",
+      "selector": "[contenteditable='true']",
+      "method": "element.textContent = 'new content'"
+    },
+    "extract_template_content": {
+      "description": "Get all text content from template",
+      "selector": ".TEXT_TEMPLATE",
+      "method": "Array.from(elements).map(el => el.textContent)"
+    },
+    "count_editable_cells": {
+      "description": "Count how many cells can be edited",
+      "selector": "[contenteditable='true']",
+      "result": "19 editable elements detected"
+    },
+    "detect_dynamic_tokens": {
+      "description": "Find all dynamic content placeholders",
+      "regex": "/<[a-z_]+>/g",
+      "examples": ["<ro_customer_full_name>", "<dealership_name>"]
+    }
+  }
+}

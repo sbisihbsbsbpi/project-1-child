@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-05-31T08:38:01.573Z",
+  "page_elements": {
+    "department_filter": {
+      "text": "Sales",
+      "selector": ".ant-dropdown-trigger"
+    },
+    "tabs": [
+      {
+        "label": "Email",
+        "count": 11,
+        "active": true,
+        "full_text": "Email (11)"
+      },
+      {
+        "label": "Text",
+        "count": 1,
+        "active": false,
+        "full_text": "Text (1)"
+      },
+      {
+        "label": "Live Chat",
+        "count": 3,
+        "active": false,
+        "full_text": "Live Chat (3)"
+      }
+    ],
+    "action_buttons": [
+      {
+        "text": "Drafts (0)",
+        "disabled": false
+      },
+      {
+        "text": "Archive (0)",
+        "disabled": false
+      },
+      {
+        "text": "Actions",
+        "disabled": true
+      },
+      {
+        "text": "New Template",
+        "disabled": false
+      }
+    ],
+    "page_selector": {
+      "text": "Select50"
+    }
+  },
+  "template_tiles": [
+    {
+      "index": 1,
+      "selector": "[class*=\"template\"][class*=\"item\"]",
+      "classes": "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dropdown-trigger ant-btn-secondary",
+      "has_checkbox": false,
+      "checkbox_info": null,
+      "title": null,
+      "has_image": false,
+      "image_src": null,
+      "buttons": [],
+      "badges": []
+    }
+  ],
+  "checkboxes": [
+    {
+      "index": 1,
+      "checked": false,
+      "wrapper_classes": "checkbox ant-checkbox-wrapper",
+      "container_classes": "",
+      "parent_classes": "ant-checkbox",
+      "data_test": "",
+      "data_test_id": "-header-checkbox",
+      "html_snippet": "<label class=\"checkbox ant-checkbox-wrapper\"><span class=\"ant-checkbox\"><input type=\"checkbox\" class=\"ant-checkbox-input\" data-test-id=\"-header-checkbox\" value=\"\"><span class=\"ant-checkbox-inner\"></span></span></label>"
+    }
+  ],
+  "structure_analysis": {
+    "all_classes_with_template": [
+      "templates_templates_templatesTabContainer__cf6RZSsFBG",
+      "templates_viewManager_subHeaderContainer__pfSJBWUeM5",
+      "root_filter_container__cYzKR3gG4v root_filter_isStacked__mkJjax9uLz templates_viewManager_filterContainer__3JmusgFYEA",
+      "templates_rightSubheader_expandableSearch__4UwqJt5UM7 root_expandableSearch_expandableInputContainer__sMac43Qxz6",
+      "ant-btn root_button_linkButton__mTMyFkB45v m-x-8 templates_rightSubheader_actionLinks__sNP2rViwqR ant-btn-link",
+      "ant-radio-group ant-radio-group-outline root_radio_radio__cgveLhpkWB templates_ToggleTemplateView_viewButtonsContainer__waLAKGmQpE m-x-8 ",
+      "ant-btn root_button_secondaryButton__ugaZ2SVupS d-flex justify-content-around align-items-center templates_templates_actionWrapper__myTSLN5P87 ant-dro",
+      "templates_headerWithSort_centerAlignHeader__khrqrAPoju templates_headerWithSort_noOutline__mwBqNcmTSx",
+      "templates_headerWithSort_accordian__mHpnTysRsu templates_headerWithSort_sortIndicator__3QhWd7tx4h icon-sort-by root_icon_size__s__5kwhpD8hgW",
+      "templates_headerWithSort_accordian__mHpnTysRsu icon-arrow-down root_icon_size__s__5kwhpD8hgW"
+    ],
+    "all_classes_with_media": [],
+    "all_classes_with_tile": [],
+    "all_classes_with_checkbox": [
+      "checkbox ant-checkbox-wrapper",
+      "ant-checkbox",
+      "ant-checkbox-input",
+      "ant-checkbox-inner"
+    ]
+  }
+}

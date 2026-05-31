@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-05-31T09:12:15.130Z",
+  "logo_containers": {
+    "logo1": {
+      "left": {
+        "index": 4,
+        "id": "6f0b8570-c4dc-45bd-b746-40e3af9af3bb",
+        "content": ""
+      },
+      "center": {
+        "index": 5,
+        "id": "7653caa9-31b7-4e2b-8233-f0bda43672ea",
+        "content": ""
+      },
+      "right": {
+        "index": 6,
+        "id": "47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa",
+        "content": ""
+      }
+    },
+    "logo2": {
+      "left": {
+        "index": 14,
+        "id": "9fa2920b-10f8-48d2-9947-b014398d21be",
+        "content": ""
+      },
+      "center": {
+        "index": 15,
+        "id": "983932ae-d79a-40fe-a9ba-df07c9beee47",
+        "content": ""
+      },
+      "right": {
+        "index": 16,
+        "id": "9d454086-c1f2-4bf0-b4a7-8e95dc244aae",
+        "content": ""
+      }
+    }
+  },
+  "insert_buttons": [
+    {
+      "index": 1,
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-image",
+      "visible": true,
+      "position": {
+        "top": 213,
+        "left": 106
+      }
+    },
+    {
+      "index": 2,
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image",
+      "visible": true,
+      "position": {
+        "top": 775,
+        "left": 590.4375
+      }
+    }
+  ]
+}

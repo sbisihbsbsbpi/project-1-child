@@ -1,0 +1,292 @@
+{
+  "timestamp": "2026-05-31T08:44:44.756Z",
+  "page_url": "https://preprodapp.tekioncloud.com/templates/edit/667f0befd4964026ee7b6e48",
+  "template_id": "667f0befd4964026ee7b6e48",
+  "page_info": {
+    "title": "Tekion Template Builder",
+    "ready_state": "complete"
+  },
+  "header": {
+    "buttons": [
+      {
+        "text": "Get Help",
+        "disabled": false,
+        "classes": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a full-heig"
+      },
+      {
+        "text": "",
+        "disabled": false,
+        "classes": "root_header_plainBtn__78EAvrDrQu"
+      }
+    ],
+    "inputs": [
+      {
+        "type": "text",
+        "placeholder": "Search here...",
+        "value": "",
+        "name": ""
+      }
+    ],
+    "selects": []
+  },
+  "template_content": {
+    "has_editor": true,
+    "editor_type": "[contenteditable=\"true\"]",
+    "images": [
+      {
+        "index": 1,
+        "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzIzN18xMjkpIj",
+        "alt": "userGuide",
+        "width": 28,
+        "height": 28,
+        "classes": "root_userGuide_userGuide__st8cWV6SKt ",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": "full-height root_header_appHeaderRightMenu__tasrv8XbDU"
+      },
+      {
+        "index": 2,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/icon-map.png",
+        "alt": "Get Directions",
+        "width": 16,
+        "height": 17,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": "dynamic_tag_link"
+      },
+      {
+        "index": 3,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/icon-inbound-call-outlined.png",
+        "alt": "Call us",
+        "width": 16,
+        "height": 17,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": "dynamic_tag_link"
+      },
+      {
+        "index": 4,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/TV.png",
+        "alt": "Tv",
+        "width": 28,
+        "height": 28,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      },
+      {
+        "index": 5,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/Wifi.png",
+        "alt": "Wifi",
+        "width": 28,
+        "height": 28,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      },
+      {
+        "index": 6,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/Water.png",
+        "alt": "Water",
+        "width": 28,
+        "height": 28,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      },
+      {
+        "index": 7,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/Coffee.png",
+        "alt": "Coffee",
+        "width": 28,
+        "height": 28,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      },
+      {
+        "index": 8,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/tekion-logo-green-2x_new.png",
+        "alt": "Tekion Logo",
+        "width": 73,
+        "height": 8,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      }
+    ],
+    "logos": [
+      {
+        "index": 8,
+        "src": "https://d36263b6wju30t.cloudfront.net/common/CRM/tekion-logo-green-2x_new.png",
+        "alt": "Tekion Logo",
+        "width": 73,
+        "height": 8,
+        "classes": "",
+        "in_media_tile": false,
+        "is_warning_icon": false,
+        "parent_classes": ""
+      }
+    ],
+    "media_tiles": []
+  },
+  "media_library": {
+    "popup_visible": false,
+    "media_tiles_with_checkboxes": [],
+    "total_checkboxes": 0
+  },
+  "sidebars": [],
+  "all_buttons": [
+    {
+      "index": 1,
+      "text": "00:00 Hrs",
+      "disabled": false,
+      "classes": "root_profile_clockTile__kzo5HNBrHa ",
+      "aria_label": null
+    },
+    {
+      "index": 2,
+      "text": "Get Help",
+      "disabled": false,
+      "classes": "ant-btn root_button_tertiaryButton__i7ym4ZRhyf root_button_tertiaryButtonHover__9MvLLw1P5a full-height root_supportChatBtn_supportChatBtn__iZqEtBpYHN ",
+      "aria_label": null
+    },
+    {
+      "index": 6,
+      "text": "Import",
+      "disabled": false,
+      "classes": "ant-btn root_button_linkButton__mTMyFkB45v d-flex ant-btn-link",
+      "aria_label": null
+    },
+    {
+      "index": 7,
+      "text": "Preview",
+      "disabled": false,
+      "classes": "ant-btn root_button_linkButton__mTMyFkB45v templates_templatePreview_actionLinks__8kSWzNA91E m-r-16 ant-btn-link",
+      "aria_label": null
+    },
+    {
+      "index": 8,
+      "text": "Send Test Mail",
+      "disabled": false,
+      "classes": "ant-btn root_button_linkButton__mTMyFkB45v templates_sendTestPopover_actionLinks__hnSb4494gV ant-btn-link",
+      "aria_label": null
+    },
+    {
+      "index": 9,
+      "text": "Save As Draft",
+      "disabled": false,
+      "classes": "ant-btn root_button_secondaryButton__ugaZ2SVupS ant-btn-secondary",
+      "aria_label": null
+    },
+    {
+      "index": 10,
+      "text": "Publish",
+      "disabled": false,
+      "classes": "ant-btn root_button_primaryButton__jF62w9Nzby primary-action ant-btn-primary",
+      "aria_label": null
+    }
+  ],
+  "all_inputs": [
+    {
+      "index": 1,
+      "type": "text",
+      "placeholder": "Search here...",
+      "value": "",
+      "name": "",
+      "id": "",
+      "classes": "ant-input"
+    },
+    {
+      "index": 2,
+      "type": "text",
+      "placeholder": "",
+      "value": "",
+      "name": "",
+      "id": "react-select-2-input",
+      "classes": ""
+    }
+  ],
+  "all_checkboxes": [],
+  "class_analysis": {
+    "template_classes": [
+      "templates_templateStatusLabel_statusCircle__s3DfwR1b4p m-r-8 templates_templateStatusLabel_active__s5sKKsRaZe",
+      "templateStatus",
+      "full-width full-height flex-center templates_TemplateBuilder_loader__tBejhkZKfV d-none",
+      "templates_TemplateMart_container__43NbycNBMx d-flex full-width relative full-height",
+      "templates_TemplateMart_catalogSection__eYehX769XN",
+      "root_heading_h4__sh93txrLYC templates_Section_sectionHeading__u8XDKwuX93",
+      "templates_Button_buttonContainer__kq2SVPms85",
+      "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "templates_Button_buttonLabel__5k1Hpwu6aT",
+      "templates_Section_infoIcon__sRUeNgXfMY root_icon_size__md__eSxdUr3MZh icon-info",
+      "templates_Button_buttonContainer__kq2SVPms85 templates_Button_disabledButton__5QXhWoXLh5",
+      "templates_TemplateMart_assemblerSection__59LYw9sRmU",
+      "templates_TemplateMart_assemblerFiller__cMdEqnwKBT absolute",
+      "templates_TemplateBuilder_beforeAssemContainer__kpdeXdF9xm",
+      "templates_TemplateBuilder_beforeAssemSubContainer__gNhyaok6V7",
+      "templates_TemplateBuilder_importBtn__i4sN9VSJCM m-l-8",
+      "templates_TemplateBuilder_divider__8UHgLzycti m-x-16",
+      "ant-btn root_button_linkButton__mTMyFkB45v templates_templatePreview_actionLinks__8kSWzNA91E m-r-16 ant-btn-link",
+      "ant-btn root_button_linkButton__mTMyFkB45v templates_sendTestPopover_actionLinks__hnSb4494gV ant-btn-link",
+      "d-flex align-items-center templates_replyTo_replyToContainer__5hwCSB16w7",
+      "p-x-16 templates_replyTo_leftSection__pCocEmYDxU root_label_label__fPnKtiGtmC",
+      "templates_replyTo_rightSection__vcWjxFrBut",
+      "d-flex templates_TemplateBuilder_subjectContainer__aWXjoZRGFL",
+      "templates_TemplateBuilder_subjectLabel__r4pr2jye8g",
+      "templates_TemplateMart_assemblerFiller__cMdEqnwKBT",
+      "templates_TemplateMart_editorSection__5mDytFem7Y templates_sortableList_container__gUxzJHUryL",
+      "templates_SortableItem_elementContainer__mqxpcPKqc1",
+      "templates_SortableItem_elementUnselectable__3cVv8L95sj",
+      "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "templates_SortableItem_hidden__3AtcPcG2Va",
+      "d-flex align-items-center templates_TemplateBuilder_preHeaderTextContainer__uB9hQ1hsEH",
+      "templates_TemplateBuilder_preHeaderTextLabel__gtpsymoABj",
+      "templates_SortableItem_element__jTMuD11Qhm",
+      "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "templates_SortableItem_dragHandle__h2MLiXGNrx",
+      "templates_layout_layoutContainer__3T4nhhVbN7",
+      "d-flex align-items-center absolute templates_actions_actions__v8pbjfey4i",
+      "d-flex justify-content-center templates_actions_actionButton__hyvkuP9ZAf root_icon_size__md__eSxdUr3MZh icon-no-wrap",
+      "templates_TemplateMart_container__43NbycNBMx templates_layout_templateMartContainerClass__n3UJ4HJeQZ d-flex full-width relative full-height",
+      "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "templates_iconButton_pointerEventsAll__bkPivdVH5y",
+      "templates_serviceVehicle_placeHolderContainer__6o96qqj8n5",
+      "templates_footerTemplate_noAction__mobXTxEDKh",
+      "d-flex align-items-center templates_TemplateMart_minCatalogSectoin__cQuA6fAEeb",
+      "templates_Button_minBtnContainer__tGQDbBVBtt templates_Button_disabledButton__5QXhWoXLh5",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-undo",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-redo",
+      "templates_Section_divider__sd12Jp4d3q",
+      "templates_Button_minBtnContainer__tGQDbBVBtt",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-text-color",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-video",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-button",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-link",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-attach",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership-logo",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-cover-image",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-header",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dynamic-tag",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-person-outline",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-signature2",
+      "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "templates_Catalog_extraControls__tzAn8qTiaE"
+    ],
+    "media_classes": [],
+    "tile_classes": [],
+    "checkbox_classes": [],
+    "editor_classes": [
+      "templates_TemplateMart_editorSection__5mDytFem7Y templates_sortableList_container__gUxzJHUryL"
+    ]
+  }
+}

@@ -1,0 +1,393 @@
+{
+  "timestamp": "2026-05-31T09:03:00.155Z",
+  "detected": {
+    "contenteditable": [
+      {
+        "number": 1,
+        "id": "b1eb4d65-9ea2-4698-b5af-ab4e4e7f2a20",
+        "content": "Payment for your <ro_vehicle_year_make_model>\u00a0has been received by <dealership_name>"
+      },
+      {
+        "number": 2,
+        "id": "1a467e0c-4c5e-4ce6-a37d-18a4a0728f0e",
+        "content": ""
+      },
+      {
+        "number": 3,
+        "id": "6ba61360-46e2-42b1-8f27-17e6c19c91c0",
+        "content": ""
+      },
+      {
+        "number": 4,
+        "id": "6f0b8570-c4dc-45bd-b746-40e3af9af3bb",
+        "content": ""
+      },
+      {
+        "number": 5,
+        "id": "7653caa9-31b7-4e2b-8233-f0bda43672ea",
+        "content": ""
+      },
+      {
+        "number": 6,
+        "id": "47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa",
+        "content": ""
+      },
+      {
+        "number": 7,
+        "id": "2247b3ff-8e00-40ed-b26b-f4c35bca4eb5",
+        "content": ""
+      },
+      {
+        "number": 8,
+        "id": "160aed9f-b6f7-4d66-a174-41d143e9fcb6",
+        "content": ""
+      },
+      {
+        "number": 9,
+        "id": "4fdda424-2081-4336-943c-8fd28f5f4f44",
+        "content": "Payment ReceivedHi <ro_customer_full_name>,Thank you for your business! We greatly value your trust "
+      },
+      {
+        "number": 10,
+        "id": "b2d470b1-bbcc-4318-bc87-ca8692bb4394",
+        "content": ""
+      },
+      {
+        "number": 11,
+        "id": "7d5c5616-9224-49ef-8134-b0d3707c850c",
+        "content": ""
+      },
+      {
+        "number": 12,
+        "id": "3ac73246-4fb9-498d-8569-4be9d320733b",
+        "content": ""
+      },
+      {
+        "number": 13,
+        "id": "abc4658d-9b6a-4b4d-bcd7-fdbc7b1b7eac",
+        "content": "Dealership Information<dealership_name><Store Service Address2>\u00a0<dealership_service_address2><dealer"
+      },
+      {
+        "number": 14,
+        "id": "9fa2920b-10f8-48d2-9947-b014398d21be",
+        "content": ""
+      },
+      {
+        "number": 15,
+        "id": "983932ae-d79a-40fe-a9ba-df07c9beee47",
+        "content": ""
+      },
+      {
+        "number": 16,
+        "id": "9d454086-c1f2-4bf0-b4a7-8e95dc244aae",
+        "content": ""
+      },
+      {
+        "number": 17,
+        "id": "27efee8e-ce59-42b4-9ec8-bfb838a737ac",
+        "content": "Amenities"
+      },
+      {
+        "number": 18,
+        "id": "4ea656a4-149e-4e19-bc48-107824607244",
+        "content": ""
+      },
+      {
+        "number": 19,
+        "id": "94755b8a-fd9b-45b4-a8ce-fd8ae035713c",
+        "content": ""
+      }
+    ],
+    "sortable_items": [
+      {
+        "number": 20,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 21,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 22,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 23,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 24,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 25,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 26,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 27,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 28,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 29,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 30,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 31,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 32,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 33,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 34,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 35,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 36,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 37,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 38,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 39,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 40,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 41,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 42,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 43,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 44,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 45,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 46,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 47,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 48,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 49,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 50,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 51,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 52,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 53,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 54,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      },
+      {
+        "number": 55,
+        "classes": "templates_SortableItem_elementContainer__mqxpcPKqc1"
+      }
+    ],
+    "tables": [
+      {
+        "number": 56,
+        "has_editable": true
+      },
+      {
+        "number": 57,
+        "has_editable": true
+      },
+      {
+        "number": 58,
+        "has_editable": true
+      },
+      {
+        "number": 59,
+        "has_editable": true
+      },
+      {
+        "number": 60,
+        "has_editable": true
+      },
+      {
+        "number": 61,
+        "has_editable": true
+      },
+      {
+        "number": 62,
+        "has_editable": true
+      },
+      {
+        "number": 63,
+        "has_editable": true
+      },
+      {
+        "number": 64,
+        "has_editable": true
+      },
+      {
+        "number": 65,
+        "has_editable": true
+      },
+      {
+        "number": 66,
+        "has_editable": true
+      },
+      {
+        "number": 67,
+        "has_editable": true
+      },
+      {
+        "number": 68,
+        "has_editable": true
+      },
+      {
+        "number": 69,
+        "has_editable": true
+      },
+      {
+        "number": 70,
+        "has_editable": true
+      },
+      {
+        "number": 71,
+        "has_editable": true
+      },
+      {
+        "number": 72,
+        "has_editable": true
+      },
+      {
+        "number": 73,
+        "has_editable": true
+      },
+      {
+        "number": 74,
+        "has_editable": true
+      },
+      {
+        "number": 75,
+        "has_editable": true
+      }
+    ],
+    "delete_icons": [
+      {
+        "number": 76,
+        "hidden": true
+      },
+      {
+        "number": 77,
+        "hidden": true
+      },
+      {
+        "number": 78,
+        "hidden": true
+      },
+      {
+        "number": 79,
+        "hidden": false
+      },
+      {
+        "number": 80,
+        "hidden": true
+      },
+      {
+        "number": 81,
+        "hidden": true
+      },
+      {
+        "number": 82,
+        "hidden": true
+      },
+      {
+        "number": 83,
+        "hidden": true
+      },
+      {
+        "number": 84,
+        "hidden": false
+      },
+      {
+        "number": 85,
+        "hidden": false
+      },
+      {
+        "number": 86,
+        "hidden": false
+      },
+      {
+        "number": 87,
+        "hidden": true
+      },
+      {
+        "number": 88,
+        "hidden": false
+      },
+      {
+        "number": 89,
+        "hidden": true
+      },
+      {
+        "number": 90,
+        "hidden": false
+      }
+    ],
+    "element_containers": []
+  }
+}
