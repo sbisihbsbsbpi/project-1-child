@@ -82,44 +82,66 @@ This class wraps ALL sortable elements in the template, including:
 
 ---
 
-### **2. Logo 2 Container (Found in Second Table)**
+### **2. Logo 2 Container (Found in Footer Section Table)**
 
 **Structure Pattern:**
 ```html
+<!-- Found inside footer layout section, 50% width column -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tbody>
     <tr>
       <!-- Logo 2 LEFT -->
       <td>
-        <div id="9fa2920b-10f8-48d2-9947-b014398d21be">
-          <div class="TEXT_TEMPLATE" contenteditable="true">
-            <!-- Empty -->
-          </div>
-        </div>
-      </td>
-      
-      <!-- Middle empty column -->
-      <td>
-        <div id="404e76cc-2740-4cf8-9b0b-4ec170a8d71f">
-          <!-- Empty -->
-        </div>
-      </td>
-      
-      <!-- Logo 2 CENTER (or RIGHT?) -->
-      <td>
-        <div class="templates_SortableItem_element__jTMuD11Qhm">
-          <div class="templates_Image_imageComponent__tqwK7j9G7t">
-            <div class="templates_Image_resizable__ke4cWfggP1">
-              <img src="Tilton.png" />
+        <div class="templates_SortableItem_elementContainer__mqxpcPKqc1">
+          <div class="templates_SortableItem_elementUnselectable__3cVv8L95sj">
+            <div id="9fa2920b-10f8-48d2-9947-b014398d21be">
+              <div class="TEXT_TEMPLATE" contenteditable="true">
+                <!-- Empty -->
+              </div>
             </div>
           </div>
         </div>
       </td>
-      
-      <!-- Another empty column -->
+
+      <!-- Logo 2 CENTER (appears to be empty, different ID) -->
       <td>
-        <div id="7706f5af-b4d6-4910-a809-2242bb9e593f">
-          <!-- Empty -->
+        <div class="templates_SortableItem_elementContainer__mqxpcPKqc1">
+          <div class="templates_SortableItem_elementUnselectable__3cVv8L95sj">
+            <div id="404e76cc-2740-4cf8-9b0b-4ec170a8d71f">
+              <div class="TEXT_TEMPLATE" contenteditable="true">
+                <!-- Empty -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <!-- Logo 2 RIGHT (HAS IMAGE - Tilton logo) -->
+      <td>
+        <div class="templates_SortableItem_elementContainer__mqxpcPKqc1">
+          <div class="templates_SortableItem_element__jTMuD11Qhm">
+            <div class="templates_Image_imageComponent__tqwK7j9G7t">
+              <div class="full-width" style="text-align: center;">
+                <div class="templates_Image_resizable__ke4cWfggP1">
+                  <img src="Tilton.png" />
+                  <div class="templates_Image_resizeIcon__9h37gGhXwx" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <!-- Extra/Spacer column -->
+      <td>
+        <div class="templates_SortableItem_elementContainer__mqxpcPKqc1">
+          <div class="templates_SortableItem_elementUnselectable__3cVv8L95sj">
+            <div id="7706f5af-b4d6-4910-a809-2242bb9e593f">
+              <div class="TEXT_TEMPLATE" contenteditable="true">
+                <!-- Empty -->
+              </div>
+            </div>
+          </div>
         </div>
       </td>
     </tr>
@@ -128,9 +150,10 @@ This class wraps ALL sortable elements in the template, including:
 ```
 
 **Key Pattern:**
-- **Table with 4 `<td>` columns**
-- Logo 2 structure mirrors Logo 1
-- Image at 3rd position (CENTER or RIGHT based on alignment)
+- **Table with 4 `<td>` columns** (same as Logo 1)
+- Logo 2 structure EXACTLY MIRRORS Logo 1
+- **Logo currently at 3rd position (RIGHT alignment!)**
+- Text alignment in image wrapper: `text-align: center;`
 
 ---
 
@@ -147,13 +170,17 @@ Extra:  "faeb0bb6-9307-4ec9-9a7b-ba46c275fdce"  ❓ Unknown
 ### **Logo 2 Containers:**
 ```javascript
 LEFT:   "9fa2920b-10f8-48d2-9947-b014398d21be"  ✅ MATCHES hardcoded
-Middle: "404e76cc-2740-4cf8-9b0b-4ec170a8d71f"  ❓ Unknown  
-RIGHT:  "7706f5af-b4d6-4910-a809-2242bb9e593f"  ❓ Unknown
+CENTER: "404e76cc-2740-4cf8-9b0b-4ec170a8d71f"  ❌ DOES NOT MATCH hardcoded
+        (Expected: 983932ae-d79a-40fe-a9ba-df07c9beee47)
+RIGHT:  "7706f5af-b4d6-4910-a809-2242bb9e593f"  ❌ DOES NOT MATCH hardcoded
+        (Expected: 9d454086-c1f2-4bf0-b4a7-8e95dc244aae)
+Extra:  (same as RIGHT - appears to be duplicate/spacer)
 ```
 
-**⚠️ Issue:** Logo 2 CENTER ID doesn't appear in this HTML dump!
-- Expected: `983932ae-d79a-40fe-a9ba-df07c9beee47`
-- Not found in the HTML
+**🚨 CRITICAL FINDING:** Logo 2 CENTER and RIGHT IDs **DO NOT MATCH** hardcoded values!
+- This explains why Logo 2 containers were not being detected
+- Only Logo 2 LEFT ID matches
+- **Current logo is at position 3 (RIGHT), not CENTER**
 
 ---
 
@@ -263,15 +290,22 @@ async def _detect_logo_tables(self, page: Page) -> dict:
 
 ## 🚨 Critical Observations
 
-1. **Logo 1 CENTER has image** in this HTML dump (Tilton.png already inserted)
-2. **Logo 2 has image at 3rd column** (CENTER or RIGHT position unclear)
+1. **Logo 1 CENTER has image** (Tilton.png) - positioned at column 2 (CENTER) ✅
+2. **Logo 2 has image at column 3 (RIGHT position)** - NOT at CENTER! ⚠️
 3. **4-column structure** instead of expected 3-column
-4. **Some container IDs don't match** the hardcoded list
+4. **Logo 2 CENTER and RIGHT container IDs don't match** the hardcoded list
 
 ### **This Explains Why:**
-- "Service History Recap PDF" was being skipped
+- **Logo 2 containers were NOT being detected** (IDs don't match)
+- Only Logo 2 LEFT was detected (ID matches)
+- "Service History Recap PDF" and other templates were being skipped
 - Detection was failing for templates with different container IDs
-- Need more robust detection beyond hardcoded UUIDs
+- **Need table-position based detection**, not ID-based
+
+### **Logo Alignment Issue Discovered:**
+- Logo 2 is currently at **RIGHT alignment** (column 3), not CENTER
+- This confirms the need for alignment detection and centering logic
+- After replacement, script should move logo from RIGHT to CENTER
 
 ---
 
