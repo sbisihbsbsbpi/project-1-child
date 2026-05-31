@@ -14,6 +14,8 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   const [showSettings, setShowSettings] = useState(false);
   const [additionStatus, setAdditionStatus] = useState<'idle' | 'running' | 'completed' | 'failed'>('idle');
   const [jobId, setJobId] = useState<string | null>(null);
+  const [browserConnected, setBrowserConnected] = useState(false);
+  const [checkingBrowser, setCheckingBrowser] = useState(false);
 
   // Settings
   const [maxRows, setMaxRows] = useState('200');
@@ -24,7 +26,58 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   const [departments, setDepartments] = useState<string[]>(['Service', 'Parts']); // NEW: Department filtering
   const [autoPublish, setAutoPublish] = useState(true); // NEW: Auto-publish
 
+  // Check CDP browser status on mount
+  React.useEffect(() => {
+    checkBrowserStatus();
+  }, []);
+
+  const checkBrowserStatus = async () => {
+    try {
+      setCheckingBrowser(true);
+      const response = await fetch('http://localhost:8001/api/cdp-status');
+      const data = await response.json();
+      setBrowserConnected(data.is_listening);
+      if (data.is_listening) {
+        addLog('✅ Browser connected via CDP (port 9223)');
+      }
+    } catch (error) {
+      console.error('Error checking browser status:', error);
+      setBrowserConnected(false);
+    } finally {
+      setCheckingBrowser(false);
+    }
+  };
+
+  const connectBrowser = async () => {
+    try {
+      setCheckingBrowser(true);
+      addLog('🔌 Launching browser with CDP...');
+
+      const response = await fetch('http://localhost:8001/api/launch-brave-cdp', {
+        method: 'POST'
+      });
+
+      const data = await response.json();
+      addLog(`🦁 ${data.message}`);
+
+      // Wait a bit for browser to start, then check status
+      setTimeout(async () => {
+        await checkBrowserStatus();
+      }, 2000);
+
+    } catch (error: any) {
+      console.error('Error connecting browser:', error);
+      addLog(`❌ Failed to connect browser: ${error.message}`);
+    } finally {
+      setCheckingBrowser(false);
+    }
+  };
+
   const handleLogoAdditionClick = () => {
+    if (!browserConnected) {
+      alert('⚠️ Browser not connected!\n\nPlease click "🔌 Connect Browser" first to establish CDP connection on port 9223.');
+      return;
+    }
     setShowSettings(true);
   };
 
@@ -165,20 +218,84 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
         </p>
       </div>
 
+      {/* Browser Connection Status */}
+      <div style={{
+        marginBottom: '20px',
+        padding: '16px',
+        backgroundColor: browserConnected ? '#e7f5e7' : '#fff3cd',
+        border: `2px solid ${browserConnected ? '#4CAF50' : '#ff9800'}`,
+        borderRadius: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <span style={{ fontSize: '24px' }}>{browserConnected ? '✅' : '⚠️'}</span>
+          <div>
+            <div style={{ fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>
+              {browserConnected ? 'Browser Connected' : 'Browser Not Connected'}
+            </div>
+            <div style={{ fontSize: '12px', color: '#666' }}>
+              {browserConnected
+                ? 'CDP connection active on port 9223'
+                : 'Click "Connect Browser" to enable CDP on port 9223'}
+            </div>
+          </div>
+        </div>
+        {!browserConnected && (
+          <button
+            onClick={connectBrowser}
+            disabled={checkingBrowser}
+            style={{
+              padding: '10px 16px',
+              backgroundColor: '#2196F3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: checkingBrowser ? 'not-allowed' : 'pointer',
+              opacity: checkingBrowser ? 0.6 : 1,
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {checkingBrowser ? '⏳ Connecting...' : '🔌 Connect Browser'}
+          </button>
+        )}
+        {browserConnected && (
+          <button
+            onClick={checkBrowserStatus}
+            disabled={checkingBrowser}
+            style={{
+              padding: '8px 14px',
+              backgroundColor: '#f5f5f5',
+              color: '#666',
+              border: '1px solid #ddd',
+              borderRadius: '6px',
+              fontSize: '12px',
+              fontWeight: '600',
+              cursor: checkingBrowser ? 'not-allowed' : 'pointer'
+            }}
+          >
+            {checkingBrowser ? '⏳' : '🔄'} Refresh
+          </button>
+        )}
+      </div>
+
       {/* Main Action Button */}
       <button
         onClick={handleLogoAdditionClick}
-        disabled={additionStatus === 'running'}
+        disabled={additionStatus === 'running' || !browserConnected}
         style={{
           width: '100%',
           padding: '16px 24px',
-          backgroundColor: additionStatus === 'running' ? '#ccc' : '#FF6B6B',
+          backgroundColor: (additionStatus === 'running' || !browserConnected) ? '#ccc' : '#FF6B6B',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
           fontSize: '16px',
           fontWeight: '600',
-          cursor: additionStatus === 'running' ? 'not-allowed' : 'pointer',
+          cursor: (additionStatus === 'running' || !browserConnected) ? 'not-allowed' : 'pointer',
           transition: 'all 0.3s ease',
           display: 'flex',
           alignItems: 'center',
@@ -187,14 +304,14 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
           boxShadow: '0 2px 8px rgba(255, 107, 107, 0.2)'
         }}
         onMouseEnter={(e) => {
-          if (additionStatus !== 'running') {
+          if (additionStatus !== 'running' && browserConnected) {
             e.currentTarget.style.backgroundColor = '#EE5A6F';
             e.currentTarget.style.transform = 'translateY(-2px)';
             e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 107, 107, 0.3)';
           }
         }}
         onMouseLeave={(e) => {
-          if (additionStatus !== 'running') {
+          if (additionStatus !== 'running' && browserConnected) {
             e.currentTarget.style.backgroundColor = '#FF6B6B';
             e.currentTarget.style.transform = 'translateY(0)';
             e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 107, 107, 0.2)';
