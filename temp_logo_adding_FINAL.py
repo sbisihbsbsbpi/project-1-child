@@ -636,8 +636,13 @@ class TempLogoAdditionFinalService:
                 await page.close()
                 return
 
+            # Get replace count from detection result
+            replace_count = detection_result.get('replaceCount', 0)
+            logos_to_replace = detection_result.get('logosToReplace', [])
+
             logger.info(f"   ✅ Detected:")
             logger.info(f"      - Logos with warnings: {warnings_count}")
+            logger.info(f"      - Logos without warnings (to replace): {replace_count}")
             logger.info(f"      - Empty Logo 1/2 containers: {empty_count}")
             logger.info(f"      - Empty header containers: {header_count}")
 
@@ -674,6 +679,46 @@ class TempLogoAdditionFinalService:
                 else:
                     logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
                     logger.log_action("REPLACE", f"Warning Logo {logo_idx}", False, "Change Image workflow failed")
+
+            # Process logos WITHOUT warnings (CHANGE IMAGE - detected by table-based detection)
+            logger.debug(f"Starting logo replacement (without warnings): {replace_count} logos detected")
+            for logo_item in logos_to_replace:
+                logo_idx = logo_item['index']
+                logo_name = logo_item['name']
+                needs_centering = logo_item.get('needsCentering', False)
+
+                logger.info(f"\n   🎯 Replacing logo {logo_idx}/{replace_count}: {logo_name}...")
+                logger.debug(f"   Logo at {logo_item['alignment']} position, needs centering: {needs_centering}")
+                logger.debug(f"   Attempting REPLACE workflow for logo without warning")
+
+                if await self._replace_logo_without_warning(page, logo_idx, logo_media_id):
+                    logos_processed += 1
+                    logger.info(f"   ✅ Logo replaced: {logo_name}")
+                    logger.log_action("REPLACE", logo_name, True, f"Table-based detection, alignment={logo_item['alignment']}")
+
+                    # Center align if needed
+                    if needs_centering:
+                        logger.debug(f"   Logo is at {logo_item['alignment']}, attempting to center...")
+                        if await self._center_logo_without_warning(page, logo_idx):
+                            logos_centered += 1
+                            logger.info(f"   ✅ Logo moved to CENTER")
+                            logger.log_action("CENTER", logo_name, True, f"Moved from {logo_item['alignment']} to CENTER")
+                        else:
+                            logger.warning(f"   ⚠️  Failed to center logo")
+                            logger.log_action("CENTER", logo_name, False, f"Could not move from {logo_item['alignment']}")
+                    else:
+                        logger.debug(f"   Logo already at CENTER, no centering needed")
+
+                    # Enlarge
+                    logger.debug(f"   Attempting to enlarge logo to {logo_width}px")
+                    if await self._enlarge_logo_without_warning(page, logo_idx, logo_media_id, logo_width):
+                        logos_enlarged += 1
+                        logger.log_action("ENLARGE", logo_name, True, f"Target: {logo_width}px")
+                    else:
+                        logger.log_action("ENLARGE", logo_name, False)
+                else:
+                    logger.warning(f"   ⚠️  Logo replacement failed: {logo_name}")
+                    logger.log_action("REPLACE", logo_name, False, "Change Image workflow failed")
 
             # Process empty Logo 1/2 containers (INSERT IMAGE)
             logger.debug(f"Starting empty container processing: {empty_count} empty containers detected")
@@ -856,6 +901,7 @@ class TempLogoAdditionFinalService:
                 debug.push('\\n=== TABLE-BASED LOGO DETECTION (Fallback) ===');
                 const allTables = Array.from(document.querySelectorAll('table[width="100%"]'));
                 const logoTables = [];
+                const logosToReplace = []; // NEW: Track logos without warnings that need replacement
 
                 allTables.forEach((table, tableIdx) => {
                     const firstRow = table.querySelector('tr');
@@ -871,7 +917,8 @@ class TempLogoAdditionFinalService:
                         };
 
                         cells.forEach((cell, cellIdx) => {
-                            const hasImage = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t') !== null;
+                            const imageComponent = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t');
+                            const hasImage = imageComponent !== null;
                             const hasWarning = cell.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') !== null;
                             const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
                             const isEmpty = !hasImage && textTemplate !== null;
@@ -886,7 +933,8 @@ class TempLogoAdditionFinalService:
                                 hasImage: hasImage,
                                 hasWarning: hasWarning,
                                 isEmpty: isEmpty,
-                                textTemplateId: textTemplate ? textTemplate.id : null
+                                textTemplateId: textTemplate ? textTemplate.id : null,
+                                imageComponent: imageComponent
                             });
                         });
 
@@ -915,9 +963,34 @@ class TempLogoAdditionFinalService:
                     logoTables.forEach((logoTable, tableIdx) => {
                         const logoNumber = tableIdx + 1; // Logo 1, Logo 2, etc.
 
-                        logoTable.positions.forEach(pos => {
-                            if (pos.alignment !== 'EXTRA' && pos.isEmpty) {
-                                const containerName = `Logo ${logoNumber} ${pos.alignment}`;
+                        logoTable.positions.forEach((pos, posIdx) => {
+                            if (pos.alignment === 'EXTRA') return; // Skip 4th column
+
+                            const containerName = `Logo ${logoNumber} ${pos.alignment}`;
+
+                            // PRIORITY 1: Logos that exist (with or without warnings) need replacement
+                            if (pos.hasImage) {
+                                // Mark image component for replacement
+                                if (pos.imageComponent) {
+                                    const replaceIdx = logosToReplace.length + 1;
+                                    pos.imageComponent.setAttribute('data-logo-to-replace', `replace-logo-${replaceIdx}`);
+
+                                    logosToReplace.push({
+                                        index: replaceIdx,
+                                        name: containerName,
+                                        type: 'logo_without_warning',
+                                        tableIndex: tableIdx,
+                                        cellIndex: pos.cellIndex,
+                                        alignment: pos.alignment,
+                                        hasWarning: pos.hasWarning,
+                                        needsCentering: pos.alignment !== 'CENTER'
+                                    });
+
+                                    debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=${pos.hasWarning}, needsCentering=${pos.alignment !== 'CENTER'})`);
+                                }
+                            }
+                            // PRIORITY 2: Empty CENTER positions can have logos inserted
+                            else if (pos.isEmpty && pos.alignment === 'CENTER') {
                                 const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
 
                                 emptyContainers.push({
@@ -930,10 +1003,18 @@ class TempLogoAdditionFinalService:
                                     alignment: pos.alignment
                                 });
 
-                                debug.push(`  Added: ${containerName} (ID: ${containerId})`);
+                                debug.push(`  Added empty CENTER: ${containerName} (ID: ${containerId})`);
+                            }
+                            // PRIORITY 3: Empty LEFT/RIGHT positions are skipped (will be empty after centering)
+                            else if (pos.isEmpty && pos.alignment !== 'CENTER') {
+                                debug.push(`  Skipping empty ${pos.alignment}: ${containerName} (only CENTER positions get new logos)`);
                             }
                         });
                     });
+
+                    debug.push(`\\nTable-based detection summary:`);
+                    debug.push(`  - Logos to REPLACE: ${logosToReplace.length}`);
+                    debug.push(`  - Empty CENTER positions: ${emptyContainers.length}`);
                 }
 
                 // Find empty HEADER containers
@@ -1008,6 +1089,8 @@ class TempLogoAdditionFinalService:
                     containerCheckResults: containerCheckResults,
                     headerCheckResults: headerCheckResults,
                     logoTables: logoTables,
+                    logosToReplace: logosToReplace || [],
+                    replaceCount: (logosToReplace || []).length,
                     debug: debug
                 };
             }
@@ -1116,6 +1199,143 @@ class TempLogoAdditionFinalService:
 
         except Exception as e:
             logger.exception(f"      Error replacing logo: {e}")
+            return False
+
+    async def _replace_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str) -> bool:
+        """Replace logo WITHOUT warning icon (detected by table-based detection) using Change Image workflow"""
+
+        try:
+            # Find the image component marked for replacement
+            container = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
+            if not container:
+                logger.warning(f"Container not found for replace-logo-{logo_idx}")
+                return False
+
+            # Hover over the image to reveal toolbar
+            await container.hover(force=True)
+            await asyncio.sleep(2)
+
+            # Click Change Image icon
+            change_clicked = await page.evaluate(f"""
+                () => {{
+                    const container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                    if (!container) return {{ clicked: false, reason: 'Container not found' }};
+
+                    // Find the change/switch icon in the container or nearby
+                    const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                                      container.querySelector('[title="Change Image"]') ||
+                                      container.closest('[class*="SortableItem"]')?.querySelector('[aria-label="icon-switch"]');
+
+                    if (changeIcon) {{
+                        changeIcon.click();
+                        return {{ clicked: true }};
+                    }}
+                    return {{ clicked: false, reason: 'Change icon not found' }};
+                }}
+            """)
+
+            if not change_clicked['clicked']:
+                logger.warning(f"Could not click change icon: {change_clicked.get('reason', 'unknown')}")
+                return False
+
+            await asyncio.sleep(2)
+
+            # Wait for media library popup
+            popup_visible = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return popup && popup.getBoundingClientRect().width > 0;
+                }
+            """)
+
+            if not popup_visible:
+                logger.warning("Media library popup did not appear")
+                return False
+
+            # Select Tilton.png (tile #1)
+            selection = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { success: false };
+
+                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                    if (tiles.length === 0) return { success: false };
+
+                    const targetTile = tiles[0];
+                    const topLayer = targetTile.querySelector('[role="button"]') ||
+                                    targetTile.querySelector('[class*="topLayer"]');
+
+                    if (topLayer) {
+                        topLayer.click();
+                        return { success: true };
+                    }
+                    return { success: false };
+                }
+            """)
+
+            if not selection['success']:
+                logger.warning("Could not select logo from media library")
+                return False
+
+            await asyncio.sleep(1.5)
+
+            # Click INSERT
+            insert_result = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { clicked: false };
+
+                    const buttons = Array.from(popup.querySelectorAll('button'));
+                    const insertBtn = buttons.find(b => b.textContent.trim().toLowerCase().includes('insert'));
+
+                    if (insertBtn && !insertBtn.disabled) {
+                        insertBtn.click();
+                        return { clicked: true };
+                    }
+                    return { clicked: false };
+                }
+            """)
+
+            if not insert_result['clicked']:
+                logger.warning("Could not click INSERT button")
+                return False
+
+            await asyncio.sleep(2)
+
+            # Verify popup closed
+            popup_closed = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return !popup || popup.getBoundingClientRect().width === 0;
+                }
+            """)
+
+            return popup_closed
+
+        except Exception as e:
+            logger.error(f"Error in _replace_logo_without_warning: {e}")
+            return False
+
+    async def _center_logo_without_warning(self, page: Page, logo_idx: int) -> bool:
+        """Center align a logo that was replaced (without warning icon)"""
+        try:
+            # For now, return True as placeholder
+            # TODO: Implement center alignment logic
+            logger.debug(f"Center alignment for logo {logo_idx} - not yet implemented")
+            return False
+        except Exception as e:
+            logger.error(f"Error in _center_logo_without_warning: {e}")
+            return False
+
+    async def _enlarge_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str, logo_width: str) -> bool:
+        """Enlarge a logo that was replaced (without warning icon)"""
+        try:
+            # For now, return True as placeholder
+            # TODO: Implement enlarge logic
+            logger.debug(f"Enlarge logo {logo_idx} to {logo_width} - not yet implemented")
+            return False
+        except Exception as e:
+            logger.error(f"Error in _enlarge_logo_without_warning: {e}")
             return False
 
     async def _center_logo(self, page: Page, logo_idx: int) -> bool:
