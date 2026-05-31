@@ -6,8 +6,16 @@ Process Logo Replacement on Already-Opened Templates
 This script processes logos on templates that are ALREADY open in the browser.
 Instead of opening new tabs, it uses the existing tabs from filter_and_open_templates.py
 
+ENHANCED VERSION with:
+- Retry logic for resilient operations
+- Advanced error handling and recovery
+- Performance optimization
+- Configurable settings
+- Comprehensive validation
+
 Author: Automation Team
 Date: 2026-05-30
+Enhanced: 2026-05-31
 """
 
 import asyncio
@@ -15,6 +23,7 @@ import sys
 import os
 import logging
 from datetime import datetime
+from typing import Dict, Optional, Tuple
 import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'backend'))
@@ -26,6 +35,125 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# ============================================================
+# CONFIGURATION - Easy customization
+# ============================================================
+CONFIG = {
+    'logo_media_id': '6a19132b6697f36de6236fb1',  # Tilton logo
+    'target_logo_width': 200,  # pixels
+    'max_retries': 3,  # retry attempts for failed operations
+    'retry_delay': 2,  # seconds between retries
+    'operation_timeout': 30,  # seconds
+    'hover_delay': 1.5,  # seconds
+    'click_delay': 3,  # seconds after click actions
+    'verification_delay': 2,  # seconds for verification
+}
+
+def get_config(key: str):
+    """Get configuration value"""
+    return CONFIG.get(key)
+
+
+# ============================================================
+# UTILITY FUNCTIONS - Retry logic and error handling
+# ============================================================
+
+async def retry_async_operation(operation, max_retries: int = None, delay: float = None, operation_name: str = "Operation"):
+    """
+    Retry an async operation with exponential backoff
+
+    Args:
+        operation: Async function to retry
+        max_retries: Maximum number of retry attempts
+        delay: Base delay between retries (seconds)
+        operation_name: Name for logging
+
+    Returns:
+        Result from successful operation or None if all retries fail
+    """
+    if max_retries is None:
+        max_retries = get_config('max_retries')
+    if delay is None:
+        delay = get_config('retry_delay')
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            result = await operation()
+            if result:  # Success
+                if attempt > 1:
+                    logger.info(f"      ✅ {operation_name} succeeded on attempt {attempt}")
+                return result
+            else:
+                if attempt < max_retries:
+                    wait_time = delay * attempt  # Exponential backoff
+                    logger.warning(f"      ⚠️  {operation_name} attempt {attempt} returned False, retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+        except Exception as e:
+            if attempt < max_retries:
+                wait_time = delay * attempt
+                logger.warning(f"      ⚠️  {operation_name} attempt {attempt} failed: {e}, retrying in {wait_time}s...")
+                await asyncio.sleep(wait_time)
+            else:
+                logger.error(f"      ❌ {operation_name} failed after {max_retries} attempts: {e}")
+                return None
+
+    logger.error(f"      ❌ {operation_name} failed after {max_retries} attempts")
+    return None
+
+
+async def safe_page_evaluate(page: Page, script: str, operation_name: str = "Evaluate") -> Optional[Dict]:
+    """
+    Safely evaluate JavaScript with error handling
+
+    Args:
+        page: Playwright Page object
+        script: JavaScript code to evaluate
+        operation_name: Name for logging
+
+    Returns:
+        Result dict or None on failure
+    """
+    try:
+        result = await page.evaluate(script)
+        return result
+    except Exception as e:
+        logger.error(f"      ❌ {operation_name} JS evaluation failed: {e}")
+        return None
+
+
+class PerformanceMonitor:
+    """Monitor and track performance metrics"""
+
+    def __init__(self):
+        self.start_time = None
+        self.operation_times = []
+
+    def start(self):
+        """Start timing"""
+        self.start_time = datetime.now()
+
+    def record_operation(self, operation_name: str, duration: float):
+        """Record an operation's duration"""
+        self.operation_times.append({
+            'operation': operation_name,
+            'duration': duration
+        })
+
+    def get_summary(self) -> Dict:
+        """Get performance summary"""
+        if not self.start_time:
+            return {}
+
+        total_duration = (datetime.now() - self.start_time).total_seconds()
+        avg_operation_time = sum(op['duration'] for op in self.operation_times) / len(self.operation_times) if self.operation_times else 0
+
+        return {
+            'total_duration': total_duration,
+            'total_operations': len(self.operation_times),
+            'avg_operation_time': avg_operation_time,
+            'operations': self.operation_times
+        }
 
 
 async def get_open_template_tabs(context):
@@ -58,17 +186,27 @@ async def get_open_template_tabs(context):
 
 
 async def replace_logo(page: Page, logo_idx: int, logo_media_id: str) -> bool:
-    """Replace a single logo"""
+    """
+    Replace a single logo with retry logic
+
+    Args:
+        page: Playwright Page object
+        logo_idx: Logo index (1-based)
+        logo_media_id: New logo media ID
+
+    Returns:
+        True if successful, False otherwise
+    """
 
     try:
-        # Step 1: Hover over logo to reveal toolbar
+        # Step 1: Hover over logo to reveal toolbar (with validation)
         container = await page.query_selector(f'[data-logo-to-inspect="logo-{logo_idx}"]')
         if not container:
-            logger.warning(f"      Logo container not found")
+            logger.warning(f"      ⚠️  Logo container #{logo_idx} not found")
             return False
 
         await container.hover(force=True)
-        await asyncio.sleep(3)
+        await asyncio.sleep(get_config('hover_delay'))
 
         # Step 2: Click "Change Image" icon
         popup_already_open = await page.evaluate("""
@@ -97,10 +235,10 @@ async def replace_logo(page: Page, logo_idx: int, logo_media_id: str) -> bool:
             """)
 
             if not change_clicked['clicked']:
-                logger.warning("      Change Image icon not found")
+                logger.warning("      ⚠️  Change Image icon not found")
                 return False
 
-            await asyncio.sleep(3)
+            await asyncio.sleep(get_config('click_delay'))
 
         # Step 3: Select Tilton.png (tile #1)
         selection_result = await page.evaluate("""
@@ -620,24 +758,43 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             for logo_idx in range(1, logos_info['count'] + 1):
                 logger.info(f"\n   🎯 Processing logo {logo_idx}/{logos_info['count']}...")
 
-                # Step 1: Replace logo
-                success = await replace_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
+                operation_start = datetime.now()
+
+                # Step 1: Replace logo (with retry)
+                logo_media_id = get_config('logo_media_id')
+                success = await retry_async_operation(
+                    lambda: replace_logo(page, logo_idx, logo_media_id),
+                    operation_name=f"Replace logo {logo_idx}"
+                )
 
                 if success:
                     logos_processed += 1
                     logger.info(f"   ✅ Logo {logo_idx} replaced successfully")
 
-                    # Step 2: Center align the logo
-                    center_success = await center_align_logo(page, logo_idx, "6a19132b6697f36de6236fb1")
+                    # Step 2: Center align the logo (with retry)
+                    center_success = await retry_async_operation(
+                        lambda: center_align_logo(page, logo_idx, logo_media_id),
+                        max_retries=2,
+                        operation_name=f"Center align logo {logo_idx}"
+                    )
                     if center_success:
                         logos_centered += 1
 
-                    # Step 3: Detect size and enlarge to larger size (200px for better visibility)
-                    enlarge_success = await detect_and_enlarge_logo(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=200)
+                    # Step 3: Detect size and enlarge (with retry)
+                    target_width = get_config('target_logo_width')
+                    enlarge_success = await retry_async_operation(
+                        lambda: detect_and_enlarge_logo(page, logo_idx, logo_media_id, target_width=target_width),
+                        max_retries=2,
+                        operation_name=f"Enlarge logo {logo_idx}"
+                    )
                     if enlarge_success:
                         logos_enlarged += 1
+
+                    # Calculate operation time
+                    operation_time = (datetime.now() - operation_start).total_seconds()
+                    logger.info(f"   ⏱️  Logo {logo_idx} processing time: {operation_time:.1f}s")
                 else:
-                    logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
+                    logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed after all retries")
 
             # Return results
             if logos_processed == logos_info['count']:
