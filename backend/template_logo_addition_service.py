@@ -233,6 +233,14 @@ class TemplateLogoAdditionService:
         if not logo_media_id or logo_media_id.strip() == '':
             raise ValueError("logo_media_id is required. Please provide your store's logo Media ID from the Media Library.")
 
+        # Enforce tabs behavior based on auto_publish setting
+        # If auto_publish is disabled, force tabs to stay open for manual verification
+        if not auto_publish:
+            original_keep_tabs = keep_tabs_open
+            keep_tabs_open = True
+            if not original_keep_tabs:
+                logger.info(f"⚠️  Auto-publish disabled: Forcing keep_tabs_open=True (was {original_keep_tabs})")
+
         # Initialize enhanced logger for this job
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         log_filename = f"job_{job_id[:8]}_{timestamp}.log"
@@ -273,10 +281,13 @@ class TemplateLogoAdditionService:
         enhanced_logger.info(f"Departments: {', '.join(job['departments'])}")
         enhanced_logger.info(f"Max Templates (API): {max_rows}")
         enhanced_logger.info(f"Custom Limit: {custom_limit if custom_limit else 'None (process all)'}")
-        enhanced_logger.info(f"Keep tabs open: {keep_tabs_open}")
         enhanced_logger.info(f"Logo Media ID: {logo_media_id}")
         enhanced_logger.info(f"Logo Width: {logo_width}px")
-        enhanced_logger.info(f"Auto-publish: {'✅ ENABLED' if auto_publish else '❌ DISABLED'}")
+        enhanced_logger.info("")
+        enhanced_logger.info(f"Auto-publish: {'✅ ENABLED (2-click workflow)' if auto_publish else '❌ DISABLED (manual verification required)'}")
+        enhanced_logger.info(f"Keep tabs open: {'✅ YES' if keep_tabs_open else '❌ NO (close after processing)'}")
+        if not auto_publish:
+            enhanced_logger.info("📌 Note: Auto-publish disabled → Tabs FORCED to stay open for manual verification")
 
         # Also log to standard logger
         logger.info(f"✨ Created logo addition job: {job_id}")
@@ -671,13 +682,18 @@ class TemplateLogoAdditionService:
             # STEP 6: Auto-publish if enabled
             published = False
             if logos_processed > 0 and job['auto_publish']:
-                self.add_log(job_id, "\n   📤 Auto-publishing...", "info")
+                self.add_log(job_id, "\n   📤 Auto-publishing (2-click workflow)...", "info")
                 if await self._publish_template(job_id, page, template_name):
                     published = True
                     job['published_count'] += 1
                     self.add_log(job_id, "   ✅ Template published!", "success")
                 else:
                     self.add_log(job_id, "   ⚠️  Publish failed", "warning")
+            elif logos_processed > 0 and not job['auto_publish']:
+                self.add_log(job_id, "\n   ⏸️  Auto-publish DISABLED - Template NOT published", "warning")
+                self.add_log(job_id, "   📌 Tab kept open for manual verification and publishing", "info")
+            elif logos_processed == 0:
+                self.add_log(job_id, "\n   ⏭️  No logos processed - skipping publish", "info")
 
             # Result summary
             if logos_processed > 0:
@@ -692,9 +708,15 @@ class TemplateLogoAdditionService:
                 job["failed"] += 1
                 self.add_log(job_id, "   ⚠️  No logos successfully processed", "warning")
 
-            # Keep tab open or close
+            # Keep tab open or close based on settings
             if not job['keep_tabs_open']:
                 await page.close()
+                self.add_log(job_id, "   🔒 Tab closed (keep_tabs_open=False)", "info")
+            else:
+                if job['auto_publish']:
+                    self.add_log(job_id, "   📂 Tab kept open for verification (user preference)", "info")
+                else:
+                    self.add_log(job_id, "   📌 Tab kept open for MANUAL verification and publishing", "warning")
 
         except Exception as e:
             logger.exception(f"Error processing template {template_id}")

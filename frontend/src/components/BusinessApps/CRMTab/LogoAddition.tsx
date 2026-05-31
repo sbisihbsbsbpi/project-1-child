@@ -450,14 +450,22 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                 gap: '12px',
                 cursor: 'pointer',
                 padding: '12px',
-                backgroundColor: autoPublish ? '#e8f5e9' : '#f5f5f5',
+                backgroundColor: autoPublish ? '#e8f5e9' : '#fff3e0',
                 borderRadius: '6px',
-                border: autoPublish ? '2px solid #4caf50' : '2px solid transparent'
+                border: autoPublish ? '2px solid #4caf50' : '2px solid #ff9800'
               }}>
                 <input
                   type="checkbox"
                   checked={autoPublish}
-                  onChange={(e) => setAutoPublish(e.target.checked)}
+                  onChange={(e) => {
+                    const newValue = e.target.checked;
+                    setAutoPublish(newValue);
+                    // When auto-publish is enabled, suggest closing tabs (user can override)
+                    // When auto-publish is disabled, force tabs to stay open
+                    if (!newValue) {
+                      setKeepTabsOpen(true);
+                    }
+                  }}
                   style={{
                     width: '20px',
                     height: '20px',
@@ -470,13 +478,15 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                     fontWeight: '600',
                     color: '#333'
                   }}>
-                    ✅ Auto-Publish Templates
+                    📤 Auto-Publish Templates (2-Click Workflow)
                   </div>
                   <div style={{
                     fontSize: '12px',
                     color: '#666'
                   }}>
-                    Automatically publish templates after adding logos (recommended)
+                    {autoPublish
+                      ? '✅ Will publish templates after adding logos'
+                      : '⚠️ Templates will NOT be published - you must manually verify and publish'}
                   </div>
                 </div>
               </label>
@@ -488,19 +498,22 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                cursor: 'pointer',
+                cursor: !autoPublish ? 'not-allowed' : 'pointer',
                 padding: '12px',
-                backgroundColor: '#f5f5f5',
-                borderRadius: '6px'
+                backgroundColor: keepTabsOpen ? '#e3f2fd' : '#f5f5f5',
+                borderRadius: '6px',
+                border: keepTabsOpen ? '2px solid #2196f3' : '2px solid transparent',
+                opacity: !autoPublish ? 0.6 : 1
               }}>
                 <input
                   type="checkbox"
                   checked={keepTabsOpen}
                   onChange={(e) => setKeepTabsOpen(e.target.checked)}
+                  disabled={!autoPublish}
                   style={{
                     width: '20px',
                     height: '20px',
-                    cursor: 'pointer'
+                    cursor: !autoPublish ? 'not-allowed' : 'pointer'
                   }}
                 />
                 <div>
@@ -509,13 +522,17 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                     fontWeight: '600',
                     color: '#333'
                   }}>
-                    Keep Tabs Open
+                    📂 Keep Tabs Open After Processing
                   </div>
                   <div style={{
                     fontSize: '12px',
                     color: '#666'
                   }}>
-                    Keep template tabs open for manual verification
+                    {!autoPublish
+                      ? '🔒 Forced ON when auto-publish is disabled (for manual verification)'
+                      : keepTabsOpen
+                        ? '✅ Tabs will stay open for verification (even after publishing)'
+                        : '❌ Tabs will close after publishing (recommended for bulk processing)'}
                   </div>
                 </div>
               </label>
@@ -554,7 +571,14 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                 <li><strong>Add headers:</strong> For templates without Logo 1/2 containers</li>
                 <li><strong>Center align:</strong> All logos centered automatically</li>
                 <li><strong>Resize logos:</strong> To {logoWidth}px width</li>
-                <li><strong>Auto-publish:</strong> {autoPublish ? '✅ Enabled (2-click workflow)' : '❌ Disabled'}</li>
+                <li><strong>Auto-publish:</strong> {autoPublish ? '✅ Enabled (2-click workflow)' : '❌ Disabled (manual verification required)'}</li>
+                <li><strong>Tabs after processing:</strong> {
+                  !autoPublish
+                    ? '🔒 Kept open (forced - for manual verification & publishing)'
+                    : keepTabsOpen
+                      ? '📂 Kept open (for verification)'
+                      : '✅ Closed automatically (bulk processing mode)'
+                }</li>
                 <li><strong>Excel report:</strong> Comprehensive statistics & detection log</li>
               </ul>
             </div>
