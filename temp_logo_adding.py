@@ -256,44 +256,80 @@ class TempLogoAdditionService:
             await page.goto(edit_url, wait_until='domcontentloaded', timeout=15000)
             await asyncio.sleep(5)  # Wait for template to load
 
-            # Find logos with warnings
-            logos_info = await page.evaluate("""
+            # Find logos with warnings AND empty containers
+            detection_result = await page.evaluate("""
                 () => {
+                    // Find logos with warnings
                     const warnings = Array.from(
                         document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb')
                     );
 
-                    if (warnings.length === 0) return { found: false, count: 0 };
-
                     warnings.forEach((icon, idx) => {
                         const sortableItem = icon.closest('[class*="SortableItem"]');
                         if (sortableItem) {
-                            sortableItem.setAttribute('data-logo-to-inspect', `logo-${idx + 1}`);
+                            sortableItem.setAttribute('data-logo-to-inspect', `warning-logo-${idx + 1}`);
                         }
                     });
 
-                    return { found: true, count: warnings.length };
+                    // Find empty logo containers (Logo 1 & 2: LEFT, CENTER, RIGHT)
+                    const containerIds = [
+                        '6f0b8570-c4dc-45bd-b746-40e3af9af3bb',  // Logo 1 LEFT
+                        '7653caa9-31b7-4e2b-8233-f0bda43672ea',  // Logo 1 CENTER
+                        '47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa',  // Logo 1 RIGHT
+                        '9fa2920b-10f8-48d2-9947-b014398d21be',  // Logo 2 LEFT
+                        '983932ae-d79a-40fe-a9ba-df07c9beee47',  // Logo 2 CENTER
+                        '9d454086-c1f2-4bf0-b4a7-8e95dc244aae'   // Logo 2 RIGHT
+                    ];
+
+                    const emptyContainers = [];
+                    containerIds.forEach((id, idx) => {
+                        const container = document.querySelector(`div.TEXT_TEMPLATE[id="${id}"][contenteditable="true"]`);
+                        if (container) {
+                            const hasImage = container.querySelector('img') !== null;
+                            const isEmpty = !hasImage && container.innerHTML.trim().length < 300;
+
+                            if (isEmpty) {
+                                container.setAttribute('data-empty-container', `empty-${idx + 1}`);
+                                emptyContainers.push({
+                                    index: idx + 1,
+                                    id: id,
+                                    name: idx < 3 ? `Logo 1 ${['LEFT', 'CENTER', 'RIGHT'][idx]}` :
+                                                     `Logo 2 ${['LEFT', 'CENTER', 'RIGHT'][idx - 3]}`
+                                });
+                            }
+                        }
+                    });
+
+                    return {
+                        warningsCount: warnings.length,
+                        emptyCount: emptyContainers.length,
+                        emptyContainers: emptyContainers
+                    };
                 }
             """)
 
-            if not logos_info['found']:
-                logger.info("   ℹ️  No logos with warnings - skipping")
+            warnings_count = detection_result['warningsCount']
+            empty_count = detection_result['emptyCount']
+
+            if warnings_count == 0 and empty_count == 0:
+                logger.info("   ℹ️  No logos with warnings or empty containers - skipping")
                 self.results.append({
                     'template': template_name,
                     'id': template_id,
                     'status': 'skipped',
-                    'reason': 'No logos with warnings',
+                    'reason': 'No logos to process',
                     'logos_processed': 0
                 })
                 await page.close()
                 return
 
-            logger.info(f"   ✅ Found {logos_info['count']} logo(s) with warnings")
+            logger.info(f"   ✅ Found {warnings_count} logo(s) with warnings")
+            logger.info(f"   ✅ Found {empty_count} empty container(s)")
 
-            # Process each logo
+            # Process logos with warnings (CHANGE IMAGE flow)
             logos_processed = 0
-            for logo_idx in range(1, logos_info['count'] + 1):
-                logger.info(f"\n   🎯 Processing logo {logo_idx}/{logos_info['count']}...")
+            for logo_idx in range(1, warnings_count + 1):
+                logger.info(f"\n   🎯 Replacing logo {logo_idx}/{warnings_count} (with warning)...")
 
                 success = await self._replace_logo(page, logo_idx, logo_media_id)
 
@@ -303,8 +339,27 @@ class TempLogoAdditionService:
                 else:
                     logger.warning(f"   ⚠️  Logo {logo_idx} replacement failed")
 
+            # Process empty containers (INSERT IMAGE flow)
+            for container_info in detection_result['emptyContainers']:
+                logger.info(f"\n   🎯 Inserting logo into {container_info['name']} (empty container)...")
+
+                success = await self._insert_logo_to_empty_container(
+                    page,
+                    container_info['index'],
+                    container_info['id'],
+                    container_info['name'],
+                    logo_media_id
+                )
+
+                if success:
+                    logos_processed += 1
+                    logger.info(f"   ✅ Logo inserted into {container_info['name']}")
+                else:
+                    logger.warning(f"   ⚠️  Logo insertion to {container_info['name']} failed")
+
             # Record results
-            if logos_processed == logos_info['count']:
+            total_logos = warnings_count + empty_count
+            if logos_processed == total_logos:
                 self.successful += 1
                 status = 'success'
             elif logos_processed > 0:
@@ -319,12 +374,14 @@ class TempLogoAdditionService:
                 'template': template_name,
                 'id': template_id,
                 'status': status,
-                'logos_found': logos_info['count'],
+                'logos_with_warnings': warnings_count,
+                'empty_containers': empty_count,
+                'total_logos': total_logos,
                 'logos_processed': logos_processed,
                 'departments': ', '.join(template.get('departments', []))
             })
 
-            logger.info(f"\n   ✅ Template {idx} complete: {logos_processed}/{logos_info['count']} logos replaced")
+            logger.info(f"\n   ✅ Template {idx} complete: {logos_processed}/{total_logos} logos processed ({warnings_count} warnings + {empty_count} empty)")
 
             # Keep tab open or close
             # await page.close()  # Uncomment if you want to close tabs
@@ -351,7 +408,7 @@ class TempLogoAdditionService:
 
         try:
             # Step 1: Hover over logo to reveal toolbar
-            container = await page.query_selector(f'[data-logo-to-inspect="logo-{logo_idx}"]')
+            container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
             if not container:
                 logger.warning(f"      Logo container not found")
                 return False
@@ -371,7 +428,7 @@ class TempLogoAdditionService:
             if not popup_already_open:
                 change_clicked = await page.evaluate(f"""
                     () => {{
-                        const container = document.querySelector('[data-logo-to-inspect="logo-{logo_idx}"]');
+                        const container = document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
                         if (!container) return {{ clicked: false }};
 
                         const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
@@ -460,6 +517,138 @@ class TempLogoAdditionService:
 
         except Exception as e:
             logger.exception(f"      Error in _replace_logo: {e}")
+            return False
+
+    async def _insert_logo_to_empty_container(self, page: Page, container_idx: int,
+                                              container_id: str, container_name: str,
+                                              logo_media_id: str) -> bool:
+        """
+        Insert logo into empty container - NEW LOGIC for empty containers
+        Uses Insert Image icon + topLayer.click() pattern
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+
+        try:
+            # Step 1: Focus the empty container
+            target_selector = f'div.TEXT_TEMPLATE[id="{container_id}"][contenteditable="true"]'
+
+            try:
+                await page.wait_for_selector(target_selector, timeout=5000)
+                target_element = page.locator(target_selector)
+                await target_element.click()
+                await asyncio.sleep(1.5)
+            except Exception as e:
+                logger.warning(f"      Container not found or hidden: {e}")
+                return False
+
+            # Step 2: Click Insert Image button
+            insert_button_selector = '.icon-insert-image[aria-label="icon-insert-image"]'
+
+            try:
+                await page.click(insert_button_selector, timeout=5000)
+                await asyncio.sleep(2.5)
+            except Exception as e:
+                logger.warning(f"      Insert Image button not found: {e}")
+                return False
+
+            # Step 3: Wait for media library modal
+            modal_found = False
+            modal_selectors = ['[class*="modal"]', '[role="dialog"]']
+
+            for selector in modal_selectors:
+                try:
+                    await page.wait_for_selector(selector, timeout=3000)
+                    modal_found = True
+                    break
+                except:
+                    continue
+
+            if not modal_found:
+                logger.warning("      Media library modal did not appear")
+                return False
+
+            await asyncio.sleep(1.5)
+
+            # Step 4: Select logo using topLayer button (WORKING PATTERN)
+            selection_result = await page.evaluate("""
+                async () => {
+                    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { clicked: false, error: 'Popup not found' };
+
+                    const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+
+                    // Find logo tiles (not upload button)
+                    const logoTiles = allTiles.filter(tile => {
+                        const img = tile.querySelector('img');
+                        return img && !img.src.startsWith('data:image/svg');
+                    });
+
+                    if (logoTiles.length === 0) return { clicked: false, error: 'No logo tiles found' };
+
+                    // Select first logo (Tilton.png)
+                    const targetTile = logoTiles[0];
+                    const img = targetTile.querySelector('img');
+
+                    // WORKING PATTERN: Find and click the topLayer button
+                    const topLayer = targetTile.querySelector('[role="button"]') ||
+                                    targetTile.querySelector('[class*="topLayer"]');
+
+                    if (topLayer) {
+                        // Click the topLayer button
+                        topLayer.click();
+
+                        // Visual confirmation
+                        img.style.outline = '5px solid lime';
+                        targetTile.style.outline = '3px solid yellow';
+
+                        await sleep(500);
+
+                        return {
+                            clicked: true,
+                            isSelected: targetTile.className.includes('itemChecked')
+                        };
+                    } else {
+                        return { clicked: false, error: 'No topLayer button found' };
+                    }
+                }
+            """)
+
+            if not selection_result.get('clicked'):
+                error = selection_result.get('error', 'Unknown error')
+                logger.warning(f"      Logo selection failed: {error}")
+                return False
+
+            await asyncio.sleep(1)
+
+            # Step 5: Click Insert button
+            button_texts = ['Insert', 'Select', 'Confirm', 'Add']
+            confirm_button = None
+
+            for btn_text in button_texts:
+                try:
+                    confirm_button = page.locator(f'button:has-text("{btn_text}")').first
+                    if await confirm_button.is_visible(timeout=1000):
+                        break
+                    else:
+                        confirm_button = None
+                except:
+                    continue
+
+            if not confirm_button:
+                logger.warning("      Insert button not found")
+                return False
+
+            await confirm_button.click()
+            await asyncio.sleep(2)
+
+            return True
+
+        except Exception as e:
+            logger.exception(f"      Error in _insert_logo_to_empty_container: {e}")
             return False
 
     async def _generate_report(self) -> str:
