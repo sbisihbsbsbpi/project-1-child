@@ -390,14 +390,34 @@ class TemplateLogoAdditionService:
             context = browser.contexts[0] if browser.contexts else await browser.new_context()
             self.add_log(job_id, "✅ Connected to browser", "success")
 
-            # Step 2: Navigate to templates list
+            # Step 2: Navigate to templates list (detect existing tab or open new)
             self.add_log(job_id, "\n📍 STEP 1: NAVIGATING TO TEMPLATES LIST", "info")
-            page = await context.new_page()
             templates_url = f"{job['base_url']}/templates/list"
-            self.add_log(job_id, f"   Opening: {templates_url}", "info")
-            await page.goto(templates_url, wait_until='domcontentloaded', timeout=15000)
-            await asyncio.sleep(3)
-            self.add_log(job_id, "   ✅ Templates page loaded", "success")
+
+            # Check if templates list tab is already open
+            page = None
+            tab_was_reused = False
+            for existing_page in context.pages:
+                if templates_url in existing_page.url or '/templates/list' in existing_page.url:
+                    page = existing_page
+                    tab_was_reused = True
+                    self.add_log(job_id, f"   ✅ Found existing templates list tab", "success")
+                    self.add_log(job_id, f"   URL: {existing_page.url}", "info")
+                    break
+
+            # If not found, open new tab
+            if not page:
+                self.add_log(job_id, f"   Opening new tab: {templates_url}", "info")
+                page = await context.new_page()
+                await page.goto(templates_url, wait_until='domcontentloaded', timeout=15000)
+                await asyncio.sleep(3)
+                self.add_log(job_id, "   ✅ Templates page loaded", "success")
+            else:
+                # Reload the existing page to ensure fresh state
+                self.add_log(job_id, "   🔄 Refreshing existing tab...", "info")
+                await page.reload(wait_until='domcontentloaded', timeout=15000)
+                await asyncio.sleep(3)
+                self.add_log(job_id, "   ✅ Tab refreshed", "success")
 
             # Step 3: Apply department filter and fetch templates
             self.add_log(job_id, "\n🎯 STEP 2: APPLYING DEPARTMENT FILTER", "info")
@@ -407,7 +427,9 @@ class TemplateLogoAdditionService:
             if not templates:
                 self.add_log(job_id, "❌ No templates found after filtering", "error")
                 job["status"] = "failed"
-                await page.close()
+                # Only close tab if we created it
+                if not tab_was_reused:
+                    await page.close()
                 return
 
             self.add_log(job_id, f"   ✅ Found {len(templates)} template(s)", "success")
@@ -426,8 +448,12 @@ class TemplateLogoAdditionService:
             for idx, template in enumerate(templates, 1):
                 await self._process_template(job_id, context, template, idx, len(templates))
 
-            # Close the filter page
-            await page.close()
+            # Close the filter page only if we created it (don't close if reused)
+            if not tab_was_reused:
+                await page.close()
+                self.add_log(job_id, "\n🔒 Closed templates list tab (created by automation)", "info")
+            else:
+                self.add_log(job_id, "\n📂 Kept templates list tab open (was pre-existing)", "info")
 
             # Step 5: Generate report
             self.add_log(job_id, "\n" + "=" * 60, "info")
