@@ -3228,10 +3228,20 @@ async def start_logo_addition(request: TemplateAdditionRequest):
 
     # Get browser instance from screenshot service
     from screenshot_service import screenshot_service
-    browser = screenshot_service.browser
+    browser = screenshot_service.cdp_browser or screenshot_service.browser
 
+    # Auto-reconnect if browser connection lost
     if not browser:
-        raise HTTPException(status_code=500, detail="Browser not connected")
+        logger.warning("⚠️ Browser not connected - attempting auto-reconnect to CDP...")
+        try:
+            browser = await screenshot_service._connect_to_chrome_cdp(cdp_url="http://localhost:9223")
+            if browser:
+                logger.info("✅ Auto-reconnect successful!")
+            else:
+                raise HTTPException(status_code=500, detail="Browser not connected. Please click 'Connect Browser' first.")
+        except Exception as e:
+            logger.error(f"❌ Auto-reconnect failed: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Browser not connected: {str(e)}. Please click 'Connect Browser' first.")
 
     # Start job in background
     asyncio.create_task(
