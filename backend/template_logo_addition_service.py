@@ -219,11 +219,19 @@ class TemplateLogoAdditionService:
 
     def create_job(self, job_id: str, base_url: str, max_rows: int = 200,
                    custom_limit: Optional[int] = None, keep_tabs_open: bool = True,
-                   logo_media_id: str = "6a19132b6697f36de6236fb1",
+                   logo_media_id: str = None,
                    logo_width: int = 160,
                    departments: Optional[List[str]] = None,
                    auto_publish: bool = True) -> Dict[str, Any]:
-        """Create a new logo addition job with all FINAL features + Enhanced Logging"""
+        """Create a new logo addition job with all FINAL features + Enhanced Logging
+
+        Args:
+            logo_media_id: REQUIRED - Media ID of the store's logo (24-char hex string from Media Library)
+        """
+
+        # Validate required logo_media_id
+        if not logo_media_id or logo_media_id.strip() == '':
+            raise ValueError("logo_media_id is required. Please provide your store's logo Media ID from the Media Library.")
 
         # Initialize enhanced logger for this job
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

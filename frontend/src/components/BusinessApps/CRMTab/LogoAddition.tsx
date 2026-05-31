@@ -19,7 +19,7 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   const [maxRows, setMaxRows] = useState('200');
   const [customLimit, setCustomLimit] = useState('');
   const [keepTabsOpen, setKeepTabsOpen] = useState(true);
-  const [logoMediaId, setLogoMediaId] = useState('6a19132b6697f36de6236fb1'); // Tilton.png
+  const [logoMediaId, setLogoMediaId] = useState(''); // User must provide their store's logo
   const [logoWidth, setLogoWidth] = useState('160');
   const [departments, setDepartments] = useState<string[]>(['Service', 'Parts']); // NEW: Department filtering
   const [autoPublish, setAutoPublish] = useState(true); // NEW: Auto-publish
@@ -29,21 +29,28 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   };
 
   const startLogoAddition = async () => {
+    // Validate required fields
+    if (!logoMediaId || logoMediaId.trim() === '') {
+      alert('❌ Please enter your store\'s Logo Media ID before starting.\n\nFind it in: Media Library → Your Store Logo → Copy Media ID');
+      return;
+    }
+
     setShowSettings(false);
-    
+
     const baseUrl = 'https://preprodapp.tekioncloud.com';
-    
+
     try {
       console.log('✨ Starting Logo Addition...');
       setAdditionStatus('running');
-      
+
       clearLogs();
       addLog('✨ ========================================');
       addLog('✨ Logo Addition - Starting...');
       addLog('✨ ========================================');
       addLog(`🌐 Base URL: ${baseUrl}`);
+      addLog(`🖼️  Logo Media ID: ${logoMediaId}`);
       addLog(`⚡ Connecting to backend...`);
-      
+
       const customLimitNum = customLimit ? parseInt(customLimit) : undefined;
       
       const response = await fetch('http://localhost:8001/api/templates/start-logo-addition', {
@@ -363,29 +370,41 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                 marginBottom: '8px',
                 fontSize: '14px',
                 fontWeight: '600',
-                color: '#333'
+                color: '#d32f2f'
               }}>
-                Logo Media ID
+                Logo Media ID (Required) <span style={{ color: '#d32f2f' }}>*</span>
               </label>
               <input
                 type="text"
                 value={logoMediaId}
                 onChange={(e) => setLogoMediaId(e.target.value)}
+                placeholder="Enter your store's logo Media ID..."
+                required
                 style={{
                   width: '100%',
                   padding: '10px',
-                  border: '2px solid #e0e0e0',
+                  border: logoMediaId ? '2px solid #4caf50' : '2px solid #ff9800',
                   borderRadius: '6px',
                   fontSize: '14px',
-                  fontFamily: 'monospace'
+                  fontFamily: 'monospace',
+                  backgroundColor: logoMediaId ? '#f1f8f4' : '#fff8e1'
                 }}
               />
               <p style={{
                 margin: '4px 0 0 0',
                 fontSize: '12px',
-                color: '#666'
+                color: '#d32f2f',
+                fontWeight: '500'
               }}>
-                Media ID of the logo to add (default: Tilton.png)
+                ⚠️ Required: Media ID of YOUR store's logo from Media Library
+              </p>
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '11px',
+                color: '#666',
+                fontStyle: 'italic'
+              }}>
+                📍 Find it: Media Library → Upload your logo → Copy the 24-character ID
               </p>
             </div>
 

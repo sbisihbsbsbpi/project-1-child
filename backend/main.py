@@ -3150,7 +3150,7 @@ class TemplateAdditionRequest(BaseModel):
     max_rows: int = Field(200, description="Maximum number of templates to fetch (1-500)")
     custom_limit: Optional[int] = Field(None, description="Custom limit on processing")
     keep_tabs_open: bool = Field(True, description="Keep tabs open for verification")
-    logo_media_id: str = Field("6a19132b6697f36de6236fb1", description="Media ID of logo to add (Tilton.png)")
+    logo_media_id: str = Field(..., description="Media ID of the store's logo to add (24-character ID from Media Library)")
     logo_width: int = Field(160, description="Width of logo in pixels")
     departments: Optional[List[str]] = Field(None, description="Departments to filter (Sales, Service, Parts)")
     auto_publish: bool = Field(True, description="Auto-publish templates after logo addition")
