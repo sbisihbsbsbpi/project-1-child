@@ -48,6 +48,7 @@ CONFIG = {
     'hover_delay': 1.5,  # seconds
     'click_delay': 3,  # seconds after click actions
     'verification_delay': 2,  # seconds for verification
+    'auto_publish': True,  # Auto-publish after logo replacement
 }
 
 def get_config(key: str):
@@ -546,6 +547,132 @@ async def detect_and_enlarge_logo(page: Page, logo_idx: int, logo_media_id: str,
         return False
 
 
+async def publish_template_changes(page: Page, template_name: str) -> bool:
+    """
+    Publish template changes (requires 2 clicks: main button + modal confirmation)
+
+    Args:
+        page: Playwright Page object
+        template_name: Name of template for logging
+
+    Returns:
+        True if published successfully, False otherwise
+    """
+    logger.info(f"\n{'='*100}")
+    logger.info(f"📤 PUBLISHING TEMPLATE CHANGES: {template_name}")
+    logger.info(f"{'='*100}")
+
+    try:
+        # ============================================================
+        # CLICK #1: Main Publish Button
+        # ============================================================
+        logger.info("   Step 1: Clicking main PUBLISH button (1st click)...")
+
+        # Find all publish buttons
+        publish_btns = await page.query_selector_all('button:has-text("Publish")')
+
+        # Use position-based detection to avoid hidden buttons
+        main_publish = None
+        for btn in publish_btns:
+            try:
+                box = await btn.bounding_box()
+                if box and box['x'] > 100:  # Avoid buttons at 0,0 (hidden)
+                    main_publish = btn
+                    logger.info(f"   ✅ Found Publish button at position ({int(box['x'])}, {int(box['y'])})")
+                    break
+            except:
+                continue
+
+        if not main_publish:
+            logger.error("   ❌ Main Publish button not found")
+            return False
+
+        # Click main button
+        await main_publish.click()
+        logger.info("   ✅ Clicked main Publish button (1st click)")
+        await asyncio.sleep(get_config('verification_delay'))
+
+        # ============================================================
+        # VERIFY: Check if Modal Opened
+        # ============================================================
+        logger.info("   Step 2: Checking if Publish confirmation modal opened...")
+
+        modal_open = await page.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                return modal && modal.getBoundingClientRect().width > 0;
+            }
+        """)
+
+        logger.info(f"   Modal opened: {'✅ YES' if modal_open else '⚠️  NO'}")
+
+        if not modal_open:
+            logger.warning("   ⚠️  Publish modal did not open - changes might be auto-saved")
+            return True  # Not an error - some templates auto-save
+
+        # ============================================================
+        # CLICK #2: Modal Publish Button
+        # ============================================================
+        logger.info("   Step 3: Clicking PUBLISH in modal (2nd click)...")
+
+        # Try Playwright selector first
+        modal_publish = await page.query_selector('.ant-modal button:has-text("Publish")')
+
+        if modal_publish:
+            await modal_publish.click()
+            logger.info("   ✅ Clicked modal Publish button (2nd click)")
+        else:
+            # JavaScript fallback
+            logger.info("   ⚠️  Trying JavaScript fallback for modal button...")
+            clicked = await page.evaluate("""
+                () => {
+                    const modal = document.querySelector('.ant-modal');
+                    if (modal) {
+                        const btn = Array.from(modal.querySelectorAll('button'))
+                            .find(b => b.innerText === 'Publish');
+                        if (btn) {
+                            btn.click();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            """)
+
+            if clicked:
+                logger.info("   ✅ Clicked modal Publish via JavaScript (2nd click)")
+            else:
+                logger.error("   ❌ Could not click modal Publish button")
+                return False
+
+        await asyncio.sleep(get_config('verification_delay'))
+
+        # ============================================================
+        # VERIFY: Modal Closed (Publish Success)
+        # ============================================================
+        logger.info("   Step 4: Verifying publish completion...")
+
+        modal_closed = await page.evaluate("""
+            () => {
+                const modal = document.querySelector('.ant-modal');
+                return !modal || modal.getBoundingClientRect().width === 0;
+            }
+        """)
+
+        logger.info(f"   Modal closed: {'✅ YES' if modal_closed else '❌ NO'}")
+
+        if modal_closed:
+            logger.info(f"   ✅ Template published successfully!")
+            return True
+        else:
+            logger.warning("   ⚠️  Modal still open - publish might have failed")
+            return False
+
+    except Exception as e:
+        logger.error(f"   ❌ Publishing failed: {e}")
+        return False
+
+
 async def add_header_with_logo(page: Page) -> bool:
     """
     Add new header using the discovered workflow (from parallel_logo_warning_updater.py).
@@ -809,6 +936,20 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             logger.info(f"      - Logos centered: {logos_centered}/{logos_processed}")
             logger.info(f"      - Logos enlarged: {logos_enlarged}/{logos_processed}")
 
+            # ============================================================
+            # PUBLISH CHANGES (if enabled)
+            # ============================================================
+            published = False
+            if get_config('auto_publish') and logos_processed > 0:
+                logger.info(f"\n   📤 Auto-publish is enabled, publishing changes...")
+                publish_success = await publish_template_changes(page, template_info['title'])
+                published = publish_success
+            else:
+                if not get_config('auto_publish'):
+                    logger.info(f"\n   ⏸️  Auto-publish is disabled (set CONFIG['auto_publish'] = True to enable)")
+                else:
+                    logger.info(f"\n   ⏸️  No logos processed, skipping publish")
+
             return {
                 'template': template_info['title'],
                 'id': template_id,
@@ -817,7 +958,8 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
                 'logos_found': logos_info['count'],
                 'logos_processed': logos_processed,
                 'logos_centered': logos_centered,
-                'logos_enlarged': logos_enlarged
+                'logos_enlarged': logos_enlarged,
+                'published': published
             }
 
         # ============================================================
@@ -937,12 +1079,23 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
 
             if added:
                 logger.info("   ✅ Header added successfully")
+
+                # Publish if enabled
+                published = False
+                if get_config('auto_publish'):
+                    logger.info(f"\n   📤 Auto-publish is enabled, publishing changes...")
+                    publish_success = await publish_template_changes(page, template_info['title'])
+                    published = publish_success
+                else:
+                    logger.info(f"\n   ⏸️  Auto-publish is disabled")
+
                 return {
                     'template': template_info['title'],
                     'id': template_id,
                     'status': 'success',
                     'action': 'header_added',
-                    'logos_processed': 1  # Count as 1 logo added
+                    'logos_processed': 1,  # Count as 1 logo added
+                    'published': published
                 }
             else:
                 logger.error("   ❌ Failed to add header")
@@ -951,7 +1104,8 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
                     'id': template_id,
                     'status': 'failed',
                     'reason': 'Header addition failed',
-                    'logos_processed': 0
+                    'logos_processed': 0,
+                    'published': False
                 }
 
     except Exception as e:
