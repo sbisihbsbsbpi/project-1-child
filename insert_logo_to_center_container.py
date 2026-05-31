@@ -177,9 +177,9 @@ async def main():
                             print(f"      {selected} Tile [{tile['index']}]: {tile['imgSrc'][:60]}...")
 
                         if media_result['logoTiles'] > 0:
-                            print(f"\n📍 Step 7: Hovering over and clicking first logo tile...")
+                            print(f"\n📍 Step 7: Selecting first logo using topLayer button...")
 
-                            # Hover then click the first logo tile (like we did with the X delete button)
+                            # Use the WORKING PATTERN from add_logos_to_empty_containers.py
                             selection_result = await page.evaluate("""
                                 async () => {
                                     const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -195,55 +195,56 @@ async def main():
 
                                     if (logoTiles.length > 0) {
                                         const firstTile = logoTiles[0];
+                                        const img = firstTile.querySelector('img');
 
-                                        // HOVER over the tile first
-                                        const mouseOverEvent = new MouseEvent('mouseover', {
-                                            bubbles: true,
-                                            cancelable: true,
-                                            view: window
-                                        });
-                                        firstTile.dispatchEvent(mouseOverEvent);
+                                        // WORKING PATTERN: Find the topLayer button inside the mediaTile
+                                        const topLayer = firstTile.querySelector('[role="button"]') ||
+                                                        firstTile.querySelector('[class*="topLayer"]');
 
-                                        const mouseEnterEvent = new MouseEvent('mouseenter', {
-                                            bubbles: true,
-                                            cancelable: true,
-                                            view: window
-                                        });
-                                        firstTile.dispatchEvent(mouseEnterEvent);
+                                        if (topLayer) {
+                                            // Click the topLayer button (this selects the logo!)
+                                            topLayer.click();
 
-                                        // Add visual highlight for debugging
-                                        firstTile.style.outline = '4px solid yellow';
+                                            // Visual confirmation
+                                            img.style.outline = '5px solid lime';
+                                            firstTile.style.outline = '3px solid yellow';
+                                            if (topLayer !== firstTile) {
+                                                topLayer.style.outline = '2px dashed orange';
+                                            }
 
-                                        // Wait for hover effects to appear
-                                        await sleep(1000);
+                                            // Wait and check if it's selected
+                                            await sleep(500);
 
-                                        // Now CLICK the tile
-                                        firstTile.click();
-
-                                        // Dispatch click event too
-                                        const clickEvent = new MouseEvent('click', {
-                                            bubbles: true,
-                                            cancelable: true,
-                                            view: window
-                                        });
-                                        firstTile.dispatchEvent(clickEvent);
-
-                                        // Wait a bit and check if it's selected
-                                        await sleep(500);
-
-                                        return {
-                                            clicked: true,
-                                            isNowSelected: firstTile.className.includes('itemChecked')
-                                        };
+                                            return {
+                                                clicked: true,
+                                                method: 'topLayer-click',
+                                                isNowSelected: firstTile.className.includes('itemChecked'),
+                                                topLayerClass: topLayer.className.substring(0, 60),
+                                                topLayerTag: topLayer.tagName,
+                                                src: img.src.substring(0, 80)
+                                            };
+                                        } else {
+                                            return {
+                                                clicked: false,
+                                                error: 'No topLayer button found',
+                                                tileClass: firstTile.className.substring(0, 60)
+                                            };
+                                        }
                                     }
-                                    return { clicked: false };
+                                    return { clicked: false, error: 'No logo tiles found' };
                                 }
                             """)
 
                             if selection_result.get('clicked'):
-                                print(f"   ✅ Logo tile clicked! (Selected: {selection_result.get('isNowSelected')})")
+                                print(f"   ✅ Logo selected using {selection_result.get('method')}!")
+                                print(f"      TopLayer: <{selection_result.get('topLayerTag')}> class=\"{selection_result.get('topLayerClass')}...\"")
+                                print(f"      Selected: {selection_result.get('isNowSelected')}")
+                                print(f"      Src: {selection_result.get('src')}...")
                             else:
-                                print(f"   ❌ Failed to click logo tile!")
+                                error = selection_result.get('error', 'Unknown error')
+                                print(f"   ❌ Failed to click logo: {error}")
+                                if selection_result.get('tileClass'):
+                                    print(f"      Tile class: {selection_result.get('tileClass')}...")
                         else:
                             print(f"   ❌ No logo tiles found!")
                     else:
