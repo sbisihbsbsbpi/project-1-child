@@ -410,7 +410,68 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             }
 
         # ============================================================
-        # No logo containers detected - TWO MORE CHECKS NEEDED
+        # CHECK #1.5: Look for logo containers WITHOUT WARNING ICONS
+        # ============================================================
+        # No warnings found - check if logo CONTAINERS exist (without warnings)
+        logger.info("   🔍 No warnings found - checking for logo containers...")
+
+        logo_containers_info = await page.evaluate("""
+            () => {
+                // Look for logo containers by their class patterns
+                // These are the containers that would have warning icons if logos were wrong
+                const containers = Array.from(
+                    document.querySelectorAll('[class*="SortableItem"]')
+                ).filter(item => {
+                    // Check if this container has an image
+                    const hasImage = item.querySelector('img') !== null;
+                    // Check if it does NOT have a warning icon
+                    const hasWarning = item.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') !== null;
+
+                    // Container with image but no warning = logo is correct
+                    return hasImage && !hasWarning;
+                });
+
+                if (containers.length === 0) return { found: false, count: 0 };
+
+                return {
+                    found: true,
+                    count: containers.length,
+                    // Get some info about the logos for logging
+                    logoInfo: containers.map(c => {
+                        const img = c.querySelector('img');
+                        return {
+                            src: img?.src?.substring(0, 100) || 'unknown',
+                            alt: img?.alt || 'no-alt',
+                            width: img?.width || 0,
+                            height: img?.height || 0
+                        };
+                    })
+                };
+            }
+        """)
+
+        if logo_containers_info['found']:
+            # Has logo containers WITHOUT warnings = logos are already correct!
+            logger.info(f"   ✅ Found {logo_containers_info['count']} logo container(s) without warnings")
+            logger.info(f"   ℹ️  Logos are already correct (no action needed)")
+
+            # Log some details about the logos found
+            for i, logo_info in enumerate(logo_containers_info.get('logoInfo', []), 1):
+                logger.info(f"      Logo {i}: {logo_info.get('width', 0)}x{logo_info.get('height', 0)} - {logo_info.get('alt', 'no-alt')}")
+
+            return {
+                'template': template_info['title'],
+                'id': template_id,
+                'status': 'skipped',
+                'reason': 'Logos already correct (containers exist without warnings)',
+                'action': 'none_needed',
+                'logos_found': logo_containers_info['count'],
+                'logos_processed': 0,
+                'logo_details': logo_containers_info.get('logoInfo', [])
+            }
+
+        # ============================================================
+        # CHECK #2: No logo containers at all - check for header addition
         # ============================================================
 
         # CHECK #2A: Is this a CPRA template? (naming convention)
@@ -420,7 +481,7 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             logger.info(f"   ℹ️  CPRA template detected: {template_id}")
 
         # CHECK #2B: Check header button state
-        logger.info("   🔍 No logos with warnings - checking header button state...")
+        logger.info("   🔍 No logo containers found - checking header button state...")
         button_state = await page.evaluate("""
             () => {
                 const btn = document.querySelector('#HEADER');
@@ -447,13 +508,13 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
             }
 
         if button_state['isGrayed']:
-            # Has header structure (just no logos with warnings)
+            # Has header structure (but no logo containers at all)
             logger.info(f"   ℹ️  Header exists (opacity={button_state['opacity']}) - skipping")
             return {
                 'template': template_info['title'],
                 'id': template_id,
                 'status': 'skipped',
-                'reason': 'Header exists, no logos with warnings',
+                'reason': 'Header exists, no logo containers',
                 'logos_processed': 0
             }
 
