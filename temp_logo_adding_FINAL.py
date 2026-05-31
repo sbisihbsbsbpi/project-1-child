@@ -471,7 +471,7 @@ class TempLogoAdditionFinalService:
         logger.info(f"\n{'='*100}")
         logger.info(f"📄 TEMPLATE {idx}/{total}: {template_name}")
         logger.info(f"   ID: {template_id}")
-        logger.info(f"   Departments: {', '.join(template.get('departments', [])}")
+        logger.info(f"   Departments: {', '.join(template.get('departments', []))}")
         logger.info(f"{'='*100}")
 
         try:
@@ -852,6 +852,90 @@ class TempLogoAdditionFinalService:
                     debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
                 });
 
+                // FALLBACK: Table-based Logo 1/2 detection (if hardcoded IDs didn't work)
+                debug.push('\\n=== TABLE-BASED LOGO DETECTION (Fallback) ===');
+                const allTables = Array.from(document.querySelectorAll('table[width="100%"]'));
+                const logoTables = [];
+
+                allTables.forEach((table, tableIdx) => {
+                    const firstRow = table.querySelector('tr');
+                    if (!firstRow) return;
+
+                    const cells = Array.from(firstRow.querySelectorAll('td'));
+
+                    // Logo containers have 4 columns
+                    if (cells.length === 4) {
+                        const tableInfo = {
+                            tableIndex: tableIdx,
+                            positions: []
+                        };
+
+                        cells.forEach((cell, cellIdx) => {
+                            const hasImage = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t') !== null;
+                            const hasWarning = cell.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') !== null;
+                            const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
+                            const isEmpty = !hasImage && textTemplate !== null;
+
+                            const alignment = cellIdx === 0 ? 'LEFT' :
+                                            cellIdx === 1 ? 'CENTER' :
+                                            cellIdx === 2 ? 'RIGHT' : 'EXTRA';
+
+                            tableInfo.positions.push({
+                                cellIndex: cellIdx,
+                                alignment: alignment,
+                                hasImage: hasImage,
+                                hasWarning: hasWarning,
+                                isEmpty: isEmpty,
+                                textTemplateId: textTemplate ? textTemplate.id : null
+                            });
+                        });
+
+                        // Only count as logo table if it has at least one image or empty position in first 3 columns
+                        const relevantPositions = tableInfo.positions.slice(0, 3);
+                        const hasRelevantContent = relevantPositions.some(p => p.hasImage || p.isEmpty);
+
+                        if (hasRelevantContent) {
+                            logoTables.push(tableInfo);
+                            debug.push(`  Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
+                            tableInfo.positions.forEach(pos => {
+                                if (pos.alignment !== 'EXTRA') {
+                                    debug.push(`    ${pos.alignment}: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}`);
+                                }
+                            });
+                        }
+                    }
+                });
+
+                debug.push(`Found ${logoTables.length} logo tables total`);
+
+                // If hardcoded IDs found no containers, use table-based detection
+                if (emptyContainers.length === 0 && logoTables.length > 0) {
+                    debug.push('\\n=== USING TABLE-BASED DETECTION (hardcoded IDs failed) ===');
+
+                    logoTables.forEach((logoTable, tableIdx) => {
+                        const logoNumber = tableIdx + 1; // Logo 1, Logo 2, etc.
+
+                        logoTable.positions.forEach(pos => {
+                            if (pos.alignment !== 'EXTRA' && pos.isEmpty) {
+                                const containerName = `Logo ${logoNumber} ${pos.alignment}`;
+                                const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
+
+                                emptyContainers.push({
+                                    index: emptyContainers.length + 1,
+                                    id: containerId,
+                                    name: containerName,
+                                    type: 'logo_container_table_based',
+                                    tableIndex: tableIdx,
+                                    cellIndex: pos.cellIndex,
+                                    alignment: pos.alignment
+                                });
+
+                                debug.push(`  Added: ${containerName} (ID: ${containerId})`);
+                            }
+                        });
+                    });
+                }
+
                 // Find empty HEADER containers
                 debug.push('\\n=== HEADER CONTAINER DETECTION ===');
                 const headerContainers = [];
@@ -923,6 +1007,7 @@ class TempLogoAdditionFinalService:
                     headerContainers: headerContainers,
                     containerCheckResults: containerCheckResults,
                     headerCheckResults: headerCheckResults,
+                    logoTables: logoTables,
                     debug: debug
                 };
             }
