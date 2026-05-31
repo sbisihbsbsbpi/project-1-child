@@ -134,66 +134,157 @@ async def main():
                 
                 if modal_found:
                     await asyncio.sleep(2)
-                    
+
                     print(f"\n📍 Step 6: Looking for logo images in media library...")
-                    
-                    # Find all checkboxes (for selecting media)
-                    checkbox_selector = 'input[type="checkbox"]'
-                    checkboxes = await page.query_selector_all(checkbox_selector)
-                    print(f"   Found {len(checkboxes)} checkboxes in media library")
-                    
-                    # Find all images in the modal
-                    image_selector = 'img'
-                    images = await page.query_selector_all(image_selector)
-                    print(f"   Found {len(images)} images in media library")
-                    
-                    if images:
-                        # Click on the first logo image
-                        print(f"\n📍 Step 7: Selecting first logo from media library...")
-                        
-                        # Try to click on first image
-                        first_image = images[0]
-                        await first_image.click()
-                        await asyncio.sleep(1)
-                        print(f"   ✅ First logo selected!")
-                        
-                        # Look for Insert/Select/Confirm button
-                        print(f"\n📍 Step 8: Looking for Insert/Confirm button...")
 
-                        button_texts = ['Insert', 'Select', 'Confirm', 'Add', 'OK', 'Choose']
-                        confirm_button = None
+                    # The media library doesn't use radio buttons - it uses clickable mediaTile containers
+                    media_result = await page.evaluate("""
+                        () => {
+                            const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                            if (!popup) return { found: false, error: 'Popup not found' };
 
-                        for btn_text in button_texts:
-                            try:
-                                # Try to find button by text
-                                confirm_button = page.locator(f'button:has-text("{btn_text}")').first
-                                if await confirm_button.is_visible(timeout=1000):
-                                    print(f"   ✅ Found '{btn_text}' button!")
-                                    break
-                                else:
-                                    confirm_button = None
-                            except:
-                                continue
+                            // Find all mediaTile containers (these are the actual logo tiles, excluding upload button)
+                            const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                            const logoTiles = allTiles.filter(tile => {
+                                const img = tile.querySelector('img');
+                                // Filter out upload SVG buttons (they use data:image/svg)
+                                return img && !img.src.startsWith('data:image/svg');
+                            });
 
-                        if confirm_button:
-                            print(f"\n📍 Step 9: Clicking Insert/Confirm button...")
-                            await confirm_button.click()
-                            await asyncio.sleep(2)
-                            print(f"   ✅ Logo inserted successfully!")
+                            return {
+                                found: true,
+                                totalTiles: allTiles.length,
+                                logoTiles: logoTiles.length,
+                                tiles: logoTiles.map((tile, idx) => {
+                                    const img = tile.querySelector('img');
+                                    return {
+                                        index: idx,
+                                        className: tile.className,
+                                        isSelected: tile.className.includes('itemChecked'),
+                                        imgSrc: img ? img.src.substring(0, 100) : 'No image'
+                                    };
+                                })
+                            };
+                        }
+                    """)
 
-                            print("\n" + "=" * 100)
-                            print("🎉 SUCCESS - LOGO INSERTION COMPLETE!")
-                            print("=" * 100)
-                            print(f"\n✅ Logo has been inserted into Logo 2 CENTER container")
-                            print(f"✅ Container ID: {target_id}")
-                            print(f"✅ Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-                            print("\n💡 Check the template editor to see the inserted logo!")
+                    if media_result.get('found'):
+                        print(f"   ✅ Found {media_result['logoTiles']} logo tiles!")
+
+                        # Show all logo tiles
+                        for tile in media_result['tiles'][:5]:  # Show first 5
+                            selected = "✓" if tile['isSelected'] else "○"
+                            print(f"      {selected} Tile [{tile['index']}]: {tile['imgSrc'][:60]}...")
+
+                        if media_result['logoTiles'] > 0:
+                            print(f"\n📍 Step 7: Hovering over and clicking first logo tile...")
+
+                            # Hover then click the first logo tile (like we did with the X delete button)
+                            selection_result = await page.evaluate("""
+                                async () => {
+                                    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+                                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                                    const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+
+                                    // Find logo tiles (not upload button)
+                                    const logoTiles = allTiles.filter(tile => {
+                                        const img = tile.querySelector('img');
+                                        return img && !img.src.startsWith('data:image/svg');
+                                    });
+
+                                    if (logoTiles.length > 0) {
+                                        const firstTile = logoTiles[0];
+
+                                        // HOVER over the tile first
+                                        const mouseOverEvent = new MouseEvent('mouseover', {
+                                            bubbles: true,
+                                            cancelable: true,
+                                            view: window
+                                        });
+                                        firstTile.dispatchEvent(mouseOverEvent);
+
+                                        const mouseEnterEvent = new MouseEvent('mouseenter', {
+                                            bubbles: true,
+                                            cancelable: true,
+                                            view: window
+                                        });
+                                        firstTile.dispatchEvent(mouseEnterEvent);
+
+                                        // Add visual highlight for debugging
+                                        firstTile.style.outline = '4px solid yellow';
+
+                                        // Wait for hover effects to appear
+                                        await sleep(1000);
+
+                                        // Now CLICK the tile
+                                        firstTile.click();
+
+                                        // Dispatch click event too
+                                        const clickEvent = new MouseEvent('click', {
+                                            bubbles: true,
+                                            cancelable: true,
+                                            view: window
+                                        });
+                                        firstTile.dispatchEvent(clickEvent);
+
+                                        // Wait a bit and check if it's selected
+                                        await sleep(500);
+
+                                        return {
+                                            clicked: true,
+                                            isNowSelected: firstTile.className.includes('itemChecked')
+                                        };
+                                    }
+                                    return { clicked: false };
+                                }
+                            """)
+
+                            if selection_result.get('clicked'):
+                                print(f"   ✅ Logo tile clicked! (Selected: {selection_result.get('isNowSelected')})")
+                            else:
+                                print(f"   ❌ Failed to click logo tile!")
                         else:
-                            print(f"   ⚠️  Could not find Insert/Confirm button")
-                            print(f"   💡 The logo may still be selected - check the modal")
+                            print(f"   ❌ No logo tiles found!")
                     else:
-                        print(f"   ❌ No images found in media library!")
-                        print(f"   💡 Make sure there are logos uploaded to the media library")
+                        print(f"   ❌ Could not find media tiles!")
+
+                    await asyncio.sleep(2)
+
+                    # Look for Insert/Select/Confirm button
+                    print(f"\n📍 Step 8: Looking for Insert/Confirm button...")
+
+                    button_texts = ['Insert', 'Select', 'Confirm', 'Add', 'OK', 'Choose']
+                    confirm_button = None
+
+                    for btn_text in button_texts:
+                        try:
+                            # Try to find button by text
+                            confirm_button = page.locator(f'button:has-text("{btn_text}")').first
+                            if await confirm_button.is_visible(timeout=1000):
+                                print(f"   ✅ Found '{btn_text}' button!")
+                                break
+                            else:
+                                confirm_button = None
+                        except:
+                            continue
+
+                    if confirm_button:
+                        print(f"\n📍 Step 9: Clicking Insert/Confirm button...")
+                        await confirm_button.click()
+                        await asyncio.sleep(2)
+                        print(f"   ✅ Logo inserted successfully!")
+
+                        print("\n" + "=" * 100)
+                        print("🎉 SUCCESS - LOGO INSERTION COMPLETE!")
+                        print("=" * 100)
+                        print(f"\n✅ Logo has been inserted into Logo 2 CENTER container")
+                        print(f"✅ Container ID: {target_id}")
+                        print(f"✅ Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                        print("\n💡 Check the template editor to see the inserted logo!")
+                    else:
+                        print(f"   ⚠️  Could not find Insert/Confirm button")
+                        print(f"   💡 The logo may still be selected - check the modal")
                 else:
                     print(f"   ❌ Media library modal did not appear!")
                     print(f"   💡 The insert image button might not have worked")

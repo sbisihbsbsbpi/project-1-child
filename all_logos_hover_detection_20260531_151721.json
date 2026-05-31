@@ -1,0 +1,59 @@
+{
+  "found": true,
+  "totalLogos": 4,
+  "logos": [
+    {
+      "index": 0,
+      "filename": "Tilton.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=ffefa7b8a93ed7d41ed03cd1ee569225ca09f481fcb011cb8e788351244e38af",
+      "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a19132b6697f36de6236fb1/Tilton.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=ffefa7b8a93ed7d41ed03cd1ee569225ca09f481fcb011cb8e788351244e38af",
+      "radiosBefore": 0,
+      "radiosAfter": 0,
+      "hasRadioInTile": false,
+      "radioValue": null,
+      "radioChecked": null,
+      "hasTopLayerButton": true,
+      "isSelected": false,
+      "tileClassName": "templates_mediaTile_container__2hM5T4LNMe"
+    },
+    {
+      "index": 1,
+      "filename": "Tilton.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=ffefa7b8a93ed7d41ed03cd1ee569225ca09f481fcb011cb8e788351244e38af",
+      "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a19132b6697f36de6236fb1/Tilton.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=ffefa7b8a93ed7d41ed03cd1ee569225ca09f481fcb011cb8e788351244e38af",
+      "radiosBefore": 0,
+      "radiosAfter": 0,
+      "hasRadioInTile": false,
+      "radioValue": null,
+      "radioChecked": null,
+      "hasTopLayerButton": false,
+      "isSelected": false,
+      "tileClassName": "d-flex full-width full-height templates_mediaTile_imageWrapper__eZHJpAFa2r"
+    },
+    {
+      "index": 2,
+      "filename": "6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=b21552005688d020bb59c0a3c8c035c489fa40e79bbe42093f144601eb507372",
+      "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=b21552005688d020bb59c0a3c8c035c489fa40e79bbe42093f144601eb507372",
+      "radiosBefore": 0,
+      "radiosAfter": 0,
+      "hasRadioInTile": false,
+      "radioValue": null,
+      "radioChecked": null,
+      "hasTopLayerButton": true,
+      "isSelected": false,
+      "tileClassName": "templates_mediaTile_container__2hM5T4LNMe"
+    },
+    {
+      "index": 3,
+      "filename": "6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=b21552005688d020bb59c0a3c8c035c489fa40e79bbe42093f144601eb507372",
+      "src": "https://com-tekioncloud-preprod-us-west-1-dms.s3.us-west-1.amazonaws.com/media_/dcdautomotive/5939/6a0c6722864813539e4da7ae_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260531T094714Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARTX6TDNMJMMOYNAI%2F20260531%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=b21552005688d020bb59c0a3c8c035c489fa40e79bbe42093f144601eb507372",
+      "radiosBefore": 0,
+      "radiosAfter": 0,
+      "hasRadioInTile": false,
+      "radioValue": null,
+      "radioChecked": null,
+      "hasTopLayerButton": false,
+      "isSelected": false,
+      "tileClassName": "d-flex full-width full-height templates_mediaTile_imageWrapper__eZHJpAFa2r"
+    }
+  ],
+  "allRadios": []
+}
