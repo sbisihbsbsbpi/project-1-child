@@ -14,13 +14,15 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   const [showSettings, setShowSettings] = useState(false);
   const [additionStatus, setAdditionStatus] = useState<'idle' | 'running' | 'completed' | 'failed'>('idle');
   const [jobId, setJobId] = useState<string | null>(null);
-  
+
   // Settings
   const [maxRows, setMaxRows] = useState('200');
   const [customLimit, setCustomLimit] = useState('');
   const [keepTabsOpen, setKeepTabsOpen] = useState(true);
   const [logoMediaId, setLogoMediaId] = useState('6a19132b6697f36de6236fb1'); // Tilton.png
   const [logoWidth, setLogoWidth] = useState('160');
+  const [departments, setDepartments] = useState<string[]>(['Service', 'Parts']); // NEW: Department filtering
+  const [autoPublish, setAutoPublish] = useState(true); // NEW: Auto-publish
 
   const handleLogoAdditionClick = () => {
     setShowSettings(true);
@@ -55,7 +57,9 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
           custom_limit: customLimitNum,
           keep_tabs_open: keepTabsOpen,
           logo_media_id: logoMediaId,
-          logo_width: parseInt(logoWidth)
+          logo_width: parseInt(logoWidth),
+          departments: departments,  // NEW: Send departments filter
+          auto_publish: autoPublish  // NEW: Send auto-publish setting
         }),
       });
       
@@ -230,6 +234,60 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
               Logo Addition Settings
             </h2>
 
+            {/* Department Filter */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#333'
+              }}>
+                Departments to Process
+              </label>
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                padding: '12px',
+                backgroundColor: '#f5f5f5',
+                borderRadius: '6px'
+              }}>
+                {['Sales', 'Service', 'Parts'].map(dept => (
+                  <label key={dept} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    cursor: 'pointer'
+                  }}>
+                    <input
+                      type="checkbox"
+                      checked={departments.includes(dept)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setDepartments([...departments, dept]);
+                        } else {
+                          setDepartments(departments.filter(d => d !== dept));
+                        }
+                      }}
+                      style={{
+                        width: '18px',
+                        height: '18px',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <span style={{ fontSize: '14px', color: '#333' }}>{dept}</span>
+                  </label>
+                ))}
+              </div>
+              <p style={{
+                margin: '4px 0 0 0',
+                fontSize: '12px',
+                color: '#666'
+              }}>
+                Select which departments to process (default: Service & Parts)
+              </p>
+            </div>
+
             {/* Max Rows */}
             <div style={{ marginBottom: '20px' }}>
               <label style={{
@@ -365,6 +423,46 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
               </p>
             </div>
 
+            {/* Auto-Publish Toggle */}
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                cursor: 'pointer',
+                padding: '12px',
+                backgroundColor: autoPublish ? '#e8f5e9' : '#f5f5f5',
+                borderRadius: '6px',
+                border: autoPublish ? '2px solid #4caf50' : '2px solid transparent'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={autoPublish}
+                  onChange={(e) => setAutoPublish(e.target.checked)}
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer'
+                  }}
+                />
+                <div>
+                  <div style={{
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    color: '#333'
+                  }}>
+                    ✅ Auto-Publish Templates
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#666'
+                  }}>
+                    Automatically publish templates after adding logos (recommended)
+                  </div>
+                </div>
+              </label>
+            </div>
+
             {/* Keep Tabs Open */}
             <div style={{ marginBottom: '24px' }}>
               <label style={{
@@ -407,8 +505,8 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
             {/* Info Box */}
             <div style={{
               padding: '16px',
-              backgroundColor: '#fff3e0',
-              border: '2px solid #ff9800',
+              backgroundColor: '#e8f5e9',
+              border: '2px solid #4caf50',
               borderRadius: '8px',
               marginBottom: '24px'
             }}>
@@ -416,24 +514,29 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
                 margin: '0 0 12px 0',
                 fontSize: '14px',
                 fontWeight: '600',
-                color: '#e65100'
+                color: '#2e7d32',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}>
-                What this will do:
+                ✨ FINAL VERSION - What this will do:
               </h4>
               <ul style={{
                 margin: 0,
                 paddingLeft: '20px',
                 fontSize: '13px',
-                color: '#666',
-                lineHeight: '1.6'
+                color: '#333',
+                lineHeight: '1.8'
               }}>
-                <li>Fetch all EMAIL templates from Tekion</li>
-                <li>Open each template in editor</li>
-                <li>Add the specified logo to each template</li>
-                <li>Resize logo to {logoWidth}px width</li>
-                <li>Center the logo</li>
-                <li>Click Publish and save changes</li>
-                <li>Generate Excel report with results</li>
+                <li><strong>Filter by departments:</strong> {departments.join(', ')}</li>
+                <li><strong>4-layer logo detection:</strong> Warnings + Empty containers + Headers + Table-based</li>
+                <li><strong>Smart replacement:</strong> Only replace logos WITH warnings (skip correct logos)</li>
+                <li><strong>Logo insertion:</strong> Insert into empty Logo 1/2 containers & headers</li>
+                <li><strong>Add headers:</strong> For templates without Logo 1/2 containers</li>
+                <li><strong>Center align:</strong> All logos centered automatically</li>
+                <li><strong>Resize logos:</strong> To {logoWidth}px width</li>
+                <li><strong>Auto-publish:</strong> {autoPublish ? '✅ Enabled (2-click workflow)' : '❌ Disabled'}</li>
+                <li><strong>Excel report:</strong> Comprehensive statistics & detection log</li>
               </ul>
             </div>
 

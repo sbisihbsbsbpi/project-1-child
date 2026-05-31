@@ -3152,6 +3152,8 @@ class TemplateAdditionRequest(BaseModel):
     keep_tabs_open: bool = Field(True, description="Keep tabs open for verification")
     logo_media_id: str = Field("6a19132b6697f36de6236fb1", description="Media ID of logo to add (Tilton.png)")
     logo_width: int = Field(160, description="Width of logo in pixels")
+    departments: Optional[List[str]] = Field(None, description="Departments to filter (Sales, Service, Parts)")
+    auto_publish: bool = Field(True, description="Auto-publish templates after logo addition")
 
 
 @app.post("/api/templates/start-logo-addition")
@@ -3159,18 +3161,26 @@ async def start_logo_addition(request: TemplateAdditionRequest):
     """
     Start bulk logo addition to all templates
 
+    INTEGRATED WITH FINAL VERSION:
+    - Department filtering (Service & Parts)
+    - 4-layer logo detection
+    - Auto-publish workflow
+    - Center & enlarge logos
+
     Returns job_id for tracking progress via WebSocket
     """
     job_id = str(uuid4())
     logger.info(f"✨ ===============================================")
-    logger.info(f"✨ Starting template logo addition job")
+    logger.info(f"✨ Starting INTEGRATED template logo addition job")
     logger.info(f"✨ Job ID: {job_id}")
     logger.info(f"✨ Base URL: {request.base_url}")
+    logger.info(f"✨ Departments: {', '.join(request.departments or ['Service', 'Parts'])}")
     logger.info(f"✨ Logo Media ID: {request.logo_media_id}")
     logger.info(f"✨ Logo Width: {request.logo_width}px")
+    logger.info(f"✨ Auto-publish: {request.auto_publish}")
     logger.info(f"✨ ===============================================")
 
-    # Create job
+    # Create job with FINAL version features
     template_logo_addition_service.create_job(
         job_id=job_id,
         base_url=request.base_url,
@@ -3178,7 +3188,9 @@ async def start_logo_addition(request: TemplateAdditionRequest):
         custom_limit=request.custom_limit,
         keep_tabs_open=request.keep_tabs_open,
         logo_media_id=request.logo_media_id,
-        logo_width=request.logo_width
+        logo_width=request.logo_width,
+        departments=request.departments,
+        auto_publish=request.auto_publish
     )
 
     # Get browser instance from screenshot service
