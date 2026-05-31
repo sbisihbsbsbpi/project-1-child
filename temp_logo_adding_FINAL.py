@@ -471,7 +471,7 @@ class TempLogoAdditionFinalService:
         logger.info(f"\n{'='*100}")
         logger.info(f"📄 TEMPLATE {idx}/{total}: {template_name}")
         logger.info(f"   ID: {template_id}")
-        logger.info(f"   Departments: {', '.join(template.get('departments', []))}")
+        logger.info(f"   Departments: {', '.join(template.get('departments', [])}")
         logger.info(f"{'='*100}")
 
         try:
@@ -493,13 +493,143 @@ class TempLogoAdditionFinalService:
             header_count = detection_result['headerCount']
 
             if warnings_count == 0 and empty_count == 0 and header_count == 0:
-                logger.info("   ℹ️  No logos to process - skipping")
+                # No standard logo containers detected - check if we should add a header
+                logger.info("   ℹ️  No Logo 1/2 containers or headers detected")
                 logger.debug(f"   Detection returned: warnings={warnings_count}, empty={empty_count}, headers={header_count}")
+
+                # Check container detection results to see if containers exist at all
+                container_results = detection_result.get('containerCheckResults', [])
+                all_containers_not_found = all(not c.get('found', False) for c in container_results)
+
+                if all_containers_not_found:
+                    logger.info("   📋 Logo 1/2 containers (by hardcoded IDs) not found - doing deeper check...")
+
+                    # ADDITIONAL CHECK: Look for ANY logo containers or images in the template
+                    has_any_logos = await page.evaluate("""
+                        () => {
+                            // Check for any warning icons (indicates logo containers exist)
+                            const warnings = document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb');
+                            if (warnings.length > 0) return { found: true, reason: 'warning icons', count: warnings.length };
+
+                            // Check for any resizable image containers (common in templates)
+                            const resizableImages = document.querySelectorAll('[class*="resizable"] img, [class*="Image"] img');
+                            if (resizableImages.length > 0) return { found: true, reason: 'resizable images', count: resizableImages.length };
+
+                            // Check for any SortableItem with images (template structure)
+                            const sortableItems = document.querySelectorAll('[class*="SortableItem"]');
+                            for (const item of sortableItems) {
+                                const img = item.querySelector('img');
+                                if (img && img.src && !img.src.includes('icon')) {
+                                    return { found: true, reason: 'sortable item images', count: 1 };
+                                }
+                            }
+
+                            return { found: false, reason: 'none', count: 0 };
+                        }
+                    """)
+
+                    logger.debug(f"   Any logos check: {has_any_logos}")
+
+                    if has_any_logos.get('found'):
+                        logger.info(f"   ⚠️  Template has logos ({has_any_logos['reason']}: {has_any_logos['count']}) but IDs don't match hardcoded list")
+                        logger.info(f"   ℹ️  This template uses a different structure - skipping to avoid duplicate header")
+                        self.results.append({
+                            'template': template_name,
+                            'id': template_id,
+                            'status': 'skipped',
+                            'reason': f"Has logos but different structure ({has_any_logos['reason']})",
+                            'logos_processed': 0,
+                            'published': False
+                        })
+                        await page.close()
+                        return
+
+                    # No logos at all - check if #HEADER button is active (can add header)
+                    logger.info("   ✅ No logos detected anywhere - checking if we can add header...")
+
+                    button_state = await page.evaluate("""
+                        () => {
+                            const headerBtn = document.querySelector('#HEADER');
+                            if (!headerBtn) return { found: false };
+
+                            const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                            return {
+                                found: true,
+                                opacity: opacity,
+                                isActive: opacity === 1.0,
+                                isGrayed: opacity < 1.0
+                            };
+                        }
+                    """)
+
+                    logger.debug(f"   Header button state: {button_state}")
+
+                    if button_state.get('found') and button_state.get('isActive'):
+                        # Header button is active - we can add a header!
+                        logger.info(f"   🎯 #HEADER button is active (opacity={button_state['opacity']}) - adding header with logos...")
+
+                        header_added = await self._add_header_with_logo(page, logo_media_id)
+
+                        if header_added:
+                            logger.info("   ✅ Header added successfully!")
+
+                            # Auto-publish if enabled
+                            published = False
+                            if auto_publish:
+                                logger.info(f"\n   📤 Auto-publishing template...")
+                                if await self._publish_template(page, template_name):
+                                    published = True
+                                    self.published_count += 1
+                                    logger.info(f"   ✅ Template published successfully!")
+                                else:
+                                    logger.warning(f"   ⚠️  Publish failed or skipped")
+
+                            self.processed += 1
+                            self.successful += 1
+                            self.results.append({
+                                'template': template_name,
+                                'id': template_id,
+                                'status': 'success',
+                                'action': 'header_added',
+                                'logos_processed': 1,  # Count header as 1 logo
+                                'published': published,
+                                'departments': ', '.join(template.get('departments', []))
+                            })
+
+                            logger.info(f"\n   ✅ Template {idx} complete:")
+                            logger.info(f"      Action: Header added with logo")
+                            logger.info(f"      Published: {'✅' if published else '❌'}")
+
+                            # Keep tab open for verification
+                            # await page.close()
+                            return
+                        else:
+                            logger.warning("   ⚠️  Failed to add header")
+                            self.failed += 1
+                            self.processed += 1
+                            self.results.append({
+                                'template': template_name,
+                                'id': template_id,
+                                'status': 'failed',
+                                'reason': 'Header addition failed',
+                                'logos_processed': 0,
+                                'published': False
+                            })
+                            await page.close()
+                            return
+
+                    elif button_state.get('found') and button_state.get('isGrayed'):
+                        logger.info(f"   ℹ️  #HEADER button is grayed (opacity={button_state['opacity']}) - header already exists but no empty positions")
+                    else:
+                        logger.info("   ℹ️  #HEADER button not found")
+
+                # No action to take - skip template
+                logger.info("   ⏭️  Skipping template")
                 self.results.append({
                     'template': template_name,
                     'id': template_id,
                     'status': 'skipped',
-                    'reason': 'No logos to process',
+                    'reason': 'No logos to process and cannot add header',
                     'logos_processed': 0,
                     'published': False
                 })
@@ -1211,6 +1341,194 @@ class TempLogoAdditionFinalService:
             return True
 
         except:
+            return False
+
+    async def _add_header_with_logo(self, page: Page, logo_media_id: str) -> bool:
+        """
+        Add new header when template has no Logo 1/2 containers.
+        This is used for templates like CPRA that don't have the standard layout.
+
+        Workflow:
+        1. Check if #HEADER button is active (opacity=1.0)
+        2. Click #HEADER button
+        3. Click "+ Add Header" button
+        4. Select first template from popup
+        5. Click Insert
+        6. Add logos to the header positions
+
+        Returns:
+            True if header added successfully, False otherwise
+        """
+
+        try:
+            logger.info("      ➕ Adding new header with logo...")
+
+            # Step 1: Check #HEADER button state
+            logger.debug("      Step 1: Checking #HEADER button state...")
+
+            button_state = await page.evaluate("""
+                () => {
+                    const headerBtn = document.querySelector('#HEADER');
+                    if (!headerBtn) return { found: false };
+
+                    const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                    return {
+                        found: true,
+                        opacity: opacity,
+                        isActive: opacity === 1.0,
+                        isGrayed: opacity < 1.0
+                    };
+                }
+            """)
+
+            if not button_state['found']:
+                logger.warning("      ⚠️  #HEADER button not found in DOM")
+                return False
+
+            if button_state['isGrayed']:
+                logger.warning(f"      ⚠️  #HEADER button is grayed (opacity={button_state['opacity']}) - header already exists")
+                return False
+
+            logger.debug(f"      ✅ #HEADER button is active (opacity={button_state['opacity']})")
+
+            # Step 2: Click #HEADER button
+            logger.debug("      Step 2: Clicking #HEADER button...")
+
+            header_clicked = await page.evaluate("""
+                () => {
+                    const headerBtn = document.querySelector('#HEADER');
+                    if (!headerBtn) return false;
+                    headerBtn.click();
+                    return true;
+                }
+            """)
+
+            if not header_clicked:
+                logger.warning("      ⚠️  Failed to click #HEADER button")
+                return False
+
+            logger.debug("      ✅ #HEADER button clicked")
+            await asyncio.sleep(2)
+
+            # Step 3: Find and click "+ Add Header" button
+            logger.debug("      Step 3: Finding '+ Add Header' button...")
+
+            add_header_btn_found = await page.evaluate("""
+                () => {
+                    const buttons = Array.from(document.querySelectorAll('button'));
+                    for (const btn of buttons) {
+                        if (btn.textContent.trim() === '+ Add Header') {
+                            btn.setAttribute('data-add-header-btn', 'true');
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            """)
+
+            if not add_header_btn_found:
+                logger.warning("      ⚠️  '+ Add Header' button not found")
+                return False
+
+            logger.debug("      Clicking '+ Add Header' button...")
+            add_header_btn = await page.query_selector('[data-add-header-btn="true"]')
+            await add_header_btn.click()
+            await asyncio.sleep(2)
+
+            # Step 4: Verify "Insert Header" popup opened
+            logger.debug("      Step 4: Verifying 'Insert Header' popup...")
+
+            popup_opened = await page.evaluate("""
+                () => {
+                    const modal = document.querySelector('.ant-modal');
+                    if (!modal) return false;
+
+                    const title = modal.querySelector('.ant-modal-title');
+                    return title && title.textContent.includes('Insert Header');
+                }
+            """)
+
+            if not popup_opened:
+                logger.warning("      ⚠️  'Insert Header' popup not found")
+                return False
+
+            logger.debug("      ✅ 'Insert Header' popup opened")
+
+            # Step 5: Select first template (radio button)
+            logger.debug("      Step 5: Selecting header template...")
+
+            radio_clicked = await page.evaluate("""
+                () => {
+                    const modal = document.querySelector('.ant-modal');
+                    if (!modal) return false;
+
+                    const radio = modal.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.click();
+                        return true;
+                    }
+                    return false;
+                }
+            """)
+
+            if not radio_clicked:
+                logger.warning("      ⚠️  Radio button not found")
+                return False
+
+            logger.debug("      ✅ Header template selected")
+            await asyncio.sleep(1)
+
+            # Step 6: Click Insert button
+            logger.debug("      Step 6: Clicking Insert...")
+
+            insert_clicked = await page.evaluate("""
+                () => {
+                    const modal = document.querySelector('.ant-modal');
+                    if (!modal) return false;
+
+                    const buttons = modal.querySelectorAll('button');
+                    for (const btn of buttons) {
+                        if (btn.textContent.trim() === 'Insert') {
+                            btn.click();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            """)
+
+            if not insert_clicked:
+                logger.warning("      ⚠️  Insert button not found")
+                return False
+
+            logger.debug("      ✅ Insert clicked")
+            await asyncio.sleep(3)
+
+            # Step 7: Verify header was added (button should be grayed now)
+            logger.debug("      Step 7: Verifying header added...")
+
+            header_added = await page.evaluate("""
+                () => {
+                    const headerBtn = document.querySelector('#HEADER');
+                    if (!headerBtn) return false;
+
+                    const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                    return opacity < 1.0;  // Should be grayed after adding
+                }
+            """)
+
+            if header_added:
+                logger.info("      ✅ Header added successfully!")
+                logger.log_action("ADD_HEADER", "New Header", True, "Header structure created")
+                return True
+            else:
+                logger.warning("      ⚠️  Header verification failed")
+                logger.log_action("ADD_HEADER", "New Header", False, "Button still active after insert")
+                return False
+
+        except Exception as e:
+            logger.exception(f"      ❌ Error adding header: {e}")
+            logger.log_action("ADD_HEADER", "New Header", False, f"Exception: {str(e)}")
             return False
 
     async def _publish_template(self, page: Page, template_name: str) -> bool:
