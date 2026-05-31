@@ -491,8 +491,21 @@ class TempLogoAdditionFinalService:
             warnings_count = detection_result['warningsCount']
             empty_count = detection_result['emptyCount']
             header_count = detection_result['headerCount']
+            replace_count = detection_result.get('replaceCount', 0)
 
-            if warnings_count == 0 and empty_count == 0 and header_count == 0:
+            # DEBUG: Print detection result
+            logger.debug(f"   Detection result: warnings={warnings_count}, empty={empty_count}, headers={header_count}, replace={replace_count}")
+            logger.debug(f"   Logo tables found: {len(detection_result.get('logoTables', []))}")
+            logger.debug(f"   Logos to replace: {len(detection_result.get('logosToReplace', []))}")
+
+            # Print debug messages from JavaScript
+            debug_msgs = detection_result.get('debug', [])
+            if debug_msgs:
+                logger.debug(f"   JavaScript detection debug ({len(debug_msgs)} messages):")
+                for msg in debug_msgs[:30]:  # Show first 30 debug messages
+                    logger.debug(f"     {msg}")
+
+            if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
                 # No standard logo containers detected - check if we should add a header
                 logger.info("   ℹ️  No Logo 1/2 containers or headers detected")
                 logger.debug(f"   Detection returned: warnings={warnings_count}, empty={empty_count}, headers={header_count}")
@@ -685,29 +698,19 @@ class TempLogoAdditionFinalService:
             for logo_item in logos_to_replace:
                 logo_idx = logo_item['index']
                 logo_name = logo_item['name']
-                needs_centering = logo_item.get('needsCentering', False)
+                current_alignment = logo_item.get('alignment', 'UNKNOWN')
 
                 logger.info(f"\n   🎯 Replacing logo {logo_idx}/{replace_count}: {logo_name}...")
-                logger.debug(f"   Logo at {logo_item['alignment']} position, needs centering: {needs_centering}")
+                logger.info(f"   Current alignment: {current_alignment} (will keep same position)")
                 logger.debug(f"   Attempting REPLACE workflow for logo without warning")
 
                 if await self._replace_logo_without_warning(page, logo_idx, logo_media_id):
                     logos_processed += 1
                     logger.info(f"   ✅ Logo replaced: {logo_name}")
-                    logger.log_action("REPLACE", logo_name, True, f"Table-based detection, alignment={logo_item['alignment']}")
+                    logger.log_action("REPLACE", logo_name, True, f"Kept at {current_alignment} alignment")
 
-                    # Center align if needed
-                    if needs_centering:
-                        logger.debug(f"   Logo is at {logo_item['alignment']}, attempting to center...")
-                        if await self._center_logo_without_warning(page, logo_idx):
-                            logos_centered += 1
-                            logger.info(f"   ✅ Logo moved to CENTER")
-                            logger.log_action("CENTER", logo_name, True, f"Moved from {logo_item['alignment']} to CENTER")
-                        else:
-                            logger.warning(f"   ⚠️  Failed to center logo")
-                            logger.log_action("CENTER", logo_name, False, f"Could not move from {logo_item['alignment']}")
-                    else:
-                        logger.debug(f"   Logo already at CENTER, no centering needed")
+                    # Do NOT center existing logos - keep them at their current alignment
+                    logger.debug(f"   Keeping logo at {current_alignment} alignment (not centering)")
 
                     # Enlarge
                     logger.debug(f"   Attempting to enlarge logo to {logo_width}px")
@@ -899,7 +902,8 @@ class TempLogoAdditionFinalService:
 
                 // FALLBACK: Table-based Logo 1/2 detection (if hardcoded IDs didn't work)
                 debug.push('\\n=== TABLE-BASED LOGO DETECTION (Fallback) ===');
-                const allTables = Array.from(document.querySelectorAll('table[width="100%"]'));
+                const allTables = Array.from(document.querySelectorAll('table'));
+                debug.push(`Scanning ${allTables.length} tables for logo containers...`);
                 const logoTables = [];
                 const logosToReplace = []; // NEW: Track logos without warnings that need replacement
 
@@ -956,9 +960,9 @@ class TempLogoAdditionFinalService:
 
                 debug.push(`Found ${logoTables.length} logo tables total`);
 
-                // If hardcoded IDs found no containers, use table-based detection
-                if (emptyContainers.length === 0 && logoTables.length > 0) {
-                    debug.push('\\n=== USING TABLE-BASED DETECTION (hardcoded IDs failed) ===');
+                // Process table-based detection if we found logo tables
+                if (logoTables.length > 0) {
+                    debug.push('\\n=== PROCESSING TABLE-BASED DETECTION ===');
 
                     logoTables.forEach((logoTable, tableIdx) => {
                         const logoNumber = tableIdx + 1; // Logo 1, Logo 2, etc.
@@ -968,8 +972,9 @@ class TempLogoAdditionFinalService:
 
                             const containerName = `Logo ${logoNumber} ${pos.alignment}`;
 
-                            // PRIORITY 1: Logos that exist (with or without warnings) need replacement
-                            if (pos.hasImage) {
+                            // PRIORITY 1: Logos WITH warnings need replacement (wrong logo)
+                            // Logos WITHOUT warnings are correct - skip them!
+                            if (pos.hasImage && pos.hasWarning) {
                                 // Mark image component for replacement
                                 if (pos.imageComponent) {
                                     const replaceIdx = logosToReplace.length + 1;
@@ -978,19 +983,23 @@ class TempLogoAdditionFinalService:
                                     logosToReplace.push({
                                         index: replaceIdx,
                                         name: containerName,
-                                        type: 'logo_without_warning',
+                                        type: 'logo_with_warning_table_based',
                                         tableIndex: tableIdx,
                                         cellIndex: pos.cellIndex,
                                         alignment: pos.alignment,
-                                        hasWarning: pos.hasWarning,
-                                        needsCentering: pos.alignment !== 'CENTER'
+                                        hasWarning: true,
+                                        needsCentering: false  // Keep at current alignment
                                     });
 
-                                    debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=${pos.hasWarning}, needsCentering=${pos.alignment !== 'CENTER'})`);
+                                    debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=true, keepAlignment=${pos.alignment})`);
                                 }
                             }
-                            // PRIORITY 2: Empty CENTER positions can have logos inserted
-                            else if (pos.isEmpty && pos.alignment === 'CENTER') {
+                            // Skip logos without warnings - they're already correct!
+                            else if (pos.hasImage && !pos.hasWarning) {
+                                debug.push(`  Skipping ${containerName}: Logo exists without warning (already correct)`);
+                            }
+                            // PRIORITY 2: Empty CENTER positions can have logos inserted (only if hardcoded IDs didn't find them)
+                            else if (pos.isEmpty && pos.alignment === 'CENTER' && emptyContainers.length === 0) {
                                 const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
 
                                 emptyContainers.push({
@@ -1211,32 +1220,65 @@ class TempLogoAdditionFinalService:
                 logger.warning(f"Container not found for replace-logo-{logo_idx}")
                 return False
 
-            # Hover over the image to reveal toolbar
-            await container.hover(force=True)
-            await asyncio.sleep(2)
+            # Find the actual <img> element inside the container
+            img_element = await container.query_selector('img')
+            if not img_element:
+                logger.warning("Image element not found inside container")
+                return False
 
-            # Click Change Image icon
-            change_clicked = await page.evaluate(f"""
-                () => {{
-                    const container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
-                    if (!container) return {{ clicked: false, reason: 'Container not found' }};
+            # STEP 1: Hover over image first to make toolbar appear
+            await img_element.hover(force=True)
+            await asyncio.sleep(1.5)
 
-                    // Find the change/switch icon in the container or nearby
-                    const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
-                                      container.querySelector('[title="Change Image"]') ||
-                                      container.closest('[class*="SortableItem"]')?.querySelector('[aria-label="icon-switch"]');
+            # STEP 2: Click the image while keeping hover state
+            await img_element.click(force=True)
+            await asyncio.sleep(2)  # Wait for toolbar to stay visible
 
-                    if (changeIcon) {{
-                        changeIcon.click();
-                        return {{ clicked: true }};
-                    }}
-                    return {{ clicked: false, reason: 'Change icon not found' }};
-                }}
+            # Check if media library popup is already open
+            popup_open = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return popup && popup.getBoundingClientRect().width > 0;
+                }
             """)
 
-            if not change_clicked['clicked']:
-                logger.warning(f"Could not click change icon: {change_clicked.get('reason', 'unknown')}")
-                return False
+            if not popup_open:
+                # STEP 3: Use Playwright's built-in click at coordinates for the 4th toolbar icon
+                # The toolbar appears above the image, with icons in a row
+                # Get image position and calculate toolbar icon positions
+                img_box = await img_element.bounding_box()
+                if not img_box:
+                    logger.warning("Could not get image bounding box")
+                    return False
+
+                # Calculate position of 4th icon (replace icon) in toolbar
+                # Toolbar is above image, icons are roughly 40px wide each
+                # Icon positions: 1st, 2nd, 3rd, 4th (replace)
+                toolbar_icon_4_x = img_box['x'] + 140  # Approximate x position of 4th icon
+                toolbar_icon_y = img_box['y'] - 30      # Toolbar is ~30px above image
+
+                # Try clicking the 4th toolbar icon position
+                try:
+                    await page.mouse.click(toolbar_icon_4_x, toolbar_icon_y)
+                    await asyncio.sleep(2)
+
+                    # Check if popup opened
+                    popup_open_after_click = await page.evaluate("""
+                        () => {
+                            const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                            return popup && popup.getBoundingClientRect().width > 0;
+                        }
+                    """)
+
+                    if popup_open_after_click:
+                        logger.debug(f"Successfully clicked toolbar icon at ({toolbar_icon_4_x}, {toolbar_icon_y})")
+                    else:
+                        logger.warning(f"Clicked at ({toolbar_icon_4_x}, {toolbar_icon_y}) but popup didn't open")
+                        return False
+
+                except Exception as e:
+                    logger.warning(f"Failed to click at toolbar position: {e}")
+                    return False
 
             await asyncio.sleep(2)
 
