@@ -251,12 +251,19 @@ async def detect_and_enlarge_logo(page: Page, logo_idx: int, logo_media_id: str,
         detection_result = await page.evaluate(f"""
             () => {{
                 const MEDIA_ID = "{logo_media_id}";
+                const LOGO_INDEX = {logo_idx};
 
-                // Find the logo image by media ID
-                const img = Array.from(document.querySelectorAll('img'))
-                    .find(i => i.src.includes(MEDIA_ID));
+                // Find ALL logo images by media ID, then select by index
+                const allLogos = Array.from(document.querySelectorAll('img'))
+                    .filter(i => i.src.includes(MEDIA_ID));
 
-                if (!img) return {{ found: false, reason: 'Image not found' }};
+                if (allLogos.length === 0) return {{ found: false, reason: 'No logos found' }};
+                if (LOGO_INDEX > allLogos.length) return {{ found: false, reason: `Only ${{allLogos.length}} logos found, requested index ${{LOGO_INDEX}}` }};
+
+                // Get the specific logo by index (1-based)
+                const img = allLogos[LOGO_INDEX - 1];
+
+                if (!img) return {{ found: false, reason: 'Image not found at index' }};
 
                 const rect = img.getBoundingClientRect();
                 const currentWidth = Math.round(rect.width);
@@ -318,12 +325,18 @@ async def detect_and_enlarge_logo(page: Page, logo_idx: int, logo_media_id: str,
             () => {{
                 const MEDIA_ID = "{logo_media_id}";
                 const TARGET_WIDTH = {target_width};
+                const LOGO_INDEX = {logo_idx};
 
-                // Find the logo image
-                const img = Array.from(document.querySelectorAll('img'))
-                    .find(i => i.src.includes(MEDIA_ID));
+                // Find ALL logo images, then select by index
+                const allLogos = Array.from(document.querySelectorAll('img'))
+                    .filter(i => i.src.includes(MEDIA_ID));
 
-                if (!img) return {{ success: false, reason: 'Image not found' }};
+                if (allLogos.length === 0) return {{ success: false, reason: 'No logos found' }};
+
+                // Get the specific logo by index (1-based)
+                const img = allLogos[LOGO_INDEX - 1];
+
+                if (!img) return {{ success: false, reason: 'Image not found at index' }};
 
                 const beforeRect = img.getBoundingClientRect();
                 const beforeWidth = Math.round(beforeRect.width);
@@ -619,8 +632,8 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
                     if center_success:
                         logos_centered += 1
 
-                    # Step 3: Detect size and enlarge if small (< 160px)
-                    enlarge_success = await detect_and_enlarge_logo(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=160)
+                    # Step 3: Detect size and enlarge to larger size (200px for better visibility)
+                    enlarge_success = await detect_and_enlarge_logo(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=200)
                     if enlarge_success:
                         logos_enlarged += 1
                 else:
