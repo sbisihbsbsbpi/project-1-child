@@ -517,7 +517,7 @@ class TemplateLogoAdditionService:
                                          departments: List[str], base_url: str) -> List[Dict]:
         """
         Apply department filter and capture templates via API
-        FROM FINAL VERSION - Lines 360-434
+        USES EXACT WORKING LOGIC from test_service_parts_filter_selection.py (commit 348c68a)
         """
         templates = []
         response_received = asyncio.Event()
@@ -538,14 +538,15 @@ class TemplateLogoAdditionService:
 
         page.on('response', handle_response)
 
-        # Department mapping
+        # Department mapping (same as working test)
         dept_map = {'Sales': 0, 'Service': 1, 'Parts': 2}
 
         try:
-            # Open dropdown
+            # Open dropdown (EXACT WORKING CODE - simple click on first .ant-dropdown-trigger)
             self.add_log(job_id, "   1. Opening department dropdown...", "info")
             await page.click('.ant-dropdown-trigger', timeout=5000)
             await asyncio.sleep(1)
+            self.add_log(job_id, "      ✅ Dropdown opened", "info")
 
             # Uncheck all first
             self.add_log(job_id, "   2. Unchecking all departments...", "info")
@@ -557,6 +558,7 @@ class TemplateLogoAdditionService:
                     }}
                 """)
                 await asyncio.sleep(0.3)
+            self.add_log(job_id, "      ✅ All unchecked", "info")
 
             # Check selected departments
             self.add_log(job_id, f"   3. Checking: {', '.join(departments)}", "info")
@@ -569,11 +571,13 @@ class TemplateLogoAdditionService:
                         }}
                     """)
                     await asyncio.sleep(0.3)
+                    self.add_log(job_id, f"      ✅ {dept_name} checked", "info")
 
             # Close dropdown
             self.add_log(job_id, "   4. Closing dropdown...", "info")
             await page.keyboard.press('Escape')
-            await asyncio.sleep(1)
+            await asyncio.sleep(2)
+            self.add_log(job_id, "      ✅ Dropdown closed", "info")
 
             # Wait for API response
             self.add_log(job_id, "   5. Waiting for API response...", "info")
@@ -977,7 +981,7 @@ class TemplateLogoAdditionService:
     async def _replace_logo(self, page: Page, logo_idx: int, logo_media_id: str) -> bool:
         """
         Replace logo with warning icon using Change Image workflow
-        FROM FINAL (Lines 1108-1211)
+        FROM FINAL (Lines 1108-1211) - EXACT SYNC
         """
         try:
             # Hover to reveal toolbar
@@ -988,27 +992,36 @@ class TemplateLogoAdditionService:
             await container.hover(force=True)
             await asyncio.sleep(3)
 
-            # Click Change Image icon
-            change_clicked = await page.evaluate(f"""
-                () => {{
-                    const container = document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
-                    if (!container) return {{ clicked: false }};
-
-                    const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
-                                      container.querySelector('[title="Change Image"]');
-
-                    if (changeIcon) {{
-                        changeIcon.click();
-                        return {{ clicked: true }};
-                    }}
-                    return {{ clicked: false }};
-                }}
+            # Check if popup already open (CRITICAL - from FINAL)
+            popup_open = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return popup && popup.getBoundingClientRect().width > 0;
+                }
             """)
 
-            if not change_clicked['clicked']:
-                return False
+            if not popup_open:
+                # Click Change Image icon (only if popup not already open)
+                change_clicked = await page.evaluate(f"""
+                    () => {{
+                        const container = document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
+                        if (!container) return {{ clicked: false }};
 
-            await asyncio.sleep(3)
+                        const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                                          container.querySelector('[title="Change Image"]');
+
+                        if (changeIcon) {{
+                            changeIcon.click();
+                            return {{ clicked: true }};
+                        }}
+                        return {{ clicked: false }};
+                    }}
+                """)
+
+                if not change_clicked['clicked']:
+                    return False
+
+                await asyncio.sleep(3)
 
             # Select Tilton.png (tile #1)
             selection = await page.evaluate("""
@@ -1053,7 +1066,20 @@ class TemplateLogoAdditionService:
                 }
             """)
 
-            return insert_result['clicked']
+            if not insert_result['clicked']:
+                return False
+
+            await asyncio.sleep(2)
+
+            # Verify popup closed (CRITICAL - from FINAL)
+            popup_closed = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    return !popup || popup.getBoundingClientRect().width === 0;
+                }
+            """)
+
+            return popup_closed
 
         except Exception as e:
             logger.exception(f"Error replacing logo: {e}")
@@ -1259,6 +1285,34 @@ class TemplateLogoAdditionService:
             return False
 
         except:
+            return False
+
+    async def _center_logo_without_warning(self, page: Page, logo_idx: int) -> bool:
+        """
+        Center align a logo that was replaced (without warning icon)
+        FROM FINAL (Lines 1361-1370) - CRITICAL MISSING METHOD
+        """
+        try:
+            # For now, return True as placeholder
+            # TODO: Implement center alignment logic for logos without warning icons
+            logger.debug(f"Center alignment for logo {logo_idx} (no warning) - not yet implemented")
+            return False
+        except Exception as e:
+            logger.error(f"Error in _center_logo_without_warning: {e}")
+            return False
+
+    async def _enlarge_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str, logo_width: str) -> bool:
+        """
+        Enlarge a logo that was replaced (without warning icon)
+        FROM FINAL (Lines 1372-1381) - CRITICAL MISSING METHOD
+        """
+        try:
+            # For now, return True as placeholder
+            # TODO: Implement enlarge logic for logos without warning icons
+            logger.debug(f"Enlarge logo {logo_idx} to {logo_width} (no warning) - not yet implemented")
+            return False
+        except Exception as e:
+            logger.error(f"Error in _enlarge_logo_without_warning: {e}")
             return False
 
     async def _insert_logo_to_container(self, page: Page, container_info: Dict, logo_media_id: str) -> bool:
