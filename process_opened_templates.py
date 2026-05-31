@@ -238,17 +238,19 @@ async def center_align_logo(page: Page, logo_idx: int, logo_media_id: str) -> bo
         return False
 
 
-async def enlarge_logo_if_small(page: Page, logo_idx: int, logo_media_id: str, target_width: int = 160) -> bool:
-    """Enlarge logo if it's smaller than target width"""
+async def detect_and_enlarge_logo(page: Page, logo_idx: int, logo_media_id: str, target_width: int = 160) -> bool:
+    """
+    Detect actual logo pixel dimensions and intelligently enlarge based on size.
+    Shows exact pixel measurements and calculates optimal enlargement.
+    """
 
     try:
-        logger.info(f"      📏 Checking logo {logo_idx} size...")
+        logger.info(f"      📏 Detecting logo {logo_idx} pixel dimensions...")
 
-        # Check current size and enlarge if needed
-        result = await page.evaluate(f"""
+        # Step 1: Detect actual size
+        detection_result = await page.evaluate(f"""
             () => {{
                 const MEDIA_ID = "{logo_media_id}";
-                const TARGET_WIDTH = {target_width};
 
                 // Find the logo image by media ID
                 const img = Array.from(document.querySelectorAll('img'))
@@ -260,70 +262,136 @@ async def enlarge_logo_if_small(page: Page, logo_idx: int, logo_media_id: str, t
                 const currentWidth = Math.round(rect.width);
                 const currentHeight = Math.round(rect.height);
 
-                // Check if logo is small
-                if (currentWidth >= TARGET_WIDTH) {{
-                    return {{
-                        found: true,
-                        isSmall: false,
-                        width: currentWidth,
-                        height: currentHeight,
-                        message: 'Logo is already large enough'
-                    }};
-                }}
+                // Get natural dimensions (actual image file size)
+                const naturalWidth = img.naturalWidth;
+                const naturalHeight = img.naturalHeight;
 
-                // Logo is small - enlarge it
+                // Get computed styles
+                const computedStyle = window.getComputedStyle(img);
+                const displayWidth = computedStyle.width;
+                const displayHeight = computedStyle.height;
+
+                return {{
+                    found: true,
+                    currentWidth: currentWidth,
+                    currentHeight: currentHeight,
+                    naturalWidth: naturalWidth,
+                    naturalHeight: naturalHeight,
+                    displayWidth: displayWidth,
+                    displayHeight: displayHeight,
+                    aspectRatio: (currentWidth / currentHeight).toFixed(2)
+                }};
+            }}
+        """)
+
+        if not detection_result.get('found'):
+            logger.warning(f"      ⚠️  {detection_result.get('reason', 'Image not found')}")
+            return False
+
+        # Log detected dimensions
+        current_w = detection_result['currentWidth']
+        current_h = detection_result['currentHeight']
+        natural_w = detection_result['naturalWidth']
+        natural_h = detection_result['naturalHeight']
+        aspect_ratio = detection_result['aspectRatio']
+
+        logger.info(f"      📊 Detected dimensions:")
+        logger.info(f"         Current display: {current_w}x{current_h}px")
+        logger.info(f"         Natural (file):  {natural_w}x{natural_h}px")
+        logger.info(f"         Aspect ratio:    {aspect_ratio}:1")
+
+        # Step 2: Determine if enlargement is needed
+        if current_w >= target_width:
+            logger.info(f"      ✅ Logo is already {current_w}px wide (target: {target_width}px) - no enlargement needed")
+            return True
+
+        # Step 3: Calculate optimal enlargement
+        enlargement_ratio = target_width / current_w
+        suggested_height = int(current_h * enlargement_ratio)
+
+        logger.info(f"      🔍 Logo is small ({current_w}px < {target_width}px target)")
+        logger.info(f"      📐 Enlargement ratio: {enlargement_ratio:.2f}x")
+        logger.info(f"      🎯 Target size: {target_width}x{suggested_height}px")
+
+        # Step 4: Perform enlargement
+        enlargement_result = await page.evaluate(f"""
+            () => {{
+                const MEDIA_ID = "{logo_media_id}";
+                const TARGET_WIDTH = {target_width};
+
+                // Find the logo image
+                const img = Array.from(document.querySelectorAll('img'))
+                    .find(i => i.src.includes(MEDIA_ID));
+
+                if (!img) return {{ success: false, reason: 'Image not found' }};
+
+                const beforeRect = img.getBoundingClientRect();
+                const beforeWidth = Math.round(beforeRect.width);
+                const beforeHeight = Math.round(beforeRect.height);
+
+                // Find resizable container
                 let container = img.parentElement;
                 for (let i = 0; i < 5; i++) {{
                     if (!container) break;
                     if ((container.className || '').includes('resizable')) break;
+                    if ((container.className || '').includes('Image')) break;
                     container = container.parentElement;
                 }}
 
                 if (!container) container = img.parentElement;
 
-                // Set width
+                // Apply enlargement
                 container.style.width = TARGET_WIDTH + 'px';
                 container.style.maxWidth = TARGET_WIDTH + 'px';
+                container.style.minWidth = TARGET_WIDTH + 'px';
 
                 img.style.width = TARGET_WIDTH + 'px';
                 img.style.maxWidth = TARGET_WIDTH + 'px';
+                img.style.minWidth = TARGET_WIDTH + 'px';
                 img.style.height = 'auto';
 
-                container.offsetHeight; // Force reflow
+                // Force reflow
+                container.offsetHeight;
 
-                const newRect = img.getBoundingClientRect();
-                const newWidth = Math.round(newRect.width);
-                const newHeight = Math.round(newRect.height);
+                // Wait a bit for rendering
+                const afterRect = img.getBoundingClientRect();
+                const afterWidth = Math.round(afterRect.width);
+                const afterHeight = Math.round(afterRect.height);
 
                 return {{
-                    found: true,
-                    isSmall: true,
-                    beforeWidth: currentWidth,
-                    beforeHeight: currentHeight,
-                    afterWidth: newWidth,
-                    afterHeight: newHeight,
-                    enlarged: true
+                    success: true,
+                    before: {{ width: beforeWidth, height: beforeHeight }},
+                    after: {{ width: afterWidth, height: afterHeight }},
+                    containerApplied: true
                 }};
             }}
         """)
 
-        if not result.get('found'):
-            logger.warning(f"      ⚠️  {result.get('reason', 'Image not found')}")
+        if not enlargement_result.get('success'):
+            logger.warning(f"      ⚠️  Enlargement failed: {enlargement_result.get('reason', 'Unknown error')}")
             return False
 
-        if not result.get('isSmall'):
-            logger.info(f"      ℹ️  Logo is already {result['width']}x{result['height']}px (no enlargement needed)")
-            return True
+        # Step 5: Verify and report results
+        before = enlargement_result['before']
+        after = enlargement_result['after']
 
-        if result.get('enlarged'):
-            logger.info(f"      ✅ Logo enlarged: {result['beforeWidth']}x{result['beforeHeight']}px → {result['afterWidth']}x{result['afterHeight']}px")
+        if after['width'] > before['width']:
+            increase_px = after['width'] - before['width']
+            increase_pct = ((after['width'] / before['width']) - 1) * 100
+
+            logger.info(f"      ✅ Logo enlarged successfully:")
+            logger.info(f"         Before: {before['width']}x{before['height']}px")
+            logger.info(f"         After:  {after['width']}x{after['height']}px")
+            logger.info(f"         Increase: +{increase_px}px width (+{increase_pct:.1f}%)")
+
             await asyncio.sleep(0.5)
             return True
-
-        return False
+        else:
+            logger.warning(f"      ⚠️  Logo size unchanged: {after['width']}x{after['height']}px")
+            return False
 
     except Exception as e:
-        logger.exception(f"      Error enlarging logo: {e}")
+        logger.exception(f"      ❌ Error in size detection/enlargement: {e}")
         return False
 
 
@@ -551,8 +619,8 @@ async def process_template_tab(page: Page, template_info: dict, idx: int, total:
                     if center_success:
                         logos_centered += 1
 
-                    # Step 3: Enlarge if small (< 160px)
-                    enlarge_success = await enlarge_logo_if_small(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=160)
+                    # Step 3: Detect size and enlarge if small (< 160px)
+                    enlarge_success = await detect_and_enlarge_logo(page, logo_idx, "6a19132b6697f36de6236fb1", target_width=160)
                     if enlarge_success:
                         logos_enlarged += 1
                 else:
