@@ -1929,13 +1929,46 @@ async def get_cdp_status():
             f"CDP status check on 9223: {'UP' if is_listening else 'DOWN'} (code={result})"
         )
 
+        # Also check if screenshot_service has an active browser connection
+        browser_connected = screenshot_service.cdp_browser is not None or screenshot_service.browser is not None
+
         return {
             "port": 9223,  # ✅ Changed from 9222 to 9223
             "is_listening": is_listening,
+            "browser_connected": browser_connected,  # NEW: Actual browser connection status
         }
 
     except Exception as e:
         logger.error(f"❌ Failed to check CDP status: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/connect-cdp")
+async def connect_to_cdp():
+    """Connect screenshot service to CDP browser on port 9223.
+
+    This establishes the actual browser connection that Logo Addition needs.
+    """
+    try:
+        logger.info("🔌 Connecting screenshot service to CDP browser...")
+
+        # Connect to CDP browser
+        cdp_url = "http://localhost:9223"
+        browser = await screenshot_service._connect_to_chrome_cdp(cdp_url=cdp_url)
+
+        if browser:
+            logger.info("✅ Screenshot service connected to CDP browser!")
+            return {
+                "status": "connected",
+                "message": "Successfully connected to CDP browser on port 9223",
+                "port": 9223
+            }
+        else:
+            logger.error("❌ Failed to connect to CDP browser")
+            raise HTTPException(status_code=500, detail="Failed to connect to CDP browser")
+
+    except Exception as e:
+        logger.error(f"❌ Error connecting to CDP: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

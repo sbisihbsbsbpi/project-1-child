@@ -36,9 +36,15 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
       setCheckingBrowser(true);
       const response = await fetch('http://localhost:8001/api/cdp-status');
       const data = await response.json();
-      setBrowserConnected(data.is_listening);
-      if (data.is_listening) {
+
+      // Check both CDP port AND actual browser connection
+      const isConnected = data.is_listening && data.browser_connected;
+      setBrowserConnected(isConnected);
+
+      if (isConnected) {
         addLog('✅ Browser connected via CDP (port 9223)');
+      } else if (data.is_listening && !data.browser_connected) {
+        addLog('⚠️ CDP port is open but browser not connected to backend');
       }
     } catch (error) {
       console.error('Error checking browser status:', error);
@@ -51,19 +57,34 @@ export const LogoAddition: React.FC<LogoAdditionProps> = ({ addLog, clearLogs })
   const connectBrowser = async () => {
     try {
       setCheckingBrowser(true);
-      addLog('🔌 Launching browser with CDP...');
+      addLog('🔌 Connecting to browser...');
 
-      const response = await fetch('http://localhost:8001/api/launch-brave-cdp', {
+      // Step 1: Launch browser with CDP if not already running
+      const launchResponse = await fetch('http://localhost:8001/api/launch-brave-cdp', {
         method: 'POST'
       });
 
-      const data = await response.json();
-      addLog(`🦁 ${data.message}`);
+      const launchData = await launchResponse.json();
+      addLog(`🦁 ${launchData.message}`);
 
-      // Wait a bit for browser to start, then check status
-      setTimeout(async () => {
-        await checkBrowserStatus();
-      }, 2000);
+      // Step 2: Wait for browser to start
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Step 3: Connect backend to CDP
+      addLog('🔗 Establishing backend connection to CDP...');
+      const connectResponse = await fetch('http://localhost:8001/api/connect-cdp', {
+        method: 'POST'
+      });
+
+      if (!connectResponse.ok) {
+        throw new Error('Failed to connect backend to CDP');
+      }
+
+      const connectData = await connectResponse.json();
+      addLog(`✅ ${connectData.message}`);
+
+      // Step 4: Verify connection
+      await checkBrowserStatus();
 
     } catch (error: any) {
       console.error('Error connecting browser:', error);
