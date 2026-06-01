@@ -413,13 +413,11 @@ class TemplateLogoAdditionService:
                 await asyncio.sleep(3)
                 self.add_log(job_id, "   ✅ Templates page loaded", "success")
             else:
-                # Reload the existing page to ensure fresh state
-                self.add_log(job_id, "   🔄 Refreshing existing tab...", "info")
-                await page.reload(wait_until='domcontentloaded', timeout=15000)
-                await asyncio.sleep(3)
-                self.add_log(job_id, "   ✅ Tab refreshed", "success")
+                # Found existing tab
+                self.add_log(job_id, "   ℹ️  Using existing tab (will reload in filter step)", "info")
 
             # Step 3: Apply department filter and fetch templates
+            # NOTE: Reload happens INSIDE _apply_filter_and_capture (AFTER listener is attached)
             self.add_log(job_id, "\n🎯 STEP 2: APPLYING DEPARTMENT FILTER", "info")
             self.add_log(job_id, f"   Filtering: {', '.join(job['departments'])}", "info")
             templates = await self._apply_filter_and_capture(job_id, page, job['departments'], job['base_url'])
@@ -517,10 +515,14 @@ class TemplateLogoAdditionService:
                                          departments: List[str], base_url: str) -> List[Dict]:
         """
         Apply department filter and capture templates via API
-        USES EXACT WORKING LOGIC from test_service_parts_filter_selection.py (commit 348c68a)
+        USES EXACT WORKING LOGIC from test_complete_logo_addition_flow.py
+        CRITICAL: Listener attached BEFORE reload, filters by department
         """
         templates = []
         response_received = asyncio.Event()
+
+        # Convert departments to uppercase for comparison (API uses uppercase)
+        target_departments = {dept.upper() for dept in departments}
 
         async def handle_response(response):
             nonlocal templates
@@ -530,13 +532,41 @@ class TemplateLogoAdditionService:
                     if 'data' in data and 'hits' in data['data']:
                         hits = data['data']['hits']
                         if hits:
-                            templates.extend(hits)
-                            self.add_log(job_id, f"   📥 Captured {len(hits)} templates from API", "info")
-                            response_received.set()
+                            # Parse request to check which departments were requested
+                            request_departments = set()
+                            try:
+                                import json
+                                post_data = response.request.post_data
+                                if post_data:
+                                    request_data = json.loads(post_data)
+                                    if 'filters' in request_data:
+                                        for f in request_data['filters']:
+                                            if f.get('field') == 'departments':
+                                                request_departments = set(f.get('values', []))
+                            except:
+                                pass
+
+                            # ONLY accept API response if departments match what we want
+                            if request_departments == target_departments:
+                                templates.clear()  # Clear any old data
+                                templates.extend(hits)
+                                self.add_log(job_id, f"   📥 Captured {len(hits)} templates from API ({', '.join(departments)})", "info")
+                                response_received.set()
+                            else:
+                                # Log but ignore responses for other departments
+                                dept_str = ', '.join(request_departments) if request_departments else 'default'
+                                self.add_log(job_id, f"   📥 Ignoring API call for: {dept_str} ({len(hits)} templates)", "debug")
                 except:
                     pass
 
+        # CRITICAL: Attach listener BEFORE reload
         page.on('response', handle_response)
+
+        # Reload page to get fresh state (AFTER listener is attached)
+        self.add_log(job_id, "   🔄 Reloading page for fresh state...", "info")
+        await page.reload(wait_until='domcontentloaded', timeout=15000)
+        await asyncio.sleep(3)
+        self.add_log(job_id, "      ✅ Page reloaded", "info")
 
         # Department mapping (same as working test)
         dept_map = {'Sales': 0, 'Service': 1, 'Parts': 2}
