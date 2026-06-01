@@ -3226,8 +3226,7 @@ async def start_logo_addition(request: TemplateAdditionRequest):
         auto_publish=request.auto_publish
     )
 
-    # Get browser instance from screenshot service
-    from screenshot_service import screenshot_service
+    # Get browser instance from screenshot service (using the global instance)
     browser = screenshot_service.cdp_browser or screenshot_service.browser
 
     # Auto-reconnect if browser connection lost
@@ -3263,7 +3262,15 @@ async def get_addition_status(job_id: str):
     if job_id not in template_logo_addition_service.jobs:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    return template_logo_addition_service.jobs[job_id]
+    job = template_logo_addition_service.jobs[job_id]
+
+    # Convert datetime objects to ISO format strings for JSON serialization
+    job_copy = job.copy()
+    for key, value in job_copy.items():
+        if isinstance(value, datetime):
+            job_copy[key] = value.isoformat()
+
+    return job_copy
 
 
 @app.websocket("/ws/template-addition/{job_id}")
@@ -3281,7 +3288,14 @@ async def websocket_template_addition(websocket: WebSocket, job_id: str):
                 break
 
             job = template_logo_addition_service.jobs[job_id]
-            await websocket.send_json(job)
+
+            # Convert datetime objects to ISO format strings for JSON serialization
+            job_copy = job.copy()
+            for key, value in job_copy.items():
+                if isinstance(value, datetime):
+                    job_copy[key] = value.isoformat()
+
+            await websocket.send_json(job_copy)
 
             # Stop if job is complete or failed
             if job.get("status") in ["completed", "failed"]:
