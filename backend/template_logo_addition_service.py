@@ -215,6 +215,7 @@ class TemplateLogoAdditionService:
         self.jobs: Dict[str, Dict[str, Any]] = {}
         self.active_tasks: Dict[str, asyncio.Task] = {}
         self.enhanced_loggers: Dict[str, EnhancedLogger] = {}  # Enhanced logger per job
+        self.open_tabs: Dict[str, List] = {}  # Track open tabs per job (separate from job dict to avoid JSON serialization issues)
         logger.info("✨ Template Logo Addition Service initialized (FINAL VERSION + ROBUST LOGGING)")
 
     def create_job(self, job_id: str, base_url: str, max_rows: int = 200,
@@ -273,6 +274,7 @@ class TemplateLogoAdditionService:
         }
 
         self.jobs[job_id] = job
+        self.open_tabs[job_id] = []  # Initialize tabs tracking for this job
 
         # Log job creation with enhanced logger
         enhanced_logger.info("🚀 NEW LOGO ADDITION JOB CREATED")
@@ -568,13 +570,57 @@ class TemplateLogoAdditionService:
         await asyncio.sleep(3)
         self.add_log(job_id, "      ✅ Page reloaded", "info")
 
+        # Additional wait for filters to be ready (dropdown elements might load async)
+        await asyncio.sleep(2)
+        self.add_log(job_id, "      ⏳ Waiting for filters to be ready...", "debug")
+
         # Department mapping (same as working test)
         dept_map = {'Sales': 0, 'Service': 1, 'Parts': 2}
 
         try:
-            # Open dropdown (EXACT WORKING CODE - simple click on first .ant-dropdown-trigger)
+            # Open dropdown - use JavaScript to find and click the FIRST VISIBLE trigger
             self.add_log(job_id, "   1. Opening department dropdown...", "info")
-            await page.click('.ant-dropdown-trigger', timeout=5000)
+
+            # Use JavaScript to click first visible .ant-dropdown-trigger (departments filter)
+            dropdown_clicked = await page.evaluate("""
+                () => {
+                    const triggers = Array.from(document.querySelectorAll('.ant-dropdown-trigger'));
+                    console.log(`Found ${triggers.length} dropdown triggers`);
+
+                    // Find first visible trigger (departments should be first in the filters row)
+                    for (const trigger of triggers) {
+                        const rect = trigger.getBoundingClientRect();
+                        const isVisible = rect.width > 0 && rect.height > 0 &&
+                                         window.getComputedStyle(trigger).display !== 'none' &&
+                                         window.getComputedStyle(trigger).visibility !== 'hidden';
+
+                        if (isVisible) {
+                            console.log('Found visible trigger, clicking...');
+                            trigger.click();
+                            return { clicked: true, index: triggers.indexOf(trigger) };
+                        }
+                    }
+
+                    // If no visible triggers, try clicking first one anyway
+                    if (triggers.length > 0) {
+                        console.log('No visible triggers, clicking first one...');
+                        triggers[0].click();
+                        return { clicked: true, index: 0, fallback: true };
+                    }
+
+                    return { clicked: false };
+                }
+            """)
+
+            if not dropdown_clicked.get('clicked'):
+                self.add_log(job_id, "      ❌ No dropdown triggers found!", "error")
+                return []
+
+            if dropdown_clicked.get('fallback'):
+                self.add_log(job_id, f"      ⚠️  Clicked trigger {dropdown_clicked.get('index')} (fallback - not visible)", "warning")
+            else:
+                self.add_log(job_id, f"      ✅ Clicked visible trigger {dropdown_clicked.get('index')}", "debug")
+
             await asyncio.sleep(1)
             self.add_log(job_id, "      ✅ Dropdown opened", "info")
 
@@ -673,11 +719,15 @@ class TemplateLogoAdditionService:
 
             if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
                 self.add_log(job_id, "   ℹ️  No logos need processing - skipping", "info")
+                self.add_log(job_id, "   📌 Tab kept open for inspection", "info")
                 result["status"] = "skipped"
                 result["reason"] = "No logos to process"
                 job["processed"] += 1
                 job["results"].append(result)
-                await page.close()
+                # Don't close the tab - keep it open for inspection
+                # Add to open_tabs list to prevent garbage collection
+                self.open_tabs[job_id].append(page)
+                # await page.close()
                 return
 
             logos_processed = 0
@@ -773,6 +823,8 @@ class TemplateLogoAdditionService:
                 await page.close()
                 self.add_log(job_id, "   🔒 Tab closed (keep_tabs_open=False)", "info")
             else:
+                # Add to open_tabs list to prevent garbage collection
+                self.open_tabs[job_id].append(page)
                 if job['auto_publish']:
                     self.add_log(job_id, "   📂 Tab kept open for verification (user preference)", "info")
                 else:
@@ -794,7 +846,7 @@ class TemplateLogoAdditionService:
 
     async def _detect_logos(self, page: Page) -> Dict:
         """
-        4-LAYER LOGO DETECTION - FROM FINAL VERSION (Lines 827-1106)
+        4-LAYER LOGO DETECTION - DYNAMIC VERSION (Fixed duplicate variable)
         Detects: warnings, empty Logo 1/2 containers, headers, table-based fallback
         Returns comprehensive detection results
         """
@@ -818,54 +870,101 @@ class TemplateLogoAdditionService:
                     }
                 });
 
-                // LAYER 2: Find empty Logo 1/2 containers (6 hardcoded positions)
-                debug.push('\\n=== LAYER 2: LOGO 1/2 CONTAINER DETECTION ===');
-                const containerIds = [
-                    '6f0b8570-c4dc-45bd-b746-40e3af9af3bb',  // Logo 1 LEFT
-                    '7653caa9-31b7-4e2b-8233-f0bda43672ea',  // Logo 1 CENTER
-                    '47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa',  // Logo 1 RIGHT
-                    '9fa2920b-10f8-48d2-9947-b014398d21be',  // Logo 2 LEFT
-                    '983932ae-d79a-40fe-a9ba-df07c9beee47',  // Logo 2 CENTER
-                    '9d454086-c1f2-4bf0-b4a7-8e95dc244aae'   // Logo 2 RIGHT
-                ];
-
-                const containerNames = ['Logo 1 LEFT', 'Logo 1 CENTER', 'Logo 1 RIGHT',
-                                       'Logo 2 LEFT', 'Logo 2 CENTER', 'Logo 2 RIGHT'];
+                // LAYER 2: DYNAMIC Logo 1/2 container detection (NEW - finds containers in any template)
+                debug.push('\\n=== LAYER 2: DYNAMIC LOGO CONTAINER DETECTION ===');
 
                 const emptyContainers = [];
                 const containerCheckResults = [];
 
-                containerIds.forEach((id, idx) => {
-                    const container = document.querySelector(`div.TEXT_TEMPLATE[id="${id}"][contenteditable="true"]`);
-                    const checkResult = {
-                        name: containerNames[idx],
-                        id: id,
-                        found: container !== null,
-                        hasImage: false,
-                        isEmpty: false
-                    };
+                // Strategy 1: Find logo containers in table structure
+                debug.push('Strategy 1: Searching for logo tables...');
+                const logoTableElements = Array.from(document.querySelectorAll('table'));
+                let logoContainersFound = 0;
 
-                    if (container) {
-                        const hasImage = container.querySelector('img') !== null;
-                        const htmlLength = container.innerHTML.trim().length;
+                logoTableElements.forEach((table, tableIdx) => {
+                    const firstRow = table.querySelector('tr');
+                    if (!firstRow) return;
+
+                    const cells = Array.from(firstRow.querySelectorAll('td'));
+
+                    // Logo tables have 4 OR 5 cells (some templates have 5)
+                    // Structure: [empty] [empty] [LOGO] [empty] [empty] OR [empty] [LOGO] [empty] [EXTRA]
+                    if (cells.length === 4 || cells.length === 5) {
+                        const positions = cells.length === 4
+                            ? ['LEFT', 'CENTER', 'RIGHT', 'EXTRA']
+                            : ['FAR_LEFT', 'LEFT', 'CENTER', 'RIGHT', 'FAR_RIGHT'];
+
+                        cells.forEach((cell, cellIdx) => {
+                            // Skip the last column (always EXTRA or FAR_RIGHT)
+                            if (cellIdx >= cells.length - 1) return;
+
+                            const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
+
+                            if (textTemplate) {
+                                const hasImage = textTemplate.querySelector('img') !== null;
+                                const htmlLength = textTemplate.innerHTML.trim().length;
+                                const isEmpty = !hasImage && htmlLength < 300;
+
+                                const containerName = `Logo ${tableIdx + 1} ${positions[cellIdx]}`;
+
+                                containerCheckResults.push({
+                                    name: containerName,
+                                    id: textTemplate.id,
+                                    found: true,
+                                    hasImage: hasImage,
+                                    isEmpty: isEmpty,
+                                    tableIndex: tableIdx,
+                                    cellIndex: cellIdx
+                                });
+
+                                if (isEmpty) {
+                                    logoContainersFound++;
+                                    textTemplate.setAttribute('data-empty-container', `empty-${logoContainersFound}`);
+                                    emptyContainers.push({
+                                        index: logoContainersFound,
+                                        id: textTemplate.id,
+                                        name: containerName,
+                                        type: 'logo_container',
+                                        position: positions[cellIdx]
+                                    });
+                                    debug.push(`  Found empty: ${containerName} (ID: ${textTemplate.id.substring(0, 8)}...)`);
+                                }
+                            }
+                        });
+                    }
+                });
+
+                debug.push(`Strategy 1 result: Found ${logoContainersFound} empty logo containers in tables`);
+
+                // Strategy 2: Fallback - Find all hidden TEXT_TEMPLATE elements (likely logo spots)
+                if (logoContainersFound === 0) {
+                    debug.push('Strategy 2: Searching for hidden TEXT_TEMPLATE elements...');
+
+                    const allTextTemplates = Array.from(document.querySelectorAll('.TEXT_TEMPLATE[contenteditable="true"]'));
+
+                    allTextTemplates.forEach((el, idx) => {
+                        const rect = el.getBoundingClientRect();
+                        const isHidden = rect.width === 0 || rect.height < 20;
+                        const hasImage = el.querySelector('img') !== null;
+                        const htmlLength = el.innerHTML.trim().length;
                         const isEmpty = !hasImage && htmlLength < 300;
 
-                        checkResult.hasImage = hasImage;
-                        checkResult.isEmpty = isEmpty;
-
-                        if (isEmpty) {
-                            container.setAttribute('data-empty-container', `empty-${idx + 1}`);
+                        if (isHidden && isEmpty) {
+                            logoContainersFound++;
+                            el.setAttribute('data-empty-container', `empty-${logoContainersFound}`);
                             emptyContainers.push({
-                                index: idx + 1,
-                                id: id,
-                                name: containerNames[idx],
-                                type: 'logo_container'
+                                index: logoContainersFound,
+                                id: el.id,
+                                name: `Hidden Container ${logoContainersFound}`,
+                                type: 'hidden_template',
+                                position: 'UNKNOWN'
                             });
+                            debug.push(`  Found hidden empty container: ${el.id.substring(0, 8)}...`);
                         }
-                    }
+                    });
 
-                    containerCheckResults.push(checkResult);
-                });
+                    debug.push(`Strategy 2 result: Found ${logoContainersFound} hidden empty containers`);
+                }
 
                 // LAYER 3: Table-based Logo detection (fallback)
                 debug.push('\\n=== LAYER 3: TABLE-BASED LOGO DETECTION ===');
@@ -1121,14 +1220,18 @@ class TemplateLogoAdditionService:
         FROM FINAL (Lines 1213-1340)
         """
         try:
+            logger.debug(f"[REPLACE_TABLE] Looking for replace-logo-{logo_idx}")
             container = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
             if not container:
+                logger.error(f"[REPLACE_TABLE] Container not found: replace-logo-{logo_idx}")
                 return False
 
             img_element = await container.query_selector('img')
             if not img_element:
+                logger.error(f"[REPLACE_TABLE] No img element in container")
                 return False
 
+            logger.debug(f"[REPLACE_TABLE] Hovering and clicking image...")
             # Hover and click image
             await img_element.hover(force=True)
             await asyncio.sleep(1.5)
@@ -1136,18 +1239,33 @@ class TemplateLogoAdditionService:
             await asyncio.sleep(2)
 
             # Try clicking 4th toolbar icon (replace icon)
+            logger.debug(f"[REPLACE_TABLE] Clicking toolbar icon...")
             img_box = await img_element.bounding_box()
             if img_box:
                 toolbar_icon_x = img_box['x'] + 140
                 toolbar_icon_y = img_box['y'] - 30
+                logger.debug(f"[REPLACE_TABLE] Toolbar position: ({toolbar_icon_x}, {toolbar_icon_y})")
                 await page.mouse.click(toolbar_icon_x, toolbar_icon_y)
                 await asyncio.sleep(2)
+            else:
+                logger.error(f"[REPLACE_TABLE] Could not get image bounding box")
+                return False
 
             # Select Tilton.png (tile #1)
+            logger.debug(f"[REPLACE_TABLE] Looking for media library popup...")
             selection = await page.evaluate("""
                 () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { success: false };
+                    if (!popup) {
+                        const allDialogs = document.querySelectorAll('[role="dialog"]');
+                        const allModals = document.querySelectorAll('.ant-modal');
+                        return {
+                            success: false,
+                            popup: false,
+                            dialogCount: allDialogs.length,
+                            modalCount: allModals.length
+                        };
+                    }
 
                     const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
                     if (tiles.length > 0) {
@@ -1155,39 +1273,59 @@ class TemplateLogoAdditionService:
                                         tiles[0].querySelector('[class*="topLayer"]');
                         if (topLayer) {
                             topLayer.click();
-                            return { success: true };
+                            return { success: true, popup: true, tiles: tiles.length };
                         }
+                        return { success: false, popup: true, tiles: tiles.length, noTopLayer: true };
                     }
-                    return { success: false };
+                    return { success: false, popup: true, tiles: 0 };
                 }
             """)
 
-            if not selection['success']:
+            if not selection.get('popup'):
+                logger.error(f"[REPLACE_TABLE] Media library popup not found!")
+                logger.debug(f"[REPLACE_TABLE] Dialogs: {selection.get('dialogCount', 0)}, Modals: {selection.get('modalCount', 0)}")
                 return False
 
+            if not selection['success']:
+                logger.error(f"[REPLACE_TABLE] Failed to select tile")
+                logger.debug(f"[REPLACE_TABLE] Tiles: {selection.get('tiles', 0)}, NoTopLayer: {selection.get('noTopLayer', False)}")
+                return False
+
+            logger.debug(f"[REPLACE_TABLE] Logo tile selected ({selection.get('tiles', 0)} tiles)")
             await asyncio.sleep(1.5)
 
             # Click INSERT
+            logger.debug(f"[REPLACE_TABLE] Looking for Insert button...")
             insert_result = await page.evaluate("""
                 () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+                    if (!popup) return { clicked: false, popup: false };
 
                     const buttons = Array.from(popup.querySelectorAll('button'));
                     const insertBtn = buttons.find(b => b.textContent.trim().toLowerCase().includes('insert'));
 
                     if (insertBtn && !insertBtn.disabled) {
                         insertBtn.click();
-                        return { clicked: true };
+                        return { clicked: true, popup: true };
                     }
-                    return { clicked: false };
+
+                    const allButtons = buttons.map(b => b.textContent.trim());
+                    return { clicked: false, popup: true, buttons: allButtons };
                 }
             """)
 
-            return insert_result['clicked']
+            if not insert_result['clicked']:
+                logger.error(f"[REPLACE_TABLE] Failed to click Insert button")
+                logger.debug(f"[REPLACE_TABLE] Buttons: {insert_result.get('buttons', [])}")
+                return False
+
+            logger.debug(f"[REPLACE_TABLE] Insert button clicked")
+            return True
 
         except Exception as e:
-            logger.exception(f"Error replacing logo without warning: {e}")
+            logger.error(f"[REPLACE_TABLE] Unexpected error: {e}")
+            import traceback
+            logger.error(f"[REPLACE_TABLE] Traceback: {traceback.format_exc()}")
             return False
 
     # ============================================================================
@@ -1354,27 +1492,170 @@ class TemplateLogoAdditionService:
             target_selector = f'div.TEXT_TEMPLATE[id="{container_info["id"]}"][contenteditable="true"]'
 
             try:
-                await page.wait_for_selector(target_selector, timeout=5000)
-                await page.click(target_selector)
-                await asyncio.sleep(1.5)
-            except:
+                logger.debug(f"[INSERT] Waiting for container: {target_selector}")
+                # Try to check if element exists first using evaluate
+                exists = await page.evaluate(f"""
+                    document.querySelector('{target_selector.replace("'", "\\'")}') !== null
+                """)
+
+                if not exists:
+                    logger.error(f"[INSERT] Container not found in DOM: {target_selector}")
+                    return False
+
+                logger.debug(f"[INSERT] Container found in DOM")
+
+                # FIXED: Use JavaScript click FIRST (works reliably even for hidden elements)
+                # Force click fails for width=0 elements ("Element is outside of the viewport")
+                try:
+                    logger.debug(f"[INSERT] Using JavaScript click (works for hidden containers)...")
+                    await page.evaluate(f"""
+                        const el = document.querySelector('{target_selector.replace("'", "\\'")}');
+                        el.click();
+                        el.focus();
+                    """)
+                    logger.debug(f"[INSERT] JavaScript click + focus executed successfully")
+                except Exception as click_err:
+                    logger.error(f"[INSERT] JavaScript click failed: {click_err}")
+                    # Fallback to force click
+                    logger.debug(f"[INSERT] Trying force click as fallback...")
+                    try:
+                        await page.click(target_selector, force=True, timeout=5000)
+                        logger.debug(f"[INSERT] Force click successful")
+                    except Exception as force_err:
+                        logger.error(f"[INSERT] Force click also failed: {force_err}")
+                        return False
+
+                # Wait for toolbar to appear
+                logger.debug(f"[INSERT] Waiting 3 seconds for editor toolbar to appear...")
+                await asyncio.sleep(3.0)
+            except Exception as e:
+                logger.error(f"[INSERT] Failed to click container: {e}")
+                logger.debug(f"[INSERT] Selector: {target_selector}")
                 return False
 
-            # Click Insert Image button
+            # Click Insert Image button with comprehensive selector strategy
             try:
-                await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=5000)
+                logger.debug(f"[INSERT] Searching for Insert Image button with multiple strategies...")
+
+                # FIXED: Find the editor toolbar button (bottom of page), not the catalog button
+                btn_result = await page.evaluate("""
+                    () => {
+                        // Multiple selector strategies
+                        const selectors = [
+                            '.icon-insert-image[aria-label="icon-insert-image"]',
+                            '.icon-insert-image',
+                            '[class*="icon-insert-image"]',
+                            '[class*="insert-image"]',
+                            '[aria-label*="insert" i][aria-label*="image" i]',
+                            '[aria-label*="insert-image" i]',
+                            'button[aria-label*="insert" i]',
+                            'span[class*="icon"][class*="insert"]',
+                            'i[class*="icon-insert"]',
+                            '[data-action="insert-image"]',
+                            '[title*="Insert Image" i]',
+                            '[title*="Insert" i][title*="Image" i]'
+                        ];
+
+                        // Find ALL matching buttons, then choose the one in editor toolbar (bottom area)
+                        let allFoundButtons = [];
+
+                        for (const selector of selectors) {
+                            const buttons = Array.from(document.querySelectorAll(selector));
+                            buttons.forEach(btn => {
+                                const rect = btn.getBoundingClientRect();
+                                if (rect.width > 0 && rect.height > 0) {
+                                    allFoundButtons.push({
+                                        element: btn,
+                                        selector: selector,
+                                        rect: rect,
+                                        top: rect.top,
+                                        left: rect.left
+                                    });
+                                }
+                            });
+                        }
+
+                        if (allFoundButtons.length === 0) {
+                            // Get diagnostic info
+                            const allToolbarBtns = Array.from(document.querySelectorAll('[aria-label*="icon"], [class*="icon-"]'));
+                            const toolbarLabels = allToolbarBtns.map(b => ({
+                                label: b.getAttribute('aria-label'),
+                                class: b.className,
+                                visible: b.getBoundingClientRect().width > 0
+                            }));
+
+                            return {
+                                exists: false,
+                                toolbarButtons: toolbarLabels.slice(0, 30),
+                                triedSelectors: selectors
+                            };
+                        }
+
+                        // CRITICAL FIX: Choose button closest to BOTTOM of page (editor toolbar)
+                        // Editor toolbar typically appears at bottom (high Y coordinate)
+                        // Catalog toolbar is at top (low Y coordinate)
+                        allFoundButtons.sort((a, b) => b.top - a.top);
+
+                        const chosenButton = allFoundButtons[0];
+
+                        return {
+                            exists: true,
+                            selector: chosenButton.selector,
+                            visible: true,
+                            rect: chosenButton.rect,
+                            totalFound: allFoundButtons.length,
+                            allPositions: allFoundButtons.map(b => ({ top: b.top, left: b.left }))
+                        };
+                    }
+                """)
+
+                if not btn_result.get('exists'):
+                    logger.error(f"[INSERT] Insert Image button NOT FOUND after trying {len(btn_result.get('triedSelectors', []))} selectors!")
+                    logger.error(f"[INSERT] Available toolbar buttons ({len(btn_result.get('toolbarButtons', []))} found):")
+                    for idx, btn in enumerate(btn_result.get('toolbarButtons', [])[:15], 1):
+                        logger.error(f"  {idx}. {btn}")
+                    return False
+
+                logger.debug(f"[INSERT] ✅ Found {btn_result.get('totalFound', 1)} Insert Image button(s)")
+                logger.debug(f"[INSERT] Chose button at: {btn_result.get('rect')}")
+                logger.debug(f"[INSERT] All button positions: {btn_result.get('allPositions', [])}")
+                logger.debug(f"[INSERT] Using selector: {btn_result.get('selector')}")
+
+                # Click using the successful selector
+                successful_selector = btn_result.get('selector')
+                await page.click(successful_selector, timeout=5000)
                 await asyncio.sleep(2.5)
-            except:
+                logger.debug(f"[INSERT] Insert Image button clicked successfully")
+            except Exception as e:
+                logger.error(f"[INSERT] Failed to click Insert Image button: {e}")
                 return False
 
             # Select logo from media library
+            logger.debug(f"[INSERT] Looking for media library popup...")
             selection = await page.evaluate("""
                 async () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+                    if (!popup) {
+                        const allDialogs = document.querySelectorAll('[role="dialog"]');
+                        const allModals = document.querySelectorAll('.ant-modal');
+                        return {
+                            clicked: false,
+                            popup: false,
+                            dialogCount: allDialogs.length,
+                            modalCount: allModals.length
+                        };
+                    }
 
                     const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
-                    if (allTiles.length === 0) return { clicked: false };
+                    if (allTiles.length === 0) {
+                        const popupHTML = popup.innerHTML.substring(0, 500);
+                        return {
+                            clicked: false,
+                            popup: true,
+                            tiles: 0,
+                            popupPreview: popupHTML
+                        };
+                    }
 
                     const tile = allTiles[0];
                     const topLayer = tile.querySelector('[class*="topLayer"]') ||
@@ -1382,41 +1663,60 @@ class TemplateLogoAdditionService:
 
                     if (topLayer) {
                         topLayer.click();
-                        return { clicked: true };
+                        return { clicked: true, popup: true, tiles: allTiles.length };
                     }
-                    return { clicked: false };
+                    return { clicked: false, popup: true, tiles: allTiles.length };
                 }
             """)
 
-            if not selection['clicked']:
+            if not selection.get('popup'):
+                logger.error(f"[INSERT] Media library popup not found!")
+                logger.debug(f"[INSERT] Dialogs: {selection.get('dialogCount', 0)}, Modals: {selection.get('modalCount', 0)}")
                 return False
 
+            if not selection['clicked']:
+                logger.error(f"[INSERT] Failed to select tile from media library")
+                logger.debug(f"[INSERT] Tiles found: {selection.get('tiles', 0)}")
+                if 'popupPreview' in selection:
+                    logger.debug(f"[INSERT] Popup HTML: {selection['popupPreview'][:200]}...")
+                return False
+
+            logger.debug(f"[INSERT] Logo tile selected ({selection.get('tiles', 0)} tiles)")
             await asyncio.sleep(2)
 
             # Click INSERT
+            logger.debug(f"[INSERT] Looking for Insert button...")
             insert_result = await page.evaluate("""
                 () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+                    if (!popup) return { clicked: false, popup: false };
 
                     const buttons = Array.from(popup.querySelectorAll('button'));
                     const insertBtn = buttons.find(b => b.textContent.trim().toLowerCase().includes('insert'));
 
                     if (insertBtn && !insertBtn.disabled) {
                         insertBtn.click();
-                        return { clicked: true };
+                        return { clicked: true, popup: true };
                     }
-                    return { clicked: false };
+
+                    const allButtons = buttons.map(b => b.textContent.trim());
+                    return { clicked: false, popup: true, buttons: allButtons };
                 }
             """)
 
             if not insert_result['clicked']:
+                logger.error(f"[INSERT] Failed to click Insert button")
+                logger.debug(f"[INSERT] Buttons found: {insert_result.get('buttons', [])}")
                 return False
 
+            logger.debug(f"[INSERT] Insert button clicked")
             await asyncio.sleep(2)
             return True
 
-        except:
+        except Exception as e:
+            logger.error(f"[INSERT] Unexpected error: {e}")
+            import traceback
+            logger.error(f"[INSERT] Traceback: {traceback.format_exc()}")
             return False
 
     async def _insert_logo_to_header(self, page: Page, header_info: Dict, logo_media_id: str) -> bool:
@@ -1425,10 +1725,19 @@ class TemplateLogoAdditionService:
         """
         try:
             # Click the header container by position
+            logger.debug(f"[INSERT_HEADER] Looking for header container at position {header_info['position']}")
             clicked = await page.evaluate(f"""
                 () => {{
                     const headerContainer = document.querySelector('[data-header-container="header-{header_info['position']}"]');
-                    if (!headerContainer) return {{ success: false }};
+                    if (!headerContainer) {{
+                        // Debug: what header containers exist?
+                        const allHeaders = Array.from(document.querySelectorAll('[data-header-container]'));
+                        return {{
+                            success: false,
+                            found: false,
+                            availableHeaders: allHeaders.map(h => h.getAttribute('data-header-container'))
+                        }};
+                    }}
 
                     const textTemplate = headerContainer.querySelector('.TEXT_TEMPLATE') ||
                                         headerContainer.querySelector('[contenteditable="true"]');
@@ -1436,32 +1745,79 @@ class TemplateLogoAdditionService:
                     if (textTemplate) {{
                         textTemplate.click();
                         textTemplate.focus();
-                        return {{ success: true }};
+                        return {{ success: true, found: true }};
                     }}
-                    return {{ success: false }};
+                    return {{ success: false, found: true, noEditableElement: true }};
                 }}
             """)
 
-            if not clicked['success']:
+            if not clicked.get('found'):
+                logger.error(f"[INSERT_HEADER] Header container not found at position {header_info['position']}")
+                logger.debug(f"[INSERT_HEADER] Available headers: {clicked.get('availableHeaders', [])}")
                 return False
 
+            if not clicked['success']:
+                logger.error(f"[INSERT_HEADER] Header found but no editable element")
+                return False
+
+            logger.debug(f"[INSERT_HEADER] Header container clicked")
             await asyncio.sleep(1.5)
 
             # Click Insert Image
             try:
-                await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=5000)
+                insert_btn_selector = '.icon-insert-image[aria-label="icon-insert-image"]'
+                logger.debug(f"[INSERT_HEADER] Looking for Insert Image button: {insert_btn_selector}")
+
+                btn_check = await page.evaluate("""
+                    () => {
+                        const btn = document.querySelector('.icon-insert-image[aria-label="icon-insert-image"]');
+                        if (!btn) {
+                            const allInsertBtns = Array.from(document.querySelectorAll('[aria-label*="insert"]'));
+                            return {
+                                exists: false,
+                                alternatives: allInsertBtns.map(b => b.getAttribute('aria-label'))
+                            };
+                        }
+                        return { exists: true };
+                    }
+                """)
+
+                if not btn_check.get('exists'):
+                    logger.error(f"[INSERT_HEADER] Insert Image button not found")
+                    logger.debug(f"[INSERT_HEADER] Alternatives: {btn_check.get('alternatives', [])}")
+                    return False
+
+                await page.click(insert_btn_selector, timeout=5000)
                 await asyncio.sleep(2.5)
-            except:
+                logger.debug(f"[INSERT_HEADER] Insert Image button clicked")
+            except Exception as e:
+                logger.error(f"[INSERT_HEADER] Failed to click Insert Image: {e}")
                 return False
 
             # Select logo from media library
+            logger.debug(f"[INSERT_HEADER] Looking for media library popup...")
             selection = await page.evaluate("""
                 async () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+                    if (!popup) {
+                        const allDialogs = document.querySelectorAll('[role="dialog"]');
+                        const allModals = document.querySelectorAll('.ant-modal');
+                        return {
+                            clicked: false,
+                            popup: false,
+                            dialogCount: allDialogs.length,
+                            modalCount: allModals.length
+                        };
+                    }
 
                     const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
-                    if (allTiles.length === 0) return { clicked: false };
+                    if (allTiles.length === 0) {
+                        return {
+                            clicked: false,
+                            popup: true,
+                            tiles: 0
+                        };
+                    }
 
                     const tile = allTiles[0];
                     const topLayer = tile.querySelector('[class*="topLayer"]') ||
@@ -1469,41 +1825,58 @@ class TemplateLogoAdditionService:
 
                     if (topLayer) {
                         topLayer.click();
-                        return { clicked: true };
+                        return { clicked: true, popup: true, tiles: allTiles.length };
                     }
-                    return { clicked: false };
+                    return { clicked: false, popup: true, tiles: allTiles.length };
                 }
             """)
 
-            if not selection['clicked']:
+            if not selection.get('popup'):
+                logger.error(f"[INSERT_HEADER] Media library popup not found!")
+                logger.debug(f"[INSERT_HEADER] Dialogs: {selection.get('dialogCount', 0)}, Modals: {selection.get('modalCount', 0)}")
                 return False
 
+            if not selection['clicked']:
+                logger.error(f"[INSERT_HEADER] Failed to select tile")
+                logger.debug(f"[INSERT_HEADER] Tiles: {selection.get('tiles', 0)}")
+                return False
+
+            logger.debug(f"[INSERT_HEADER] Logo tile selected")
             await asyncio.sleep(2)
 
             # Click INSERT
+            logger.debug(f"[INSERT_HEADER] Looking for Insert button...")
             insert_result = await page.evaluate("""
                 () => {
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+                    if (!popup) return { clicked: false, popup: false };
 
                     const buttons = Array.from(popup.querySelectorAll('button'));
                     const insertBtn = buttons.find(b => b.textContent.trim().toLowerCase().includes('insert'));
 
                     if (insertBtn && !insertBtn.disabled) {
                         insertBtn.click();
-                        return { clicked: true };
+                        return { clicked: true, popup: true };
                     }
-                    return { clicked: false };
+
+                    const allButtons = buttons.map(b => b.textContent.trim());
+                    return { clicked: false, popup: true, buttons: allButtons };
                 }
             """)
 
             if not insert_result['clicked']:
+                logger.error(f"[INSERT_HEADER] Failed to click Insert button")
+                logger.debug(f"[INSERT_HEADER] Buttons: {insert_result.get('buttons', [])}")
                 return False
 
+            logger.debug(f"[INSERT_HEADER] Insert button clicked")
             await asyncio.sleep(2)
             return True
 
-        except:
+        except Exception as e:
+            logger.error(f"[INSERT_HEADER] Unexpected error: {e}")
+            import traceback
+            logger.error(f"[INSERT_HEADER] Traceback: {traceback.format_exc()}")
             return False
 
     async def _add_logo_to_template(self, job_id: str, page: Page,

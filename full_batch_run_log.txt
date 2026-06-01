@@ -1,0 +1,154 @@
+2026-05-31 16:50:20 - INFO - ====================================================================================================
+2026-05-31 16:50:20 - INFO - 📝 ENHANCED LOGGING INITIALIZED
+2026-05-31 16:50:20 - INFO - 📄 Log file: logs/temp_logo_automation_20260531_165020.log
+2026-05-31 16:50:20 - INFO - ====================================================================================================
+2026-05-31 16:50:20 - INFO - ====================================================================================================
+2026-05-31 16:50:20 - INFO - 🚀 TEMP LOGO ADDING FINAL - COMPLETE AUTOMATION
+2026-05-31 16:50:20 - INFO - ====================================================================================================
+2026-05-31 16:50:20 - INFO - Departments: Service, Parts
+2026-05-31 16:50:20 - INFO - Max Templates: ALL
+2026-05-31 16:50:20 - INFO - Logo Media ID: 6a19132b6697f36de6236fb1
+2026-05-31 16:50:20 - INFO - Logo Width: 160px
+2026-05-31 16:50:20 - INFO - Auto-Publish: ✅ ENABLED
+2026-05-31 16:50:20 - INFO - CDP URL: http://localhost:9223
+2026-05-31 16:50:20 - INFO - Base URL: https://preprodapp.tekioncloud.com
+2026-05-31 16:50:20 - INFO - ====================================================================================================
+2026-05-31 16:50:20 - INFO - 
+🌐 Connecting to browser...
+2026-05-31 16:50:21 - INFO - ✅ Connected to browser
+2026-05-31 16:50:21 - INFO - 
+📍 Navigating to: https://preprodapp.tekioncloud.com/templates/list
+2026-05-31 16:50:25 - INFO - 
+====================================================================================================
+2026-05-31 16:50:25 - INFO - 🎯 STEP 1: APPLYING DEPARTMENT FILTER
+2026-05-31 16:50:25 - INFO - ====================================================================================================
+2026-05-31 16:50:25 - INFO -    1. Opening department dropdown...
+2026-05-31 16:50:26 - INFO -    📥 Captured 11 templates from API
+2026-05-31 16:50:26 - INFO -    2. Unchecking all departments...
+2026-05-31 16:50:27 - INFO -    3. Checking: Service, Parts
+2026-05-31 16:50:28 - INFO -    4. Closing dropdown...
+2026-05-31 16:50:28 - INFO -    📥 Captured 40 templates from API
+2026-05-31 16:50:29 - INFO -    5. Waiting for API response...
+2026-05-31 16:50:29 - INFO -    ✅ Filter applied: 51 templates captured
+2026-05-31 16:50:29 - INFO - 
+✅ Found 51 template(s) to process
+2026-05-31 16:50:29 - INFO - 
+====================================================================================================
+2026-05-31 16:50:29 - INFO - 📋 STEP 2: PROCESSING TEMPLATES
+2026-05-31 16:50:29 - INFO - ====================================================================================================
+2026-05-31 16:50:29 - INFO - 
+====================================================================================================
+2026-05-31 16:50:29 - INFO - 📄 TEMPLATE 1/51: Service History Recap PDF
+2026-05-31 16:50:29 - INFO -    ID: 667f0befd4964026ee7b6ea2
+2026-05-31 16:50:29 - INFO -    Departments: SERVICE, SALES
+2026-05-31 16:50:29 - INFO - ====================================================================================================
+2026-05-31 16:50:29 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/667f0befd4964026ee7b6ea2
+2026-05-31 16:50:34 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:50:34 - INFO - 
+====================================================================================================
+2026-05-31 16:50:34 - INFO - 📄 TEMPLATE 2/51: First Time Email
+2026-05-31 16:50:34 - INFO -    ID: CPRA_FIRST_TIME
+2026-05-31 16:50:34 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:50:34 - INFO - ====================================================================================================
+2026-05-31 16:50:34 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_FIRST_TIME
+2026-05-31 16:50:40 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:50:40 - INFO - 
+====================================================================================================
+2026-05-31 16:50:40 - INFO - 📄 TEMPLATE 3/51: Request Completion: Data Deletion (Closed Documents)
+2026-05-31 16:50:40 - INFO -    ID: CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS
+2026-05-31 16:50:40 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:50:40 - INFO - ====================================================================================================
+2026-05-31 16:50:40 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS
+2026-05-31 16:50:45 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:50:45 - INFO - 
+====================================================================================================
+2026-05-31 16:50:45 - INFO - 📄 TEMPLATE 4/51: Request Completion: Data Correction
+2026-05-31 16:50:45 - INFO -    ID: CPRA_REQUEST_COMPLETION_DATA_CORRECTION
+2026-05-31 16:50:45 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:50:45 - INFO - ====================================================================================================
+2026-05-31 16:50:45 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_COMPLETION_DATA_CORRECTION
+2026-05-31 16:50:51 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:50:51 - INFO - 
+====================================================================================================
+2026-05-31 16:50:51 - INFO - 📄 TEMPLATE 5/51: Request Completion: Data Export
+2026-05-31 16:50:51 - INFO -    ID: CPRA_REQUEST_COMPLETION_DATA_EXPORT
+2026-05-31 16:50:51 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:50:51 - INFO - ====================================================================================================
+2026-05-31 16:50:51 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_COMPLETION_DATA_EXPORT
+2026-05-31 16:50:56 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:50:56 - INFO - 
+====================================================================================================
+2026-05-31 16:50:56 - INFO - 📄 TEMPLATE 6/51: Request Acknowledgement
+2026-05-31 16:50:56 - INFO -    ID: CPRA_REQUEST_ACKNOWLEDGEMENT
+2026-05-31 16:50:56 - INFO -    Departments: SALES, SERVICE, PARTS
+2026-05-31 16:50:56 - INFO - ====================================================================================================
+2026-05-31 16:50:56 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_ACKNOWLEDGEMENT
+2026-05-31 16:51:02 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:02 - INFO - 
+====================================================================================================
+2026-05-31 16:51:02 - INFO - 📄 TEMPLATE 7/51: Request Decline: Data Deletion (Open Documents)
+2026-05-31 16:51:02 - INFO -    ID: CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS
+2026-05-31 16:51:02 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:51:02 - INFO - ====================================================================================================
+2026-05-31 16:51:02 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS
+2026-05-31 16:51:07 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:07 - INFO - 
+====================================================================================================
+2026-05-31 16:51:07 - INFO - 📄 TEMPLATE 8/51: Request Decline: Marked As Declined
+2026-05-31 16:51:07 - INFO -    ID: CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED
+2026-05-31 16:51:07 - INFO -    Departments: SALES, SERVICE, PARTS
+2026-05-31 16:51:07 - INFO - ====================================================================================================
+2026-05-31 16:51:07 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED
+2026-05-31 16:51:13 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:13 - INFO - 
+====================================================================================================
+2026-05-31 16:51:13 - INFO - 📄 TEMPLATE 9/51: Request Completion: Sensitive Information Restriction
+2026-05-31 16:51:13 - INFO -    ID: CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION
+2026-05-31 16:51:13 - INFO -    Departments: SALES, SERVICE, PARTS
+2026-05-31 16:51:13 - INFO - ====================================================================================================
+2026-05-31 16:51:13 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION
+2026-05-31 16:51:18 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:18 - INFO - 
+====================================================================================================
+2026-05-31 16:51:18 - INFO - 📄 TEMPLATE 10/51: Request Completion: Do not sell & share with 3rd Parties
+2026-05-31 16:51:18 - INFO -    ID: CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES
+2026-05-31 16:51:18 - INFO -    Departments: SALES, PARTS, SERVICE
+2026-05-31 16:51:18 - INFO - ====================================================================================================
+2026-05-31 16:51:18 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES
+2026-05-31 16:51:23 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:23 - INFO - 
+====================================================================================================
+2026-05-31 16:51:23 - INFO - 📄 TEMPLATE 11/51: Standard Appointment
+2026-05-31 16:51:23 - INFO -    ID: STANDARD_APPOINTMENT_EMAIL
+2026-05-31 16:51:23 - INFO -    Departments: SALES
+2026-05-31 16:51:23 - INFO - ====================================================================================================
+2026-05-31 16:51:23 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/STANDARD_APPOINTMENT_EMAIL
+2026-05-31 16:51:29 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:29 - INFO - 
+====================================================================================================
+2026-05-31 16:51:29 - INFO - 📄 TEMPLATE 12/51: Collection Slip
+2026-05-31 16:51:29 - INFO -    ID: 667f0befd4964026ee7b6e9a
+2026-05-31 16:51:29 - INFO -    Departments: SERVICE
+2026-05-31 16:51:29 - INFO - ====================================================================================================
+2026-05-31 16:51:29 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/667f0befd4964026ee7b6e9a
+2026-05-31 16:51:34 - INFO -    ℹ️  No logos to process - skipping
+2026-05-31 16:51:34 - INFO - 
+====================================================================================================
+2026-05-31 16:51:34 - INFO - 📄 TEMPLATE 13/51: RO Invoiced
+2026-05-31 16:51:34 - INFO -    ID: 667f0befd4964026ee7b6e46
+2026-05-31 16:51:34 - INFO -    Departments: SERVICE
+2026-05-31 16:51:34 - INFO - ====================================================================================================
+2026-05-31 16:51:34 - INFO -    🌐 Opening: https://preprodapp.tekioncloud.com/templates/edit/667f0befd4964026ee7b6e46
+2026-05-31 16:51:40 - INFO -    ✅ Detected:
+2026-05-31 16:51:40 - INFO -       - Logos with warnings: 0
+2026-05-31 16:51:40 - INFO -       - Empty Logo 1/2 containers: 3
+2026-05-31 16:51:40 - INFO -       - Empty header containers: 0
+2026-05-31 16:51:40 - INFO - 
+   🎯 Inserting logo into Logo 1 LEFT...
+2026-05-31 16:51:49 - INFO -    ✅ Logo inserted into Logo 1 LEFT
+2026-05-31 16:51:49 - INFO - 
+   🎯 Inserting logo into Logo 1 CENTER...
+2026-05-31 16:51:54 - WARNING -    ⚠️  Failed to insert logo into Logo 1 CENTER
+2026-05-31 16:51:54 - WARNING - [INSERT         ] Logo 1 CENTER                  → ❌ FAILED | ID: 7653caa9-31b7-4e2b-8233-f0bda43672ea
+2026-05-31 16:51:54 - INFO - 
+   🎯 Inserting logo into Logo 2 LEFT...

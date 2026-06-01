@@ -1,0 +1,756 @@
+{
+  "contenteditable_elements": [
+    {
+      "index": 1,
+      "id": "b1eb4d65-9ea2-4698-b5af-ab4e4e7f2a20",
+      "className": "",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 705.96875,
+        "height": 17
+      },
+      "textContent": "Your <ro_vehicle_year_make_model>\u00a0is ready for pic",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 2,
+      "id": "a1ec7109-0264-41f7-a41c-38820b1492f9",
+      "className": "",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 653,
+        "height": 17
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 3,
+      "id": "6ba61360-46e2-42b1-8f27-17e6c19c91c0",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 4,
+      "id": "6f0b8570-c4dc-45bd-b746-40e3af9af3bb",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 5,
+      "id": "7653caa9-31b7-4e2b-8233-f0bda43672ea",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 6,
+      "id": "faeb0bb6-9307-4ec9-9a7b-ba46c275fdce",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 7,
+      "id": "2247b3ff-8e00-40ed-b26b-f4c35bca4eb5",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 4.1171875,
+        "height": 85.0390625
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 8,
+      "id": "5eacfe81-a5c0-4bf1-b311-6908b427adcf",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 9,
+      "id": "4fdda424-2081-4336-943c-8fd28f5f4f44",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 132.125
+      },
+      "textContent": "InvoiceHi <ro_customer_full_name>,Your <ro_vehicle",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 10,
+      "id": "6ee0a94e-23e9-4914-bdab-77437d25b125",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 207.6640625,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 11,
+      "id": "142b8de1-8572-47cc-af85-a1f2ebe3a16d",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 6.34375,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 12,
+      "id": "914189cb-f477-4253-969c-368f263fccdf",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 6.3515625,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 13,
+      "id": "db291bfe-30e0-43b5-ba82-87711f8f5b43",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 207.671875,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 14,
+      "id": "abc4658d-9b6a-4b4d-bcd7-fdbc7b1b7eac",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 324.5,
+        "height": 153.0703125
+      },
+      "textContent": "Dealership Information<dealership_name><Store Serv",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 15,
+      "id": "9fa2920b-10f8-48d2-9947-b014398d21be",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 16,
+      "id": "404e76cc-2740-4cf8-9b0b-4ec170a8d71f",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 17,
+      "id": "7706f5af-b4d6-4910-a809-2242bb9e593f",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 18,
+      "id": "e9091118-1393-49b1-b408-7eba5bb0da3b",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "textContent": "Amenities",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 19,
+      "id": "4ea656a4-149e-4e19-bc48-107824607244",
+      "className": "TEXT_TEMPLATE",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 12.296875,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    },
+    {
+      "index": 20,
+      "id": "94755b8a-fd9b-45b4-a8ce-fd8ae035713c",
+      "className": "TEXT_TEMPLATE focus_node",
+      "tagName": "DIV",
+      "visible": true,
+      "rect": {
+        "width": 324.5,
+        "height": 17.0078125
+      },
+      "textContent": "",
+      "hasImages": 0,
+      "parentId": "",
+      "parentClass": ""
+    }
+  ],
+  "cell_identifiers": [],
+  "text_templates": [
+    {
+      "index": 1,
+      "id": "6ba61360-46e2-42b1-8f27-17e6c19c91c0",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 2,
+      "id": "6f0b8570-c4dc-45bd-b746-40e3af9af3bb",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 3,
+      "id": "7653caa9-31b7-4e2b-8233-f0bda43672ea",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 4,
+      "id": "faeb0bb6-9307-4ec9-9a7b-ba46c275fdce",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 5,
+      "id": "2247b3ff-8e00-40ed-b26b-f4c35bca4eb5",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 4.1171875,
+        "height": 85.0390625
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 6,
+      "id": "5eacfe81-a5c0-4bf1-b311-6908b427adcf",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 7,
+      "id": "4fdda424-2081-4336-943c-8fd28f5f4f44",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 132.125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": "InvoiceHi <ro_customer_full_name>,Your <ro_vehicle"
+    },
+    {
+      "index": 8,
+      "id": "6ee0a94e-23e9-4914-bdab-77437d25b125",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 207.6640625,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 9,
+      "id": "142b8de1-8572-47cc-af85-a1f2ebe3a16d",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 6.34375,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 10,
+      "id": "914189cb-f477-4253-969c-368f263fccdf",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 6.3515625,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 11,
+      "id": "db291bfe-30e0-43b5-ba82-87711f8f5b43",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 207.671875,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 12,
+      "id": "abc4658d-9b6a-4b4d-bcd7-fdbc7b1b7eac",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 324.5,
+        "height": 153.0703125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": "Dealership Information<dealership_name><Store Serv"
+    },
+    {
+      "index": 13,
+      "id": "9fa2920b-10f8-48d2-9947-b014398d21be",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 14,
+      "id": "404e76cc-2740-4cf8-9b0b-4ec170a8d71f",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 15,
+      "id": "7706f5af-b4d6-4910-a809-2242bb9e593f",
+      "contentEditable": "true",
+      "visible": false,
+      "rect": {
+        "width": 0,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 16,
+      "id": "e9091118-1393-49b1-b408-7eba5bb0da3b",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 701,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": "Amenities"
+    },
+    {
+      "index": 17,
+      "id": "4ea656a4-149e-4e19-bc48-107824607244",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 12.296875,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 18,
+      "id": "94755b8a-fd9b-45b4-a8ce-fd8ae035713c",
+      "contentEditable": "true",
+      "visible": true,
+      "rect": {
+        "width": 324.5,
+        "height": 17.0078125
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": ""
+    },
+    {
+      "index": 19,
+      "id": "0261c8a9-534d-4395-aa72-740348b39f49",
+      "contentEditable": "false",
+      "visible": true,
+      "rect": {
+        "width": 699,
+        "height": 48
+      },
+      "parentCellId": null,
+      "hasImages": 0,
+      "textContent": "We do not rent, sell or exchange email addresses. "
+    }
+  ],
+  "iframes": [],
+  "logo_related": [
+    {
+      "tagName": "DIV",
+      "id": "",
+      "className": "root_sideNav_logoPanel__jY9KXvUhAF",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "root_sideNav_logoPanel__jY9KXvUhAF"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "DIV",
+      "id": "",
+      "className": "root_headerSkeleton_logoPanel__724Vc5EbwR",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "root_headerSkeleton_logoPanel__724Vc5EbwR"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "A",
+      "id": "",
+      "className": "root_logo_logo__jKbdgWD2mE root_logo_brandingOverride__dz4d7EAe1u root_headerSke",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "root_logo_logo__jKbdgWD2mE root_logo_brandingOverride__dz4d7EAe1u root_headerSkeleton_navigationLogo"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "DIV",
+      "id": "DEALER_LOGO",
+      "className": "templates_Button_buttonContainer__kq2SVPms85",
+      "attributes": [
+        {
+          "name": "id",
+          "value": "DEALER_LOGO"
+        }
+      ],
+      "visible": true,
+      "textContent": "Dealer Logo"
+    },
+    {
+      "tagName": "DIV",
+      "id": "",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership-logo",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership-logo"
+        },
+        {
+          "name": "aria-label",
+          "value": "icon-dealership-logo"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "IMG",
+      "id": "",
+      "className": "",
+      "attributes": [
+        {
+          "name": "src",
+          "value": "https://d36263b6wju30t.cloudfront.net/common/CRM/tekion-logo-green-2x_new.png"
+        },
+        {
+          "name": "alt",
+          "value": "Tekion Logo"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "DIV",
+      "id": "DEALER_LOGO",
+      "className": "templates_Button_minBtnContainer__tGQDbBVBtt",
+      "attributes": [
+        {
+          "name": "id",
+          "value": "DEALER_LOGO"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    },
+    {
+      "tagName": "DIV",
+      "id": "",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership",
+      "attributes": [
+        {
+          "name": "class",
+          "value": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership-logo"
+        },
+        {
+          "name": "aria-label",
+          "value": "icon-dealership-logo"
+        }
+      ],
+      "visible": true,
+      "textContent": ""
+    }
+  ],
+  "main_containers": [
+    {
+      "selector": "[class*=\"container\"]",
+      "id": "template-mart-container-TEMPLATE_MART_TEMPLATE_BUILDER_APP",
+      "className": "templates_TemplateMart_container__43NbycNBMx d-flex full-width relative full-height",
+      "rect": {
+        "width": 1448,
+        "height": 675
+      }
+    },
+    {
+      "selector": "[class*=\"container\"]",
+      "id": "",
+      "className": "templates_TemplateMart_editorSection__5mDytFem7Y templates_sortableList_container__gUxzJHUryL",
+      "rect": {
+        "width": 752,
+        "height": 436
+      }
+    },
+    {
+      "selector": "[class*=\"editor\"]",
+      "id": "",
+      "className": "templates_TemplateMart_editorSection__5mDytFem7Y templates_sortableList_container__gUxzJHUryL",
+      "rect": {
+        "width": 752,
+        "height": 436
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "template-mart-container-TEMPLATE_MART_TEMPLATE_BUILDER_APP",
+      "className": "templates_TemplateMart_container__43NbycNBMx d-flex full-width relative full-height",
+      "rect": {
+        "width": 1448,
+        "height": 675
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "",
+      "className": "templates_TemplateMart_catalogSection__eYehX769XN",
+      "rect": {
+        "width": 405.4375,
+        "height": 675
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "",
+      "className": "templates_TemplateMart_assemblerSection__59LYw9sRmU",
+      "rect": {
+        "width": 1042.5625,
+        "height": 675
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "",
+      "className": "templates_TemplateMart_assemblerFiller__cMdEqnwKBT absolute",
+      "rect": {
+        "width": 1042.5625,
+        "height": 675
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "",
+      "className": "templates_TemplateMart_assemblerFiller__cMdEqnwKBT absolute",
+      "rect": {
+        "width": 1042.5625,
+        "height": 468
+      }
+    },
+    {
+      "selector": "[class*=\"template\"]",
+      "id": "",
+      "className": "templates_TemplateMart_editorSection__5mDytFem7Y templates_sortableList_container__gUxzJHUryL",
+      "rect": {
+        "width": 752,
+        "height": 436
+      }
+    }
+  ]
+}
