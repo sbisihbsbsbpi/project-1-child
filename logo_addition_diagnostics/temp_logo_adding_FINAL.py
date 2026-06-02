@@ -665,11 +665,14 @@ class TempLogoAdditionFinalService:
 
             # Process logos with warnings (CHANGE IMAGE)
             logger.debug(f"Starting warning logo processing: {warnings_count} warnings detected")
+            template_departments = template.get('departments', [])
+            logger.debug(f"Template departments for verification: {template_departments}")
+
             for logo_idx in range(1, warnings_count + 1):
                 logger.info(f"\n   🎯 Processing warning logo {logo_idx}/{warnings_count}...")
                 logger.debug(f"   Attempting REPLACE workflow for warning logo #{logo_idx}")
 
-                if await self._replace_logo(page, logo_idx, logo_media_id):
+                if await self._replace_logo(page, logo_idx, logo_media_id, template_departments):
                     logos_processed += 1
                     logger.info(f"   ✅ Logo {logo_idx} replaced")
                     logger.log_action("REPLACE", f"Warning Logo {logo_idx}", True, "Used Change Image workflow")
@@ -855,15 +858,56 @@ class TempLogoAdditionFinalService:
                     debug.push('Found 0 warning icons (tried all selectors)');
                 }
 
+                // CRITICAL: Detect department for each warning logo to prevent wrong logo updates
                 warnings.forEach((icon, idx) => {
                     const sortableItem = icon.closest('[class*="SortableItem"]');
                     if (sortableItem) {
+                        // Detect department by checking container position and content
+                        const department = detectLogoDepartment(sortableItem, icon);
+
                         sortableItem.setAttribute('data-logo-to-inspect', `warning-logo-${idx + 1}`);
-                        debug.push(`  Warning ${idx + 1}: Marked sortableItem`);
+                        sortableItem.setAttribute('data-logo-department', department || 'unknown');
+
+                        debug.push(`  Warning ${idx + 1}: Marked sortableItem (Department: ${department || 'UNKNOWN'})`);
                     } else {
                         debug.push(`  Warning ${idx + 1}: No sortableItem found!`);
                     }
                 });
+
+                // Helper function to detect logo department
+                function detectLogoDepartment(container, warningIcon) {
+                    // Strategy 1: Check for department text near the logo
+                    const nearbyText = container.innerText || container.textContent || '';
+                    const upperText = nearbyText.toUpperCase();
+
+                    if (upperText.includes('SERVICE')) return 'Service';
+                    if (upperText.includes('SALES')) return 'Sales';
+                    if (upperText.includes('PARTS')) return 'Parts';
+
+                    // Strategy 2: Check parent containers for department indicators
+                    let parent = container.parentElement;
+                    let depth = 0;
+                    while (parent && depth < 5) {
+                        const parentText = (parent.innerText || parent.textContent || '').toUpperCase();
+                        if (parentText.includes('SERVICE') && parentText.length < 1000) return 'Service';
+                        if (parentText.includes('SALES') && parentText.length < 1000) return 'Sales';
+                        if (parentText.includes('PARTS') && parentText.length < 1000) return 'Parts';
+                        parent = parent.parentElement;
+                        depth++;
+                    }
+
+                    // Strategy 3: Check logo position (header vs body)
+                    const rect = container.getBoundingClientRect();
+                    const isHeader = rect.top < 600;
+
+                    if (isHeader) {
+                        // Header logos are typically shared across all departments
+                        return 'header';
+                    }
+
+                    // Unable to determine - mark as unknown
+                    return 'unknown';
+                }
 
                 // Find empty Logo 1/2 containers (6 positions)
                 debug.push('\\n=== LOGO 1/2 CONTAINER DETECTION ===');
@@ -1133,14 +1177,49 @@ class TempLogoAdditionFinalService:
             }
         """)
 
-    async def _replace_logo(self, page: Page, logo_idx: int, logo_media_id: str) -> bool:
-        """Replace logo with warning icon using Change Image workflow"""
+    async def _replace_logo(self, page: Page, logo_idx: int, logo_media_id: str,
+                           template_departments: List[str] = None) -> bool:
+        """Replace logo with warning icon using Change Image workflow
+
+        Args:
+            page: Playwright page object
+            logo_idx: Index of logo to replace (1-based)
+            logo_media_id: Media ID of replacement logo
+            template_departments: List of departments this template belongs to (for verification)
+        """
 
         try:
             # Find the outer container (SortableItem) marked with data attribute
             outer_container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
             if not outer_container:
                 return False
+
+            # CRITICAL: Verify logo department matches template department
+            logo_department = await outer_container.get_attribute('data-logo-department')
+
+            if template_departments and logo_department:
+                # Check if logo department matches any of the template's departments
+                logo_dept_normalized = logo_department.lower()
+                template_depts_normalized = [d.lower() for d in template_departments]
+
+                # Allow 'header' logos (shared across departments) and 'unknown' (can't determine)
+                if logo_dept_normalized not in ['header', 'unknown']:
+                    if logo_dept_normalized not in template_depts_normalized:
+                        logger.warning(
+                            f"⚠️  DEPARTMENT MISMATCH DETECTED! "
+                            f"Logo department: '{logo_department}', "
+                            f"Template departments: {template_departments}"
+                        )
+                        logger.warning(f"   Skipping logo {logo_idx} to prevent wrong department update")
+                        return False
+                    else:
+                        logger.info(f"   ✅ Department verified: Logo '{logo_department}' matches template {template_departments}")
+                else:
+                    logger.info(f"   ℹ️  Logo department: '{logo_department}' - allowing update")
+            elif logo_department:
+                logger.warning(f"   ⚠️  No template departments provided for verification (logo dept: {logo_department})")
+            else:
+                logger.warning(f"   ⚠️  Could not detect logo department - proceeding with caution")
 
             # BREAKTHROUGH FIX: Hover over SUB-CONTAINER (imageComponent), not outer container!
             # The toolbar only appears when hovering over templates_Image_imageComponent
