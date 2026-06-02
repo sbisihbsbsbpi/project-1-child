@@ -1,0 +1,158 @@
+{
+  "change_image_elements": [],
+  "toolbars": [],
+  "top_icons": [
+    {
+      "tag": "DIV",
+      "cls": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "ariaLabel": null,
+      "title": null,
+      "y": 22,
+      "x": 11
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_sideNav_menuBtn__iPkuLkWTnv full-height root_icon_size__l__wqikhXmovX icon-nine-dots-menu",
+      "ariaLabel": "icon-nine-dots-menu",
+      "title": null,
+      "y": 22,
+      "x": 11
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "y": 68,
+      "x": 40
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "y": 132,
+      "x": 40
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_content_blackNormalContent__9js3j3JV6N root_iconWithText_container__v7KqhYFH6T root_supportChatBtn_iconContainer__e61QGT4H6S",
+      "ariaLabel": null,
+      "title": null,
+      "y": 24,
+      "x": 875
+    },
+    {
+      "tag": "DIV",
+      "cls": "m-r-8 root_supportChatBtn_supportIcon__5QKgSp9tiD root_icon_size__md__eSxdUr3MZh icon-support-headphone2",
+      "ariaLabel": "icon-support-headphone2",
+      "title": null,
+      "y": 24,
+      "x": 875
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "ariaLabel": "icon-chevron-down",
+      "title": null,
+      "y": 24,
+      "x": 981
+    },
+    {
+      "tag": "DIV",
+      "cls": "icon_with_badge relative cursor-pointer",
+      "ariaLabel": null,
+      "title": null,
+      "y": 22,
+      "x": 1093
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_icon_size__l__wqikhXmovX icon-bell",
+      "ariaLabel": "icon-bell",
+      "title": null,
+      "y": 22,
+      "x": 1093
+    },
+    {
+      "tag": "DIV",
+      "cls": "icon_with_badge__badge absolute",
+      "ariaLabel": null,
+      "title": null,
+      "y": 12,
+      "x": 1101
+    },
+    {
+      "tag": "DIV",
+      "cls": "icon_with_badge relative cursor-pointer",
+      "ariaLabel": null,
+      "title": null,
+      "y": 22,
+      "x": 1141
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_icon_size__l__wqikhXmovX icon-message",
+      "ariaLabel": "icon-message",
+      "title": null,
+      "y": 22,
+      "x": 1141
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_selectedWorkspace_popoverClose__gzyTKoHAnP root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "ariaLabel": "icon-chevron-down",
+      "title": null,
+      "y": 24,
+      "x": 1472
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "ant-btn root_button_iconButton__pUrV2yn2ZG root_pageComponent_goBackBtn__tNxsn4ig24 ant-btn-icon",
+      "ariaLabel": null,
+      "title": null,
+      "y": 86,
+      "x": 88
+    },
+    {
+      "tag": "SPAN",
+      "cls": "icon-chevron-down root_pageComponent_goBackIcon__9QhHLzkqmg",
+      "ariaLabel": null,
+      "title": null,
+      "y": 86,
+      "x": 88
+    },
+    {
+      "tag": "DIV",
+      "cls": "p-l-8 cursor-pointer root_icon_size__md__eSxdUr3MZh icon-edit",
+      "ariaLabel": "icon-edit",
+      "title": null,
+      "y": 88,
+      "x": 409
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_icon_size__l__wqikhXmovX icon-settings",
+      "ariaLabel": "icon-settings",
+      "title": null,
+      "y": 86,
+      "x": 1468
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_notificationContent_iconContainer__qm2bFfZkLC",
+      "ariaLabel": null,
+      "title": null,
+      "y": 16,
+      "x": 1096
+    },
+    {
+      "tag": "DIV",
+      "cls": "root_icon_size__xl__iX9YkwYuVP icon-caution",
+      "ariaLabel": "icon-caution",
+      "title": null,
+      "y": 56,
+      "x": 1120
+    }
+  ]
+}

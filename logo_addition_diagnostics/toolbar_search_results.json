@@ -1,0 +1,2383 @@
+{
+  "icon_elements": [
+    {
+      "tag": "DIV",
+      "classes": "root_userMimicAlertSystem_iconClassName__nowYtkGE3y root_icon_size__mds__m5NioKqEZR icon-screen-share",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_userMimicAlertSystem_upKey__hfB5u1vTxq root_icon_size__s__5kwhpD8hgW icon-chevron-down",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNav_menuBtn__iPkuLkWTnv full-height root_icon_size__l__wqikhXmovX icon-nine-dots-menu",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__xxl__f7Nrjzddvm icon-very-satisfied-sentiment",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_profile_clockedOut__aKgP4m3crv root_icon_size__xxl__f7Nrjzddvm icon-clock-in",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_content_blackNormalContent__9js3j3JV6N root_iconWithText_container__v7KqhYFH6T root_supportChatBtn_iconContainer__e61QGT4H6S",
+      "text": "Get Help"
+    },
+    {
+      "tag": "DIV",
+      "classes": "m-r-8 root_supportChatBtn_supportIcon__5QKgSp9tiD root_icon_size__md__eSxdUr3MZh icon-support-headphone2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "icon_with_badge relative cursor-pointer",
+      "text": "7"
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__l__wqikhXmovX icon-bell",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "icon_with_badge__badge absolute",
+      "text": "7"
+    },
+    {
+      "tag": "DIV",
+      "classes": "icon_with_badge relative cursor-pointer",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__l__wqikhXmovX icon-message",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_selectedWorkspace_popoverClose__gzyTKoHAnP root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "classes": "ant-btn root_button_iconButton__pUrV2yn2ZG root_pageComponent_goBackBtn__tNxsn4ig24 ant-btn-icon",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "classes": "icon-chevron-down root_pageComponent_goBackIcon__9QhHLzkqmg",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-l-8 cursor-pointer root_icon_size__md__eSxdUr3MZh icon-edit",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__l__wqikhXmovX icon-settings",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-image",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-video",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-button",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-link",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-attach",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership-logo",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-cover-image",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-header",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-separator-24",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-columns",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Section_infoIcon__sRUeNgXfMY root_icon_size__md__eSxdUr3MZh icon-info",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dynamic-tag",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-quick-quote",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-person-outline",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-signature2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-SA",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-map",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-inbound-call-outlined",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-notify-SA",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-otp",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-tv",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-wifi",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-water",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-coffee",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "p-2 root_icon_size__xl__iX9YkwYuVP icon-playarea",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-upload",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-eye-outline",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-email",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Image_resizeIcon__9h37gGhXwx root_icon_size__md__eSxdUr3MZh icon-resize",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Image_warningIcon__hCZHMuhEmb absolute m-t-12 m-l-12 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "Get Directions"
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": ""
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsAll__bkPivdVH5y",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "Call us"
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": ""
+    },
+    {
+      "tag": "TD",
+      "classes": "templates_iconButton_pointerEventsAll__bkPivdVH5y",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-undo",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-redo",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-text-color",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-video",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-button",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-link",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-attach",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership-logo",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-cover-image",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-header",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dynamic-tag",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-quick-quote",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-person-outline",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-signature2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs m-r-8 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__s__5kwhpD8hgW icon-call",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-calendar",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-task",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainerDisabled__mubAZmT9Wk communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-notes1 root_icon_disabledIcon__v5vP7GbJBd",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__s__5kwhpD8hgW icon-eye-outline",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer m-l-8 communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "m-x-8 root_icon_size__mds__m5NioKqEZR icon-close",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_searchInput_searchIcon__9VjoGZV7qW root_icon_size__md__eSxdUr3MZh icon-search-thick",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "classes": "ant-btn root_button_iconButton__pUrV2yn2ZG d-none ant-btn-icon",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "classes": "icon-cross",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__s__5kwhpD8hgW icon-add",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_notificationContent_iconContainer__qm2bFfZkLC",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "classes": "root_icon_size__xl__iX9YkwYuVP icon-caution",
+      "text": ""
+    }
+  ],
+  "change_image_elements": [],
+  "detailed_icons": [
+    {
+      "tag": "DIV",
+      "className": "root_userMimicAlertSystem_iconClassName__nowYtkGE3y root_icon_size__mds__m5NioKqEZR icon-screen-share",
+      "text": "",
+      "ariaLabel": "icon-screen-share",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_userMimicAlertSystem_upKey__hfB5u1vTxq root_icon_size__s__5kwhpD8hgW icon-chevron-down",
+      "text": "",
+      "ariaLabel": "icon-chevron-down",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNav_menuBtn__iPkuLkWTnv full-height root_icon_size__l__wqikhXmovX icon-nine-dots-menu",
+      "text": "",
+      "ariaLabel": "icon-nine-dots-menu",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__xxl__f7Nrjzddvm icon-very-satisfied-sentiment",
+      "text": "",
+      "ariaLabel": "icon-very-satisfied-sentiment",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_profile_clockedOut__aKgP4m3crv root_icon_size__xxl__f7Nrjzddvm icon-clock-in",
+      "text": "",
+      "ariaLabel": "icon-clock-in",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N root_iconWithText_container__v7KqhYFH6T root_supportChatBtn_iconContainer__e61QGT4H6S",
+      "text": "Get Help",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "m-r-8 root_supportChatBtn_supportIcon__5QKgSp9tiD root_icon_size__md__eSxdUr3MZh icon-support-headphone2",
+      "text": "",
+      "ariaLabel": "icon-support-headphone2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "text": "",
+      "ariaLabel": "icon-chevron-down",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge relative cursor-pointer",
+      "text": "7",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-bell",
+      "text": "",
+      "ariaLabel": "icon-bell",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge__badge absolute",
+      "text": "7",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge relative cursor-pointer",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-message",
+      "text": "",
+      "ariaLabel": "icon-message",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_selectedWorkspace_popoverClose__gzyTKoHAnP root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "text": "",
+      "ariaLabel": "icon-chevron-down",
+      "title": null
+    },
+    {
+      "tag": "BUTTON",
+      "className": "ant-btn root_button_iconButton__pUrV2yn2ZG root_pageComponent_goBackBtn__tNxsn4ig24 ant-btn-icon",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "SPAN",
+      "className": "icon-chevron-down root_pageComponent_goBackIcon__9QhHLzkqmg",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-l-8 cursor-pointer root_icon_size__md__eSxdUr3MZh icon-edit",
+      "text": "",
+      "ariaLabel": "icon-edit",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-settings",
+      "text": "",
+      "ariaLabel": "icon-settings",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-image",
+      "text": "",
+      "ariaLabel": "icon-insert-image",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-video",
+      "text": "",
+      "ariaLabel": "icon-insert-video",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-button",
+      "text": "",
+      "ariaLabel": "icon-button",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-link",
+      "text": "",
+      "ariaLabel": "icon-insert-link",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-attach",
+      "text": "",
+      "ariaLabel": "icon-attach",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership-logo",
+      "text": "",
+      "ariaLabel": "icon-dealership-logo",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-cover-image",
+      "text": "",
+      "ariaLabel": "icon-cover-image",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-header",
+      "text": "",
+      "ariaLabel": "icon-header",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-separator-24",
+      "text": "",
+      "ariaLabel": "icon-separator-24",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-columns",
+      "text": "",
+      "ariaLabel": "icon-columns",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Section_infoIcon__sRUeNgXfMY root_icon_size__md__eSxdUr3MZh icon-info",
+      "text": "",
+      "ariaLabel": "icon-info",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dynamic-tag",
+      "text": "",
+      "ariaLabel": "icon-dynamic-tag",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "text": "",
+      "ariaLabel": "icon-vehicle2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-quick-quote",
+      "text": "",
+      "ariaLabel": "icon-quick-quote",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-person-outline",
+      "text": "",
+      "ariaLabel": "icon-person-outline",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership",
+      "text": "",
+      "ariaLabel": "icon-dealership",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-signature2",
+      "text": "",
+      "ariaLabel": "icon-signature2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "text": "",
+      "ariaLabel": "icon-vehicle2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-SA",
+      "text": "",
+      "ariaLabel": "icon-insert-SA",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-map",
+      "text": "",
+      "ariaLabel": "icon-map",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-inbound-call-outlined",
+      "text": "",
+      "ariaLabel": "icon-inbound-call-outlined",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-notify-SA",
+      "text": "",
+      "ariaLabel": "icon-insert-notify-SA",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-otp",
+      "text": "",
+      "ariaLabel": "icon-insert-otp",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-tv",
+      "text": "",
+      "ariaLabel": "icon-tv",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-wifi",
+      "text": "",
+      "ariaLabel": "icon-wifi",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-water",
+      "text": "",
+      "ariaLabel": "icon-water",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-coffee",
+      "text": "",
+      "ariaLabel": "icon-coffee",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-playarea",
+      "text": "",
+      "ariaLabel": "icon-playarea",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-upload",
+      "text": "",
+      "ariaLabel": "icon-upload",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-eye-outline",
+      "text": "",
+      "ariaLabel": "icon-eye-outline",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-email",
+      "text": "",
+      "ariaLabel": "icon-email",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Image_resizeIcon__9h37gGhXwx root_icon_size__md__eSxdUr3MZh icon-resize",
+      "text": "",
+      "ariaLabel": "icon-resize",
+      "title": "Resize Image"
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Image_warningIcon__hCZHMuhEmb absolute m-t-12 m-l-12 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "text": "",
+      "ariaLabel": "icon-alert1",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "Get Directions",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsAll__bkPivdVH5y",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "Call us",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsAll__bkPivdVH5y",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": "",
+      "ariaLabel": "icon-vehicle2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_hidden__3AtcPcG2Va root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "text": "",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-undo",
+      "text": "",
+      "ariaLabel": "icon-undo",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-redo",
+      "text": "",
+      "ariaLabel": "icon-redo",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-text-color",
+      "text": "",
+      "ariaLabel": "icon-text-color",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image",
+      "text": "",
+      "ariaLabel": "icon-insert-image",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-video",
+      "text": "",
+      "ariaLabel": "icon-insert-video",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-button",
+      "text": "",
+      "ariaLabel": "icon-button",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-link",
+      "text": "",
+      "ariaLabel": "icon-insert-link",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-attach",
+      "text": "",
+      "ariaLabel": "icon-attach",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership-logo",
+      "text": "",
+      "ariaLabel": "icon-dealership-logo",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-cover-image",
+      "text": "",
+      "ariaLabel": "icon-cover-image",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-header",
+      "text": "",
+      "ariaLabel": "icon-header",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dynamic-tag",
+      "text": "",
+      "ariaLabel": "icon-dynamic-tag",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": "",
+      "ariaLabel": "icon-vehicle2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-quick-quote",
+      "text": "",
+      "ariaLabel": "icon-quick-quote",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-person-outline",
+      "text": "",
+      "ariaLabel": "icon-person-outline",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership",
+      "text": "",
+      "ariaLabel": "icon-dealership",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-signature2",
+      "text": "",
+      "ariaLabel": "icon-signature2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "text": "",
+      "ariaLabel": "icon-vehicle2",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs m-r-8 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "text": "",
+      "ariaLabel": "icon-alert1",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__s__5kwhpD8hgW icon-call",
+      "text": "",
+      "ariaLabel": "icon-call",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-calendar",
+      "text": "",
+      "ariaLabel": "icon-calendar",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-task",
+      "text": "",
+      "ariaLabel": "icon-task",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainerDisabled__mubAZmT9Wk communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "m-x-8 root_icon_size__md__eSxdUr3MZh icon-notes1 root_icon_disabledIcon__v5vP7GbJBd",
+      "text": "",
+      "ariaLabel": "icon-notes1",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__s__5kwhpD8hgW icon-eye-outline",
+      "text": "",
+      "ariaLabel": "icon-eye-outline",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer m-l-8 communication_callNotification_iconContainerCircle__qzrootDPzv communication_actionIcon_iconContainer__izXkpa8WdP",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "m-x-8 root_icon_size__mds__m5NioKqEZR icon-close",
+      "text": "",
+      "ariaLabel": " icon-close",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__s__5kwhpD8hgW icon-cross",
+      "text": "",
+      "ariaLabel": "icon-cross",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_searchInput_searchIcon__9VjoGZV7qW root_icon_size__md__eSxdUr3MZh icon-search-thick",
+      "text": "",
+      "ariaLabel": "icon-search-thick",
+      "title": null
+    },
+    {
+      "tag": "BUTTON",
+      "className": "ant-btn root_button_iconButton__pUrV2yn2ZG d-none ant-btn-icon",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "SPAN",
+      "className": "icon-cross",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__s__5kwhpD8hgW icon-add",
+      "text": "",
+      "ariaLabel": "icon-add",
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_notificationContent_iconContainer__qm2bFfZkLC",
+      "text": "",
+      "ariaLabel": null,
+      "title": null
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__xl__iX9YkwYuVP icon-caution",
+      "text": "",
+      "ariaLabel": "icon-caution",
+      "title": null
+    }
+  ]
+}
