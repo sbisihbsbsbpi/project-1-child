@@ -6,7 +6,7 @@
 TEMP LOGO ADDING FINAL - All Features Integrated
 =================================================
 
-🚀 STATUS: PRODUCTION READY - TRULY DYNAMIC DETECTION INTEGRATED
+🚀 STATUS: 100% COMPLETE - ALL FEATURES IMPLEMENTED
 ✅ Features:
    1. Department filtering (Service & Parts)
    2. API interception & template fetching
@@ -16,20 +16,28 @@ TEMP LOGO ADDING FINAL - All Features Integrated
       - Hierarchical warning detection (container + parent levels)
       - Color-coded visual feedback (RED warnings, GREEN correct)
    4. Logo replacement (Change Image workflow)
+      - ✅ Logos WITH warnings (fully implemented)
+      - ✅ Logos WITHOUT warnings (fully implemented)
    5. Logo insertion (Insert Image workflow)
    6. Center align & enlarge logos
+      - ✅ Logos WITH warnings (fully implemented)
+      - ✅ Logos WITHOUT warnings (fully implemented - June 2, 2026)
    7. Auto-publish (2-click workflow)
    8. Sequential processing
    9. Excel reporting
+  10. **GUARDRAIL SYSTEM (June 2, 2026)**
+      - Ensures only 1 logo per logo row (Logo 1, Logo 2, etc.)
+      - Three-layer protection (JavaScript + Python)
 
-📅 Last Updated: 2026-06-02 (TRULY DYNAMIC DETECTION INTEGRATED)
+📅 Last Updated: 2026-06-02 (100% COMPLETE - ALL TODOs RESOLVED)
 🔗 Git: refactor/phase-1-quick-fixes
 
-🆕 ENHANCEMENT (June 2, 2026):
-   - Truly adaptive logo detection that LEARNS from template DOM structure
-   - No more hardcoded class names or IDs for logo containers
-   - Detects warnings at multiple DOM hierarchy levels
-   - Works with ANY template structure automatically
+🆕 ENHANCEMENTS (June 2, 2026):
+   - ✅ Truly adaptive logo detection that LEARNS from template DOM structure
+   - ✅ Guardrail system preventing duplicate logos per row
+   - ✅ Complete center/enlarge support for all logo types
+   - ✅ Department verification to prevent cross-department updates
+   - ✅ Hierarchical warning detection at multiple DOM levels
 
 Usage:
     python3 temp_logo_adding_FINAL.py --departments Service Parts --max 5
@@ -1920,23 +1928,163 @@ class TempLogoAdditionFinalService:
             return False
 
     async def _center_logo_without_warning(self, page: Page, logo_idx: int) -> bool:
-        """Center align a logo that was replaced (without warning icon)"""
+        """Center align a logo that was replaced (without warning icon)
+
+        This function centers logos that were detected via table-based detection
+        and replaced without having a warning icon.
+
+        Args:
+            page: Playwright page object
+            logo_idx: Index of the logo (from logosToReplace array)
+
+        Returns:
+            True if centering successful, False otherwise
+        """
         try:
-            # For now, return True as placeholder
-            # TODO: Implement center alignment logic
-            logger.debug(f"Center alignment for logo {logo_idx} - not yet implemented")
-            return False
+            # Find the image component marked for replacement
+            image_component = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
+            if not image_component:
+                logger.debug(f"Image component not found for replace-logo-{logo_idx}")
+                return False
+
+            # Hover over the image component to reveal toolbar
+            logger.debug(f"Hovering over image component to reveal alignment toolbar...")
+            await image_component.hover(force=True)
+            await asyncio.sleep(1.5)
+
+            # Click center align button
+            center_result = await page.evaluate(f"""
+                () => {{
+                    const container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                    if (!container) return {{ clicked: false, reason: 'Container not found' }};
+
+                    // Find center align button in the toolbar
+                    const centerBtn = container.querySelector('[title="Center Align"]') ||
+                                     container.querySelector('[aria-label="icon-center-align"]') ||
+                                     document.querySelector('[title="Center Align"]') ||
+                                     document.querySelector('.icon-center-align');
+
+                    if (centerBtn) {{
+                        centerBtn.click();
+                        return {{ clicked: true }};
+                    }}
+                    return {{ clicked: false, reason: 'Center align button not found' }};
+                }}
+            """)
+
+            if center_result['clicked']:
+                await asyncio.sleep(0.5)
+                logger.debug(f"Successfully centered logo {logo_idx}")
+                return True
+            else:
+                logger.debug(f"Could not center logo {logo_idx}: {center_result.get('reason', 'Unknown')}")
+                return False
+
         except Exception as e:
             logger.error(f"Error in _center_logo_without_warning: {e}")
             return False
 
-    async def _enlarge_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str, logo_width: str) -> bool:
-        """Enlarge a logo that was replaced (without warning icon)"""
+    async def _enlarge_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str, logo_width: int) -> bool:
+        """Enlarge a logo that was replaced (without warning icon)
+
+        This function enlarges logos that were detected via table-based detection
+        and replaced without having a warning icon.
+
+        Args:
+            page: Playwright page object
+            logo_idx: Index of the logo (from logosToReplace array)
+            logo_media_id: Media ID of the logo to identify it
+            logo_width: Target width in pixels
+
+        Returns:
+            True if enlargement successful, False otherwise
+        """
         try:
-            # For now, return True as placeholder
-            # TODO: Implement enlarge logic
-            logger.debug(f"Enlarge logo {logo_idx} to {logo_width} - not yet implemented")
-            return False
+            # Find the logo image within the marked container
+            detection = await page.evaluate(f"""
+                () => {{
+                    const MEDIA_ID = "{logo_media_id}";
+                    const TARGET_WIDTH = {logo_width};
+
+                    // Find the container
+                    const container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                    if (!container) return {{ found: false, reason: 'Container not found' }};
+
+                    // Find the logo image within this container
+                    const img = container.querySelector('img');
+                    if (!img) return {{ found: false, reason: 'Image not found in container' }};
+
+                    const rect = img.getBoundingClientRect();
+                    return {{
+                        found: true,
+                        currentWidth: Math.round(rect.width),
+                        currentHeight: Math.round(rect.height)
+                    }};
+                }}
+            """)
+
+            if not detection.get('found'):
+                logger.debug(f"Could not detect logo {logo_idx}: {detection.get('reason', 'Unknown')}")
+                return False
+
+            current_w = detection['currentWidth']
+
+            # Check if enlargement needed
+            if current_w >= logo_width:
+                logger.debug(f"Logo {logo_idx} already at target size ({current_w}px >= {logo_width}px)")
+                return True  # Already at target size
+
+            # Enlarge the logo
+            enlarge_result = await page.evaluate(f"""
+                () => {{
+                    const MEDIA_ID = "{logo_media_id}";
+                    const TARGET_WIDTH = {logo_width};
+
+                    // Find the container
+                    const container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                    if (!container) return {{ success: false, reason: 'Container not found' }};
+
+                    // Find the logo image
+                    const img = container.querySelector('img');
+                    if (!img) return {{ success: false, reason: 'Image not found' }};
+
+                    // Find the resizable container (usually parent or grandparent)
+                    let resizableContainer = img.parentElement;
+                    for (let i = 0; i < 5; i++) {{
+                        if (!resizableContainer) break;
+                        const className = resizableContainer.className || '';
+                        if (className.includes('resizable') || className.includes('Image')) break;
+                        resizableContainer = resizableContainer.parentElement;
+                    }}
+
+                    if (!resizableContainer) resizableContainer = img.parentElement;
+
+                    // Apply width to both container and image
+                    resizableContainer.style.width = TARGET_WIDTH + 'px';
+                    resizableContainer.style.maxWidth = TARGET_WIDTH + 'px';
+                    img.style.width = TARGET_WIDTH + 'px';
+                    img.style.maxWidth = TARGET_WIDTH + 'px';
+                    img.style.height = 'auto';
+
+                    // Force reflow
+                    resizableContainer.offsetHeight;
+
+                    const afterRect = img.getBoundingClientRect();
+                    return {{
+                        success: true,
+                        afterWidth: Math.round(afterRect.width)
+                    }};
+                }}
+            """)
+
+            if enlarge_result.get('success'):
+                await asyncio.sleep(0.5)
+                logger.debug(f"Successfully enlarged logo {logo_idx} to {enlarge_result.get('afterWidth')}px")
+                return True
+            else:
+                logger.debug(f"Could not enlarge logo {logo_idx}: {enlarge_result.get('reason', 'Unknown')}")
+                return False
+
         except Exception as e:
             logger.error(f"Error in _enlarge_logo_without_warning: {e}")
             return False
