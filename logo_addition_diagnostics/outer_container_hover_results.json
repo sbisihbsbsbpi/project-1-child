@@ -1,0 +1,15 @@
+{
+  "changeImageElements": [],
+  "toolbarIcons": [],
+  "allIconsNearLogo": [
+    {
+      "tag": "DIV",
+      "className": "templates_Image_warningIcon__hCZHMuhEmb absolute m-t-12 m-l-12 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "ariaLabel": "icon-alert1",
+      "title": null,
+      "distance": 0,
+      "x": 696,
+      "y": 378
+    }
+  ]
+}
