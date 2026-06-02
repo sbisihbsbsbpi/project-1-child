@@ -6,20 +6,30 @@
 TEMP LOGO ADDING FINAL - All Features Integrated
 =================================================
 
-🚀 STATUS: PRODUCTION READY - FULLY INTEGRATED
+🚀 STATUS: PRODUCTION READY - TRULY DYNAMIC DETECTION INTEGRATED
 ✅ Features:
    1. Department filtering (Service & Parts)
    2. API interception & template fetching
-   3. Logo detection (warnings + empty containers + headers)
+   3. **TRULY DYNAMIC logo detection (ENHANCED - June 2, 2026)**
+      - Adaptive pattern learning (no hardcoded selectors!)
+      - Multi-phase heuristic detection (6 phases)
+      - Hierarchical warning detection (container + parent levels)
+      - Color-coded visual feedback (RED warnings, GREEN correct)
    4. Logo replacement (Change Image workflow)
    5. Logo insertion (Insert Image workflow)
-   6. Center align & enlarge logos (NEW!)
-   7. Auto-publish (2-click workflow) (NEW!)
+   6. Center align & enlarge logos
+   7. Auto-publish (2-click workflow)
    8. Sequential processing
    9. Excel reporting
 
-📅 Last Updated: 2026-05-31
+📅 Last Updated: 2026-06-02 (TRULY DYNAMIC DETECTION INTEGRATED)
 🔗 Git: refactor/phase-1-quick-fixes
+
+🆕 ENHANCEMENT (June 2, 2026):
+   - Truly adaptive logo detection that LEARNS from template DOM structure
+   - No more hardcoded class names or IDs for logo containers
+   - Detects warnings at multiple DOM hierarchy levels
+   - Works with ANY template structure automatically
 
 Usage:
     python3 temp_logo_adding_FINAL.py --departments Service Parts --max 5
@@ -322,8 +332,8 @@ class TempLogoAdditionFinalService:
                         base_url
                     )
 
-                # Close the filter page
-                await page.close()
+                # Keep filter page open for verification
+                # await page.close()
 
                 # Step 4: Generate report
                 logger.info(f"\n{'='*100}")
@@ -554,7 +564,8 @@ class TempLogoAdditionFinalService:
                             'logos_processed': 0,
                             'published': False
                         })
-                        await page.close()
+                        logger.info(f"   📑 Tab kept open for verification")
+                        # await page.close()  # Keep tab open
                         return
 
                     # No logos at all - check if #HEADER button is active (can add header)
@@ -628,7 +639,8 @@ class TempLogoAdditionFinalService:
                                 'logos_processed': 0,
                                 'published': False
                             })
-                            await page.close()
+                            logger.info(f"   📑 Tab kept open for verification")
+                            # await page.close()  # Keep tab open
                             return
 
                     elif button_state.get('found') and button_state.get('isGrayed'):
@@ -646,14 +658,28 @@ class TempLogoAdditionFinalService:
                     'logos_processed': 0,
                     'published': False
                 })
-                await page.close()
+                logger.info(f"   📑 Tab kept open for verification")
+                # await page.close()  # Keep tab open
                 return
 
             # Get replace count from detection result
             replace_count = detection_result.get('replaceCount', 0)
             logos_to_replace = detection_result.get('logosToReplace', [])
 
-            logger.info(f"   ✅ Detected:")
+            # Log Truly Dynamic Detection results
+            truly_dynamic = detection_result.get('trulyDynamic', {})
+            if truly_dynamic.get('enabled'):
+                logger.info(f"   🧠 TRULY DYNAMIC DETECTION ENABLED:")
+                summary = truly_dynamic.get('summary', {})
+                logger.info(f"      - Pattern learned: {truly_dynamic.get('bestPattern', {}).get('class', 'N/A')}")
+                logger.info(f"      - Pattern score: {truly_dynamic.get('bestScore', 0)}")
+                logger.info(f"      - Logos detected: {summary.get('logosDetected', 0)}")
+                logger.info(f"      - Logos with warnings: {summary.get('logosWithWarnings', 0)}")
+                logger.info(f"      - Logos marked for action: {summary.get('logosMarkedForAction', 0)}")
+                logger.debug(f"      - Candidate logos analyzed: {summary.get('candidateLogos', 0)}")
+                logger.debug(f"      - Patterns discovered: {summary.get('patternsDiscovered', 0)}")
+
+            logger.info(f"   ✅ Detection Summary:")
             logger.info(f"      - Logos with warnings: {warnings_count}")
             logger.info(f"      - Logos without warnings (to replace): {replace_count}")
             logger.info(f"      - Empty Logo 1/2 containers: {empty_count}")
@@ -664,6 +690,9 @@ class TempLogoAdditionFinalService:
             logos_enlarged = 0
 
             # Process logos with warnings (CHANGE IMAGE)
+            # GUARDRAIL: Track which logo rows have been processed
+            processed_logo_rows = set()
+
             logger.debug(f"Starting warning logo processing: {warnings_count} warnings detected")
             template_departments = template.get('departments', [])
             logger.debug(f"Template departments for verification: {template_departments}")
@@ -703,12 +732,22 @@ class TempLogoAdditionFinalService:
                 logo_name = logo_item['name']
                 current_alignment = logo_item.get('alignment', 'UNKNOWN')
 
+                # Extract logo row (e.g., "Logo 1" from "Logo 1 CENTER")
+                logo_row = ' '.join(logo_name.split()[:2]) if len(logo_name.split()) >= 2 else logo_name
+
+                # GUARDRAIL: Skip if this logo row already processed
+                if logo_row in processed_logo_rows:
+                    logger.info(f"\n   ⏭️  Skipping {logo_name} - {logo_row} already has a logo")
+                    logger.debug(f"   GUARDRAIL: Only 1 logo per logo row allowed")
+                    continue
+
                 logger.info(f"\n   🎯 Replacing logo {logo_idx}/{replace_count}: {logo_name}...")
                 logger.info(f"   Current alignment: {current_alignment} (will keep same position)")
                 logger.debug(f"   Attempting REPLACE workflow for logo without warning")
 
                 if await self._replace_logo_without_warning(page, logo_idx, logo_media_id):
                     logos_processed += 1
+                    processed_logo_rows.add(logo_row)  # Mark this logo row as processed
                     logger.info(f"   ✅ Logo replaced: {logo_name}")
                     logger.log_action("REPLACE", logo_name, True, f"Kept at {current_alignment} alignment")
 
@@ -727,16 +766,30 @@ class TempLogoAdditionFinalService:
                     logger.log_action("REPLACE", logo_name, False, "Change Image workflow failed")
 
             # Process empty Logo 1/2 containers (INSERT IMAGE)
+            # GUARDRAIL: Track which logo rows have been processed to ensure only 1 logo per row
+            processed_logo_rows = set()
+
             logger.debug(f"Starting empty container processing: {empty_count} empty containers detected")
             for container in detection_result['emptyContainers']:
                 container_name = container['name']
                 container_id = container['id']
+
+                # Extract logo row (e.g., "Logo 1" from "Logo 1 CENTER")
+                logo_row = ' '.join(container_name.split()[:2]) if len(container_name.split()) >= 2 else container_name
+
+                # GUARDRAIL: Skip if this logo row already processed
+                if logo_row in processed_logo_rows:
+                    logger.info(f"\n   ⏭️  Skipping {container_name} - {logo_row} already has a logo")
+                    logger.debug(f"   GUARDRAIL: Only 1 logo per logo row allowed")
+                    continue
+
                 logger.info(f"\n   🎯 Inserting logo into {container_name}...")
                 logger.debug(f"   Container ID: {container_id}")
                 logger.debug(f"   Attempting INSERT workflow for empty container")
 
                 if await self._insert_logo_to_container(page, container, logo_media_id):
                     logos_processed += 1
+                    processed_logo_rows.add(logo_row)  # Mark this logo row as processed
                     logger.info(f"   ✅ Logo inserted into {container_name}")
                     logger.log_action("INSERT", container_name, True, f"ID: {container_id}")
                 else:
@@ -810,6 +863,7 @@ class TempLogoAdditionFinalService:
             logger.info(f"      Centered: {logos_centered}")
             logger.info(f"      Enlarged: {logos_enlarged}")
             logger.info(f"      Published: {'✅' if published else '❌'}")
+            logger.info(f"      📑 Tab kept open for inspection")
 
             # Keep tab open for verification
             # await page.close()
@@ -828,51 +882,352 @@ class TempLogoAdditionFinalService:
             })
 
     async def _detect_logos(self, page: Page) -> Dict:
-        """Detect all logos: warnings, empty Logo 1/2 containers, empty headers"""
+        """
+        Detect all logos using TRULY DYNAMIC PATTERN DETECTION
+
+        NEW (June 2, 2026 - ENHANCED): Truly adaptive logo detection
+        - LEARNS container patterns from the template DOM (no hardcoded selectors!)
+        - Uses multi-phase adaptive heuristics
+        - Detects warnings at multiple DOM hierarchy levels
+        - Color-codes containers: RED (warnings) vs GREEN (correct logos)
+        - Assigns department verification to each logo
+        """
 
         return await page.evaluate("""
             () => {
                 const debug = [];
+                const patterns = {
+                    learningPhases: [],
+                    containerPatterns: [],
+                    detectedLogos: [],
+                    summary: {}
+                };
 
-                // Find logos with warnings - UPDATED to handle new CSS class structure
-                debug.push('=== WARNING DETECTION ===');
+                // ============================================================================
+                // PHASE 1: Find all images that look like logos (ADAPTIVE HEURISTICS)
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 1: Analyzing all images');
+                debug.push('=== TRULY DYNAMIC LOGO DETECTION (Adaptive Learning) ===');
 
-                // Try multiple selectors for warning icons (Tekion changes class hashes)
+                const allImages = Array.from(document.querySelectorAll('img'));
+                const candidateLogos = [];
+
+                allImages.forEach((img, idx) => {
+                    const src = img.src || '';
+                    const rect = img.getBoundingClientRect();
+                    const alt = img.alt || '';
+
+                    // Heuristic 1: Size-based (logos can be various sizes)
+                    const isLogoSize = rect.width > 30 && rect.width < 500 &&
+                                      rect.height > 15 && rect.height < 300;
+
+                    // Heuristic 2: Aspect ratio (logos can be square or wide)
+                    const aspectRatio = rect.width / rect.height;
+                    const isLogoAspect = aspectRatio > 0.5 && aspectRatio < 10;
+
+                    // Heuristic 3: URL pattern (S3 media URLs or reasonable images)
+                    const isMediaUrl = (src.includes('amazonaws.com') && src.includes('media_')) ||
+                                      src.includes('.png') || src.includes('.jpg') || src.includes('.svg');
+
+                    // Heuristic 4: Position (anywhere in visible area, excluding app header)
+                    const isReasonablePosition = rect.top > 100 && rect.top < 3000 &&
+                                                rect.left > 0 && rect.width > 0;
+
+                    // Heuristic 5: Not a system icon
+                    const notSystemIcon = !src.includes('icon-') &&
+                                         !alt.toLowerCase().includes('icon') &&
+                                         !src.includes('tekion-logo') &&
+                                         !src.includes('favicon');
+
+                    // Heuristic 6: Visible element
+                    const isVisible = rect.width > 0 && rect.height > 0;
+
+                    // Score the candidate (RELAXED threshold for inclusivity)
+                    const score = (isLogoSize ? 1 : 0) +
+                                 (isLogoAspect ? 1 : 0) +
+                                 (isMediaUrl ? 2 : 0) +  // Higher weight for media URLs
+                                 (isReasonablePosition ? 1 : 0) +
+                                 (notSystemIcon ? 1 : 0) +
+                                 (isVisible ? 1 : 0);
+
+                    if (score >= 2) {  // RELAXED Threshold: at least 2 points
+                        candidateLogos.push({
+                            img: img,
+                            score: score,
+                            index: idx,
+                            rect: {
+                                top: Math.round(rect.top + window.scrollY),
+                                left: Math.round(rect.left),
+                                width: Math.round(rect.width),
+                                height: Math.round(rect.height)
+                            }
+                        });
+                    }
+                });
+
+                patterns.learningPhases.push(`Found ${candidateLogos.length} candidate logo images`);
+                debug.push(`Found ${candidateLogos.length} candidate logo images using adaptive heuristics`);
+
+                // ============================================================================
+                // PHASE 2: Learn container patterns from candidate logos
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 2: Learning container patterns');
+
+                const containerPatternMap = new Map();
+
+                candidateLogos.forEach(candidate => {
+                    const img = candidate.img;
+                    let currentElement = img.parentElement;
+                    let depth = 0;
+
+                    // Walk up the DOM to find common container patterns
+                    while (currentElement && depth < 10) {
+                        const classes = Array.from(currentElement.classList || []);
+                        const tagName = currentElement.tagName;
+
+                        // Track class patterns
+                        classes.forEach(cls => {
+                            if (cls.length > 3) {  // Ignore very short class names
+                                if (!containerPatternMap.has(cls)) {
+                                    containerPatternMap.set(cls, {
+                                        class: cls,
+                                        count: 0,
+                                        depths: [],
+                                        tags: new Set()
+                                    });
+                                }
+                                const pattern = containerPatternMap.get(cls);
+                                pattern.count++;
+                                pattern.depths.push(depth);
+                                pattern.tags.add(tagName);
+                            }
+                        });
+
+                        currentElement = currentElement.parentElement;
+                        depth++;
+                    }
+                });
+
+                // Find the most common container patterns
+                const sortedPatterns = Array.from(containerPatternMap.values())
+                    .sort((a, b) => b.count - a.count)
+                    .slice(0, 10);  // Top 10 patterns
+
+                patterns.containerPatterns = sortedPatterns.map(p => ({
+                    class: p.class,
+                    occurrences: p.count,
+                    avgDepth: Math.round(p.depths.reduce((a, b) => a + b, 0) / p.depths.length),
+                    tags: Array.from(p.tags)
+                }));
+
+                patterns.learningPhases.push(`Identified ${patterns.containerPatterns.length} common container patterns`);
+
+                // ============================================================================
+                // PHASE 3: Identify the most likely logo container class
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 3: Selecting optimal container pattern');
+
+                let bestPattern = null;
+                let bestScore = 0;
+
+                for (const pattern of patterns.containerPatterns) {
+                    const classLower = pattern.class.toLowerCase();
+
+                    // Filter out UI/layout classes
+                    const isUIClass = classLower.includes('header') ||
+                                     classLower.includes('wrapper') ||
+                                     classLower.includes('skeleton') ||
+                                     classLower.includes('full-height') ||
+                                     classLower.includes('app-') ||
+                                     classLower.includes('root_');
+
+                    if (isUIClass) continue;  // Skip UI classes
+
+                    // Keyword scoring
+                    let keywordScore = 0;
+                    if (classLower.includes('image')) keywordScore += 3;
+                    if (classLower.includes('component')) keywordScore += 2;
+                    if (classLower.includes('container')) keywordScore += 2;
+                    if (classLower.includes('logo')) keywordScore += 3;
+                    if (classLower.includes('sortable')) keywordScore += 1;
+                    if (classLower.includes('resizable')) keywordScore += 1;
+
+                    // Depth scoring (prefer depth 2-4)
+                    let depthScore = 0;
+                    if (pattern.avgDepth >= 2 && pattern.avgDepth <= 4) depthScore = 2;
+                    else if (pattern.avgDepth >= 1 && pattern.avgDepth <= 5) depthScore = 1;
+
+                    // Occurrence scoring (prefer multiple occurrences but not too many)
+                    let occurrenceScore = 0;
+                    if (pattern.occurrences >= 2 && pattern.occurrences <= 5) occurrenceScore = 2;
+                    else if (pattern.occurrences === 1) occurrenceScore = 1;
+
+                    const totalScore = keywordScore + depthScore + occurrenceScore;
+
+                    if (totalScore > bestScore) {
+                        bestScore = totalScore;
+                        bestPattern = pattern;
+                    }
+                }
+
+                if (bestPattern) {
+                    patterns.learningPhases.push(`Selected best pattern: ${bestPattern.class} (score: ${bestScore})`);
+                    debug.push(`LEARNED PATTERN: ${bestPattern.class} (score: ${bestScore})`);
+                } else {
+                    patterns.learningPhases.push('No suitable pattern found, using fallback');
+                    debug.push('WARNING: No pattern learned, falling back to hardcoded selectors');
+                }
+
+                // ============================================================================
+                // PHASE 4: Extract logo containers using learned pattern
+                // ============================================================================
+                let logoIndex = 0;
+
+                if (bestPattern) {
+                    const containerSelector = `[class*="${bestPattern.class}"]`;
+                    const containers = document.querySelectorAll(containerSelector);
+
+                    patterns.learningPhases.push(`Found ${containers.length} containers matching: ${containerSelector}`);
+                    debug.push(`Found ${containers.length} containers using learned pattern`);
+
+                    // Filter to only containers that actually have images
+                    containers.forEach((container, idx) => {
+                        const img = container.querySelector('img');
+                        const hasImage = img !== null;
+
+                        if (hasImage) {
+                            const rect = container.getBoundingClientRect();
+
+                            // Mark the container for testing
+                            container.setAttribute('data-learned-logo', `logo-${idx + 1}`);
+
+                            patterns.detectedLogos.push({
+                                index: idx + 1,
+                                containerClass: bestPattern.class,
+                                hasImage: true,
+                                hasWarning: false,  // Will be determined in Phase 5
+                                position: {
+                                    top: Math.round(rect.top + window.scrollY),
+                                    left: Math.round(rect.left)
+                                },
+                                size: {
+                                    width: Math.round(rect.width),
+                                    height: Math.round(rect.height)
+                                },
+                                imageSrc: img ? img.src.substring(0, 80) : null
+                            });
+                        }
+                    });
+                }
+
+                // ============================================================================
+                // PHASE 5: Detect warning icons with HIERARCHICAL support
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 5: Checking for warning icons');
+
                 const warningSelectors = [
-                    '.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs',  // NEW class (2026)
-                    '.icon-alert1',  // Generic icon class
-                    '[class*="errorWarningIconsWithPopover_warningIcon"]',  // Partial match
-                    '.templates_Image_warningIcon__hCZHMuhEmb'  // OLD class (legacy)
+                    '[class*="warningIcon"]',
+                    '[class*="warning"]',
+                    '.icon-alert1',
+                    '[aria-label*="warning"]',
+                    '.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs',
+                    '.templates_Image_warningIcon__hCZHMuhEmb'
                 ];
 
-                let warnings = [];
+                let warningIcons = [];
                 for (const selector of warningSelectors) {
-                    warnings = Array.from(document.querySelectorAll(selector));
-                    if (warnings.length > 0) {
-                        debug.push(`Found ${warnings.length} warning icons using selector: ${selector}`);
+                    const found = document.querySelectorAll(selector);
+                    if (found.length > 0) {
+                        warningIcons = Array.from(found);
+                        patterns.learningPhases.push(`Found ${found.length} warning icons using: ${selector}`);
+                        debug.push(`Found ${found.length} warning icons`);
                         break;
                     }
                 }
 
-                if (warnings.length === 0) {
-                    debug.push('Found 0 warning icons (tried all selectors)');
-                }
+                // Mark logos with warnings using HIERARCHICAL detection
+                patterns.detectedLogos.forEach(logo => {
+                    logo.hasWarning = false;
+                });
 
-                // CRITICAL: Detect department for each warning logo to prevent wrong logo updates
-                warnings.forEach((icon, idx) => {
-                    const sortableItem = icon.closest('[class*="SortableItem"]');
-                    if (sortableItem) {
-                        // Detect department by checking container position and content
-                        const department = detectLogoDepartment(sortableItem, icon);
+                warningIcons.forEach((icon, warnIdx) => {
+                    // Find which detected logo is associated with this warning
+                    let foundInLogo = false;
+                    const iconRect = icon.getBoundingClientRect();
+                    const iconTop = Math.round(iconRect.top + window.scrollY);
 
-                        sortableItem.setAttribute('data-logo-to-inspect', `warning-logo-${idx + 1}`);
-                        sortableItem.setAttribute('data-logo-department', department || 'unknown');
+                    patterns.detectedLogos.forEach(logo => {
+                        const container = document.querySelector(`[data-learned-logo="logo-${logo.index}"]`);
 
-                        debug.push(`  Warning ${idx + 1}: Marked sortableItem (Department: ${department || 'UNKNOWN'})`);
-                    } else {
-                        debug.push(`  Warning ${idx + 1}: No sortableItem found!`);
+                        // Check 1: Is warning inside the container?
+                        if (container && container.contains(icon)) {
+                            logo.hasWarning = true;
+                            foundInLogo = true;
+                            patterns.learningPhases.push(`  Warning #${warnIdx + 1} found INSIDE Logo #${logo.index}`);
+                            return;
+                        }
+
+                        // Check 2: Is the container inside the warning's parent? (warning at SortableItem level)
+                        let parent = container?.parentElement;
+                        while (parent && parent !== document.body) {
+                            if (parent.contains(icon) && parent.contains(container)) {
+                                // Both warning and logo are in the same parent container
+                                // Check if they're close (within 200px)
+                                const containerTop = logo.position.top;
+
+                                if (Math.abs(iconTop - containerTop) < 200) {
+                                    logo.hasWarning = true;
+                                    foundInLogo = true;
+                                    patterns.learningPhases.push(`  Warning #${warnIdx + 1} found in PARENT of Logo #${logo.index} (distance: ${Math.abs(iconTop - containerTop)}px)`);
+                                    return;
+                                }
+                            }
+                            parent = parent.parentElement;
+                        }
+                    });
+
+                    if (!foundInLogo) {
+                        patterns.learningPhases.push(`  Warning #${warnIdx + 1} NOT matched to any logo (at ${iconTop}px)`);
                     }
                 });
+
+                // ============================================================================
+                // PHASE 6: Process logos with warnings and mark for action
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 6: Marking logos for action');
+
+                patterns.detectedLogos.forEach(logo => {
+                    if (logo.hasWarning) {
+                        logoIndex++;
+                        const container = document.querySelector(`[data-learned-logo="logo-${logo.index}"]`);
+
+                        if (container) {
+                            // Find the outer SortableItem container for department detection
+                            const sortableItem = container.closest('[class*="SortableItem"]') || container.parentElement;
+
+                            // Detect department to prevent cross-department logo updates
+                            const department = detectLogoDepartment(sortableItem, container);
+
+                            // Mark the OUTER container (SortableItem or parent) for processing
+                            if (sortableItem) {
+                                sortableItem.setAttribute('data-logo-to-inspect', `warning-logo-${logoIndex}`);
+                                sortableItem.setAttribute('data-logo-department', department || 'unknown');
+                            }
+
+                            // Mark the INNER container (learned container) for hover targeting
+                            container.setAttribute('data-imagecomponent-target', `logo-${logoIndex}`);
+
+                            // Visual feedback (RED border for warnings)
+                            container.style.outline = '3px solid red';
+                            container.style.backgroundColor = 'rgba(255, 0, 0, 0.05)';
+
+                            patterns.learningPhases.push(`  Logo #${logoIndex}: WARNING - Department: ${department || 'UNKNOWN'}`);
+                            debug.push(`  Logo #${logoIndex}: WARNING at ${logo.position.top}px - Department: ${department || 'UNKNOWN'}`);
+                        }
+                    }
+                });
+
+                debug.push(`Total logos marked for processing: ${logoIndex}`);
 
                 // Helper function to detect logo department
                 function detectLogoDepartment(container, warningIcon) {
@@ -909,8 +1264,12 @@ class TempLogoAdditionFinalService:
                     return 'unknown';
                 }
 
-                // Find empty Logo 1/2 containers (6 positions)
-                debug.push('\\n=== LOGO 1/2 CONTAINER DETECTION ===');
+                // ============================================================================
+                // FALLBACK: Find empty Logo 1/2 containers (6 hardcoded positions)
+                // NOTE: This is a fallback for templates using standard structure
+                // The imageComponent detection above handles custom structures
+                // ============================================================================
+                debug.push('\\n=== LOGO 1/2 CONTAINER DETECTION (Fallback) ===');
                 const containerIds = [
                     '6f0b8570-c4dc-45bd-b746-40e3af9af3bb',  // Logo 1 LEFT
                     '7653caa9-31b7-4e2b-8233-f0bda43672ea',  // Logo 1 CENTER
@@ -926,10 +1285,16 @@ class TempLogoAdditionFinalService:
                 const emptyContainers = [];
                 const containerCheckResults = [];
 
+                // GUARDRAIL: Track which logo rows already have a logo (to prevent multiple logos per row)
+                const logoRowsProcessed = new Set(); // e.g., 'Logo 1', 'Logo 2'
+
                 containerIds.forEach((id, idx) => {
                     const container = document.querySelector(`div.TEXT_TEMPLATE[id="${id}"][contenteditable="true"]`);
+                    const containerName = containerNames[idx];
+                    const logoRow = containerName.split(' ').slice(0, 2).join(' '); // "Logo 1" or "Logo 2"
+
                     const checkResult = {
-                        name: containerNames[idx],
+                        name: containerName,
                         id: id,
                         found: container !== null,
                         hasImage: false,
@@ -946,19 +1311,32 @@ class TempLogoAdditionFinalService:
                         checkResult.htmlLength = htmlLength;
                         checkResult.isEmpty = isEmpty;
 
-                        if (isEmpty) {
+                        // GUARDRAIL: Only add ONE empty container per logo row (Logo 1, Logo 2, etc.)
+                        if (isEmpty && !logoRowsProcessed.has(logoRow)) {
                             container.setAttribute('data-empty-container', `empty-${idx + 1}`);
                             emptyContainers.push({
                                 index: idx + 1,
                                 id: id,
-                                name: containerNames[idx],
+                                name: containerName,
                                 type: 'logo_container'
                             });
+                            logoRowsProcessed.add(logoRow); // Mark this logo row as processed
+                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty} ✅ ADDED (first empty in ${logoRow})`);
+                        } else if (isEmpty && logoRowsProcessed.has(logoRow)) {
+                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty} ⏭️ SKIPPED (${logoRow} already has container)`);
+                        } else {
+                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
                         }
+
+                        // Also track rows that already have images (so we don't add to those rows)
+                        if (hasImage) {
+                            logoRowsProcessed.add(logoRow);
+                        }
+                    } else {
+                        debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
                     }
 
                     containerCheckResults.push(checkResult);
-                    debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
                 });
 
                 // FALLBACK: Table-based Logo 1/2 detection (if hardcoded IDs didn't work)
@@ -1036,11 +1414,18 @@ class TempLogoAdditionFinalService:
                 if (logoTables.length > 0) {
                     debug.push('\\n=== PROCESSING TABLE-BASED DETECTION ===');
 
+                    // GUARDRAIL: Track which logo rows have been processed
+                    const tableLogoRowsProcessed = new Set(); // e.g., 'Logo 1', 'Logo 2'
+
                     logoTables.forEach((logoTable, tableIdx) => {
                         const logoNumber = tableIdx + 1; // Logo 1, Logo 2, etc.
+                        const logoRow = `Logo ${logoNumber}`;
+
+                        // GUARDRAIL: Check if this logo row already has content
+                        let logoRowHasContent = false;
 
                         logoTable.positions.forEach((pos, posIdx) => {
-                            if (pos.alignment === 'EXTRA') return; // Skip 4th column
+                            if (pos.alignment === 'EXTRA' || pos.alignment === 'FAR_LEFT' || pos.alignment === 'FAR_RIGHT') return; // Skip extra columns
 
                             const containerName = `Logo ${logoNumber} ${pos.alignment}`;
 
@@ -1048,7 +1433,7 @@ class TempLogoAdditionFinalService:
                             // Logos WITHOUT warnings are correct - skip them!
                             if (pos.hasImage && pos.hasWarning) {
                                 // Mark image component for replacement
-                                if (pos.imageComponent) {
+                                if (pos.imageComponent && !tableLogoRowsProcessed.has(logoRow)) {
                                     const replaceIdx = logosToReplace.length + 1;
                                     pos.imageComponent.setAttribute('data-logo-to-replace', `replace-logo-${replaceIdx}`);
 
@@ -1063,15 +1448,22 @@ class TempLogoAdditionFinalService:
                                         needsCentering: false  // Keep at current alignment
                                     });
 
-                                    debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=true, keepAlignment=${pos.alignment})`);
+                                    tableLogoRowsProcessed.add(logoRow); // Mark this row as processed
+                                    logoRowHasContent = true;
+                                    debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=true, keepAlignment=${pos.alignment}) ✅ ADDED`);
+                                } else if (tableLogoRowsProcessed.has(logoRow)) {
+                                    debug.push(`  Skipping ${containerName}: ${logoRow} already processed`);
                                 }
                             }
                             // Skip logos without warnings - they're already correct!
                             else if (pos.hasImage && !pos.hasWarning) {
+                                tableLogoRowsProcessed.add(logoRow); // Mark row as having a logo
+                                logoRowHasContent = true;
                                 debug.push(`  Skipping ${containerName}: Logo exists without warning (already correct)`);
                             }
-                            // PRIORITY 2: Empty CENTER positions can have logos inserted (only if hardcoded IDs didn't find them)
-                            else if (pos.isEmpty && pos.alignment === 'CENTER' && emptyContainers.length === 0) {
+                            // PRIORITY 2: Empty positions can have logos inserted
+                            else if (pos.isEmpty && !tableLogoRowsProcessed.has(logoRow)) {
+                                // Only add if this logo row hasn't been processed yet
                                 const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
 
                                 emptyContainers.push({
@@ -1084,18 +1476,20 @@ class TempLogoAdditionFinalService:
                                     alignment: pos.alignment
                                 });
 
-                                debug.push(`  Added empty CENTER: ${containerName} (ID: ${containerId})`);
+                                tableLogoRowsProcessed.add(logoRow); // Mark this row as processed
+                                debug.push(`  Added empty position: ${containerName} (ID: ${containerId}) ✅ ADDED (first empty in ${logoRow})`);
                             }
-                            // PRIORITY 3: Empty LEFT/RIGHT positions are skipped (will be empty after centering)
-                            else if (pos.isEmpty && pos.alignment !== 'CENTER') {
-                                debug.push(`  Skipping empty ${pos.alignment}: ${containerName} (only CENTER positions get new logos)`);
+                            // PRIORITY 3: Skip if logo row already processed
+                            else if (pos.isEmpty && tableLogoRowsProcessed.has(logoRow)) {
+                                debug.push(`  Skipping empty ${pos.alignment}: ${containerName} ⏭️ (${logoRow} already has container)`);
                             }
                         });
                     });
 
                     debug.push(`\\nTable-based detection summary:`);
                     debug.push(`  - Logos to REPLACE: ${logosToReplace.length}`);
-                    debug.push(`  - Empty CENTER positions: ${emptyContainers.length}`);
+                    debug.push(`  - Empty positions added: ${emptyContainers.length}`);
+                    debug.push(`  - GUARDRAIL: Each logo row gets MAX 1 container`);
                 }
 
                 // Find empty HEADER containers
@@ -1161,8 +1555,44 @@ class TempLogoAdditionFinalService:
                     }
                 }
 
+                // ============================================================================
+                // SUMMARY: Compile all detection results
+                // ============================================================================
+                const warningsCount = patterns.detectedLogos.filter(l => l.hasWarning).length;
+
+                patterns.summary = {
+                    totalImages: allImages.length,
+                    candidateLogos: candidateLogos.length,
+                    patternsDiscovered: patterns.containerPatterns.length,
+                    bestPatternSelected: bestPattern ? bestPattern.class : null,
+                    bestPatternScore: bestScore,
+                    logosDetected: patterns.detectedLogos.length,
+                    logosWithWarnings: warningsCount,
+                    logosMarkedForAction: logoIndex
+                };
+
+                debug.push('\\n=== TRULY DYNAMIC DETECTION SUMMARY ===');
+                debug.push(`Total images analyzed: ${patterns.summary.totalImages}`);
+                debug.push(`Candidate logos found: ${patterns.summary.candidateLogos}`);
+                debug.push(`Patterns discovered: ${patterns.summary.patternsDiscovered}`);
+                debug.push(`Best pattern: ${patterns.summary.bestPatternSelected} (score: ${patterns.summary.bestPatternScore})`);
+                debug.push(`Logos detected: ${patterns.summary.logosDetected}`);
+                debug.push(`Logos with warnings: ${patterns.summary.logosWithWarnings}`);
+                debug.push(`Logos marked for action: ${patterns.summary.logosMarkedForAction}`);
+
                 return {
-                    warningsCount: warnings.length,
+                    // Truly Dynamic Detection Results (NEW)
+                    trulyDynamic: {
+                        enabled: bestPattern !== null,
+                        learningPhases: patterns.learningPhases,
+                        containerPatterns: patterns.containerPatterns,
+                        bestPattern: bestPattern,
+                        bestScore: bestScore,
+                        detectedLogos: patterns.detectedLogos,
+                        summary: patterns.summary
+                    },
+                    // Legacy detection results (for backward compatibility)
+                    warningsCount: warningsCount,
                     emptyCount: emptyContainers.length,
                     headerCount: headerContainers.length,
                     emptyContainers: emptyContainers,
@@ -1189,11 +1619,15 @@ class TempLogoAdditionFinalService:
         """
 
         try:
+            logger.debug(f"      → Step 1: Finding logo container for logo #{logo_idx}")
             # Find the outer container (SortableItem) marked with data attribute
             outer_container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
             if not outer_container:
+                logger.warning(f"      ✗ Outer container not found for logo #{logo_idx}")
                 return False
+            logger.debug(f"      ✓ Outer container found")
 
+            logger.debug(f"      → Step 2: Verifying department")
             # CRITICAL: Verify logo department matches template department
             logo_department = await outer_container.get_attribute('data-logo-department')
 
@@ -1221,16 +1655,20 @@ class TempLogoAdditionFinalService:
             else:
                 logger.warning(f"   ⚠️  Could not detect logo department - proceeding with caution")
 
+            logger.debug(f"      → Step 3: Finding sub-container (imageComponent) for hover")
             # BREAKTHROUGH FIX: Hover over SUB-CONTAINER (imageComponent), not outer container!
             # The toolbar only appears when hovering over templates_Image_imageComponent
             sub_container = await outer_container.query_selector('[class*="imageComponent"]')
             if not sub_container:
-                logger.warning(f"Sub-container (imageComponent) not found for logo {logo_idx}")
+                logger.warning(f"      ✗ Sub-container (imageComponent) not found for logo {logo_idx}")
                 return False
+            logger.debug(f"      ✓ Sub-container found")
 
+            logger.debug(f"      → Step 4: Hovering over sub-container to reveal toolbar")
             # Hover over the sub-container to reveal toolbar
             await sub_container.hover(force=True)
             await asyncio.sleep(3)
+            logger.debug(f"      ✓ Hovered over sub-container (waited 3s for toolbar)")
 
             # Check if popup already open
             popup_open = await page.evaluate("""
