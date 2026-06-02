@@ -857,10 +857,27 @@ class TemplateLogoAdditionService:
 
                 // LAYER 1: Find logos with warnings (wrong logos - need replacement)
                 debug.push('=== LAYER 1: WARNING DETECTION ===');
-                const warnings = Array.from(
-                    document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb')
-                );
-                debug.push(`Found ${warnings.length} warning icons`);
+
+                // Try multiple selectors for warning icons (Tekion changes class hashes)
+                const warningSelectors = [
+                    '.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs',  // NEW class (2026)
+                    '.icon-alert1',  // Generic icon class
+                    '[class*="errorWarningIconsWithPopover_warningIcon"]',  // Partial match
+                    '.templates_Image_warningIcon__hCZHMuhEmb'  // OLD class (legacy)
+                ];
+
+                let warnings = [];
+                for (const selector of warningSelectors) {
+                    warnings = Array.from(document.querySelectorAll(selector));
+                    if (warnings.length > 0) {
+                        debug.push(`Found ${warnings.length} warning icons using selector: ${selector}`);
+                        break;
+                    }
+                }
+
+                if (warnings.length === 0) {
+                    debug.push('Found 0 warning icons (tried all selectors)');
+                }
 
                 warnings.forEach((icon, idx) => {
                     const sortableItem = icon.closest('[class*="SortableItem"]');
@@ -983,7 +1000,8 @@ class TemplateLogoAdditionService:
 
                         cells.forEach((cell, cellIdx) => {
                             const imageComponent = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t');
-                            const hasWarning = cell.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') !== null;
+                            // Check for warning icons with multiple selectors
+                            const hasWarning = cell.querySelector('.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs, .icon-alert1, [class*="errorWarningIconsWithPopover_warningIcon"], .templates_Image_warningIcon__hCZHMuhEmb') !== null;
                             const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
                             const hasImage = imageComponent !== null;
                             const isEmpty = !hasImage && textTemplate !== null;

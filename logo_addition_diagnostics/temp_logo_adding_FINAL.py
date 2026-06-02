@@ -480,7 +480,7 @@ class TempLogoAdditionFinalService:
             edit_url = f"{base_url}/templates/edit/{template_id}"
             logger.info(f"   🌐 Opening: {edit_url}")
             await page.goto(edit_url, wait_until='domcontentloaded', timeout=15000)
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)  # Increased from 5 to 10 seconds - warning icons take time to render
 
             # Detect logos to process
             detection_result = await self._detect_logos(page)
@@ -831,12 +831,29 @@ class TempLogoAdditionFinalService:
             () => {
                 const debug = [];
 
-                // Find logos with warnings
+                // Find logos with warnings - UPDATED to handle new CSS class structure
                 debug.push('=== WARNING DETECTION ===');
-                const warnings = Array.from(
-                    document.querySelectorAll('.templates_Image_warningIcon__hCZHMuhEmb')
-                );
-                debug.push(`Found ${warnings.length} warning icons`);
+
+                // Try multiple selectors for warning icons (Tekion changes class hashes)
+                const warningSelectors = [
+                    '.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs',  // NEW class (2026)
+                    '.icon-alert1',  // Generic icon class
+                    '[class*="errorWarningIconsWithPopover_warningIcon"]',  // Partial match
+                    '.templates_Image_warningIcon__hCZHMuhEmb'  // OLD class (legacy)
+                ];
+
+                let warnings = [];
+                for (const selector of warningSelectors) {
+                    warnings = Array.from(document.querySelectorAll(selector));
+                    if (warnings.length > 0) {
+                        debug.push(`Found ${warnings.length} warning icons using selector: ${selector}`);
+                        break;
+                    }
+                }
+
+                if (warnings.length === 0) {
+                    debug.push('Found 0 warning icons (tried all selectors)');
+                }
 
                 warnings.forEach((icon, idx) => {
                     const sortableItem = icon.closest('[class*="SortableItem"]');
@@ -913,8 +930,8 @@ class TempLogoAdditionFinalService:
 
                     const cells = Array.from(firstRow.querySelectorAll('td'));
 
-                    // Logo containers have 4 columns
-                    if (cells.length === 4) {
+                    // Logo containers have 4 or 5 columns
+                    if (cells.length === 4 || cells.length === 5) {
                         const tableInfo = {
                             tableIndex: tableIdx,
                             positions: []
@@ -923,13 +940,24 @@ class TempLogoAdditionFinalService:
                         cells.forEach((cell, cellIdx) => {
                             const imageComponent = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t');
                             const hasImage = imageComponent !== null;
-                            const hasWarning = cell.querySelector('.templates_Image_warningIcon__hCZHMuhEmb') !== null;
+                            // Updated warning selector to handle new CSS classes
+                            const hasWarning = cell.querySelector('.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs, .icon-alert1, [class*="errorWarningIconsWithPopover_warningIcon"], .templates_Image_warningIcon__hCZHMuhEmb') !== null;
                             const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
                             const isEmpty = !hasImage && textTemplate !== null;
 
-                            const alignment = cellIdx === 0 ? 'LEFT' :
-                                            cellIdx === 1 ? 'CENTER' :
-                                            cellIdx === 2 ? 'RIGHT' : 'EXTRA';
+                            let alignment;
+                            if (cells.length === 4) {
+                                // 4-cell table: LEFT, CENTER, RIGHT, EXTRA
+                                alignment = cellIdx === 0 ? 'LEFT' :
+                                          cellIdx === 1 ? 'CENTER' :
+                                          cellIdx === 2 ? 'RIGHT' : 'EXTRA';
+                            } else {
+                                // 5-cell table: FAR_LEFT, LEFT, CENTER, RIGHT, FAR_RIGHT
+                                alignment = cellIdx === 0 ? 'FAR_LEFT' :
+                                          cellIdx === 1 ? 'LEFT' :
+                                          cellIdx === 2 ? 'CENTER' :
+                                          cellIdx === 3 ? 'RIGHT' : 'FAR_RIGHT';
+                            }
 
                             tableInfo.positions.push({
                                 cellIndex: cellIdx,
@@ -950,7 +978,7 @@ class TempLogoAdditionFinalService:
                             logoTables.push(tableInfo);
                             debug.push(`  Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
                             tableInfo.positions.forEach(pos => {
-                                if (pos.alignment !== 'EXTRA') {
+                                if (pos.alignment !== 'EXTRA' && pos.alignment !== 'FAR_LEFT' && pos.alignment !== 'FAR_RIGHT') {
                                     debug.push(`    ${pos.alignment}: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}`);
                                 }
                             });
