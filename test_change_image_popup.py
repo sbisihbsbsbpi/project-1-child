@@ -125,15 +125,24 @@ async def main():
             logger.info(f"STEP 2: Hovering to reveal toolbar (Logo #{logo_idx})")
             logger.info("=" * 100)
 
-            container = await page.query_selector(f'[data-logo-to-inspect="logo-{logo_idx}"]')
-            if not container:
-                logger.warning(f"⚠️  Logo #{logo_idx} container not found, skipping...")
+            # Find outer container
+            outer_container = await page.query_selector(f'[data-logo-to-inspect="logo-{logo_idx}"]')
+            if not outer_container:
+                logger.warning(f"⚠️  Logo #{logo_idx} outer container not found, skipping...")
                 continue
 
-            await container.hover(force=True)
+            # BREAKTHROUGH FIX: Hover over SUB-CONTAINER (imageComponent), not outer container!
+            # The toolbar only appears when hovering over templates_Image_imageComponent
+            sub_container = await outer_container.query_selector('[class*="imageComponent"]')
+            if not sub_container:
+                logger.warning(f"⚠️  Logo #{logo_idx} sub-container (imageComponent) not found, skipping...")
+                continue
+
+            logger.info(f"   Hovering over sub-container (imageComponent) to reveal toolbar...")
+            await sub_container.hover(force=True)
             await asyncio.sleep(3)  # Wait longer for toolbar animations
-            logger.info("✅ Hovered and toolbar revealed")
-        
+            logger.info("✅ Hovered over sub-container and toolbar revealed")
+
             logger.info("\n" + "=" * 100)
             logger.info(f"STEP 3: Clicking CHANGE IMAGE icon (Logo #{logo_idx})")
             logger.info("=" * 100)
@@ -154,10 +163,16 @@ async def main():
                 change_clicked = await page.evaluate(f"""
                     () => {{
                         const container = document.querySelector('[data-logo-to-inspect="logo-{logo_idx}"]');
-                        if (!container) return {{ clicked: false, reason: 'No container' }};
+                        if (!container) return {{ clicked: false, reason: 'No outer container' }};
 
-                        // Find Change Image icon (icon-switch)
-                        const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                        // Find the sub-container first
+                        const subContainer = container.querySelector('[class*="imageComponent"]');
+                        if (!subContainer) return {{ clicked: false, reason: 'No sub-container (imageComponent)' }};
+
+                        // Find Change Image icon (icon-switch) - look in both sub-container and container
+                        const changeIcon = subContainer.querySelector('[aria-label="icon-switch"]') ||
+                                          subContainer.querySelector('[title="Change Image"]') ||
+                                          container.querySelector('[aria-label="icon-switch"]') ||
                                           container.querySelector('[title="Change Image"]');
 
                         if (changeIcon) {{

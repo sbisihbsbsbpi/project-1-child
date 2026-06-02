@@ -1137,12 +1137,20 @@ class TempLogoAdditionFinalService:
         """Replace logo with warning icon using Change Image workflow"""
 
         try:
-            # Hover to reveal toolbar
-            container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
-            if not container:
+            # Find the outer container (SortableItem) marked with data attribute
+            outer_container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
+            if not outer_container:
                 return False
 
-            await container.hover(force=True)
+            # BREAKTHROUGH FIX: Hover over SUB-CONTAINER (imageComponent), not outer container!
+            # The toolbar only appears when hovering over templates_Image_imageComponent
+            sub_container = await outer_container.query_selector('[class*="imageComponent"]')
+            if not sub_container:
+                logger.warning(f"Sub-container (imageComponent) not found for logo {logo_idx}")
+                return False
+
+            # Hover over the sub-container to reveal toolbar
+            await sub_container.hover(force=True)
             await asyncio.sleep(3)
 
             # Check if popup already open
@@ -1154,24 +1162,32 @@ class TempLogoAdditionFinalService:
             """)
 
             if not popup_open:
-                # Click Change Image
+                # Click Change Image icon (now toolbar should be visible!)
                 change_clicked = await page.evaluate(f"""
                     () => {{
                         const container = document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
-                        if (!container) return {{ clicked: false }};
+                        if (!container) return {{ clicked: false, reason: 'Container not found' }};
 
-                        const changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                        // Find the sub-container first
+                        const subContainer = container.querySelector('[class*="imageComponent"]');
+                        if (!subContainer) return {{ clicked: false, reason: 'Sub-container not found' }};
+
+                        // Look for Change Image icon within the sub-container area
+                        const changeIcon = subContainer.querySelector('[aria-label="icon-switch"]') ||
+                                          subContainer.querySelector('[title="Change Image"]') ||
+                                          container.querySelector('[aria-label="icon-switch"]') ||
                                           container.querySelector('[title="Change Image"]');
 
                         if (changeIcon) {{
                             changeIcon.click();
                             return {{ clicked: true }};
                         }}
-                        return {{ clicked: false }};
+                        return {{ clicked: false, reason: 'Change Image icon not found in toolbar' }};
                     }}
                 """)
 
                 if not change_clicked['clicked']:
+                    logger.warning(f"Failed to click Change Image: {change_clicked.get('reason', 'Unknown')}")
                     return False
 
                 await asyncio.sleep(3)
@@ -1242,25 +1258,17 @@ class TempLogoAdditionFinalService:
         """Replace logo WITHOUT warning icon (detected by table-based detection) using Change Image workflow"""
 
         try:
-            # Find the image component marked for replacement
-            container = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
-            if not container:
-                logger.warning(f"Container not found for replace-logo-{logo_idx}")
+            # Find the image component marked for replacement (this is already the imageComponent)
+            image_component = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
+            if not image_component:
+                logger.warning(f"Image component not found for replace-logo-{logo_idx}")
                 return False
 
-            # Find the actual <img> element inside the container
-            img_element = await container.query_selector('img')
-            if not img_element:
-                logger.warning("Image element not found inside container")
-                return False
-
-            # STEP 1: Hover over image first to make toolbar appear
-            await img_element.hover(force=True)
-            await asyncio.sleep(1.5)
-
-            # STEP 2: Click the image while keeping hover state
-            await img_element.click(force=True)
-            await asyncio.sleep(2)  # Wait for toolbar to stay visible
+            # BREAKTHROUGH FIX: Hover over the imageComponent (sub-container) to reveal toolbar
+            # The data-logo-to-replace is set on templates_Image_imageComponent, which is the correct element!
+            logger.debug(f"Hovering over image component to reveal toolbar...")
+            await image_component.hover(force=True)
+            await asyncio.sleep(3)  # Wait for toolbar to appear
 
             # Check if media library popup is already open
             popup_open = await page.evaluate("""
@@ -1271,41 +1279,49 @@ class TempLogoAdditionFinalService:
             """)
 
             if not popup_open:
-                # STEP 3: Use Playwright's built-in click at coordinates for the 4th toolbar icon
-                # The toolbar appears above the image, with icons in a row
-                # Get image position and calculate toolbar icon positions
-                img_box = await img_element.bounding_box()
-                if not img_box:
-                    logger.warning("Could not get image bounding box")
+                # Click the Change Image icon (icon-switch) using selector instead of coordinates
+                # This is more reliable than coordinate-based clicking
+                change_clicked = await page.evaluate(f"""
+                    () => {{
+                        const imageComponent = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                        if (!imageComponent) return {{ clicked: false, reason: 'Image component not found' }};
+
+                        // Find the Change Image icon - it should be visible after hover
+                        // Look in the parent SortableItem container where the toolbar appears
+                        const sortableItem = imageComponent.closest('[class*="SortableItem"]');
+                        if (!sortableItem) return {{ clicked: false, reason: 'SortableItem not found' }};
+
+                        const changeIcon = sortableItem.querySelector('[aria-label="icon-switch"]') ||
+                                          sortableItem.querySelector('[title="Change Image"]') ||
+                                          imageComponent.querySelector('[aria-label="icon-switch"]') ||
+                                          imageComponent.querySelector('[title="Change Image"]');
+
+                        if (changeIcon) {{
+                            changeIcon.click();
+                            return {{ clicked: true }};
+                        }}
+                        return {{ clicked: false, reason: 'Change Image icon not found in toolbar' }};
+                    }}
+                """)
+
+                if not change_clicked['clicked']:
+                    logger.warning(f"Failed to click Change Image icon: {change_clicked.get('reason', 'Unknown')}")
                     return False
 
-                # Calculate position of 4th icon (replace icon) in toolbar
-                # Toolbar is above image, icons are roughly 40px wide each
-                # Icon positions: 1st, 2nd, 3rd, 4th (replace)
-                toolbar_icon_4_x = img_box['x'] + 140  # Approximate x position of 4th icon
-                toolbar_icon_y = img_box['y'] - 30      # Toolbar is ~30px above image
+                await asyncio.sleep(2)
 
-                # Try clicking the 4th toolbar icon position
-                try:
-                    await page.mouse.click(toolbar_icon_4_x, toolbar_icon_y)
-                    await asyncio.sleep(2)
+                # Check if popup opened after clicking Change Image icon
+                popup_open_after_click = await page.evaluate("""
+                    () => {
+                        const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                        return popup && popup.getBoundingClientRect().width > 0;
+                    }
+                """)
 
-                    # Check if popup opened
-                    popup_open_after_click = await page.evaluate("""
-                        () => {
-                            const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                            return popup && popup.getBoundingClientRect().width > 0;
-                        }
-                    """)
-
-                    if popup_open_after_click:
-                        logger.debug(f"Successfully clicked toolbar icon at ({toolbar_icon_4_x}, {toolbar_icon_y})")
-                    else:
-                        logger.warning(f"Clicked at ({toolbar_icon_4_x}, {toolbar_icon_y}) but popup didn't open")
-                        return False
-
-                except Exception as e:
-                    logger.warning(f"Failed to click at toolbar position: {e}")
+                if popup_open_after_click:
+                    logger.debug("Successfully opened popup via Change Image icon")
+                else:
+                    logger.warning("Popup didn't open after clicking Change Image icon")
                     return False
 
             await asyncio.sleep(2)
