@@ -1,0 +1,1119 @@
+{
+  "changeImageElements": [
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF root_icon_size__md__eSxdUr3MZh icon-switch",
+      "title": "Change Image",
+      "ariaLabel": "icon-switch",
+      "x": 390,
+      "y": 292
+    }
+  ],
+  "toolbarIcons": [],
+  "allVisibleIcons": [
+    {
+      "tag": "DIV",
+      "className": "cursor-pointer root_iconAsBtn_container__vWR5mP2TLJ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 7,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNav_menuBtn__iPkuLkWTnv full-height root_icon_size__l__wqikhXmovX icon-nine-dots-menu",
+      "ariaLabel": "icon-nine-dots-menu",
+      "title": null,
+      "x": 7,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 41
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 79
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 118
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 156
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 194
+    },
+    {
+      "tag": "DIV",
+      "className": "root_sideNavItem_dragIcon__sikrcouxB7 icon-drag-and-drop root_sideNavItem_dragIconCollapse__uwvGe1Bs8G root_icon_size__s__5kwhpD8hgW",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 24,
+      "y": 233
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__xxl__f7Nrjzddvm icon-very-satisfied-sentiment",
+      "ariaLabel": "icon-very-satisfied-sentiment",
+      "title": null,
+      "x": 11,
+      "y": 748
+    },
+    {
+      "tag": "DIV",
+      "className": "root_profile_clockedOut__aKgP4m3crv root_icon_size__xxl__f7Nrjzddvm icon-clock-in",
+      "ariaLabel": "icon-clock-in",
+      "title": null,
+      "x": 11,
+      "y": 778
+    },
+    {
+      "tag": "DIV",
+      "className": "root_content_blackNormalContent__9js3j3JV6N root_iconWithText_container__v7KqhYFH6T root_supportChatBtn_iconContainer__e61QGT4H6S",
+      "ariaLabel": null,
+      "title": null,
+      "x": 505,
+      "y": 14
+    },
+    {
+      "tag": "DIV",
+      "className": "m-r-8 root_supportChatBtn_supportIcon__5QKgSp9tiD root_icon_size__md__eSxdUr3MZh icon-support-headphone2",
+      "ariaLabel": "icon-support-headphone2",
+      "title": null,
+      "x": 505,
+      "y": 14
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "ariaLabel": "icon-chevron-down",
+      "title": null,
+      "x": 568,
+      "y": 14
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge relative cursor-pointer",
+      "ariaLabel": null,
+      "title": null,
+      "x": 636,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-bell",
+      "ariaLabel": "icon-bell",
+      "title": null,
+      "x": 636,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge__badge absolute",
+      "ariaLabel": null,
+      "title": null,
+      "x": 641,
+      "y": 7
+    },
+    {
+      "tag": "DIV",
+      "className": "icon_with_badge relative cursor-pointer",
+      "ariaLabel": null,
+      "title": null,
+      "x": 664,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-message",
+      "ariaLabel": "icon-message",
+      "title": null,
+      "x": 664,
+      "y": 13
+    },
+    {
+      "tag": "DIV",
+      "className": "root_selectedWorkspace_popoverClose__gzyTKoHAnP root_icon_size__md__eSxdUr3MZh icon-chevron-down",
+      "ariaLabel": "icon-chevron-down",
+      "title": null,
+      "x": 863,
+      "y": 14
+    },
+    {
+      "tag": "BUTTON",
+      "className": "ant-btn root_button_iconButton__pUrV2yn2ZG root_pageComponent_goBackBtn__tNxsn4ig24 ant-btn-icon",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 51
+    },
+    {
+      "tag": "SPAN",
+      "className": "icon-chevron-down root_pageComponent_goBackIcon__9QhHLzkqmg",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 51
+    },
+    {
+      "tag": "DIV",
+      "className": "p-l-8 cursor-pointer root_icon_size__md__eSxdUr3MZh icon-edit",
+      "ariaLabel": "icon-edit",
+      "title": null,
+      "x": 45,
+      "y": 53
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__l__wqikhXmovX icon-settings",
+      "ariaLabel": "icon-settings",
+      "title": null,
+      "x": 646,
+      "y": 51
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 117
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-image",
+      "ariaLabel": "icon-insert-image",
+      "title": null,
+      "x": -136,
+      "y": 128
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 117
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-video",
+      "ariaLabel": "icon-insert-video",
+      "title": null,
+      "x": -85,
+      "y": 128
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 117
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-button",
+      "ariaLabel": "icon-button",
+      "title": null,
+      "x": -33,
+      "y": 128
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 117
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-link",
+      "ariaLabel": "icon-insert-link",
+      "title": null,
+      "x": 18,
+      "y": 128
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 190
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-attach",
+      "ariaLabel": "icon-attach",
+      "title": null,
+      "x": -136,
+      "y": 200
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 190
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership-logo",
+      "ariaLabel": "icon-dealership-logo",
+      "title": null,
+      "x": -85,
+      "y": 200
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 190
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-cover-image",
+      "ariaLabel": "icon-cover-image",
+      "title": null,
+      "x": -33,
+      "y": 200
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 190
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-header",
+      "ariaLabel": "icon-header",
+      "title": null,
+      "x": 18,
+      "y": 200
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 275
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-separator-24",
+      "ariaLabel": "icon-separator-24",
+      "title": null,
+      "x": -136,
+      "y": 286
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 275
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-columns",
+      "ariaLabel": "icon-columns",
+      "title": null,
+      "x": -85,
+      "y": 286
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Section_infoIcon__sRUeNgXfMY root_icon_size__md__eSxdUr3MZh icon-info",
+      "ariaLabel": "icon-info",
+      "title": null,
+      "x": -90,
+      "y": 361
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 381
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dynamic-tag",
+      "ariaLabel": "icon-dynamic-tag",
+      "title": null,
+      "x": -136,
+      "y": 392
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 381
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "ariaLabel": "icon-vehicle2",
+      "title": null,
+      "x": -85,
+      "y": 392
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 381
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-quick-quote",
+      "ariaLabel": "icon-quick-quote",
+      "title": null,
+      "x": -33,
+      "y": 392
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 381
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-person-outline",
+      "ariaLabel": "icon-person-outline",
+      "title": null,
+      "x": 18,
+      "y": 392
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 466
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-dealership",
+      "ariaLabel": "icon-dealership",
+      "title": null,
+      "x": -136,
+      "y": 477
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 466
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-signature2",
+      "ariaLabel": "icon-signature2",
+      "title": null,
+      "x": -85,
+      "y": 477
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 466
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-vehicle2",
+      "ariaLabel": "icon-vehicle2",
+      "title": null,
+      "x": -33,
+      "y": 477
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 466
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-SA",
+      "ariaLabel": "icon-insert-SA",
+      "title": null,
+      "x": 18,
+      "y": 477
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 551
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-map",
+      "ariaLabel": "icon-map",
+      "title": null,
+      "x": -136,
+      "y": 562
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 551
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-inbound-call-outlined",
+      "ariaLabel": "icon-inbound-call-outlined",
+      "title": null,
+      "x": -85,
+      "y": 562
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 551
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-notify-SA",
+      "ariaLabel": "icon-insert-notify-SA",
+      "title": null,
+      "x": -33,
+      "y": 562
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 551
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-insert-otp",
+      "ariaLabel": "icon-insert-otp",
+      "title": null,
+      "x": 18,
+      "y": 562
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 637
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-tv",
+      "ariaLabel": "icon-tv",
+      "title": null,
+      "x": -136,
+      "y": 647
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -96,
+      "y": 637
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-wifi",
+      "ariaLabel": "icon-wifi",
+      "title": null,
+      "x": -85,
+      "y": 647
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -44,
+      "y": 637
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-water",
+      "ariaLabel": "icon-water",
+      "title": null,
+      "x": -33,
+      "y": 647
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 8,
+      "y": 637
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-coffee",
+      "ariaLabel": "icon-coffee",
+      "title": null,
+      "x": 18,
+      "y": 647
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": -147,
+      "y": 709
+    },
+    {
+      "tag": "DIV",
+      "className": "p-2 root_icon_size__xl__iX9YkwYuVP icon-playarea",
+      "ariaLabel": "icon-playarea",
+      "title": null,
+      "x": -136,
+      "y": 720
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-upload",
+      "ariaLabel": "icon-upload",
+      "title": null,
+      "x": 428,
+      "y": 91
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-eye-outline",
+      "ariaLabel": "icon-eye-outline",
+      "title": null,
+      "x": 487,
+      "y": 91
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-email",
+      "ariaLabel": "icon-email",
+      "title": null,
+      "x": 542,
+      "y": 91
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "ariaLabel": "icon-cross",
+      "title": null,
+      "x": 815,
+      "y": 261
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-drag-and-drop",
+      "ariaLabel": "icon-drag-and-drop",
+      "title": null,
+      "x": 113,
+      "y": 275
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_actions_actionButton__hyvkuP9ZAf root_icon_size__md__eSxdUr3MZh icon-no-wrap",
+      "ariaLabel": "icon-no-wrap",
+      "title": null,
+      "x": 459,
+      "y": 366
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_alignmentActions_actionButton__rWdwbbo1Kq templates_alignmentActions_selectedActionButton__5TMnyhum4Z root_icon_size__md__eSxdUr3MZh icon-horizontal-layout",
+      "ariaLabel": "icon-horizontal-layout",
+      "title": "Horizontal",
+      "x": 421,
+      "y": 258
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_alignmentActions_actionButton__rWdwbbo1Kq root_icon_size__md__eSxdUr3MZh icon-vertical-layout",
+      "ariaLabel": "icon-vertical-layout",
+      "title": "Vertical",
+      "x": 441,
+      "y": 258
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_SortableItem_removeBtn__osvYZsTyqJ root_icon_size__s__5kwhpD8hgW icon-cross",
+      "ariaLabel": "icon-cross",
+      "title": null,
+      "x": 424,
+      "y": 269
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Image_resizeIcon__9h37gGhXwx root_icon_size__md__eSxdUr3MZh icon-resize",
+      "ariaLabel": "icon-resize",
+      "title": "Resize Image",
+      "x": 416,
+      "y": 342
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF root_icon_size__md__eSxdUr3MZh icon-left-align",
+      "ariaLabel": "icon-left-align",
+      "title": "Left Align",
+      "x": 332,
+      "y": 292
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF templates_Image_selectedActionButton__aqKn7FUemq root_icon_size__md__eSxdUr3MZh icon-center-align",
+      "ariaLabel": "icon-center-align",
+      "title": "Center Align",
+      "x": 351,
+      "y": 292
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF root_icon_size__md__eSxdUr3MZh icon-right-align",
+      "ariaLabel": "icon-right-align",
+      "title": "Right Align",
+      "x": 370,
+      "y": 292
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF root_icon_size__md__eSxdUr3MZh icon-switch",
+      "ariaLabel": "icon-switch",
+      "title": "Change Image",
+      "x": 390,
+      "y": 292
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex justify-content-center templates_Image_actionButton__6mcWjcuKxF root_icon_size__md__eSxdUr3MZh icon-insert-link",
+      "ariaLabel": "icon-insert-link",
+      "title": "Embed Link",
+      "x": 409,
+      "y": 292
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Image_warningIcon__hCZHMuhEmb absolute m-t-12 m-l-12 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "ariaLabel": "icon-alert1",
+      "title": null,
+      "x": 143,
+      "y": 284
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "ariaLabel": null,
+      "title": null,
+      "x": 490,
+      "y": 301
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "ariaLabel": null,
+      "title": null,
+      "x": 526,
+      "y": 310
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "ariaLabel": null,
+      "title": null,
+      "x": 693,
+      "y": 301
+    },
+    {
+      "tag": "TD",
+      "className": "templates_iconButton_pointerEventsNone__hxSemsFooB",
+      "ariaLabel": null,
+      "title": null,
+      "x": 719,
+      "y": 310
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "ariaLabel": "icon-vehicle2",
+      "title": null,
+      "x": 428,
+      "y": 469
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 77,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-undo",
+      "ariaLabel": "icon-undo",
+      "title": null,
+      "x": 77,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 96,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-redo",
+      "ariaLabel": "icon-redo",
+      "title": null,
+      "x": 96,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 126,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-text-color",
+      "ariaLabel": "icon-text-color",
+      "title": null,
+      "x": 126,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 145,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-image",
+      "ariaLabel": "icon-insert-image",
+      "title": null,
+      "x": 145,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 164,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-video",
+      "ariaLabel": "icon-insert-video",
+      "title": null,
+      "x": 164,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 183,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-button",
+      "ariaLabel": "icon-button",
+      "title": null,
+      "x": 183,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 202,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-insert-link",
+      "ariaLabel": "icon-insert-link",
+      "title": null,
+      "x": 202,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 222,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-attach",
+      "ariaLabel": "icon-attach",
+      "title": null,
+      "x": 222,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 241,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership-logo",
+      "ariaLabel": "icon-dealership-logo",
+      "title": null,
+      "x": 241,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 260,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-cover-image",
+      "ariaLabel": "icon-cover-image",
+      "title": null,
+      "x": 260,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 279,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-header",
+      "ariaLabel": "icon-header",
+      "title": null,
+      "x": 279,
+      "y": 809
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 309,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dynamic-tag",
+      "ariaLabel": "icon-dynamic-tag",
+      "title": null,
+      "x": 309,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 328,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "ariaLabel": "icon-vehicle2",
+      "title": null,
+      "x": 328,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 347,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-quick-quote",
+      "ariaLabel": "icon-quick-quote",
+      "title": null,
+      "x": 347,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 367,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-person-outline",
+      "ariaLabel": "icon-person-outline",
+      "title": null,
+      "x": 367,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 386,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-dealership",
+      "ariaLabel": "icon-dealership",
+      "title": null,
+      "x": 386,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 405,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-signature2",
+      "ariaLabel": "icon-signature2",
+      "title": null,
+      "x": 405,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "d-flex align-items-center justify-content-center templates_Button_iconContainer__91VRD5WjwQ",
+      "ariaLabel": null,
+      "title": null,
+      "x": 424,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_Button_icon__3am5UtLKaJ root_icon_size__md__eSxdUr3MZh icon-vehicle2",
+      "ariaLabel": "icon-vehicle2",
+      "title": null,
+      "x": 424,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs m-r-8 root_icon_size__md__eSxdUr3MZh icon-alert1",
+      "ariaLabel": "icon-alert1",
+      "title": null,
+      "x": 581,
+      "y": 811
+    },
+    {
+      "tag": "DIV",
+      "className": "root_notificationContent_iconContainer__qm2bFfZkLC",
+      "ariaLabel": null,
+      "title": null,
+      "x": 631,
+      "y": 17
+    },
+    {
+      "tag": "DIV",
+      "className": "root_icon_size__xl__iX9YkwYuVP icon-caution",
+      "ariaLabel": "icon-caution",
+      "title": null,
+      "x": 645,
+      "y": 41
+    }
+  ]
+}
