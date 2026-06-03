@@ -577,18 +577,105 @@ class TempLogoAdditionFinalService:
 
                     if has_any_logos.get('found'):
                         logger.info(f"   ⚠️  Template has logos ({has_any_logos['reason']}: {has_any_logos['count']}) but IDs don't match hardcoded list")
-                        logger.info(f"   ℹ️  This template uses a different structure - skipping to avoid duplicate header")
-                        self.results.append({
-                            'template': template_name,
-                            'id': template_id,
-                            'status': 'skipped',
-                            'reason': f"Has logos but different structure ({has_any_logos['reason']})",
-                            'logos_processed': 0,
-                            'published': False
-                        })
-                        logger.info(f"   📑 Tab kept open for verification")
-                        # await page.close()  # Keep tab open
-                        return
+                        logger.info(f"   📋 Checking if template still needs a header structure...")
+
+                        # Check #HEADER button status even for non-standard templates
+                        button_state = await page.evaluate("""
+                            () => {
+                                const headerBtn = document.querySelector('#HEADER');
+                                if (!headerBtn) return { found: false };
+
+                                const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                                return {
+                                    found: true,
+                                    opacity: opacity,
+                                    isActive: opacity === 1.0,
+                                    isGrayed: opacity < 1.0
+                                };
+                            }
+                        """)
+
+                        logger.debug(f"   Header button state (non-standard template): {button_state}")
+
+                        if button_state.get('found') and button_state.get('isActive'):
+                            # Header button is active - template has logos but NEEDS header structure!
+                            logger.info(f"   🎯 #HEADER button is active (opacity={button_state['opacity']}) - template needs header despite having logos")
+                            logger.info(f"   ℹ️  Template has {has_any_logos['count']} logo(s) in body but no header structure")
+                            logger.info("   ➕ Adding header structure with logo...")
+
+                            header_added = await self._add_header_with_logo(page, logo_media_id)
+
+                            if header_added:
+                                logger.info("   ✅ Header added successfully!")
+
+                                # Auto-publish if enabled
+                                published = False
+                                if auto_publish:
+                                    logger.info(f"\n   📤 Auto-publishing template...")
+                                    if await self._publish_template(page, template_name):
+                                        published = True
+                                        self.published_count += 1
+                                        logger.info(f"   ✅ Template published successfully!")
+                                    else:
+                                        logger.warning(f"   ⚠️  Publish failed or skipped")
+
+                                self.processed += 1
+                                self.successful += 1
+                                self.results.append({
+                                    'template': template_name,
+                                    'id': template_id,
+                                    'status': 'success',
+                                    'action': 'header_added_to_non_standard',
+                                    'reason': f"Had {has_any_logos['count']} logo(s) but no header structure",
+                                    'logos_processed': 1,  # Count header as 1 logo
+                                    'published': published,
+                                    'departments': ', '.join(template.get('departments', []))
+                                })
+
+                                logger.info(f"\n   ✅ Template {idx} complete:")
+                                logger.info(f"      Action: Header added to non-standard template")
+                                logger.info(f"      Reason: Template had logos in body but no header structure")
+                                logger.info(f"      Published: {'✅' if published else '❌'}")
+
+                                # Keep tab open for verification
+                                # await page.close()
+                                return
+                            else:
+                                logger.warning("   ⚠️  Failed to add header")
+                                self.failed += 1
+                                self.processed += 1
+                                self.results.append({
+                                    'template': template_name,
+                                    'id': template_id,
+                                    'status': 'failed',
+                                    'reason': 'Header addition failed (non-standard template)',
+                                    'logos_processed': 0,
+                                    'published': False
+                                })
+                                logger.info(f"   📑 Tab kept open for verification")
+                                # await page.close()  # Keep tab open
+                                return
+                        else:
+                            # Header button is grayed or not found - template already has header or can't add one
+                            if button_state.get('found') and button_state.get('isGrayed'):
+                                logger.info(f"   ℹ️  #HEADER button is grayed (opacity={button_state['opacity']}) - template already has header structure")
+                            elif button_state.get('found'):
+                                logger.info(f"   ℹ️  #HEADER button status unclear (opacity={button_state['opacity']})")
+                            else:
+                                logger.info(f"   ℹ️  #HEADER button not found")
+
+                            logger.info(f"   ℹ️  This template uses a different structure - skipping to avoid duplicate header")
+                            self.results.append({
+                                'template': template_name,
+                                'id': template_id,
+                                'status': 'skipped',
+                                'reason': f"Has logos but different structure ({has_any_logos['reason']}) and header already exists or cannot be added",
+                                'logos_processed': 0,
+                                'published': False
+                            })
+                            logger.info(f"   📑 Tab kept open for verification")
+                            # await page.close()  # Keep tab open
+                            return
 
                     # No logos at all - check if #HEADER button is active (can add header)
                     logger.info("   ✅ No logos detected anywhere - checking if we can add header...")
