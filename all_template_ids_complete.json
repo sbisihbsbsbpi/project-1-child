@@ -1,0 +1,341 @@
+[
+  {
+    "index": 1,
+    "templateId": "667f0befd4964026ee7b6ea2",
+    "name": "Service History Recap PDF",
+    "departments": [
+      "SERVICE",
+      "SALES"
+    ]
+  },
+  {
+    "index": 2,
+    "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+    "name": "Request Completion: Data Correction",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 3,
+    "templateId": "667f0befd4964026ee7b6e76",
+    "name": "RO Created",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 4,
+    "templateId": "667f0befd4964026ee7b6e9a",
+    "name": "Collection Slip",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 5,
+    "templateId": "667f0befd4964026ee7b6e46",
+    "name": "RO Invoiced",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 6,
+    "templateId": "667f0befd4964026ee7b6e48",
+    "name": "Customer Pay Closed",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 7,
+    "templateId": "CPRA_FIRST_TIME",
+    "name": "First Time Email",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 8,
+    "templateId": "667f0befd4964026ee7b6ea4",
+    "name": "RO Payment Link",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 9,
+    "templateId": "667f0befd4964026ee7b6e6e",
+    "name": "Consumer Scheduling OTP",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 10,
+    "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+    "name": "Request Completion: Data Deletion (Closed Documents)",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 11,
+    "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+    "name": "Request Completion: Data Export",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 12,
+    "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+    "name": "Request Acknowledgement",
+    "departments": [
+      "SALES",
+      "SERVICE",
+      "PARTS"
+    ]
+  },
+  {
+    "index": 13,
+    "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+    "name": "Request Decline: Data Deletion (Open Documents)",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 14,
+    "templateId": "667f0befd4964026ee7b6e7a",
+    "name": "Appointment Rescheduled",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 15,
+    "templateId": "667f0befd4964026ee7b6e78",
+    "name": "Quote Estimate PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 16,
+    "templateId": "667f0befd4964026ee7b6e74",
+    "name": "Revised Estimate",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 17,
+    "templateId": "667f0befd4964026ee7b6e72",
+    "name": "Consumer Portal OTP",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 18,
+    "templateId": "667f0befd4964026ee7b6e70",
+    "name": "MPVI Customer PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 19,
+    "templateId": "667f0befd4964026ee7b6e4a",
+    "name": "Recommendation Send to customer",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 20,
+    "templateId": "667f0befd4964026ee7b6eaa",
+    "name": "Consumer Portal Resend Link",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 21,
+    "templateId": "667f0befd4964026ee7b6ea8",
+    "name": "Bulk RO Download",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 22,
+    "templateId": "667f0befd4964026ee7b6ea0",
+    "name": "Service History Invoice PDF(s)",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 23,
+    "templateId": "667f0befd4964026ee7b6e9e",
+    "name": "RO Invoiced - Contactless",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 24,
+    "templateId": "667f0befd4964026ee7b6e9c",
+    "name": "Day Collection Report",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 25,
+    "templateId": "667f0befd4964026ee7b6e98",
+    "name": "Appointment Reminder - Concierge",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 26,
+    "templateId": "667f0befd4964026ee7b6e96",
+    "name": "Appointment Rescheduled - Concierge",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 27,
+    "templateId": "667f0befd4964026ee7b6e94",
+    "name": "Appointment Confirmation - Concierge",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 28,
+    "templateId": "667f0befd4964026ee7b6e8c",
+    "name": "Inspections and Recommendations PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 29,
+    "templateId": "667f0befd4964026ee7b6e8a",
+    "name": "Invoice Customer PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 30,
+    "templateId": "667f0befd4964026ee7b6e88",
+    "name": "Estimate Customer PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 31,
+    "templateId": "667f0befd4964026ee7b6e86",
+    "name": "Vehicle Health Report PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 32,
+    "templateId": "667f0befd4964026ee7b6e84",
+    "name": "Damages Customer PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 33,
+    "templateId": "667f0befd4964026ee7b6e82",
+    "name": "VIS Customer PDF",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 34,
+    "templateId": "667f0befd4964026ee7b6e80",
+    "name": "Appointment Confirmation",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 35,
+    "templateId": "667f0befd4964026ee7b6e7e",
+    "name": "Appointment Reminder",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 36,
+    "templateId": "667f0befd4964026ee7b6e7c",
+    "name": "Appointment Cancellation",
+    "departments": [
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 37,
+    "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+    "name": "Request Decline: Marked As Declined",
+    "departments": [
+      "SALES",
+      "SERVICE",
+      "PARTS"
+    ]
+  },
+  {
+    "index": 38,
+    "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+    "name": "Request Completion: Sensitive Information Restriction",
+    "departments": [
+      "SALES",
+      "SERVICE",
+      "PARTS"
+    ]
+  },
+  {
+    "index": 39,
+    "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+    "name": "Request Completion: Do not sell & share with 3rd Parties",
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ]
+  },
+  {
+    "index": 40,
+    "templateId": "STANDARD_APPOINTMENT_EMAIL",
+    "name": "Standard Appointment",
+    "departments": [
+      "SALES"
+    ]
+  }
+]
