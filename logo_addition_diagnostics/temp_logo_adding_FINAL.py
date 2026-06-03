@@ -1276,88 +1276,34 @@ class TempLogoAdditionFinalService:
                 }
 
                 // ============================================================================
-                // FALLBACK: Find empty Logo 1/2 containers (6 hardcoded positions)
-                // NOTE: This is a fallback for templates using standard structure
-                // The imageComponent detection above handles custom structures
+                // FIX #1: STATE SYNCHRONIZATION
+                // Run table-based detection FIRST to identify which logo rows already have content
+                // Then use that information to inform hardcoded Logo 1/2 detection
                 // ============================================================================
-                debug.push('\\n=== LOGO 1/2 CONTAINER DETECTION (Fallback) ===');
-                const containerIds = [
-                    '6f0b8570-c4dc-45bd-b746-40e3af9af3bb',  // Logo 1 LEFT
-                    '7653caa9-31b7-4e2b-8233-f0bda43672ea',  // Logo 1 CENTER
-                    '47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa',  // Logo 1 RIGHT
-                    '9fa2920b-10f8-48d2-9947-b014398d21be',  // Logo 2 LEFT
-                    '983932ae-d79a-40fe-a9ba-df07c9beee47',  // Logo 2 CENTER
-                    '9d454086-c1f2-4bf0-b4a7-8e95dc244aae'   // Logo 2 RIGHT
-                ];
 
-                const containerNames = ['Logo 1 LEFT', 'Logo 1 CENTER', 'Logo 1 RIGHT',
-                                       'Logo 2 LEFT', 'Logo 2 CENTER', 'Logo 2 RIGHT'];
-
+                // Initialize shared tracking arrays
                 const emptyContainers = [];
                 const containerCheckResults = [];
+                const logosToReplace = [];
 
-                // GUARDRAIL: Track which logo rows already have a logo (to prevent multiple logos per row)
-                const logoRowsProcessed = new Set(); // e.g., 'Logo 1', 'Logo 2'
+                // Shared guardrail state (will be populated by table detection first)
+                const globalLogoRowsWithContent = new Set(); // e.g., 'Logo 1', 'Logo 2'
 
-                containerIds.forEach((id, idx) => {
-                    const container = document.querySelector(`div.TEXT_TEMPLATE[id="${id}"][contenteditable="true"]`);
-                    const containerName = containerNames[idx];
-                    const logoRow = containerName.split(' ').slice(0, 2).join(' '); // "Logo 1" or "Logo 2"
-
-                    const checkResult = {
-                        name: containerName,
-                        id: id,
-                        found: container !== null,
-                        hasImage: false,
-                        isEmpty: false,
-                        htmlLength: 0
-                    };
-
-                    if (container) {
-                        const hasImage = container.querySelector('img') !== null;
-                        const htmlLength = container.innerHTML.trim().length;
-                        const isEmpty = !hasImage && htmlLength < 300;
-
-                        checkResult.hasImage = hasImage;
-                        checkResult.htmlLength = htmlLength;
-                        checkResult.isEmpty = isEmpty;
-
-                        // GUARDRAIL: Only add ONE empty container per logo row (Logo 1, Logo 2, etc.)
-                        if (isEmpty && !logoRowsProcessed.has(logoRow)) {
-                            container.setAttribute('data-empty-container', `empty-${idx + 1}`);
-                            emptyContainers.push({
-                                index: idx + 1,
-                                id: id,
-                                name: containerName,
-                                type: 'logo_container'
-                            });
-                            logoRowsProcessed.add(logoRow); // Mark this logo row as processed
-                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty} ✅ ADDED (first empty in ${logoRow})`);
-                        } else if (isEmpty && logoRowsProcessed.has(logoRow)) {
-                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty} ⏭️ SKIPPED (${logoRow} already has container)`);
-                        } else {
-                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
-                        }
-
-                        // Also track rows that already have images (so we don't add to those rows)
-                        if (hasImage) {
-                            logoRowsProcessed.add(logoRow);
-                        }
-                    } else {
-                        debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
-                    }
-
-                    containerCheckResults.push(checkResult);
-                });
-
-                // FALLBACK: Table-based Logo 1/2 detection (if hardcoded IDs didn't work)
-                debug.push('\\n=== TABLE-BASED LOGO DETECTION (Fallback) ===');
+                // ============================================================================
+                // STEP 1: Run table-based detection FIRST
+                // ============================================================================
+                debug.push('\\n=== TABLE-BASED LOGO DETECTION (Primary) ===');
                 const allTables = Array.from(document.querySelectorAll('table'));
                 debug.push(`Scanning ${allTables.length} tables for logo containers...`);
                 const logoTables = [];
-                const logosToReplace = []; // NEW: Track logos without warnings that need replacement
+                const MAX_LOGO_TABLES = 2; // FIX #4: Most templates have at most 2 logo rows (top + bottom)
 
                 allTables.forEach((table, tableIdx) => {
+                    // FIX #4: Stop processing if we've reached max logo tables
+                    if (logoTables.length >= MAX_LOGO_TABLES) {
+                        return;
+                    }
+
                     const firstRow = table.querySelector('tr');
                     if (!firstRow) return;
 
@@ -1367,7 +1313,8 @@ class TempLogoAdditionFinalService:
                     if (cells.length === 4 || cells.length === 5) {
                         const tableInfo = {
                             tableIndex: tableIdx,
-                            positions: []
+                            positions: [],
+                            tableElement: table
                         };
 
                         cells.forEach((cell, cellIdx) => {
@@ -1403,11 +1350,29 @@ class TempLogoAdditionFinalService:
                             });
                         });
 
-                        // Only count as logo table if it has at least one image or empty position in first 3 columns
+                        // FIX #3: Stricter criteria to identify actual logo tables
                         const relevantPositions = tableInfo.positions.slice(0, 3);
                         const hasRelevantContent = relevantPositions.some(p => p.hasImage || p.isEmpty);
 
-                        if (hasRelevantContent) {
+                        // Additional validation to filter out content/layout tables
+                        const hasAtLeastOneImage = tableInfo.positions.some(p => p.hasImage);
+                        const hasLogoMarker = table.querySelector('.templates_Image_imageComponent__tqwK7j9G7t') !== null ||
+                                             table.querySelector('[class*="Image_resizable"]') !== null;
+                        const allRelevantCellsHaveTextTemplate = relevantPositions.every(p => p.textTemplateId !== null);
+
+                        // Check if table is in logo region (top 800px or bottom area)
+                        const tableRect = table.getBoundingClientRect();
+                        const pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+                        const inLogoRegion = (tableRect.top < 800) || (tableRect.top > pageHeight - 1000);
+
+                        // A table is likely a logo table if:
+                        // 1. Has relevant content (images or empties), AND
+                        // 2. Either has images OR (has logo marker AND all cells have text templates AND in logo region)
+                        const isLikelyLogoTable = hasRelevantContent &&
+                                                 (hasAtLeastOneImage ||
+                                                  (hasLogoMarker && allRelevantCellsHaveTextTemplate && inLogoRegion));
+
+                        if (isLikelyLogoTable) {
                             logoTables.push(tableInfo);
                             debug.push(`  Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
                             tableInfo.positions.forEach(pos => {
@@ -1415,11 +1380,13 @@ class TempLogoAdditionFinalService:
                                     debug.push(`    ${pos.alignment}: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}`);
                                 }
                             });
+                        } else if (hasRelevantContent) {
+                            debug.push(`  Skipping table ${tableIdx}: Not a logo table (likely content/layout table)`);
                         }
                     }
                 });
 
-                debug.push(`Found ${logoTables.length} logo tables total`);
+                debug.push(`Found ${logoTables.length} logo tables total (MAX: ${MAX_LOGO_TABLES})`);
 
                 // Process table-based detection if we found logo tables
                 if (logoTables.length > 0) {
@@ -1428,12 +1395,34 @@ class TempLogoAdditionFinalService:
                     // GUARDRAIL: Track which logo rows have been processed
                     const tableLogoRowsProcessed = new Set(); // e.g., 'Logo 1', 'Logo 2'
 
+                    // FIX #2: TWO-PASS APPROACH
+                    // PASS 1: Scan ALL positions in ALL rows to find which rows already have logos
+                    // FIX #1: Also populate globalLogoRowsWithContent for hardcoded detection to use
+                    debug.push('\\nPASS 1: Scanning for existing logos...');
+                    logoTables.forEach((logoTable, tableIdx) => {
+                        const logoNumber = tableIdx + 1;
+                        const logoRow = `Logo ${logoNumber}`;
+
+                        const relevantPositions = logoTable.positions.filter(pos =>
+                            pos.alignment === 'LEFT' || pos.alignment === 'CENTER' || pos.alignment === 'RIGHT'
+                        );
+
+                        const rowHasLogo = relevantPositions.some(pos => pos.hasImage);
+
+                        if (rowHasLogo) {
+                            tableLogoRowsProcessed.add(logoRow);
+                            globalLogoRowsWithContent.add(logoRow); // FIX #1: Update global state
+                            debug.push(`  ${logoRow}: Has existing logo (will skip all empty positions in this row)`);
+                        } else {
+                            debug.push(`  ${logoRow}: No existing logos found`);
+                        }
+                    });
+
+                    // PASS 2: Now process positions (empty positions will be correctly skipped if row already has logo)
+                    debug.push('\\nPASS 2: Processing logos and empty containers...');
                     logoTables.forEach((logoTable, tableIdx) => {
                         const logoNumber = tableIdx + 1; // Logo 1, Logo 2, etc.
                         const logoRow = `Logo ${logoNumber}`;
-
-                        // GUARDRAIL: Check if this logo row already has content
-                        let logoRowHasContent = false;
 
                         logoTable.positions.forEach((pos, posIdx) => {
                             if (pos.alignment === 'EXTRA' || pos.alignment === 'FAR_LEFT' || pos.alignment === 'FAR_RIGHT') return; // Skip extra columns
@@ -1441,10 +1430,11 @@ class TempLogoAdditionFinalService:
                             const containerName = `Logo ${logoNumber} ${pos.alignment}`;
 
                             // PRIORITY 1: Logos WITH warnings need replacement (wrong logo)
-                            // Logos WITHOUT warnings are correct - skip them!
                             if (pos.hasImage && pos.hasWarning) {
-                                // Mark image component for replacement
-                                if (pos.imageComponent && !tableLogoRowsProcessed.has(logoRow)) {
+                                // Only add the first logo with warning in this row
+                                const alreadyHasReplacementForRow = logosToReplace.some(r => r.name && r.name.startsWith(logoRow));
+
+                                if (pos.imageComponent && !alreadyHasReplacementForRow) {
                                     const replaceIdx = logosToReplace.length + 1;
                                     pos.imageComponent.setAttribute('data-logo-to-replace', `replace-logo-${replaceIdx}`);
 
@@ -1459,40 +1449,41 @@ class TempLogoAdditionFinalService:
                                         needsCentering: false  // Keep at current alignment
                                     });
 
-                                    tableLogoRowsProcessed.add(logoRow); // Mark this row as processed
-                                    logoRowHasContent = true;
                                     debug.push(`  Found logo to REPLACE: ${containerName} (hasWarning=true, keepAlignment=${pos.alignment}) ✅ ADDED`);
-                                } else if (tableLogoRowsProcessed.has(logoRow)) {
-                                    debug.push(`  Skipping ${containerName}: ${logoRow} already processed`);
+                                } else if (alreadyHasReplacementForRow) {
+                                    debug.push(`  Skipping ${containerName}: ${logoRow} already has replacement queued`);
                                 }
                             }
-                            // Skip logos without warnings - they're already correct!
+                            // PRIORITY 2: Skip logos without warnings - they're already correct!
                             else if (pos.hasImage && !pos.hasWarning) {
-                                tableLogoRowsProcessed.add(logoRow); // Mark row as having a logo
-                                logoRowHasContent = true;
                                 debug.push(`  Skipping ${containerName}: Logo exists without warning (already correct)`);
                             }
-                            // PRIORITY 2: Empty positions can have logos inserted
+                            // PRIORITY 3: Empty positions - only add if row doesn't already have ANY logo
                             else if (pos.isEmpty && !tableLogoRowsProcessed.has(logoRow)) {
-                                // Only add if this logo row hasn't been processed yet
-                                const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
+                                // Only add the FIRST empty container in this row
+                                const alreadyHasEmptyForRow = emptyContainers.some(c => c.name && c.name.startsWith(logoRow));
 
-                                emptyContainers.push({
-                                    index: emptyContainers.length + 1,
-                                    id: containerId,
-                                    name: containerName,
-                                    type: 'logo_container_table_based',
-                                    tableIndex: tableIdx,
-                                    cellIndex: pos.cellIndex,
-                                    alignment: pos.alignment
-                                });
+                                if (!alreadyHasEmptyForRow) {
+                                    const containerId = pos.textTemplateId || `table-${tableIdx}-cell-${pos.cellIndex}`;
 
-                                tableLogoRowsProcessed.add(logoRow); // Mark this row as processed
-                                debug.push(`  Added empty position: ${containerName} (ID: ${containerId}) ✅ ADDED (first empty in ${logoRow})`);
+                                    emptyContainers.push({
+                                        index: emptyContainers.length + 1,
+                                        id: containerId,
+                                        name: containerName,
+                                        type: 'logo_container_table_based',
+                                        tableIndex: tableIdx,
+                                        cellIndex: pos.cellIndex,
+                                        alignment: pos.alignment
+                                    });
+
+                                    debug.push(`  Added empty position: ${containerName} (ID: ${containerId}) ✅ ADDED (first empty in ${logoRow})`);
+                                } else {
+                                    debug.push(`  Skipping empty ${pos.alignment}: ${containerName} ⏭️ (${logoRow} already has container queued)`);
+                                }
                             }
-                            // PRIORITY 3: Skip if logo row already processed
+                            // PRIORITY 4: Skip if logo row already has content
                             else if (pos.isEmpty && tableLogoRowsProcessed.has(logoRow)) {
-                                debug.push(`  Skipping empty ${pos.alignment}: ${containerName} ⏭️ (${logoRow} already has container)`);
+                                debug.push(`  Skipping empty ${pos.alignment}: ${containerName} ⏭️ (${logoRow} already has logo)`);
                             }
                         });
                     });
@@ -1500,8 +1491,88 @@ class TempLogoAdditionFinalService:
                     debug.push(`\\nTable-based detection summary:`);
                     debug.push(`  - Logos to REPLACE: ${logosToReplace.length}`);
                     debug.push(`  - Empty positions added: ${emptyContainers.length}`);
-                    debug.push(`  - GUARDRAIL: Each logo row gets MAX 1 container`);
+                    debug.push(`  - Logo rows with existing logos: ${tableLogoRowsProcessed.size}`);
+                    debug.push(`  - GUARDRAIL: Each logo row gets MAX 1 container (two-pass detection)`);
                 }
+
+                // ============================================================================
+                // STEP 2: Run hardcoded Logo 1/2 detection (AFTER table-based, with state sync)
+                // FIX #1: Use globalLogoRowsWithContent to skip rows that table detection found
+                // ============================================================================
+                debug.push('\\n=== HARDCODED LOGO 1/2 CONTAINER DETECTION (Fallback) ===');
+                const containerIds = [
+                    '6f0b8570-c4dc-45bd-b746-40e3af9af3bb',  // Logo 1 LEFT
+                    '7653caa9-31b7-4e2b-8233-f0bda43672ea',  // Logo 1 CENTER
+                    '47da3c0a-2c2b-4f8f-8a31-4ba8fdae03aa',  // Logo 1 RIGHT
+                    '9fa2920b-10f8-48d2-9947-b014398d21be',  // Logo 2 LEFT
+                    '983932ae-d79a-40fe-a9ba-df07c9beee47',  // Logo 2 CENTER
+                    '9d454086-c1f2-4bf0-b4a7-8e95dc244aae'   // Logo 2 RIGHT
+                ];
+
+                const containerNames = ['Logo 1 LEFT', 'Logo 1 CENTER', 'Logo 1 RIGHT',
+                                       'Logo 2 LEFT', 'Logo 2 CENTER', 'Logo 2 RIGHT'];
+
+                // Local tracking for this detection pass (separate from table detection)
+                const hardcodedLogoRowsProcessed = new Set();
+
+                containerIds.forEach((id, idx) => {
+                    const container = document.querySelector(`div.TEXT_TEMPLATE[id="${id}"][contenteditable="true"]`);
+                    const containerName = containerNames[idx];
+                    const logoRow = containerName.split(' ').slice(0, 2).join(' '); // "Logo 1" or "Logo 2"
+
+                    const checkResult = {
+                        name: containerName,
+                        id: id,
+                        found: container !== null,
+                        hasImage: false,
+                        isEmpty: false,
+                        htmlLength: 0
+                    };
+
+                    if (container) {
+                        const hasImage = container.querySelector('img') !== null;
+                        const htmlLength = container.innerHTML.trim().length;
+                        const isEmpty = !hasImage && htmlLength < 300;
+
+                        checkResult.hasImage = hasImage;
+                        checkResult.htmlLength = htmlLength;
+                        checkResult.isEmpty = isEmpty;
+
+                        // FIX #1: Check global state from table detection first
+                        if (globalLogoRowsWithContent.has(logoRow)) {
+                            debug.push(`  ${checkResult.name}: ⏭️ SKIPPED (${logoRow} already has logo from table detection)`);
+                        }
+                        // GUARDRAIL: Only add ONE empty container per logo row
+                        else if (isEmpty && !hardcodedLogoRowsProcessed.has(logoRow)) {
+                            container.setAttribute('data-empty-container', `empty-hardcoded-${idx + 1}`);
+                            emptyContainers.push({
+                                index: emptyContainers.length + 1,
+                                id: id,
+                                name: containerName,
+                                type: 'logo_container'
+                            });
+                            hardcodedLogoRowsProcessed.add(logoRow);
+                            globalLogoRowsWithContent.add(logoRow); // Update global state
+                            debug.push(`  ${checkResult.name}: ✅ ADDED (first empty in ${logoRow})`);
+                        } else if (isEmpty && hardcodedLogoRowsProcessed.has(logoRow)) {
+                            debug.push(`  ${checkResult.name}: ⏭️ SKIPPED (${logoRow} already has container from hardcoded detection)`);
+                        } else if (hasImage) {
+                            hardcodedLogoRowsProcessed.add(logoRow);
+                            globalLogoRowsWithContent.add(logoRow); // Update global state
+                            debug.push(`  ${checkResult.name}: hasImage=true (${logoRow} marked as having logo)`);
+                        } else {
+                            debug.push(`  ${checkResult.name}: found=${checkResult.found}, hasImage=${checkResult.hasImage}, isEmpty=${checkResult.isEmpty}`);
+                        }
+                    } else {
+                        debug.push(`  ${checkResult.name}: found=${checkResult.found}`);
+                    }
+
+                    containerCheckResults.push(checkResult);
+                });
+
+                debug.push(`\\nHardcoded detection complete:`);
+                debug.push(`  - Rows with logos (global): ${Array.from(globalLogoRowsWithContent).join(', ')}`);
+                debug.push(`  - Empty containers queued: ${emptyContainers.length}`);
 
                 // Find empty HEADER containers
                 debug.push('\\n=== HEADER CONTAINER DETECTION ===');
