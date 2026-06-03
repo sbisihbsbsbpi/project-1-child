@@ -389,7 +389,10 @@ class TempLogoAdditionFinalService:
                     if 'data' in data and 'hits' in data['data']:
                         hits = data['data']['hits']
                         if hits:
-                            templates.extend(hits)
+                            # CRITICAL FIX: Use assignment (=) instead of extend()
+                            # This ensures we only use the LAST API response (final filter state)
+                            # instead of accumulating ALL intermediate responses (which causes duplicates)
+                            templates = hits  # ✅ REPLACE with latest, not accumulate
                             logger.info(f"   📥 Captured {len(hits)} templates from API")
                             response_received.set()
                 except:
