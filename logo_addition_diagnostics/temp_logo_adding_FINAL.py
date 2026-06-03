@@ -255,6 +255,7 @@ class TempLogoAdditionFinalService:
     async def run(self,
                   departments: Optional[List[str]] = None,
                   max_templates: int = None,
+                  template_name: Optional[str] = None,
                   logo_media_id: str = "6a19132b6697f36de6236fb1",
                   logo_width: int = 160,
                   auto_publish: bool = True,
@@ -266,6 +267,7 @@ class TempLogoAdditionFinalService:
         Args:
             departments: List of departments to filter (None = all)
             max_templates: Maximum number of templates to process (None = all)
+            template_name: Filter by specific template name (None = all)
             logo_media_id: Media ID of logo to add (Tilton.png default)
             logo_width: Width of logo in pixels
             auto_publish: Enable auto-publish after logo updates
@@ -315,6 +317,15 @@ class TempLogoAdditionFinalService:
                 if not templates:
                     logger.error("❌ No templates found!")
                     return
+
+                # Filter by template name if specified
+                if template_name:
+                    original_count = len(templates)
+                    templates = [t for t in templates if t.get('name') == template_name]
+                    logger.info(f"📊 Filtered by template name '{template_name}': {len(templates)}/{original_count} templates")
+                    if not templates:
+                        logger.error(f"❌ No template found with name '{template_name}'")
+                        return
 
                 # Limit templates if specified
                 if max_templates:
@@ -2806,6 +2817,7 @@ async def main():
     parser.add_argument('--all', action='store_true', help='Process all templates (no filter)')
     parser.add_argument('--max', '-m', type=int, help='Maximum templates to process')
     parser.add_argument('--no-publish', action='store_true', help='Disable auto-publish')
+    parser.add_argument('--template-name', '-t', type=str, help='Filter by specific template name (e.g., "RO Created")')
 
     args = parser.parse_args()
 
@@ -2824,6 +2836,7 @@ async def main():
     await service.run(
         departments=departments,
         max_templates=args.max,
+        template_name=args.template_name,
         auto_publish=not args.no_publish
     )
 
