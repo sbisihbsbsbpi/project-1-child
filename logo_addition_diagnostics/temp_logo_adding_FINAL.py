@@ -577,6 +577,29 @@ class TempLogoAdditionFinalService:
 
                     if has_any_logos.get('found'):
                         logger.info(f"   ⚠️  Template has logos ({has_any_logos['reason']}: {has_any_logos['count']}) but IDs don't match hardcoded list")
+
+                        # FIX: Check if logo tables were already found by table-based detection
+                        logo_tables_count = detection_result.get('logoTablesCount', 0)
+                        logger.debug(f"   Logo tables found by table-based detection: {logo_tables_count}")
+
+                        if logo_tables_count > 0:
+                            # Template already has Logo 1/2 table structure - don't add header!
+                            logger.info(f"   ℹ️  Template has {logo_tables_count} logo table(s) - table-based detection already handled this")
+                            logger.info(f"   ⏭️  Skipping header addition (template already has logo structure)")
+                            logger.debug(f"   This prevents adding headers to templates where Logo 1/2 tables exist but have non-standard IDs")
+
+                            self.results.append({
+                                'template': template_name,
+                                'id': template_id,
+                                'status': 'skipped',
+                                'reason': f'Has {logo_tables_count} logo table(s) with non-standard IDs',
+                                'logos_processed': 0,
+                                'published': False
+                            })
+                            logger.info(f"   📑 Tab kept open for verification")
+                            # await page.close()  # Keep tab open
+                            return
+
                         logger.info(f"   📋 Checking if template still needs a header structure...")
 
                         # Check #HEADER button status even for non-standard templates
@@ -1850,6 +1873,7 @@ class TempLogoAdditionFinalService:
                     containerCheckResults: containerCheckResults,
                     headerCheckResults: headerCheckResults,
                     logoTables: logoTables,
+                    logoTablesCount: logoTables.length,  // FIX: Pass logo tables count to Python
                     logosToReplace: logosToReplace || [],
                     replaceCount: (logosToReplace || []).length,
                     debug: debug
