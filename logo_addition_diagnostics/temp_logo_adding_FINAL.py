@@ -907,7 +907,45 @@ class TempLogoAdditionFinalService:
 
             # Process empty header containers (INSERT IMAGE FOR HEADERS)
             logger.debug(f"Starting header processing: {header_count} empty headers detected")
+
+            # FIX: Before inserting into header containers, check if header row already has logos
+            # This prevents duplicate logos when one position has a warning logo that was replaced
+            if header_count > 0:
+                logger.debug("   Checking if header row already has logos (after replacements)...")
+                header_has_logo = await page.evaluate("""
+                    () => {
+                        // Find tables with 3 cells (potential header structure)
+                        const tables = Array.from(document.querySelectorAll('table'));
+                        for (const table of tables) {
+                            const firstRow = table.querySelector('tr');
+                            if (!firstRow) continue;
+
+                            const tds = Array.from(firstRow.querySelectorAll('td'));
+                            if (tds.length === 3) {
+                                // Check first 2 positions for images
+                                for (let i = 0; i < 2; i++) {
+                                    const td = tds[i];
+                                    const img = td.querySelector('img');
+                                    if (img) {
+                                        return { hasLogo: true, position: i + 1 };
+                                    }
+                                }
+                            }
+                        }
+                        return { hasLogo: false, position: null };
+                    }
+                """)
+
+                if header_has_logo.get('hasLogo'):
+                    logger.info(f"   ℹ️  Header row already has a logo at position {header_has_logo['position']} (likely from warning logo replacement)")
+                    logger.info(f"   ⏭️  Skipping header insertion to prevent duplicate logos (GUARDRAIL)")
+                    logger.debug("   This prevents the bug where replacing a warning logo in header position 2, then inserting into position 1, creates duplicates")
+                    header_count = 0  # Skip all header insertions
+
             for header in detection_result['headerContainers']:
+                if header_count == 0:
+                    break  # Skip if guardrail triggered
+
                 header_name = header['name']
                 header_pos = header.get('position', 'unknown')
                 logger.info(f"\n   🎯 Inserting logo into {header_name}...")
@@ -1676,61 +1714,93 @@ class TempLogoAdditionFinalService:
                 debug.push('\\n=== HEADER CONTAINER DETECTION ===');
                 const headerContainers = [];
                 const headerCheckResults = [];
-                const tables = Array.from(document.querySelectorAll('table'));
-                debug.push(`Found ${tables.length} tables`);
 
-                for (const table of tables) {
-                    const firstRow = table.querySelector('tr');
-                    if (!firstRow) continue;
+                // FIX: Check if template actually has a header structure first
+                // If #HEADER button is active (opacity=1.0), template has NO header
+                // Only look for header containers if button is grayed (opacity<1.0)
+                const headerBtn = document.querySelector('#HEADER');
+                let headerExists = false;
 
-                    const tds = Array.from(firstRow.querySelectorAll('td'));
-                    debug.push(`  Table has ${tds.length} cells in first row`);
+                if (headerBtn) {
+                    const opacity = parseFloat(getComputedStyle(headerBtn).opacity);
+                    headerExists = opacity < 1.0; // Grayed = header exists
+                    debug.push(`#HEADER button found: opacity=${opacity.toFixed(2)}, headerExists=${headerExists}`);
+                } else {
+                    debug.push(`#HEADER button not found in DOM`);
+                }
 
-                    if (tds.length === 3) {
-                        debug.push(`  Checking first 2 cells for header logos...`);
-                        for (let i = 0; i < 2; i++) {
-                            const td = tds[i];
-                            const elementContainer = td.querySelector('[class*="elementContainer"]');
+                if (!headerExists) {
+                    debug.push(`⏭️  Skipping header detection: Template has no header structure (#HEADER button is active or missing)`);
+                } else {
+                    // Track which tables were already identified as logo tables
+                    const logoTableElements = new Set(logoTables.map(lt => lt.tableElement));
 
-                            const headerCheck = {
-                                position: i + 1,
-                                hasContainer: elementContainer !== null,
-                                hasImage: false,
-                                hasTextTemplate: false,
-                                isEmpty: false
-                            };
+                    const tables = Array.from(document.querySelectorAll('table'));
+                    debug.push(`Found ${tables.length} tables total`);
+                    debug.push(`Already identified ${logoTableElements.size} logo tables`);
 
-                            if (elementContainer) {
-                                const hasImage = elementContainer.querySelector('img') !== null;
-                                const textTemplate = elementContainer.querySelector('.TEXT_TEMPLATE') ||
-                                                    elementContainer.querySelector('[contenteditable="true"]');
-
-                                headerCheck.hasImage = hasImage;
-                                headerCheck.hasTextTemplate = textTemplate !== null;
-                                headerCheck.isEmpty = !hasImage && textTemplate !== null;
-
-                                if (!hasImage && textTemplate) {
-                                    const headerId = textTemplate.id || `header-${Date.now()}-${i}`;
-                                    textTemplate.setAttribute('data-empty-header', `header-${i + 1}`);
-                                    elementContainer.setAttribute('data-header-container', `header-${i + 1}`);
-
-                                    headerContainers.push({
-                                        index: headerContainers.length + 1,
-                                        id: headerId,
-                                        name: `Header Logo ${i + 1}`,
-                                        type: 'header',
-                                        position: i + 1
-                                    });
-                                }
-                            }
-
-                            headerCheckResults.push(headerCheck);
-                            debug.push(`    Position ${i + 1}: hasContainer=${headerCheck.hasContainer}, hasImage=${headerCheck.hasImage}, isEmpty=${headerCheck.isEmpty}`);
+                    for (const table of tables) {
+                        // FIX: Skip tables that were already identified as Logo 1/2 tables
+                        if (logoTableElements.has(table)) {
+                            debug.push(`  ⏭️  Skipping table: Already processed as logo table`);
+                            continue;
                         }
 
-                        if (headerContainers.length > 0) {
-                            debug.push(`  Found ${headerContainers.length} empty header containers, stopping table search`);
-                            break;
+                        const firstRow = table.querySelector('tr');
+                        if (!firstRow) continue;
+
+                        const tds = Array.from(firstRow.querySelectorAll('td'));
+                        debug.push(`  Table has ${tds.length} cells in first row`);
+
+                        if (tds.length === 3) {
+                            debug.push(`  Checking first 2 cells for header logos...`);
+                            let tableHasHeaderContainers = false;
+
+                            for (let i = 0; i < 2; i++) {
+                                const td = tds[i];
+                                const elementContainer = td.querySelector('[class*="elementContainer"]');
+
+                                const headerCheck = {
+                                    position: i + 1,
+                                    hasContainer: elementContainer !== null,
+                                    hasImage: false,
+                                    hasTextTemplate: false,
+                                    isEmpty: false
+                                };
+
+                                if (elementContainer) {
+                                    const hasImage = elementContainer.querySelector('img') !== null;
+                                    const textTemplate = elementContainer.querySelector('.TEXT_TEMPLATE') ||
+                                                        elementContainer.querySelector('[contenteditable="true"]');
+
+                                    headerCheck.hasImage = hasImage;
+                                    headerCheck.hasTextTemplate = textTemplate !== null;
+                                    headerCheck.isEmpty = !hasImage && textTemplate !== null;
+
+                                    if (!hasImage && textTemplate) {
+                                        const headerId = textTemplate.id || `header-${Date.now()}-${i}`;
+                                        textTemplate.setAttribute('data-empty-header', `header-${i + 1}`);
+                                        elementContainer.setAttribute('data-header-container', `header-${i + 1}`);
+
+                                        headerContainers.push({
+                                            index: headerContainers.length + 1,
+                                            id: headerId,
+                                            name: `Header Logo ${i + 1}`,
+                                            type: 'header',
+                                            position: i + 1
+                                        });
+                                        tableHasHeaderContainers = true;
+                                    }
+                                }
+
+                                headerCheckResults.push(headerCheck);
+                                debug.push(`    Position ${i + 1}: hasContainer=${headerCheck.hasContainer}, hasImage=${headerCheck.hasImage}, isEmpty=${headerCheck.isEmpty}`);
+                            }
+
+                            if (tableHasHeaderContainers) {
+                                debug.push(`  ✅ Found ${headerContainers.length} empty header containers, stopping table search`);
+                                break;
+                            }
                         }
                     }
                 }
