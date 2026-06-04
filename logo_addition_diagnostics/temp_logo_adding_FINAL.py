@@ -499,22 +499,30 @@ class TempLogoAdditionFinalService:
 
         template_id = template.get('templateId') or template.get('id')
         template_name = template.get('name', 'Unknown')
+        template_depts = ', '.join(template.get('departments', []))
 
         logger.info(f"\n{'='*100}")
         logger.info(f"📄 TEMPLATE {idx}/{total}: {template_name}")
         logger.info(f"   ID: {template_id}")
-        logger.info(f"   Departments: {', '.join(template.get('departments', []))}")
+        logger.info(f"   Departments: {template_depts}")
         logger.info(f"{'='*100}")
 
         try:
             # Open template edit page
             page = await context.new_page()
             edit_url = f"{base_url}/templates/edit/{template_id}"
-            logger.info(f"   🌐 Opening: {edit_url}")
+
+            logger.info(f"   🌐 Opening template editor...")
+            logger.debug(f"   URL: {edit_url}")
+            logger.info(f"   ⏳ Loading page and waiting for template to render...")
+
             await page.goto(edit_url, wait_until='domcontentloaded', timeout=15000)
             await asyncio.sleep(10)  # Increased from 5 to 10 seconds - warning icons take time to render
 
+            logger.info(f"   ✅ Template loaded successfully")
+
             # Detect logos to process
+            logger.info(f"   🔍 Running logo detection...")
             detection_result = await self._detect_logos(page)
 
             # Log detailed detection results
@@ -539,7 +547,7 @@ class TempLogoAdditionFinalService:
 
             if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
                 # No standard logo containers detected - check if we should add a header
-                logger.info("   ℹ️  No Logo 1/2 containers or headers detected")
+                logger.info("   📊 Detection Summary: No standard Logo 1/2 containers or headers detected")
                 logger.debug(f"   Detection returned: warnings={warnings_count}, empty={empty_count}, headers={header_count}")
 
                 # Check container detection results to see if containers exist at all
@@ -547,7 +555,8 @@ class TempLogoAdditionFinalService:
                 all_containers_not_found = all(not c.get('found', False) for c in container_results)
 
                 if all_containers_not_found:
-                    logger.info("   📋 Logo 1/2 containers (by hardcoded IDs) not found - doing deeper check...")
+                    logger.info("   🔍 Running fallback detection for non-standard templates...")
+                    logger.debug("   Checking for: warning icons, resizable images, sortable items")
 
                     # ADDITIONAL CHECK: Look for ANY logo containers or images in the template
                     has_any_logos = await page.evaluate("""
@@ -573,20 +582,21 @@ class TempLogoAdditionFinalService:
                         }
                     """)
 
-                    logger.debug(f"   Any logos check: {has_any_logos}")
+                    logger.debug(f"   Fallback detection result: {has_any_logos}")
 
                     if has_any_logos.get('found'):
-                        logger.info(f"   ⚠️  Template has logos ({has_any_logos['reason']}: {has_any_logos['count']}) but IDs don't match hardcoded list")
+                        logger.info(f"   ⚠️  Found logos in template: {has_any_logos['count']} {has_any_logos['reason']}")
+                        logger.info(f"   ℹ️  Container IDs don't match hardcoded list (likely custom UUIDs)")
 
                         # FIX: Check if logo tables were already found by table-based detection
                         logo_tables_count = detection_result.get('logoTablesCount', 0)
-                        logger.debug(f"   Logo tables found by table-based detection: {logo_tables_count}")
+                        logger.info(f"   📋 Checking logo table detection: {logo_tables_count} table(s) found")
 
                         if logo_tables_count > 0:
                             # Template already has Logo 1/2 table structure - don't add header!
-                            logger.info(f"   ℹ️  Template has {logo_tables_count} logo table(s) - table-based detection already handled this")
+                            logger.info(f"   ✅ Template has {logo_tables_count} logo table(s) with valid structure")
                             logger.info(f"   ⏭️  Skipping header addition (template already has logo structure)")
-                            logger.debug(f"   This prevents adding headers to templates where Logo 1/2 tables exist but have non-standard IDs")
+                            logger.debug(f"   GUARDRAIL: Prevents adding headers to templates where Logo 1/2 tables exist but have non-standard IDs")
 
                             self.results.append({
                                 'template': template_name,
@@ -1028,12 +1038,16 @@ class TempLogoAdditionFinalService:
                 'departments': ', '.join(template.get('departments', []))
             })
 
-            logger.info(f"\n   ✅ Template {idx} complete:")
-            logger.info(f"      Processed: {logos_processed}/{total_logos}")
+            logger.info(f"\n{'='*100}")
+            logger.info(f"   ✅ TEMPLATE {idx} COMPLETE: {template_name}")
+            logger.info(f"{'='*100}")
+            logger.info(f"   📊 Processing Summary:")
+            logger.info(f"      Logos Processed: {logos_processed}/{total_logos}")
             logger.info(f"      Centered: {logos_centered}")
             logger.info(f"      Enlarged: {logos_enlarged}")
-            logger.info(f"      Published: {'✅' if published else '❌'}")
-            logger.info(f"      📑 Tab kept open for inspection")
+            logger.info(f"      Published: {'✅ YES' if published else '❌ NO'}")
+            logger.info(f"   📑 Status: Tab kept open for manual verification")
+            logger.info(f"{'='*100}\n")
 
             # Keep tab open for verification
             # await page.close()

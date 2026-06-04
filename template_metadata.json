@@ -1,0 +1,963 @@
+{
+  "total_templates": 39,
+  "templates": [
+    {
+      "index": 1,
+      "name": "First Time Email",
+      "id": "CPRA_FIRST_TIME",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 2,
+      "name": "Bulk RO Download",
+      "id": "667f0befd4964026ee7b6ea8",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 3,
+      "name": "Consumer Scheduling OTP",
+      "id": "667f0befd4964026ee7b6e6e",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 4,
+      "name": "RO Payment Link",
+      "id": "667f0befd4964026ee7b6ea4",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 5,
+      "name": "Request Decline: Data Deletion (Open Documents)",
+      "id": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 6,
+      "name": "Request Acknowledgement",
+      "id": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+      "departments": [
+        "SALES",
+        "SERVICE",
+        "PARTS"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 7,
+      "name": "Request Completion: Data Export",
+      "id": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 8,
+      "name": "Request Completion: Data Deletion (Closed Documents)",
+      "id": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 9,
+      "name": "RO Invoiced",
+      "id": "667f0befd4964026ee7b6e46",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 10,
+      "name": "Service History Recap PDF",
+      "id": "667f0befd4964026ee7b6ea2",
+      "departments": [
+        "SERVICE",
+        "SALES"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 4 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 11,
+      "name": "Request Completion: Data Correction",
+      "id": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 12,
+      "name": "RO Created",
+      "id": "667f0befd4964026ee7b6e76",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 13,
+      "name": "Collection Slip",
+      "id": "667f0befd4964026ee7b6e9a",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 14,
+      "name": "Appointment Rescheduled",
+      "id": "667f0befd4964026ee7b6e7a",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 15,
+      "name": "Consumer Portal Resend Link",
+      "id": "667f0befd4964026ee7b6eaa",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 16,
+      "name": "RO Invoiced - Contactless",
+      "id": "667f0befd4964026ee7b6e9e",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 17,
+      "name": "Service History Invoice PDF(s)",
+      "id": "667f0befd4964026ee7b6ea0",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 4 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 18,
+      "name": "MPVI Customer PDF",
+      "id": "667f0befd4964026ee7b6e70",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 19,
+      "name": "Consumer Portal OTP",
+      "id": "667f0befd4964026ee7b6e72",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 20,
+      "name": "Revised Estimate",
+      "id": "667f0befd4964026ee7b6e74",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 21,
+      "name": "Quote Estimate PDF",
+      "id": "667f0befd4964026ee7b6e78",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 22,
+      "name": "Day Collection Report",
+      "id": "667f0befd4964026ee7b6e9c",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - No Logo Tables (Needs Header)"
+    },
+    {
+      "index": 23,
+      "name": "Damages Customer PDF",
+      "id": "667f0befd4964026ee7b6e84",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 24,
+      "name": "Vehicle Health Report PDF",
+      "id": "667f0befd4964026ee7b6e86",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 25,
+      "name": "Estimate Customer PDF",
+      "id": "667f0befd4964026ee7b6e88",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 26,
+      "name": "Invoice Customer PDF",
+      "id": "667f0befd4964026ee7b6e8a",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 27,
+      "name": "Inspections and Recommendations PDF",
+      "id": "667f0befd4964026ee7b6e8c",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "skipped",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 28,
+      "name": "Appointment Confirmation - Concierge",
+      "id": "667f0befd4964026ee7b6e94",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 29,
+      "name": "Appointment Rescheduled - Concierge",
+      "id": "667f0befd4964026ee7b6e96",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 30,
+      "name": "Appointment Reminder - Concierge",
+      "id": "667f0befd4964026ee7b6e98",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 31,
+      "name": "VIS Customer PDF",
+      "id": "667f0befd4964026ee7b6e82",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 32,
+      "name": "Appointment Confirmation",
+      "id": "667f0befd4964026ee7b6e80",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 33,
+      "name": "Appointment Cancellation",
+      "id": "667f0befd4964026ee7b6e7c",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "resizable images"
+      },
+      "action": "header_added",
+      "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
+    },
+    {
+      "index": 34,
+      "name": "Request Decline: Marked As Declined",
+      "id": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+      "departments": [
+        "SALES",
+        "SERVICE",
+        "PARTS"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 35,
+      "name": "Request Completion: Sensitive Information Restriction",
+      "id": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+      "departments": [
+        "SALES",
+        "SERVICE",
+        "PARTS"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 36,
+      "name": "Request Completion: Do not sell & share with 3rd Parties",
+      "id": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+      "departments": [
+        "SALES",
+        "PARTS",
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 0,
+        "header_button_opacity": 0.3,
+        "has_logos": true,
+        "logo_count": 0,
+        "logo_type": "sortable item images"
+      },
+      "action": "has_header",
+      "category": "CPRA - Has Header Already"
+    },
+    {
+      "index": 37,
+      "name": "Customer Pay Closed",
+      "id": "9fa2920b-10f8-48d2-9947-b014398d21be",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "processed",
+      "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 38,
+      "name": "Recommendation Send to customer",
+      "id": "667f0befd4964026ee7b6e4a",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 4,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "processed",
+      "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
+    },
+    {
+      "index": 39,
+      "name": "Appointment Reminder",
+      "id": "667f0befd4964026ee7b6e7e",
+      "departments": [
+        "SERVICE"
+      ],
+      "detection": {
+        "logo_tables_found": 2,
+        "header_button_opacity": 1.0,
+        "has_logos": false,
+        "logo_count": 0,
+        "logo_type": null
+      },
+      "action": "processed",
+      "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
+    }
+  ],
+  "summary": {
+    "by_category": {
+      "CPRA - Has Header Already": {
+        "count": 9,
+        "templates": [
+          "First Time Email",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "Request Completion: Data Correction",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties"
+        ]
+      },
+      "Service/Parts - 2 Logo Tables (No Extra Logos)": {
+        "count": 3,
+        "templates": [
+          "Bulk RO Download",
+          "Customer Pay Closed",
+          "Appointment Reminder"
+        ]
+      },
+      "Service/Parts - 4 Logo Tables (No Extra Logos)": {
+        "count": 13,
+        "templates": [
+          "Consumer Scheduling OTP",
+          "RO Invoiced",
+          "RO Created",
+          "Consumer Portal Resend Link",
+          "RO Invoiced - Contactless",
+          "MPVI Customer PDF",
+          "Consumer Portal OTP",
+          "Revised Estimate",
+          "Quote Estimate PDF",
+          "Estimate Customer PDF",
+          "Invoice Customer PDF",
+          "Inspections and Recommendations PDF",
+          "Recommendation Send to customer"
+        ]
+      },
+      "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG": {
+        "count": 11,
+        "templates": [
+          "RO Payment Link",
+          "Collection Slip",
+          "Appointment Rescheduled",
+          "Damages Customer PDF",
+          "Vehicle Health Report PDF",
+          "Appointment Confirmation - Concierge",
+          "Appointment Rescheduled - Concierge",
+          "Appointment Reminder - Concierge",
+          "VIS Customer PDF",
+          "Appointment Confirmation",
+          "Appointment Cancellation"
+        ]
+      },
+      "Service/Parts - 4 Logo Tables (Has Extra Logos) - BUG": {
+        "count": 2,
+        "templates": [
+          "Service History Recap PDF",
+          "Service History Invoice PDF(s)"
+        ]
+      },
+      "Service/Parts - No Logo Tables (Needs Header)": {
+        "count": 1,
+        "templates": [
+          "Day Collection Report"
+        ]
+      }
+    },
+    "by_department": {
+      "SALES": {
+        "count": 10,
+        "templates": [
+          "First Time Email",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "Service History Recap PDF",
+          "Request Completion: Data Correction",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties"
+        ]
+      },
+      "PARTS": {
+        "count": 9,
+        "templates": [
+          "First Time Email",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "Request Completion: Data Correction",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties"
+        ]
+      },
+      "SERVICE": {
+        "count": 39,
+        "templates": [
+          "First Time Email",
+          "Bulk RO Download",
+          "Consumer Scheduling OTP",
+          "RO Payment Link",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "RO Invoiced",
+          "Service History Recap PDF",
+          "Request Completion: Data Correction",
+          "RO Created",
+          "Collection Slip",
+          "Appointment Rescheduled",
+          "Consumer Portal Resend Link",
+          "RO Invoiced - Contactless",
+          "Service History Invoice PDF(s)",
+          "MPVI Customer PDF",
+          "Consumer Portal OTP",
+          "Revised Estimate",
+          "Quote Estimate PDF",
+          "Day Collection Report",
+          "Damages Customer PDF",
+          "Vehicle Health Report PDF",
+          "Estimate Customer PDF",
+          "Invoice Customer PDF",
+          "Inspections and Recommendations PDF",
+          "Appointment Confirmation - Concierge",
+          "Appointment Rescheduled - Concierge",
+          "Appointment Reminder - Concierge",
+          "VIS Customer PDF",
+          "Appointment Confirmation",
+          "Appointment Cancellation",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties",
+          "Customer Pay Closed",
+          "Recommendation Send to customer",
+          "Appointment Reminder"
+        ]
+      }
+    },
+    "by_action": {
+      "has_header": {
+        "count": 9,
+        "templates": [
+          "First Time Email",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "Request Completion: Data Correction",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties"
+        ]
+      },
+      "skipped": {
+        "count": 13,
+        "templates": [
+          "Bulk RO Download",
+          "Consumer Scheduling OTP",
+          "RO Invoiced",
+          "RO Created",
+          "Consumer Portal Resend Link",
+          "RO Invoiced - Contactless",
+          "MPVI Customer PDF",
+          "Consumer Portal OTP",
+          "Revised Estimate",
+          "Quote Estimate PDF",
+          "Estimate Customer PDF",
+          "Invoice Customer PDF",
+          "Inspections and Recommendations PDF"
+        ]
+      },
+      "header_added": {
+        "count": 14,
+        "templates": [
+          "RO Payment Link",
+          "Service History Recap PDF",
+          "Collection Slip",
+          "Appointment Rescheduled",
+          "Service History Invoice PDF(s)",
+          "Day Collection Report",
+          "Damages Customer PDF",
+          "Vehicle Health Report PDF",
+          "Appointment Confirmation - Concierge",
+          "Appointment Rescheduled - Concierge",
+          "Appointment Reminder - Concierge",
+          "VIS Customer PDF",
+          "Appointment Confirmation",
+          "Appointment Cancellation"
+        ]
+      },
+      "processed": {
+        "count": 3,
+        "templates": [
+          "Customer Pay Closed",
+          "Recommendation Send to customer",
+          "Appointment Reminder"
+        ]
+      }
+    },
+    "by_logo_tables": {
+      "0": {
+        "count": 10,
+        "templates": [
+          "First Time Email",
+          "Request Decline: Data Deletion (Open Documents)",
+          "Request Acknowledgement",
+          "Request Completion: Data Export",
+          "Request Completion: Data Deletion (Closed Documents)",
+          "Request Completion: Data Correction",
+          "Day Collection Report",
+          "Request Decline: Marked As Declined",
+          "Request Completion: Sensitive Information Restriction",
+          "Request Completion: Do not sell & share with 3rd Parties"
+        ]
+      },
+      "2": {
+        "count": 14,
+        "templates": [
+          "Bulk RO Download",
+          "RO Payment Link",
+          "Collection Slip",
+          "Appointment Rescheduled",
+          "Damages Customer PDF",
+          "Vehicle Health Report PDF",
+          "Appointment Confirmation - Concierge",
+          "Appointment Rescheduled - Concierge",
+          "Appointment Reminder - Concierge",
+          "VIS Customer PDF",
+          "Appointment Confirmation",
+          "Appointment Cancellation",
+          "Customer Pay Closed",
+          "Appointment Reminder"
+        ]
+      },
+      "4": {
+        "count": 15,
+        "templates": [
+          "Consumer Scheduling OTP",
+          "RO Invoiced",
+          "Service History Recap PDF",
+          "RO Created",
+          "Consumer Portal Resend Link",
+          "RO Invoiced - Contactless",
+          "Service History Invoice PDF(s)",
+          "MPVI Customer PDF",
+          "Consumer Portal OTP",
+          "Revised Estimate",
+          "Quote Estimate PDF",
+          "Estimate Customer PDF",
+          "Invoice Customer PDF",
+          "Inspections and Recommendations PDF",
+          "Recommendation Send to customer"
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "generated_from": "logs/temp_logo_automation_20260604_112243.log",
+    "total_templates": 39,
+    "departments": [
+      "SALES",
+      "PARTS",
+      "SERVICE"
+    ],
+    "unique_categories": 6,
+    "bug_templates_count": 13
+  }
+}
