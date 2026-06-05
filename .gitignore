@@ -79,3 +79,4 @@ api_verification_*.json
 template_page_detection_*.json
 important_elements_*.json
 service_parts_analysis_*.json
+.env
