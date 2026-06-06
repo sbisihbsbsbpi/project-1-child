@@ -60,6 +60,18 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'backend'))
 from playwright.async_api import async_playwright, Browser, Page, BrowserContext
 
 # ============================================================
+# AI INTEGRATION (OPTIONAL)
+# ============================================================
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+    from ai_integration import AIAssistant
+    AI_AVAILABLE = True
+    print("🤖 AI Integration: ENABLED")
+except Exception as e:
+    AI_AVAILABLE = False
+    print(f"ℹ️  AI Integration: DISABLED ({str(e)[:50]})")
+
+# ============================================================
 # ENHANCED LOGGING SYSTEM
 # ============================================================
 
@@ -251,6 +263,17 @@ class TempLogoAdditionFinalService:
         self.published_count = 0
         self.centered_count = 0
         self.enlarged_count = 0
+
+        # Initialize AI Assistant if available
+        if AI_AVAILABLE:
+            try:
+                self.ai = AIAssistant()
+                logger.info("🤖 AI Assistant initialized successfully")
+            except Exception as e:
+                self.ai = None
+                logger.warning(f"⚠️  AI Assistant initialization failed: {e}")
+        else:
+            self.ai = None
         
     async def run(self,
                   departments: Optional[List[str]] = None,
@@ -524,6 +547,27 @@ class TempLogoAdditionFinalService:
             # Detect logos to process
             logger.info(f"   🔍 Running logo detection...")
             detection_result = await self._detect_logos(page)
+
+            # AI Prediction (if available)
+            if self.ai:
+                try:
+                    template_data = {
+                        "name": template_name,
+                        "departments": template.get('departments', []),
+                        "detection": {
+                            "logo_tables_found": detection_result.get('logoTablesCount', 0),
+                            "header_button_opacity": detection_result.get('headerButtonOpacity', 0),
+                            "has_logos": detection_result.get('warningsCount', 0) > 0 or detection_result.get('emptyCount', 0) > 0,
+                            "logo_count": detection_result.get('warningsCount', 0) + detection_result.get('emptyCount', 0),
+                            "logo_type": "table-based" if detection_result.get('logoTablesCount', 0) > 0 else "container-based"
+                        }
+                    }
+                    ai_prediction = self.ai.analyze_template(template_data)
+                    logger.info(f"   🤖 AI: {ai_prediction['category']} (Confidence: {ai_prediction['confidence']:.0%})")
+                    if ai_prediction.get('anomalies'):
+                        logger.warning(f"   ⚠️  AI detected anomalies: {ai_prediction['anomalies']}")
+                except Exception as e:
+                    logger.debug(f"   AI prediction failed: {e}")
 
             # Log detailed detection results
             logger.log_detection(template_name, detection_result)

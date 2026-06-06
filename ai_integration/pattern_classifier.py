@@ -21,18 +21,33 @@ class TemplateClassifier:
     Trained on template_metadata.json with 39 labeled examples.
     """
     
-    def __init__(self, metadata_path: str = '../template_metadata.json'):
+    def __init__(self, metadata_path: str = None):
+        # Auto-detect metadata path
+        if metadata_path is None:
+            # Try current directory first
+            if os.path.exists('template_metadata.json'):
+                metadata_path = 'template_metadata.json'
+            # Try parent directory
+            elif os.path.exists('../template_metadata.json'):
+                metadata_path = '../template_metadata.json'
+            # Try from ai_integration directory
+            elif os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'template_metadata.json')):
+                metadata_path = os.path.join(os.path.dirname(__file__), '..', 'template_metadata.json')
+            else:
+                raise FileNotFoundError("template_metadata.json not found")
+
         self.metadata_path = metadata_path
         self.model = None
         self.label_encoder = LabelEncoder()
         self.feature_names = []
         self.categories = []
-        
+
         # Load training data
         self._load_metadata()
-        
+
         # Try to load pre-trained model, otherwise train
-        if os.path.exists('models/template_classifier.pkl'):
+        model_path = os.path.join(os.path.dirname(__file__), 'models', 'template_classifier.pkl')
+        if os.path.exists(model_path):
             self._load_model()
         else:
             self._train_model()
@@ -114,8 +129,10 @@ class TemplateClassifier:
         self.model.fit(X, y)
         
         # Save model
-        os.makedirs('models', exist_ok=True)
-        with open('models/template_classifier.pkl', 'wb') as f:
+        model_dir = os.path.join(os.path.dirname(__file__), 'models')
+        os.makedirs(model_dir, exist_ok=True)
+        model_path = os.path.join(model_dir, 'template_classifier.pkl')
+        with open(model_path, 'wb') as f:
             pickle.dump({
                 'model': self.model,
                 'label_encoder': self.label_encoder,
@@ -130,7 +147,8 @@ class TemplateClassifier:
     
     def _load_model(self):
         """Load pre-trained model."""
-        with open('models/template_classifier.pkl', 'rb') as f:
+        model_path = os.path.join(os.path.dirname(__file__), 'models', 'template_classifier.pkl')
+        with open(model_path, 'rb') as f:
             data = pickle.load(f)
             self.model = data['model']
             self.label_encoder = data['label_encoder']
