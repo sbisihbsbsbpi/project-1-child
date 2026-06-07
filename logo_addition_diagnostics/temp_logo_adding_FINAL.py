@@ -1896,6 +1896,7 @@ class TempLogoAdditionFinalService:
                             // ✨ PHASE 5 FIX: Check for ACTUAL <img> tag, not just wrapper component
                             let actualImage = null;
                             let hasImage = false;
+                            let imageInfo = { isPlaceholder: false, isZeroSize: false, isOffScreen: false };
 
                             if (imageComponent) {
                                 actualImage = imageComponent.querySelector('img');
@@ -1904,10 +1905,28 @@ class TempLogoAdditionFinalService:
                                 // Additional check: image must be visible (not display:none or visibility:hidden)
                                 if (hasImage && actualImage) {
                                     const imgStyle = window.getComputedStyle(actualImage);
-                                    const isVisible = imgStyle.display !== 'none' &&
-                                                     imgStyle.visibility !== 'hidden' &&
-                                                     imgStyle.opacity !== '0';
-                                    hasImage = isVisible;
+                                    const imgRect = actualImage.getBoundingClientRect();
+                                    const imgSrc = actualImage.src || '';
+
+                                    // Check various visibility conditions
+                                    const isStyleVisible = imgStyle.display !== 'none' &&
+                                                          imgStyle.visibility !== 'hidden' &&
+                                                          imgStyle.opacity !== '0';
+
+                                    // Check if image has zero dimensions
+                                    imageInfo.isZeroSize = imgRect.width === 0 || imgRect.height === 0;
+
+                                    // Check if image is off-screen
+                                    imageInfo.isOffScreen = imgRect.top < -1000 || imgRect.left < -1000;
+
+                                    // Check if it's a placeholder/default image
+                                    imageInfo.isPlaceholder = imgSrc.includes('placeholder') ||
+                                                             imgSrc.includes('default') ||
+                                                             imgSrc.includes('blank') ||
+                                                             imgSrc.endsWith('/');
+
+                                    // ✨ PHASE 5.1: Also consider zero-size or off-screen images as "no image"
+                                    hasImage = isStyleVisible && !imageInfo.isZeroSize && !imageInfo.isOffScreen;
                                 }
                             }
 
@@ -1938,7 +1957,8 @@ class TempLogoAdditionFinalService:
                                 isEmpty: isEmpty,
                                 textTemplateId: textTemplate ? textTemplate.id : null,
                                 imageComponent: imageComponent,
-                                actualImage: actualImage  // ✨ Store reference to actual img element
+                                actualImage: actualImage,  // ✨ Store reference to actual img element
+                                imageInfo: imageInfo  // ✨ PHASE 5.1: Store image metadata
                             });
                         });
 
@@ -1970,12 +1990,37 @@ class TempLogoAdditionFinalService:
 
                             // ✨ PHASE 5: Enhanced logging - show ALL columns for debugging
                             tableInfo.positions.forEach(pos => {
-                                const imgInfo = pos.actualImage ?
-                                    `img.src="${pos.actualImage.src?.substring(0, 50)}..."` :
-                                    'no-img';
+                                let imgInfo = 'no-img';
+                                let dimensionInfo = '';
+                                let visibilityInfo = '';
+                                let issueFlags = [];
+
+                                if (pos.actualImage) {
+                                    const imgRect = pos.actualImage.getBoundingClientRect();
+                                    const imgStyle = window.getComputedStyle(pos.actualImage);
+
+                                    imgInfo = `img.src="${pos.actualImage.src}"`;
+                                    dimensionInfo = `size=${Math.round(imgRect.width)}x${Math.round(imgRect.height)}px`;
+                                    visibilityInfo = `display=${imgStyle.display}, visibility=${imgStyle.visibility}, opacity=${imgStyle.opacity}`;
+
+                                    // Collect issue flags
+                                    if (pos.imageInfo) {
+                                        if (pos.imageInfo.isZeroSize) issueFlags.push('ZERO-SIZE');
+                                        if (pos.imageInfo.isOffScreen) issueFlags.push('OFF-SCREEN');
+                                        if (pos.imageInfo.isPlaceholder) issueFlags.push('PLACEHOLDER');
+                                    }
+
+                                    if (issueFlags.length > 0) {
+                                        visibilityInfo += ` [${issueFlags.join(', ')}]`;
+                                    }
+                                }
+
                                 const componentInfo = pos.imageComponent ? 'has-wrapper' : 'no-wrapper';
 
                                 debug.push(`    Cell ${pos.cellIndex} [${pos.alignment}]: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}, ${componentInfo}, ${imgInfo}`);
+                                if (pos.actualImage) {
+                                    debug.push(`      → ${dimensionInfo}, ${visibilityInfo}`);
+                                }
                             });
                         } else if (hasRelevantContent) {
                             debug.push(`  Skipping table ${tableIdx}: Not a logo table (likely content/layout table)`);
