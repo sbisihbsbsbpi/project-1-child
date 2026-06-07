@@ -1154,12 +1154,12 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T20:10:20.600749",
+        "enhanced_features_updated": "2026-06-07T18:23:03.187599",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T20:10:20.600742"
+          "validated_at": "2026-06-07T18:23:03.187591"
         },
         "phase_2_enhanced": true
       },
@@ -1184,12 +1184,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T20:10:36.234555",
+        "enhanced_features_updated": "2026-06-07T18:23:20.375671",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T20:10:36.234544"
+          "validated_at": "2026-06-07T18:23:20.375659"
         },
         "phase_2_enhanced": true
       },
@@ -1214,12 +1214,12 @@
         "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-07T20:11:29.300991",
+        "enhanced_features_updated": "2026-06-07T18:24:14.749618",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T20:11:29.300984"
+          "validated_at": "2026-06-07T18:24:14.749590"
         },
         "phase_2_enhanced": true
       },
