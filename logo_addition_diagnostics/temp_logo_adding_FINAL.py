@@ -776,31 +776,32 @@ class TempLogoAdditionFinalService:
             api_cross_validation = detection_result.get('apiCrossValidation', {})
             api_is_stale = api_cross_validation.get('apiStaleData', False)
 
-            if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
-                # Check if dynamic detection found any logos
-                # ✨ BUT: If API is stale, the logos might not actually exist - proceed with insertion!
-                if all_detected_logos > 0 and not api_is_stale:
-                    # ✨ NEW (June 8): UNIVERSAL LOGO VALIDATION
-                    # Before marking as complete, validate that detected logos exist in media library
-                    logger.info(f"   ✨ PHASE 3: Dynamic detection found {all_detected_logos} logo(s)")
-                    logger.info(f"   🔍 Validating logos against media library...")
+            # ✨ NEW (June 8): UNIVERSAL LOGO VALIDATION - Run FIRST, before any other processing
+            # This validates ALL detected logos regardless of warnings/empty/replace counts
+            if all_detected_logos > 0 and not api_is_stale:
+                logger.info(f"   🔍 UNIVERSAL VALIDATION: Checking {all_detected_logos} detected logo(s)...")
 
-                    # Extract detected logos from dynamic detection
-                    truly_dynamic = detection_result.get('trulyDynamic', {})
-                    detected_logos = truly_dynamic.get('detectedLogos', [])
+                # Extract detected logos from dynamic detection
+                truly_dynamic = detection_result.get('trulyDynamic', {})
+                detected_logos = truly_dynamic.get('detectedLogos', [])
 
-                    if len(detected_logos) > 0:
-                        # Get available logos from media library (using first detected logo)
-                        available_logos_info = await self._get_available_logos(page, logo_idx=1)
+                if len(detected_logos) > 0:
+                    logger.info(f"   📚 Validating against media library...")
 
-                        if available_logos_info['success']:
-                            available_filenames = [logo['filename'] for logo in available_logos_info['logos']]
-                            invalid_logos = []
+                    # Get available logos from media library (using first detected logo)
+                    available_logos_info = await self._get_available_logos(page, logo_idx=1)
 
-                            # Validate each detected logo
-                            for idx, logo in enumerate(detected_logos, 1):
-                                logo_filename = logo.get('imageFilename', '')
-                                if logo_filename and logo_filename not in available_filenames:
+                    if available_logos_info['success']:
+                        available_filenames = [logo['filename'] for logo in available_logos_info['logos']]
+                        invalid_logos = []
+
+                        logger.debug(f"   Available logos: {available_filenames[:5]}{'...' if len(available_filenames) > 5 else ''}")
+
+                        # Validate each detected logo
+                        for idx, logo in enumerate(detected_logos, 1):
+                            logo_filename = logo.get('imageFilename', '')
+                            if logo_filename:
+                                if logo_filename not in available_filenames:
                                     logger.warning(f"   ⚠️  Logo {idx} '{logo_filename}' NOT in media library!")
                                     invalid_logos.append({
                                         'index': idx,
@@ -809,65 +810,62 @@ class TempLogoAdditionFinalService:
                                     })
                                 else:
                                     logger.debug(f"   ✅ Logo {idx} '{logo_filename}' is valid")
-
-                            # If any logos are invalid, add them to replacement list
-                            if len(invalid_logos) > 0:
-                                logger.info(f"   🔧 Found {len(invalid_logos)} invalid logo(s) - adding to replacement queue")
-                                logger.info(f"   Available logos: {available_filenames[:5]}{'...' if len(available_filenames) > 5 else ''}")
-
-                                # Select best replacement logo using smart selection
-                                replacement_logo = self._select_best_logo(
-                                    available_filenames,
-                                    dealership_name=template.get('dealershipName', ''),
-                                    departments=template.get('departments', [])
-                                )
-                                if replacement_logo:
-                                    logger.info(f"   📝 Will replace invalid logos with: '{replacement_logo}' (smart selection)")
-
-                                    # Add to logos_to_replace for processing
-                                    for invalid_logo in invalid_logos:
-                                        logos_to_replace.append({
-                                            'index': invalid_logo['index'],
-                                            'name': f"Invalid Logo {invalid_logo['index']}",
-                                            'current_filename': invalid_logo['filename'],
-                                            'replacement_filename': replacement_logo,
-                                            'reason': invalid_logo['reason'],
-                                            'alignment': 'UNKNOWN'
-                                        })
-
-                                    # Update replace_count to trigger processing
-                                    replace_count = len(logos_to_replace)
-                                    logger.info(f"   🎯 Updated replace count: {replace_count} logo(s) to process")
-                                else:
-                                    logger.error(f"   ❌ No available logos in media library to replace with!")
-                                    logger.info(f"   📑 Tab kept open for verification")
-                                    return
                             else:
-                                # All logos are valid
-                                logger.info(f"   ✅ All {len(detected_logos)} logo(s) validated successfully")
-                                logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
-                                logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                                logger.debug(f"   ⚠️  Logo {idx} has no filename to validate")
+
+                        # If any logos are invalid, add them to replacement list
+                        if len(invalid_logos) > 0:
+                            logger.info(f"   🔧 Found {len(invalid_logos)} invalid logo(s) - will replace")
+
+                            # Select best replacement logo using smart selection
+                            replacement_logo = self._select_best_logo(
+                                available_filenames,
+                                dealership_name=template.get('dealershipName', ''),
+                                departments=template.get('departments', [])
+                            )
+
+                            if replacement_logo:
+                                logger.info(f"   📝 Selected replacement: '{replacement_logo}' (smart selection)")
+
+                                # Add to logos_to_replace for processing
+                                for invalid_logo in invalid_logos:
+                                    logos_to_replace.append({
+                                        'index': invalid_logo['index'],
+                                        'name': f"Invalid Logo {invalid_logo['index']}",
+                                        'current_filename': invalid_logo['filename'],
+                                        'replacement_filename': replacement_logo,
+                                        'reason': invalid_logo['reason'],
+                                        'alignment': 'UNKNOWN'
+                                    })
+
+                                # Update replace_count to trigger processing
+                                replace_count = len(logos_to_replace)
+                                logger.info(f"   🎯 Updated replace count: {replace_count} logo(s) queued for replacement")
+                            else:
+                                logger.error(f"   ❌ No available logos in media library to replace with!")
                                 logger.info(f"   📑 Tab kept open for verification")
-                                # await page.close()  # Keep tab open
                                 return
                         else:
-                            logger.warning(f"   ⚠️  Could not fetch media library: {available_logos_info.get('error', 'Unknown error')}")
-                            logger.info(f"   ℹ️  Skipping validation, trusting detection")
-                            logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
-                            logger.info(f"   ✅ Template has logos (already correct - no action needed)")
-                            logger.info(f"   📑 Tab kept open for verification")
-                            # await page.close()  # Keep tab open
-                            return
+                            logger.info(f"   ✅ All {len(detected_logos)} logo(s) validated - all exist in media library")
                     else:
-                        # No detected logos info - trust the count
-                        logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
-                        logger.info(f"   ✅ Template has logos (already correct - no action needed)")
-                        logger.info(f"   📑 Tab kept open for verification")
-                        # await page.close()  # Keep tab open
-                        return
-                elif all_detected_logos > 0 and api_is_stale:
-                    logger.warning(f"   ⚠️  IGNORING allDetectedLogosCount={all_detected_logos} due to stale API data")
-                    logger.info(f"   🎯 Will check if header button is active and proceed with insertion if needed")
+                        logger.warning(f"   ⚠️  Could not fetch media library: {available_logos_info.get('error', 'Unknown error')}")
+                        logger.debug(f"   ℹ️  Skipping validation, will trust detection")
+                else:
+                    logger.debug(f"   ℹ️  No detailed logo info available (detectedLogos empty)")
+            elif all_detected_logos > 0 and api_is_stale:
+                logger.warning(f"   ⚠️  IGNORING allDetectedLogosCount={all_detected_logos} due to stale API data")
+                logger.info(f"   🎯 Will proceed with standard processing")
+
+            # After validation, check if we have work to do
+            if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
+                # No work detected after validation
+                if all_detected_logos > 0 and not api_is_stale:
+                    # Logos exist and were validated - template is complete
+                    logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
+                    logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                    logger.info(f"   📑 Tab kept open for verification")
+                    # await page.close()  # Keep tab open
+                    return
 
                 # No standard logo containers detected - check if we should add a header
                 logger.info("   📊 Detection Summary: No standard Logo 1/2 containers or headers detected")
@@ -1849,7 +1847,7 @@ class TempLogoAdditionFinalService:
                             debug.push(`  ${isUIIcon ? '🎨' : '✅'} ${containerInfo}, src="${img.src}", alt="${imgAlt}"`);
 
                             // Mark the container for testing
-                            container.setAttribute('data-learned-logo', `logo-${idx + 1}`);
+                            container.setAttribute('data-learned-logo', `container-${idx + 1}`);
 
                             if (isUIIcon) {
                                 // ✨ PINK border for UI icons (to filter out)
@@ -1924,7 +1922,7 @@ class TempLogoAdditionFinalService:
                     const iconTop = Math.round(iconRect.top + window.scrollY);
 
                     patterns.detectedLogos.forEach(logo => {
-                        const container = document.querySelector(`[data-learned-logo="logo-${logo.index}"]`);
+                        const container = document.querySelector(`[data-learned-logo="container-${logo.index}"]`);
 
                         // Check 1: Is warning inside the container?
                         if (container && container.contains(icon)) {
@@ -1966,7 +1964,7 @@ class TempLogoAdditionFinalService:
                 patterns.detectedLogos.forEach(logo => {
                     if (logo.hasWarning) {
                         logoIndex++;
-                        const container = document.querySelector(`[data-learned-logo="logo-${logo.index}"]`);
+                        const container = document.querySelector(`[data-learned-logo="container-${logo.index}"]`);
 
                         if (container) {
                             // Find the outer SortableItem container for department detection
