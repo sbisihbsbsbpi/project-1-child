@@ -815,10 +815,14 @@ class TempLogoAdditionFinalService:
                                 logger.info(f"   🔧 Found {len(invalid_logos)} invalid logo(s) - adding to replacement queue")
                                 logger.info(f"   Available logos: {available_filenames[:5]}{'...' if len(available_filenames) > 5 else ''}")
 
-                                # Select best replacement logo
-                                replacement_logo = available_filenames[0] if available_filenames else None
+                                # Select best replacement logo using smart selection
+                                replacement_logo = self._select_best_logo(
+                                    available_filenames,
+                                    dealership_name=template.get('dealershipName', ''),
+                                    departments=template.get('departments', [])
+                                )
                                 if replacement_logo:
-                                    logger.info(f"   📝 Will replace invalid logos with: '{replacement_logo}'")
+                                    logger.info(f"   📝 Will replace invalid logos with: '{replacement_logo}' (smart selection)")
 
                                     # Add to logos_to_replace for processing
                                     for invalid_logo in invalid_logos:
@@ -1244,6 +1248,32 @@ class TempLogoAdditionFinalService:
             # GUARDRAIL: Track which logo rows have been processed to ensure only 1 logo per row
             processed_logo_rows = set()
 
+            # ✨ NEW: Smart logo selection for empty containers
+            # Validate available logos ONCE for all empty containers in this template
+            best_logo_for_insert = None
+            if empty_count > 0:
+                logger.info(f"\n   🔍 Validating available logos for {empty_count} empty container(s)...")
+
+                # Use first empty container to open Insert Image popup and fetch available logos
+                first_container = detection_result['emptyContainers'][0]
+                available_logos_for_insert = await self._get_available_logos_for_insert(page, first_container)
+
+                if available_logos_for_insert['success']:
+                    available_filenames_insert = [logo['filename'] for logo in available_logos_for_insert['logos']]
+                    logger.info(f"   ✅ Found {available_logos_for_insert['totalCount']} logo(s) in media library")
+                    logger.debug(f"   Available: {available_filenames_insert[:5]}{'...' if len(available_filenames_insert) > 5 else ''}")
+
+                    # Smart selection: Look for dealership-specific logo
+                    best_logo_for_insert = self._select_best_logo(
+                        available_filenames_insert,
+                        dealership_name=template.get('dealershipName', ''),
+                        departments=template.get('departments', [])
+                    )
+                    logger.info(f"   📝 Selected logo for all empty containers: '{best_logo_for_insert}' (smart selection)")
+                else:
+                    logger.warning(f"   ⚠️  Could not fetch media library: {available_logos_for_insert.get('error', 'Unknown')}")
+                    logger.info(f"   ℹ️  Will use logo_media_id as fallback")
+
             logger.debug(f"Starting empty container processing: {empty_count} empty containers detected")
             for container in detection_result['emptyContainers']:
                 container_name = container['name']
@@ -1261,8 +1291,10 @@ class TempLogoAdditionFinalService:
                 logger.info(f"\n   🎯 Inserting logo into {container_name}...")
                 logger.debug(f"   Container ID: {container_id}")
                 logger.debug(f"   Attempting INSERT workflow for empty container")
+                if best_logo_for_insert:
+                    logger.debug(f"   Using validated logo: '{best_logo_for_insert}'")
 
-                if await self._insert_logo_to_container(page, container, logo_media_id):
+                if await self._insert_logo_to_container(page, container, logo_media_id, target_filename=best_logo_for_insert):
                     logos_processed += 1
                     processed_logo_rows.add(logo_row)  # Mark this logo row as processed
                     logger.info(f"   ✅ Logo inserted into {container_name}")
@@ -3314,8 +3346,15 @@ class TempLogoAdditionFinalService:
         except:
             return False
 
-    async def _insert_logo_to_container(self, page: Page, container_info: Dict, logo_media_id: str) -> bool:
-        """Insert logo into empty Logo 1/2 container"""
+    async def _insert_logo_to_container(self, page: Page, container_info: Dict, logo_media_id: str, target_filename: str = None) -> bool:
+        """Insert logo into empty Logo 1/2 container
+
+        Args:
+            page: Playwright page object
+            container_info: Container info dict
+            logo_media_id: Media ID (for fallback)
+            target_filename: Specific logo filename to select (e.g., "Alfa Romeo of Cincinnati.jpg")
+        """
 
         try:
             # Focus container - use JavaScript click to bypass "unselectable" blocking
@@ -3414,29 +3453,14 @@ class TempLogoAdditionFinalService:
 
             await asyncio.sleep(1.5)
 
-            # Select logo using topLayer
-            selection = await page.evaluate("""
-                async () => {
-                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { clicked: false };
+            # Select logo from library (use target_filename if specified, otherwise first logo)
+            selection = await self._select_logo_from_library(page, target_filename=target_filename, fallback_index=0)
 
-                    const allTiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
-                    if (allTiles.length === 0) return { clicked: false };
-
-                    const tile = allTiles[0];
-                    const topLayer = tile.querySelector('[class*="topLayer"]') ||
-                                    tile.querySelector('[role="button"]');
-
-                    if (topLayer) {
-                        topLayer.click();
-                        return { clicked: true };
-                    }
-                    return { clicked: false };
-                }
-            """)
-
-            if not selection['clicked']:
+            if not selection['success']:
+                logger.warning(f"   Could not select logo from library: {selection.get('error', 'Unknown error')}")
                 return False
+
+            logger.debug(f"   ✅ Selected logo: '{selection.get('selected_filename', 'unknown')}' (method: {selection.get('method', 'unknown')})")
 
             await asyncio.sleep(2)
 
@@ -3903,6 +3927,76 @@ class TempLogoAdditionFinalService:
             logger.exception(f"   ❌ Error generating report: {e}")
             return "report_generation_failed.xlsx"
 
+    def _select_best_logo(self, available_logos: list, dealership_name: str = '', departments: list = None) -> str:
+        """
+        Smart logo selection: prioritize dealership-specific > department > generic
+
+        Args:
+            available_logos: List of available logo filenames
+            dealership_name: Dealership name (e.g., "Alfa Romeo of Cincinnati")
+            departments: List of departments (e.g., ["Service", "Parts"])
+
+        Returns:
+            Best matching logo filename
+
+        Priority:
+        1. Exact match with dealership name (e.g., "Alfa Romeo of Cincinnati.jpg")
+        2. Partial match with dealership brand (e.g., "Alfa Romeo Logo.jpg")
+        3. Department-specific (e.g., "Service Logo.png" or "Parts Logo.png")
+        4. Generic (first available)
+        """
+        if not available_logos:
+            return None
+
+        logger.debug(f"   🎯 Smart logo selection from {len(available_logos)} options")
+        logger.debug(f"      Dealership: '{dealership_name}'")
+        logger.debug(f"      Departments: {departments}")
+
+        # Priority 1: Exact dealership name match (case-insensitive)
+        if dealership_name:
+            dealership_lower = dealership_name.lower()
+            for logo in available_logos:
+                logo_lower = logo.lower()
+                if dealership_lower in logo_lower:
+                    logger.debug(f"      ✅ Exact match: '{logo}' contains '{dealership_name}'")
+                    return logo
+
+            # Priority 2: Extract brand name and match (e.g., "Alfa Romeo" from "Alfa Romeo of Cincinnati")
+            # Common patterns: "Brand of Location", "Brand - Location", "Brand Location"
+            brand_parts = dealership_name.split()
+            if len(brand_parts) >= 2:
+                # Try first two words as brand (e.g., "Alfa Romeo")
+                brand_name = ' '.join(brand_parts[:2])
+                brand_lower = brand_name.lower()
+
+                for logo in available_logos:
+                    logo_lower = logo.lower()
+                    if brand_lower in logo_lower:
+                        logger.debug(f"      ✅ Brand match: '{logo}' contains '{brand_name}'")
+                        return logo
+
+                # Try just first word (e.g., "Alfa")
+                if brand_parts[0].lower() not in ['the', 'a', 'an']:  # Skip articles
+                    for logo in available_logos:
+                        logo_lower = logo.lower()
+                        if brand_parts[0].lower() in logo_lower:
+                            logger.debug(f"      ✅ Partial brand match: '{logo}' contains '{brand_parts[0]}'")
+                            return logo
+
+        # Priority 3: Department-specific logos
+        if departments:
+            for dept in departments:
+                dept_lower = dept.lower()
+                for logo in available_logos:
+                    logo_lower = logo.lower()
+                    if dept_lower in logo_lower:
+                        logger.debug(f"      ✅ Department match: '{logo}' contains '{dept}'")
+                        return logo
+
+        # Priority 4: Generic (first available)
+        logger.debug(f"      ℹ️  Using generic (first available): '{available_logos[0]}'")
+        return available_logos[0]
+
     async def _get_available_logos(self, page: Page, logo_idx: int = 1) -> dict:
         """
         Open Change Image popup and extract all available logo filenames from media library
@@ -4153,6 +4247,132 @@ class TempLogoAdditionFinalService:
         except Exception as e:
             logger.exception(f"   Error selecting logo from library: {e}")
             return {'success': False, 'error': str(e)}
+
+    async def _get_available_logos_for_insert(self, page: Page, container_info: dict) -> dict:
+        """
+        Open Insert Image popup for an empty container and extract all available logo filenames
+
+        This method clicks on an empty Logo 1/2 container, opens the Insert Image popup,
+        extracts all available logos, then closes the popup.
+
+        Args:
+            page: Playwright page object
+            container_info: Container info dict with 'id' field
+
+        Returns:
+            Same format as _get_available_logos():
+            {
+                'success': True/False,
+                'logos': [{'index': 0, 'filename': '...', 'alt': '...', 'src': '...'}, ...],
+                'totalCount': 5,
+                'error': 'error message if failed'
+            }
+        """
+        try:
+            container_id = container_info.get('id')
+            logger.debug(f"   📚 Fetching available logos from Insert Image popup...")
+            logger.debug(f"      Using container: {container_id}")
+
+            # Click container to focus it
+            click_result = await page.evaluate(f"""
+                () => {{
+                    const textTemplate = document.querySelector('[id="{container_id}"]');
+                    if (!textTemplate) return {{ success: false, reason: 'Container not found' }};
+
+                    // Scroll into view
+                    textTemplate.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+
+                    // Remove 'unselectable' class from parent if it exists
+                    let parent = textTemplate.parentElement;
+                    while (parent) {{
+                        if (parent.className && parent.className.includes('Unselectable')) {{
+                            parent.className = parent.className.replace(/elementUnselectable\\S*/g, '');
+                        }}
+                        parent = parent.parentElement;
+                    }}
+
+                    // Click and focus
+                    textTemplate.click();
+                    textTemplate.focus();
+
+                    return {{ success: true }};
+                }}
+            """)
+
+            if not click_result.get('success'):
+                return {'success': False, 'error': f"Could not click container: {click_result.get('reason', 'Unknown')}", 'logos': [], 'totalCount': 0}
+
+            await asyncio.sleep(2)
+
+            # Click Insert Image button
+            insert_clicked = False
+            try:
+                await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=3000)
+                insert_clicked = True
+            except:
+                # Try alternative selectors
+                alt_selectors = [
+                    'button:has-text("Insert Image")',
+                    '[title="Insert Image"]',
+                    '.templates_iconButton__jEGTJ[aria-label="icon-insert-image"]'
+                ]
+                for selector in alt_selectors:
+                    try:
+                        await page.click(selector, timeout=2000)
+                        insert_clicked = True
+                        break
+                    except:
+                        continue
+
+            if not insert_clicked:
+                return {'success': False, 'error': 'Could not click Insert Image button', 'logos': [], 'totalCount': 0}
+
+            await asyncio.sleep(3)
+
+            # Extract all available logos from popup
+            logos_info = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { success: false, error: 'Popup not found' };
+
+                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                    if (tiles.length === 0) return { success: false, error: 'No media tiles found' };
+
+                    const logos = tiles.map((tile, index) => {
+                        const img = tile.querySelector('img');
+                        const alt = img ? img.alt : '';
+                        const src = img ? img.src : '';
+                        const filename = src ? src.split('/').pop() : '';
+
+                        return {
+                            index: index,
+                            filename: filename,
+                            alt: alt,
+                            src: src
+                        };
+                    });
+
+                    return {
+                        success: true,
+                        logos: logos,
+                        totalCount: tiles.length
+                    };
+                }
+            """)
+
+            # Close popup
+            await page.keyboard.press('Escape')
+            await asyncio.sleep(1)
+
+            if logos_info['success']:
+                logger.debug(f"   ✅ Found {logos_info['totalCount']} logos in Insert Image popup")
+                return logos_info
+            else:
+                return {'success': False, 'error': logos_info.get('error', 'Unknown error'), 'logos': [], 'totalCount': 0}
+
+        except Exception as e:
+            logger.exception(f"   Error fetching logos from Insert Image popup: {e}")
+            return {'success': False, 'error': str(e), 'logos': [], 'totalCount': 0}
 
 
 # Main entry point
