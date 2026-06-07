@@ -1684,11 +1684,12 @@ class TempLogoAdditionFinalService:
                         const img = container.querySelector('img');
                         let hasImage = img !== null;
                         let visibilityStatus = 'no-image';
+                        let imgRect = null;  // ✨ FIX: Define imgRect in outer scope
 
                         // ✨ PHASE 5: Check if image is actually visible
                         if (hasImage && img) {
                             const imgStyle = window.getComputedStyle(img);
-                            const imgRect = img.getBoundingClientRect();
+                            imgRect = img.getBoundingClientRect();  // ✨ FIX: Assign without const
                             const isStyleVisible = imgStyle.display !== 'none' &&
                                              imgStyle.visibility !== 'hidden' &&
                                              imgStyle.opacity !== '0';
@@ -1723,7 +1724,7 @@ class TempLogoAdditionFinalService:
                                            imgAlt.includes('Tv') ||
                                            imgSrc.includes('/icon-') ||
                                            imgSrc.includes('/common/CRM/') ||
-                                           imgRect.width < 30; // Very small icons
+                                           (imgRect && imgRect.width < 30); // ✨ FIX: Check imgRect exists - Very small icons
 
                             debug.push(`  ${isUIIcon ? '🎨' : '✅'} ${containerInfo}, src="${img.src}", alt="${imgAlt}"`);
 
