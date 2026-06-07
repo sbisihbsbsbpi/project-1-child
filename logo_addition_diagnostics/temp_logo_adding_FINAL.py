@@ -780,12 +780,87 @@ class TempLogoAdditionFinalService:
                 # Check if dynamic detection found any logos
                 # ✨ BUT: If API is stale, the logos might not actually exist - proceed with insertion!
                 if all_detected_logos > 0 and not api_is_stale:
-                    logger.info(f"   ✨ PHASE 3: Dynamic detection found {all_detected_logos} logo(s) - marking as DETECTED")
-                    logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
-                    logger.info(f"   ✅ Template has logos (already correct - no action needed)")
-                    logger.info(f"   📑 Tab kept open for verification")
-                    # await page.close()  # Keep tab open
-                    return
+                    # ✨ NEW (June 8): UNIVERSAL LOGO VALIDATION
+                    # Before marking as complete, validate that detected logos exist in media library
+                    logger.info(f"   ✨ PHASE 3: Dynamic detection found {all_detected_logos} logo(s)")
+                    logger.info(f"   🔍 Validating logos against media library...")
+
+                    # Extract detected logos from dynamic detection
+                    truly_dynamic = detection_result.get('trulyDynamic', {})
+                    detected_logos = truly_dynamic.get('detectedLogos', [])
+
+                    if len(detected_logos) > 0:
+                        # Get available logos from media library (using first detected logo)
+                        available_logos_info = await self._get_available_logos(page, logo_idx=1)
+
+                        if available_logos_info['success']:
+                            available_filenames = [logo['filename'] for logo in available_logos_info['logos']]
+                            invalid_logos = []
+
+                            # Validate each detected logo
+                            for idx, logo in enumerate(detected_logos, 1):
+                                logo_filename = logo.get('imageFilename', '')
+                                if logo_filename and logo_filename not in available_filenames:
+                                    logger.warning(f"   ⚠️  Logo {idx} '{logo_filename}' NOT in media library!")
+                                    invalid_logos.append({
+                                        'index': idx,
+                                        'filename': logo_filename,
+                                        'reason': 'not_in_media_library'
+                                    })
+                                else:
+                                    logger.debug(f"   ✅ Logo {idx} '{logo_filename}' is valid")
+
+                            # If any logos are invalid, add them to replacement list
+                            if len(invalid_logos) > 0:
+                                logger.info(f"   🔧 Found {len(invalid_logos)} invalid logo(s) - adding to replacement queue")
+                                logger.info(f"   Available logos: {available_filenames[:5]}{'...' if len(available_filenames) > 5 else ''}")
+
+                                # Select best replacement logo
+                                replacement_logo = available_filenames[0] if available_filenames else None
+                                if replacement_logo:
+                                    logger.info(f"   📝 Will replace invalid logos with: '{replacement_logo}'")
+
+                                    # Add to logos_to_replace for processing
+                                    for invalid_logo in invalid_logos:
+                                        logos_to_replace.append({
+                                            'index': invalid_logo['index'],
+                                            'name': f"Invalid Logo {invalid_logo['index']}",
+                                            'current_filename': invalid_logo['filename'],
+                                            'replacement_filename': replacement_logo,
+                                            'reason': invalid_logo['reason'],
+                                            'alignment': 'UNKNOWN'
+                                        })
+
+                                    # Update replace_count to trigger processing
+                                    replace_count = len(logos_to_replace)
+                                    logger.info(f"   🎯 Updated replace count: {replace_count} logo(s) to process")
+                                else:
+                                    logger.error(f"   ❌ No available logos in media library to replace with!")
+                                    logger.info(f"   📑 Tab kept open for verification")
+                                    return
+                            else:
+                                # All logos are valid
+                                logger.info(f"   ✅ All {len(detected_logos)} logo(s) validated successfully")
+                                logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
+                                logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                                logger.info(f"   📑 Tab kept open for verification")
+                                # await page.close()  # Keep tab open
+                                return
+                        else:
+                            logger.warning(f"   ⚠️  Could not fetch media library: {available_logos_info.get('error', 'Unknown error')}")
+                            logger.info(f"   ℹ️  Skipping validation, trusting detection")
+                            logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
+                            logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                            logger.info(f"   📑 Tab kept open for verification")
+                            # await page.close()  # Keep tab open
+                            return
+                    else:
+                        # No detected logos info - trust the count
+                        logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
+                        logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                        logger.info(f"   📑 Tab kept open for verification")
+                        # await page.close()  # Keep tab open
+                        return
                 elif all_detected_logos > 0 and api_is_stale:
                     logger.warning(f"   ⚠️  IGNORING allDetectedLogosCount={all_detected_logos} due to stale API data")
                     logger.info(f"   🎯 Will check if header button is active and proceed with insertion if needed")
@@ -1140,7 +1215,12 @@ class TempLogoAdditionFinalService:
                 logger.info(f"   Current alignment: {current_alignment} (will keep same position)")
                 logger.debug(f"   Attempting REPLACE workflow for logo without warning")
 
-                if await self._replace_logo_without_warning(page, logo_idx, logo_media_id):
+                # Get replacement filename if specified (for invalid logo replacement)
+                replacement_filename = logo_item.get('replacement_filename', None)
+                if replacement_filename:
+                    logger.info(f"   📝 Target replacement: '{replacement_filename}' (invalid logo fix)")
+
+                if await self._replace_logo_without_warning(page, logo_idx, logo_media_id, target_filename=replacement_filename):
                     logos_processed += 1
                     processed_logo_rows.add(logo_row)  # Mark this logo row as processed
                     logger.info(f"   ✅ Logo replaced: {logo_name}")
@@ -1766,6 +1846,7 @@ class TempLogoAdditionFinalService:
                                     height: Math.round(rect.height)
                                 },
                                 imageSrc: img ? img.src : null,
+                                imageFilename: img && img.src ? img.src.split('/').pop() : null,
                                 imageAlt: imgAlt
                             });
                         } else {
@@ -2813,8 +2894,15 @@ class TempLogoAdditionFinalService:
             logger.exception(f"      Error replacing logo: {e}")
             return False
 
-    async def _replace_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str) -> bool:
-        """Replace logo WITHOUT warning icon (detected by table-based detection) using Change Image workflow"""
+    async def _replace_logo_without_warning(self, page: Page, logo_idx: int, logo_media_id: str, target_filename: str = None) -> bool:
+        """Replace logo WITHOUT warning icon (detected by table-based detection) using Change Image workflow
+
+        Args:
+            page: Playwright page object
+            logo_idx: Index of logo to replace
+            logo_media_id: Media ID (for fallback selection)
+            target_filename: Specific filename to select (e.g., "Alfa Romeo of Cincinnati.jpg")
+        """
 
         try:
             # Find the image component marked for replacement (this is already the imageComponent)
@@ -2897,29 +2985,11 @@ class TempLogoAdditionFinalService:
                 logger.warning("Media library popup did not appear")
                 return False
 
-            # Select Tilton.png (tile #1)
-            selection = await page.evaluate("""
-                () => {
-                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return { success: false };
-
-                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
-                    if (tiles.length === 0) return { success: false };
-
-                    const targetTile = tiles[0];
-                    const topLayer = targetTile.querySelector('[role="button"]') ||
-                                    targetTile.querySelector('[class*="topLayer"]');
-
-                    if (topLayer) {
-                        topLayer.click();
-                        return { success: true };
-                    }
-                    return { success: false };
-                }
-            """)
+            # Select logo from library (use target_filename if specified, otherwise first logo)
+            selection = await self._select_logo_from_library(page, target_filename=target_filename, fallback_index=0)
 
             if not selection['success']:
-                logger.warning("Could not select logo from media library")
+                logger.warning(f"Could not select logo from media library: {selection.get('error', 'Unknown error')}")
                 return False
 
             await asyncio.sleep(1.5)
@@ -3832,6 +3902,257 @@ class TempLogoAdditionFinalService:
         except Exception as e:
             logger.exception(f"   ❌ Error generating report: {e}")
             return "report_generation_failed.xlsx"
+
+    async def _get_available_logos(self, page: Page, logo_idx: int = 1) -> dict:
+        """
+        Open Change Image popup and extract all available logo filenames from media library
+
+        This method is used to validate whether detected logos exist in the media library.
+        It opens the Change Image popup for a specific logo container and extracts information
+        about all available logos.
+
+        Args:
+            page: Playwright page object
+            logo_idx: Index of logo container to open Change Image popup (1-based)
+
+        Returns:
+            {
+                'success': True/False,
+                'logos': [
+                    {
+                        'index': 0,
+                        'filename': 'Tilton.png',
+                        'alt': 'Tilton Logo',
+                        'src': 'https://...'
+                    },
+                    ...
+                ],
+                'totalCount': 5,
+                'error': 'error message if failed'
+            }
+        """
+        try:
+            logger.debug(f"   📚 Fetching available logos from media library (using logo {logo_idx})...")
+
+            # Find logo container (try learned pattern first)
+            logo_found = await page.evaluate(f"""
+                () => {{
+                    // Try data-learned-logo first
+                    let container = document.querySelector('[data-learned-logo="container-{logo_idx}"]');
+                    if (container) return {{ found: true, method: 'learned' }};
+
+                    // Try data-logo-to-replace
+                    container = document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]');
+                    if (container) return {{ found: true, method: 'replace' }};
+
+                    // Try data-logo-to-inspect
+                    container = document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
+                    if (container) return {{ found: true, method: 'warning' }};
+
+                    return {{ found: false }};
+                }}
+            """)
+
+            if not logo_found['found']:
+                return {'success': False, 'error': f'Logo container {logo_idx} not found', 'logos': [], 'totalCount': 0}
+
+            logger.debug(f"   Found logo container via method: {logo_found['method']}")
+
+            # Hover over container to reveal toolbar
+            if logo_found['method'] == 'learned':
+                container = await page.query_selector(f'[data-learned-logo="container-{logo_idx}"]')
+            elif logo_found['method'] == 'replace':
+                container = await page.query_selector(f'[data-logo-to-replace="replace-logo-{logo_idx}"]')
+            else:
+                container = await page.query_selector(f'[data-logo-to-inspect="warning-logo-{logo_idx}"]')
+
+            if not container:
+                return {'success': False, 'error': 'Container element not found', 'logos': [], 'totalCount': 0}
+
+            await container.hover(force=True)
+            await asyncio.sleep(2)
+
+            # Click Change Image icon
+            change_clicked = await page.evaluate(f"""
+                () => {{
+                    const methods = [
+                        '[data-learned-logo="container-{logo_idx}"]',
+                        '[data-logo-to-replace="replace-logo-{logo_idx}"]',
+                        '[data-logo-to-inspect="warning-logo-{logo_idx}"]'
+                    ];
+
+                    for (const selector of methods) {{
+                        const container = document.querySelector(selector);
+                        if (!container) continue;
+
+                        const sortableItem = container.closest('[class*="SortableItem"]');
+                        if (!sortableItem) continue;
+
+                        const changeIcon = sortableItem.querySelector('[aria-label="icon-switch"]') ||
+                                          sortableItem.querySelector('[title="Change Image"]') ||
+                                          container.querySelector('[aria-label="icon-switch"]') ||
+                                          container.querySelector('[title="Change Image"]');
+
+                        if (changeIcon) {{
+                            changeIcon.click();
+                            return {{ clicked: true }};
+                        }}
+                    }}
+                    return {{ clicked: false, reason: 'Change Image icon not found' }};
+                }}
+            """)
+
+            if not change_clicked['clicked']:
+                return {'success': False, 'error': 'Could not click Change Image icon', 'logos': [], 'totalCount': 0}
+
+            await asyncio.sleep(3)
+
+            # Extract all available logos from popup
+            logos_info = await page.evaluate("""
+                () => {
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return { success: false, error: 'Popup not found' };
+
+                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                    if (tiles.length === 0) return { success: false, error: 'No media tiles found' };
+
+                    const logos = tiles.map((tile, index) => {
+                        const img = tile.querySelector('img');
+                        const alt = img ? img.alt : '';
+                        const src = img ? img.src : '';
+                        const filename = src ? src.split('/').pop() : '';
+
+                        return {
+                            index: index,
+                            filename: filename,
+                            alt: alt,
+                            src: src
+                        };
+                    });
+
+                    return {
+                        success: true,
+                        logos: logos,
+                        totalCount: tiles.length
+                    };
+                }
+            """)
+
+            # Close popup
+            await page.keyboard.press('Escape')
+            await asyncio.sleep(1)
+
+            if logos_info['success']:
+                logger.debug(f"   ✅ Found {logos_info['totalCount']} logos in media library")
+                logger.debug(f"   Available logos: {[logo['filename'] for logo in logos_info['logos'][:5]]}{'...' if logos_info['totalCount'] > 5 else ''}")
+                return logos_info
+            else:
+                return {'success': False, 'error': logos_info.get('error', 'Unknown error'), 'logos': [], 'totalCount': 0}
+
+        except Exception as e:
+            logger.exception(f"   Error fetching available logos: {e}")
+            return {'success': False, 'error': str(e), 'logos': [], 'totalCount': 0}
+
+    async def _select_logo_from_library(self, page: Page, target_filename: str = None, fallback_index: int = 0) -> dict:
+        """
+        Select logo from open media library popup
+
+        This method assumes the media library popup is already open.
+        It searches for a specific logo by filename, or falls back to selecting by index.
+
+        Args:
+            page: Playwright page object
+            target_filename: Specific filename to search for (e.g., "Alfa Romeo of Cincinnati.jpg")
+            fallback_index: Index to select if target_filename not found (default: 0 = first logo)
+
+        Returns:
+            {
+                'success': True/False,
+                'selected_filename': 'Tilton.png',
+                'selected_index': 0,
+                'method': 'filename' or 'index'
+            }
+        """
+        try:
+            logger.debug(f"   🎯 Selecting logo from library...")
+            if target_filename:
+                logger.debug(f"   Target: '{target_filename}', Fallback: index {fallback_index}")
+            else:
+                logger.debug(f"   Selecting by index: {fallback_index}")
+
+            # Select logo from popup
+            selection_result = await page.evaluate(f"""
+                (targetFilename, fallbackIndex) => {{
+                    const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
+                    if (!popup) return {{ success: false, error: 'Popup not found' }};
+
+                    const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
+                    if (tiles.length === 0) return {{ success: false, error: 'No media tiles found' }};
+
+                    let selectedTile = null;
+                    let selectedIndex = -1;
+                    let method = 'index';
+
+                    // Try to find by filename if specified
+                    if (targetFilename) {{
+                        for (let i = 0; i < tiles.length; i++) {{
+                            const img = tiles[i].querySelector('img');
+                            if (img && img.src) {{
+                                const filename = img.src.split('/').pop();
+                                if (filename === targetFilename) {{
+                                    selectedTile = tiles[i];
+                                    selectedIndex = i;
+                                    method = 'filename';
+                                    break;
+                                }}
+                            }}
+                        }}
+                    }}
+
+                    // Fallback to index selection
+                    if (!selectedTile && fallbackIndex < tiles.length) {{
+                        selectedTile = tiles[fallbackIndex];
+                        selectedIndex = fallbackIndex;
+                        method = 'index';
+                    }}
+
+                    if (!selectedTile) {{
+                        return {{ success: false, error: 'No suitable tile found' }};
+                    }}
+
+                    // Click the tile
+                    const topLayer = selectedTile.querySelector('[role="button"]') ||
+                                    selectedTile.querySelector('[class*="topLayer"]');
+
+                    if (topLayer) {{
+                        topLayer.click();
+
+                        // Get the selected filename
+                        const img = selectedTile.querySelector('img');
+                        const filename = img && img.src ? img.src.split('/').pop() : '';
+
+                        return {{
+                            success: true,
+                            selected_filename: filename,
+                            selected_index: selectedIndex,
+                            method: method
+                        }};
+                    }}
+
+                    return {{ success: false, error: 'Could not click tile' }};
+                }}
+            """, target_filename, fallback_index)
+
+            if selection_result['success']:
+                logger.debug(f"   ✅ Selected '{selection_result['selected_filename']}' (method: {selection_result['method']}, index: {selection_result['selected_index']})")
+                return selection_result
+            else:
+                logger.warning(f"   ⚠️  Selection failed: {selection_result.get('error', 'Unknown error')}")
+                return selection_result
+
+        except Exception as e:
+            logger.exception(f"   Error selecting logo from library: {e}")
+            return {'success': False, 'error': str(e)}
 
 
 # Main entry point
