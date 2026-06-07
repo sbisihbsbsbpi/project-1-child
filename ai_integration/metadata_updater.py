@@ -117,25 +117,47 @@ class MetadataUpdater:
                     
                     # Extract enhanced features
                     enhanced = detection_result.get('enhancedFeatures', {})
-                    
+
                     if not enhanced:
                         print(f"⚠️  No enhanced features found for {template_name}")
                         return False
-                    
+
                     # Update detection data
                     if 'detection' not in template:
                         template['detection'] = {}
-                    
-                    # Add enhanced features
+
+                    # Add enhanced features (Phase 1)
                     template['detection']['sortable_item_count'] = enhanced.get('sortableItemCount', 0)
                     template['detection']['total_table_count'] = enhanced.get('totalTableCount', 0)
                     template['detection']['non_logo_table_count'] = enhanced.get('nonLogoTableCount', 0)
                     template['detection']['has_buttons'] = enhanced.get('hasButtons', False)
                     template['detection']['dynamic_tag_count'] = enhanced.get('dynamicTagCount', 0)
-                    
+
+                    # PHASE 2 ENHANCEMENTS (June 7, 2026)
+                    # Add learned logo markers count
+                    learned_logos = detection_result.get('learnedLogosCount', 0)
+                    if learned_logos > 0:
+                        template['detection']['learned_logos_count'] = learned_logos
+                        print(f"   ✨ Learned logos found: {learned_logos}")
+
+                    # Add API cross-validation results
+                    cross_validation = detection_result.get('apiCrossValidation', {})
+                    if cross_validation:
+                        template['detection']['api_cross_validation'] = {
+                            'api_has_logo': cross_validation.get('apiHasLogo', False),
+                            'detection_found_logo': cross_validation.get('detectionFoundLogo', False),
+                            'false_negative': cross_validation.get('falseNegative', False),
+                            'validated_at': datetime.now().isoformat()
+                        }
+
+                        if cross_validation.get('falseNegative'):
+                            print(f"   ⚠️  FALSE NEGATIVE: API has logo but detection missed it")
+                            template['detection']['needs_manual_inspection'] = True
+
                     # Add metadata about the update
                     template['detection']['enhanced_features_updated'] = datetime.now().isoformat()
-                    
+                    template['detection']['phase_2_enhanced'] = True
+
                     print(f"✅ Updated {template_name}:")
                     print(f"   • Sortable items: {enhanced.get('sortableItemCount', 0)}")
                     print(f"   • Total tables: {enhanced.get('totalTableCount', 0)}")

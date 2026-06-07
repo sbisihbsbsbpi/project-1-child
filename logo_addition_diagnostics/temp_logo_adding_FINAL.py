@@ -616,6 +616,48 @@ class TempLogoAdditionFinalService:
             logger.info(f"   🔍 Running logo detection...")
             detection_result = await self._detect_logos(page)
 
+            # PHASE 2 ENHANCEMENT #2: API Cross-Validation (June 7, 2026)
+            # Compare detection results with API thumbnail.mediaId to catch false negatives
+            api_thumbnail_id = template.get('thumbnail', {}).get('mediaId')
+            learned_logos = detection_result.get('learnedLogosCount', 0)
+            warnings_count = detection_result.get('warningsCount', 0)
+            empty_count = detection_result.get('emptyCount', 0)
+
+            detection_found_logos = (warnings_count > 0 or empty_count > 0 or learned_logos > 0)
+            api_says_has_logo = api_thumbnail_id is not None and api_thumbnail_id != ''
+
+            # Detect false negative: API says logo exists but detection didn't find it
+            if api_says_has_logo and not detection_found_logos:
+                logger.warning(f"   ⚠️  PHASE 2 FALSE NEGATIVE DETECTED:")
+                logger.warning(f"      • API thumbnail.mediaId: {api_thumbnail_id}")
+                logger.warning(f"      • Detection found: warnings={warnings_count}, empties={empty_count}, learned={learned_logos}")
+                logger.warning(f"      • Template has logo that detection missed!")
+                logger.warning(f"      • This template may need manual inspection")
+
+                # Mark this in detection result for metadata
+                detection_result['apiCrossValidation'] = {
+                    'apiHasLogo': True,
+                    'detectionFoundLogo': False,
+                    'falseNegative': True,
+                    'apiMediaId': api_thumbnail_id
+                }
+            elif api_says_has_logo and detection_found_logos:
+                logger.info(f"   ✅ API Cross-Validation: Logo confirmed (mediaId: {api_thumbnail_id[:20]}...)")
+                detection_result['apiCrossValidation'] = {
+                    'apiHasLogo': True,
+                    'detectionFoundLogo': True,
+                    'falseNegative': False,
+                    'apiMediaId': api_thumbnail_id
+                }
+            else:
+                # No API logo or detection correctly found nothing
+                detection_result['apiCrossValidation'] = {
+                    'apiHasLogo': False,
+                    'detectionFoundLogo': detection_found_logos,
+                    'falseNegative': False,
+                    'apiMediaId': None
+                }
+
             # Extract enhanced features
             enhanced_features = detection_result.get('enhancedFeatures', {})
 
