@@ -640,19 +640,21 @@ class TempLogoAdditionFinalService:
             detection_found_logos = (warnings_count > 0 or empty_count > 0 or learned_logos > 0)
             api_says_has_logo = api_thumbnail_id is not None and api_thumbnail_id != ''
 
-            # Detect false negative: API says logo exists but detection didn't find it
+            # Detect API/Detection mismatch: API says logo exists but detection didn't find it
+            # ✨ FIX (June 8): Trust DETECTION over API - API thumbnail can be stale!
             if api_says_has_logo and not detection_found_logos:
-                logger.warning(f"   ⚠️  PHASE 2 FALSE NEGATIVE DETECTED:")
+                logger.warning(f"   ⚠️  API/DETECTION MISMATCH DETECTED:")
                 logger.warning(f"      • API thumbnail.mediaId: {api_thumbnail_id}")
                 logger.warning(f"      • Detection found: warnings={warnings_count}, empties={empty_count}, learned={learned_logos}")
-                logger.warning(f"      • Template has logo that detection missed!")
-                logger.warning(f"      • This template may need manual inspection")
+                logger.warning(f"      • DECISION: Trust detection over API (API likely has stale data)")
+                logger.warning(f"      • Will proceed with logo insertion if header button is active")
 
                 # Mark this in detection result for metadata
                 detection_result['apiCrossValidation'] = {
                     'apiHasLogo': True,
                     'detectionFoundLogo': False,
-                    'falseNegative': True,
+                    'falseNegative': False,  # ✨ Changed: This is NOT a false negative - API is stale
+                    'apiStaleData': True,    # ✨ New flag
                     'apiMediaId': api_thumbnail_id
                 }
             elif api_says_has_logo and detection_found_logos:
@@ -772,15 +774,23 @@ class TempLogoAdditionFinalService:
             # ✨ PHASE 3 FIX: Also check allDetectedLogosCount before deciding to skip
             all_detected_logos = detection_result.get('allDetectedLogosCount', 0)
 
+            # ✨ FIX (June 8): Check if API data is stale - if so, don't trust allDetectedLogosCount
+            api_cross_validation = detection_result.get('apiCrossValidation', {})
+            api_is_stale = api_cross_validation.get('apiStaleData', False)
+
             if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
                 # Check if dynamic detection found any logos
-                if all_detected_logos > 0:
+                # ✨ BUT: If API is stale, the logos might not actually exist - proceed with insertion!
+                if all_detected_logos > 0 and not api_is_stale:
                     logger.info(f"   ✨ PHASE 3: Dynamic detection found {all_detected_logos} logo(s) - marking as DETECTED")
                     logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
                     logger.info(f"   ✅ Template has logos (already correct - no action needed)")
                     logger.info(f"   📑 Tab kept open for verification")
                     # await page.close()  # Keep tab open
                     return
+                elif all_detected_logos > 0 and api_is_stale:
+                    logger.warning(f"   ⚠️  IGNORING allDetectedLogosCount={all_detected_logos} due to stale API data")
+                    logger.info(f"   🎯 Will check if header button is active and proceed with insertion if needed")
 
                 # No standard logo containers detected - check if we should add a header
                 logger.info("   📊 Detection Summary: No standard Logo 1/2 containers or headers detected")
