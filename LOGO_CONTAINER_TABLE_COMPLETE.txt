@@ -1,0 +1,148 @@
+📊 SERVICE + PARTS TEMPLATES - COMPLETE LOGO CONTAINER ANALYSIS
+============================================================================================================================================
+Date: June 6, 2026
+Total Templates: 39
+Source: Automated detection from template_metadata.json
+============================================================================================================================================
+
+DETAILED TEMPLATE TABLE
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+┌─────┬───────────────────────────────────────────────┬──────────────┬──────────────────────────────────────────────────────────┐
+│ No. │ Template Name                                 │ Logo Tables  │ Container Structure & Position                           │
+├─────┼───────────────────────────────────────────────┼──────────────┼──────────────────────────────────────────────────────────┤
+│   1 │ First Time Email                              │            0 │ 1 container (Header - custom structure at top)           │
+│   2 │ Bulk RO Download                              │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│   3 │ Consumer Scheduling OTP                       │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│   4 │ RO Payment Link                               │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│   5 │ Request Decline: Data Deletion (Open Document │            0 │ 1 container (Header - custom structure at top)           │
+│   6 │ Request Acknowledgement                       │            0 │ 1 container (Header - custom structure at top)           │
+│   7 │ Request Completion: Data Export               │            0 │ 1 container (Header - custom structure at top)           │
+│   8 │ Request Completion: Data Deletion (Closed Doc │            0 │ 1 container (Header - custom structure at top)           │
+│   9 │ RO Invoiced                                   │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  10 │ Service History Recap PDF                     │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  11 │ Request Completion: Data Correction           │            0 │ 1 container (Header - custom structure at top)           │
+│  12 │ RO Created                                    │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  13 │ Collection Slip                               │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  14 │ Appointment Rescheduled                       │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  15 │ Consumer Portal Resend Link                   │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  16 │ RO Invoiced - Contactless                     │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  17 │ Service History Invoice PDF(s)                │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  18 │ MPVI Customer PDF                             │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  19 │ Consumer Portal OTP                           │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  20 │ Revised Estimate                              │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  21 │ Quote Estimate PDF                            │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  22 │ Day Collection Report                         │            0 │ No logo containers (needs header addition)               │
+│  23 │ Damages Customer PDF                          │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  24 │ Vehicle Health Report PDF                     │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  25 │ Estimate Customer PDF                         │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  26 │ Invoice Customer PDF                          │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  27 │ Inspections and Recommendations PDF           │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  28 │ Appointment Confirmation - Concierge          │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  29 │ Appointment Rescheduled - Concierge           │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  30 │ Appointment Reminder - Concierge              │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  31 │ VIS Customer PDF                              │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  32 │ Appointment Confirmation                      │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  33 │ Appointment Cancellation                      │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  34 │ Request Decline: Marked As Declined           │            0 │ 1 container (Header - custom structure at top)           │
+│  35 │ Request Completion: Sensitive Information Res │            0 │ 1 container (Header - custom structure at top)           │
+│  36 │ Request Completion: Do not sell & share with  │            0 │ 1 container (Header - custom structure at top)           │
+│  37 │ Customer Pay Closed                           │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+│  38 │ Recommendation Send to customer               │            4 │ 4 containers (Complex: Header + Body + Footer zones)     │
+│  39 │ Appointment Reminder                          │            2 │ 2 containers (Logo 1 + Logo 2 rows OR single row L+R)    │
+└─────┴───────────────────────────────────────────────┴──────────────┴──────────────────────────────────────────────────────────┘
+
+
+SUMMARY BY STRUCTURE TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Category 1: 1 CONTAINER (Header - Custom at Top)
+Count: 9 templates
+Position: Top of email (header zone)
+Description: CPRA templates with existing custom header structure
+Templates:
+  • First Time Email
+  • Request Decline: Data Deletion (Open Documents)
+  • Request Acknowledgement
+  • Request Completion: Data Export
+  • Request Completion: Data Deletion (Closed Documents)
+  • Request Completion: Data Correction
+  • Request Decline: Marked As Declined
+  • Request Completion: Sensitive Information Restriction
+  • Request Completion: Do not sell & share with 3rd Parties
+
+Category 2: 2 CONTAINERS (Standard Logo Structure)
+Count: 14 templates
+Position: Logo 1 (top) + Logo 2 (top-middle) OR Left + Right on same row
+Description: Most common structure - 2 logo placement zones
+Templates:
+  • Bulk RO Download
+  • RO Payment Link
+  • Collection Slip
+  • Appointment Rescheduled
+  • Damages Customer PDF
+  • Vehicle Health Report PDF
+  • Appointment Confirmation - Concierge
+  • Appointment Rescheduled - Concierge
+  • Appointment Reminder - Concierge
+  • VIS Customer PDF
+  • Appointment Confirmation
+  • Appointment Cancellation
+  • Customer Pay Closed
+  • Appointment Reminder
+
+Category 3: 4 CONTAINERS (Complex Multi-Zone)
+Count: 15 templates
+Position: Multiple zones - Header (top) + Body zones (middle) + Footer (bottom)
+Description: Complex layouts, usually PDF templates
+Templates:
+  • Consumer Scheduling OTP
+  • RO Invoiced
+  • Service History Recap PDF
+  • RO Created
+  • Consumer Portal Resend Link
+  • RO Invoiced - Contactless
+  • Service History Invoice PDF(s)
+  • MPVI Customer PDF
+  • Consumer Portal OTP
+  • Revised Estimate
+  • Quote Estimate PDF
+  • Estimate Customer PDF
+  • Invoice Customer PDF
+  • Inspections and Recommendations PDF
+  • Recommendation Send to customer
+
+Category 4: NO CONTAINERS
+Count: 1 template
+Position: N/A (no structure detected)
+Description: Needs header structure added
+Templates:
+  • Day Collection Report
+
+
+FINAL SUMMARY FOR AI TRAINING
+============================================================================================================================================
+
+┌─────────────────────────────────┬───────────┬──────────────────────────────────────────┐
+│ Structure Type                  │ Count     │ Position Description                     │
+├─────────────────────────────────┼───────────┼──────────────────────────────────────────┤
+│ 1 Container (Header/Custom)     │         9 │ Top of email (header zone)               │
+│ 2 Containers (Standard)         │        14 │ Logo 1 (top) + Logo 2 (top-middle)       │
+│ 4 Containers (Complex)          │        15 │ Multiple zones (header/body/footer)      │
+│ No Containers                   │         1 │ N/A (needs structure added)              │
+│ TOTAL                           │        39 │                                          │
+└─────────────────────────────────┴───────────┴──────────────────────────────────────────┘
+
+Key Insights:
+  • 23% of templates (9/39) have 1 container (custom header at top)
+  • 36% of templates (14/39) have 2 containers (standard Logo 1 + Logo 2 structure)
+  • 38% of templates (15/39) have 4 containers (complex multi-zone layouts)
+  • 3% of templates (1/39) have no container structure
+
+Position Details:
+  • 1 Container: Always at TOP (header zone)
+  • 2 Containers: Logo 1 at TOP, Logo 2 at TOP-MIDDLE (or both on same row L+R)
+  • 4 Containers: Distributed across HEADER, BODY, and FOOTER zones
+
+This data is now ready for AI model retraining!
+============================================================================================================================================

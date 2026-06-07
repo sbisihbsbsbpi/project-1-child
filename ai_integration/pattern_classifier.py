@@ -62,46 +62,74 @@ class TemplateClassifier:
     def _extract_features(self, template: Dict) -> np.ndarray:
         """
         Extract numerical features from template metadata.
-        
-        Features:
+
+        Features (11 total):
+        Original 6:
         - logo_tables_found (int)
         - header_button_opacity (float)
         - has_logos (bool -> int)
         - logo_count (int)
         - department_count (int)
         - logo_type encoded (int)
+
+        Enhanced 5 (Phase 1):
+        - sortable_item_count (int)
+        - total_table_count (int)
+        - non_logo_table_count (int)
+        - has_buttons (bool -> int)
+        - dynamic_tag_count (int)
         """
         detection = template.get('detection', {})
-        
-        features = [
+
+        # Original 6 features
+        logo_type = detection.get('logo_type', 'none')
+        logo_type_map = {
+            'none': 0,
+            'null': 0,
+            None: 0,
+            'sortable item images': 1,
+            'resizable images': 2,
+            'table-based': 3
+        }
+
+        original_features = [
             detection.get('logo_tables_found', 0),
             detection.get('header_button_opacity', 1.0),
             1 if detection.get('has_logos', False) else 0,
             detection.get('logo_count', 0),
             len(template.get('departments', [])),
+            logo_type_map.get(logo_type, 0)
         ]
-        
-        # Encode logo_type
-        logo_type = detection.get('logo_type', 'none')
-        logo_type_map = {
-            'none': 0,
-            'null': 0,
-            'sortable item images': 1,
-            'resizable images': 2,
-            'table-based': 3
-        }
-        features.append(logo_type_map.get(logo_type, 0))
-        
+
+        # Enhanced 5 features (Phase 1)
+        enhanced_features = [
+            detection.get('sortable_item_count', 0),
+            detection.get('total_table_count', 0),
+            detection.get('non_logo_table_count', 0),
+            1 if detection.get('has_buttons', False) else 0,
+            detection.get('dynamic_tag_count', 0)
+        ]
+
+        # Combine all features
+        all_features = original_features + enhanced_features
+
+        # Update feature names
         self.feature_names = [
             'logo_tables_found',
             'header_button_opacity',
             'has_logos',
             'logo_count',
             'department_count',
-            'logo_type_encoded'
+            'logo_type_encoded',
+            # Enhanced features
+            'sortable_item_count',
+            'total_table_count',
+            'non_logo_table_count',
+            'has_buttons',
+            'dynamic_tag_count'
         ]
-        
-        return np.array(features)
+
+        return np.array(all_features)
     
     def _train_model(self):
         """Train the classifier on metadata."""

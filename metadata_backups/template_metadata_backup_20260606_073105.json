@@ -21,7 +21,7 @@
         "non_logo_table_count": 6,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T11:56:37.482570"
+        "enhanced_features_updated": "2026-06-06T07:30:45.100510"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -44,7 +44,7 @@
         "non_logo_table_count": 17,
         "has_buttons": true,
         "dynamic_tag_count": 9,
-        "enhanced_features_updated": "2026-06-06T11:56:48.227778"
+        "enhanced_features_updated": "2026-06-06T07:30:55.501677"
       },
       "action": "skipped",
       "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
@@ -61,13 +61,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 114,
-        "total_table_count": 28,
-        "non_logo_table_count": 26,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T11:56:58.777981"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -84,13 +78,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 65,
-        "total_table_count": 12,
-        "non_logo_table_count": 11,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T11:57:09.571015"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -109,13 +97,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 4,
-        "non_logo_table_count": 4,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T11:57:20.360161"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -134,13 +116,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 4,
-        "non_logo_table_count": 4,
-        "has_buttons": true,
-        "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-06T11:57:31.190761"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -159,13 +135,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 4,
-        "non_logo_table_count": 4,
-        "has_buttons": true,
-        "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-06T11:57:41.777506"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -184,13 +154,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 0,
-        "total_table_count": 0,
-        "non_logo_table_count": 0,
-        "has_buttons": true,
-        "dynamic_tag_count": 0,
-        "enhanced_features_updated": "2026-06-06T11:57:52.338245"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -207,13 +171,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 133,
-        "total_table_count": 32,
-        "non_logo_table_count": 30,
-        "has_buttons": true,
-        "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-06T11:58:03.744278"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -231,13 +189,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 126,
-        "total_table_count": 28,
-        "non_logo_table_count": 26,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T11:58:15.604077"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 4 Logo Tables (Has Extra Logos) - BUG"
@@ -256,13 +208,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 4,
-        "non_logo_table_count": 4,
-        "has_buttons": true,
-        "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-06T11:58:26.585985"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -279,13 +225,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 142,
-        "total_table_count": 36,
-        "non_logo_table_count": 34,
-        "has_buttons": true,
-        "dynamic_tag_count": 18,
-        "enhanced_features_updated": "2026-06-06T11:58:37.169685"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -302,13 +242,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 53,
-        "total_table_count": 15,
-        "non_logo_table_count": 14,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T11:58:47.633345"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -325,13 +259,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 177,
-        "total_table_count": 45,
-        "non_logo_table_count": 44,
-        "has_buttons": true,
-        "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-06T11:58:58.347366"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -348,13 +276,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 153,
-        "total_table_count": 36,
-        "non_logo_table_count": 34,
-        "has_buttons": true,
-        "dynamic_tag_count": 20,
-        "enhanced_features_updated": "2026-06-06T11:59:09.294554"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -371,13 +293,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 130,
-        "total_table_count": 32,
-        "non_logo_table_count": 30,
-        "has_buttons": true,
-        "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-06T11:59:20.142514"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -394,13 +310,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 117,
-        "total_table_count": 26,
-        "non_logo_table_count": 24,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T11:59:30.654517"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 4 Logo Tables (Has Extra Logos) - BUG"
@@ -417,13 +327,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 114,
-        "total_table_count": 28,
-        "non_logo_table_count": 26,
-        "has_buttons": true,
-        "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-06T11:59:41.081772"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -440,13 +344,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 117,
-        "total_table_count": 28,
-        "non_logo_table_count": 26,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T11:59:51.481223"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -463,13 +361,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 118,
-        "total_table_count": 26,
-        "non_logo_table_count": 24,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T12:00:02.069420"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -486,13 +378,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 114,
-        "total_table_count": 28,
-        "non_logo_table_count": 26,
-        "has_buttons": true,
-        "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-06T12:00:12.771858"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -509,13 +395,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 50,
-        "total_table_count": 12,
-        "non_logo_table_count": 12,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T12:00:23.549339"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - No Logo Tables (Needs Header)"
@@ -532,13 +412,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 61,
-        "total_table_count": 14,
-        "non_logo_table_count": 13,
-        "has_buttons": true,
-        "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-06T12:00:42.626080"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -555,13 +429,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 65,
-        "total_table_count": 14,
-        "non_logo_table_count": 13,
-        "has_buttons": true,
-        "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-06T12:00:53.170358"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -578,13 +446,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 118,
-        "total_table_count": 26,
-        "non_logo_table_count": 24,
-        "has_buttons": true,
-        "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-06T12:01:03.914620"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -601,13 +463,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 133,
-        "total_table_count": 34,
-        "non_logo_table_count": 32,
-        "has_buttons": true,
-        "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-06T12:01:14.665927"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -624,13 +480,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 114,
-        "total_table_count": 26,
-        "non_logo_table_count": 24,
-        "has_buttons": true,
-        "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-06T12:01:25.338851"
+        "logo_type": null
       },
       "action": "skipped",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -647,13 +497,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 177,
-        "total_table_count": 43,
-        "non_logo_table_count": 42,
-        "has_buttons": true,
-        "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-06T12:01:36.022616"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -670,13 +514,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 177,
-        "total_table_count": 43,
-        "non_logo_table_count": 42,
-        "has_buttons": true,
-        "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-06T12:01:46.641727"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -693,13 +531,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 177,
-        "total_table_count": 43,
-        "non_logo_table_count": 42,
-        "has_buttons": true,
-        "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-06T12:01:57.911448"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -716,13 +548,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 61,
-        "total_table_count": 14,
-        "non_logo_table_count": 13,
-        "has_buttons": true,
-        "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-06T12:02:08.820522"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -739,13 +565,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 188,
-        "total_table_count": 53,
-        "non_logo_table_count": 52,
-        "has_buttons": true,
-        "dynamic_tag_count": 30,
-        "enhanced_features_updated": "2026-06-06T12:02:19.622767"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -762,13 +582,7 @@
         "header_button_opacity": 1.0,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "resizable images",
-        "sortable_item_count": 127,
-        "total_table_count": 34,
-        "non_logo_table_count": 33,
-        "has_buttons": true,
-        "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-06T12:02:30.496541"
+        "logo_type": "resizable images"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -787,13 +601,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 3,
-        "non_logo_table_count": 3,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T12:02:40.945752"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -812,13 +620,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 3,
-        "non_logo_table_count": 3,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T12:02:51.445562"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -837,13 +639,7 @@
         "header_button_opacity": 0.3,
         "has_logos": true,
         "logo_count": 0,
-        "logo_type": "sortable item images",
-        "sortable_item_count": 20,
-        "total_table_count": 4,
-        "non_logo_table_count": 4,
-        "has_buttons": true,
-        "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-06T12:03:02.310356"
+        "logo_type": "sortable item images"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -860,13 +656,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 133,
-        "total_table_count": 34,
-        "non_logo_table_count": 33,
-        "has_buttons": true,
-        "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-06T12:03:13.415753"
+        "logo_type": null
       },
       "action": "processed",
       "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
@@ -883,13 +673,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 143,
-        "total_table_count": 34,
-        "non_logo_table_count": 32,
-        "has_buttons": true,
-        "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-06T12:03:29.570818"
+        "logo_type": null
       },
       "action": "processed",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -906,13 +690,7 @@
         "header_button_opacity": 1.0,
         "has_logos": false,
         "logo_count": 0,
-        "logo_type": null,
-        "sortable_item_count": 177,
-        "total_table_count": 45,
-        "non_logo_table_count": 44,
-        "has_buttons": true,
-        "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-06T12:04:22.903401"
+        "logo_type": null
       },
       "action": "processed",
       "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"

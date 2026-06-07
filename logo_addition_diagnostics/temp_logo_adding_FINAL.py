@@ -51,6 +51,7 @@ import sys
 import os
 import logging
 import argparse
+import json
 from typing import List, Dict, Optional
 from datetime import datetime
 import pandas as pd
@@ -65,10 +66,12 @@ from playwright.async_api import async_playwright, Browser, Page, BrowserContext
 try:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
     from ai_integration import AIAssistant
+    from ai_integration.metadata_updater import MetadataUpdater
     AI_AVAILABLE = True
     print("🤖 AI Integration: ENABLED")
 except Exception as e:
     AI_AVAILABLE = False
+    MetadataUpdater = None
     print(f"ℹ️  AI Integration: DISABLED ({str(e)[:50]})")
 
 # ============================================================
@@ -274,6 +277,17 @@ class TempLogoAdditionFinalService:
                 logger.warning(f"⚠️  AI Assistant initialization failed: {e}")
         else:
             self.ai = None
+
+        # Initialize Metadata Updater (Phase 1 Enhancement)
+        if MetadataUpdater is not None:
+            try:
+                self.metadata_updater = MetadataUpdater()
+                logger.info("📊 Metadata Updater initialized successfully")
+            except Exception as e:
+                self.metadata_updater = None
+                logger.warning(f"⚠️  Metadata Updater initialization failed: {e}")
+        else:
+            self.metadata_updater = None
         
     async def run(self,
                   departments: Optional[List[str]] = None,
@@ -410,10 +424,33 @@ class TempLogoAdditionFinalService:
                 logger.exception(f"❌ Fatal error: {e}")
 
     async def _apply_filter_and_capture(self, page: Page, departments: List[str], base_url: str) -> List[Dict]:
-        """Apply department filter and capture templates via API"""
+        """Apply department filter and capture templates via API with improved timing"""
 
         templates = []
+        all_api_calls = []
         response_received = asyncio.Event()
+        target_departments = set([d.upper() for d in departments])
+
+        async def handle_request(request):
+            """Track all requests to match with responses"""
+            if '/api/templatestore/u/search' in request.url and request.post_data:
+                try:
+                    body = json.loads(request.post_data)
+                    filters = body.get('filters', [])
+                    for f in filters:
+                        if f.get('field') == 'departments':
+                            depts = set(f.get('values', []))
+                            all_api_calls.append({
+                                'type': 'request',
+                                'departments': depts,
+                                'body': body,
+                                'is_target': depts == target_departments
+                            })
+                            if depts == target_departments:
+                                logger.info(f"   🎯 Target departments request detected: {depts}")
+                            break
+                except:
+                    pass
 
         async def handle_response(response):
             nonlocal templates
@@ -422,16 +459,36 @@ class TempLogoAdditionFinalService:
                     data = await response.json()
                     if 'data' in data and 'hits' in data['data']:
                         hits = data['data']['hits']
+                        count = data['data'].get('count', 0)
+
+                        # Check if this response is for our target departments
+                        # Look backwards through recent requests to find matching one
+                        is_target_response = False
+                        for call in reversed(all_api_calls[-10:]):  # Check last 10 requests
+                            if call.get('type') == 'request' and call.get('is_target'):
+                                is_target_response = True
+                                break
+
                         if hits:
-                            # CRITICAL FIX: Use assignment (=) instead of extend()
-                            # This ensures we only use the LAST API response (final filter state)
-                            # instead of accumulating ALL intermediate responses (which causes duplicates)
-                            templates = hits  # ✅ REPLACE with latest, not accumulate
-                            logger.info(f"   📥 Captured {len(hits)} templates from API")
-                            response_received.set()
+                            if is_target_response:
+                                # This is the response we want!
+                                templates = hits
+                                logger.info(f"   📥 Captured {len(hits)} templates from TARGET API (count={count})")
+                                response_received.set()
+                            else:
+                                # Intermediate response, log but don't use
+                                logger.debug(f"   📥 Intermediate API response: {len(hits)} templates (count={count})")
+
+                        all_api_calls.append({
+                            'type': 'response',
+                            'count': count,
+                            'template_count': len(hits),
+                            'is_target': is_target_response
+                        })
                 except:
                     pass
 
+        page.on('request', handle_request)
         page.on('response', handle_response)
 
         # Department mapping
@@ -454,6 +511,9 @@ class TempLogoAdditionFinalService:
                 """)
                 await asyncio.sleep(0.3)
 
+            # Small wait after unchecking to let intermediate APIs settle
+            await asyncio.sleep(1)
+
             # Check selected departments
             logger.info(f"   3. Checking: {', '.join(departments)}")
             for dept_name in departments:
@@ -466,24 +526,32 @@ class TempLogoAdditionFinalService:
                     """)
                     await asyncio.sleep(0.3)
 
-            # Close dropdown
+            # Close dropdown - THIS triggers the actual filter API call
             logger.info("   4. Closing dropdown...")
             await page.keyboard.press('Escape')
             await asyncio.sleep(1)
 
-            # Wait for API response
+            # Wait for API response with extended timeout
             logger.info("   5. Waiting for API response...")
             try:
-                await asyncio.wait_for(response_received.wait(), timeout=10.0)
+                await asyncio.wait_for(response_received.wait(), timeout=15.0)
             except asyncio.TimeoutError:
                 logger.warning("   ⚠️  API response timeout")
+                # Log what we captured
+                if all_api_calls:
+                    logger.info(f"   📊 Captured {len([c for c in all_api_calls if c.get('type') == 'request'])} requests")
+                    target_requests = [c for c in all_api_calls if c.get('is_target')]
+                    if target_requests:
+                        logger.warning(f"   ⚠️  Found {len(target_requests)} target request(s) but no matching response")
 
+            page.remove_listener('request', handle_request)
             page.remove_listener('response', handle_response)
 
             logger.info(f"   ✅ Filter applied: {len(templates)} templates captured")
 
         except Exception as e:
             logger.exception(f"   ❌ Filter application failed: {e}")
+            page.remove_listener('request', handle_request)
             page.remove_listener('response', handle_response)
 
         return templates
@@ -548,6 +616,34 @@ class TempLogoAdditionFinalService:
             logger.info(f"   🔍 Running logo detection...")
             detection_result = await self._detect_logos(page)
 
+            # Extract enhanced features
+            enhanced_features = detection_result.get('enhancedFeatures', {})
+
+            # Log enhanced features (Phase 1 Enhancement)
+            if enhanced_features:
+                logger.info(f"   📊 Template Complexity:")
+                logger.info(f"      • Sortable items: {enhanced_features.get('sortableItemCount', 0)}")
+                logger.info(f"      • Total tables: {enhanced_features.get('totalTableCount', 0)}")
+                logger.info(f"      • Non-logo tables: {enhanced_features.get('nonLogoTableCount', 0)}")
+                logger.info(f"      • Has buttons: {enhanced_features.get('hasButtons', False)}")
+                logger.info(f"      • Dynamic tags: {enhanced_features.get('dynamicTagCount', 0)}")
+
+                # Update metadata with enhanced features (Phase 1 Enhancement)
+                if self.metadata_updater:
+                    try:
+                        logger.debug(f"   💾 Updating metadata for {template_name}...")
+                        updated = self.metadata_updater.update_template_detection(
+                            template_id=template_id,
+                            template_name=template_name,
+                            detection_result=detection_result
+                        )
+                        if updated:
+                            logger.debug(f"   ✅ Metadata updated successfully")
+                        else:
+                            logger.debug(f"   ⚠️  Metadata update skipped")
+                    except Exception as e:
+                        logger.warning(f"   ⚠️  Metadata update failed: {e}")
+
             # AI Prediction (if available)
             if self.ai:
                 try:
@@ -559,7 +655,13 @@ class TempLogoAdditionFinalService:
                             "header_button_opacity": detection_result.get('headerButtonOpacity', 0),
                             "has_logos": detection_result.get('warningsCount', 0) > 0 or detection_result.get('emptyCount', 0) > 0,
                             "logo_count": detection_result.get('warningsCount', 0) + detection_result.get('emptyCount', 0),
-                            "logo_type": "table-based" if detection_result.get('logoTablesCount', 0) > 0 else "container-based"
+                            "logo_type": "table-based" if detection_result.get('logoTablesCount', 0) > 0 else "container-based",
+                            # NEW: Enhanced AI features (Phase 1)
+                            "sortable_item_count": enhanced_features.get('sortableItemCount', 0),
+                            "total_table_count": enhanced_features.get('totalTableCount', 0),
+                            "non_logo_table_count": enhanced_features.get('nonLogoTableCount', 0),
+                            "has_buttons": enhanced_features.get('hasButtons', False),
+                            "dynamic_tag_count": enhanced_features.get('dynamicTagCount', 0)
                         }
                     }
                     ai_prediction = self.ai.analyze_template(template_data)
@@ -1911,6 +2013,45 @@ class TempLogoAdditionFinalService:
                 debug.push(`Logos with warnings: ${patterns.summary.logosWithWarnings}`);
                 debug.push(`Logos marked for action: ${patterns.summary.logosMarkedForAction}`);
 
+                // ============================================================================
+                // ENHANCED AI FEATURES - Template Complexity Analysis
+                // ============================================================================
+                debug.push('\\n=== ENHANCED AI FEATURE EXTRACTION ===');
+
+                const enhancedFeatures = {
+                    sortableItemCount: 0,
+                    totalTableCount: 0,
+                    nonLogoTableCount: 0,
+                    hasButtons: false,
+                    dynamicTagCount: 0
+                };
+
+                // Feature 1: Count sortable items (complexity indicator)
+                const sortableItems = document.querySelectorAll('[class*="SortableItem"]');
+                enhancedFeatures.sortableItemCount = sortableItems.length;
+                debug.push(`Feature 1: Sortable items = ${enhancedFeatures.sortableItemCount}`);
+
+                // Feature 2: Count all tables
+                const allTablesForCount = document.querySelectorAll('table');
+                enhancedFeatures.totalTableCount = allTablesForCount.length;
+                debug.push(`Feature 2: Total tables = ${enhancedFeatures.totalTableCount}`);
+
+                // Feature 3: Calculate non-logo tables
+                enhancedFeatures.nonLogoTableCount = enhancedFeatures.totalTableCount - logoTables.length;
+                debug.push(`Feature 3: Non-logo tables = ${enhancedFeatures.nonLogoTableCount}`);
+
+                // Feature 4: Check for buttons (CTA presence)
+                const buttons = document.querySelectorAll('button[type], a[class*="button"], a[class*="Button"], [class*="btn"]');
+                enhancedFeatures.hasButtons = buttons.length > 0;
+                debug.push(`Feature 4: Has buttons = ${enhancedFeatures.hasButtons} (${buttons.length} found)`);
+
+                // Feature 5: Count dynamic tags (personalization level)
+                const dynamicTags = document.querySelectorAll('[data-tag-id], [class*="dynamic_tag"], [class*="dynamicTag"]');
+                enhancedFeatures.dynamicTagCount = dynamicTags.length;
+                debug.push(`Feature 5: Dynamic tags = ${enhancedFeatures.dynamicTagCount}`);
+
+                debug.push('Enhanced features extraction complete');
+
                 return {
                     // Truly Dynamic Detection Results (NEW)
                     trulyDynamic: {
@@ -1934,6 +2075,8 @@ class TempLogoAdditionFinalService:
                     logoTablesCount: logoTables.length,  // FIX: Pass logo tables count to Python
                     logosToReplace: logosToReplace || [],
                     replaceCount: (logosToReplace || []).length,
+                    // NEW: Enhanced AI features
+                    enhancedFeatures: enhancedFeatures,
                     debug: debug
                 };
             }

@@ -1,0 +1,1445 @@
+{
+  "api_calls": [
+    {
+      "type": "request",
+      "timestamp": "11:44:19.367",
+      "departments": null,
+      "purpose": null,
+      "body": {
+        "sort": [],
+        "filters": [],
+        "searchText": "",
+        "groupBy": [
+          {
+            "key": "template",
+            "groupType": "FILTERS",
+            "filters": [
+              {
+                "key": "EMAIL",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "TEXT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "TEXT"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "CHAT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "CHAT"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": [],
+        "pageInfo": {
+          "start": 0,
+          "rows": 0
+        }
+      }
+    },
+    {
+      "type": "request",
+      "timestamp": "11:44:20.891",
+      "departments": [
+        "SALES"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [
+          {
+            "field": "modifiedTime",
+            "order": "DESC"
+          }
+        ],
+        "filters": [
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SALES"
+            ]
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [
+          "name"
+        ],
+        "excludeFields": [
+          "body",
+          "htmlBody",
+          "subject",
+          "htmlSubject",
+          "preHeader",
+          "languages"
+        ],
+        "pageInfo": {
+          "start": 0,
+          "rows": 50
+        }
+      }
+    },
+    {
+      "type": "request",
+      "timestamp": "11:44:20.891",
+      "departments": [
+        "SALES"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SALES"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "timestamp": "11:44:20.892",
+      "departments": [
+        "SERVICE"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SERVICE"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "timestamp": "11:44:20.892",
+      "departments": [
+        "PARTS"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "PARTS"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "timestamp": "11:44:20.893",
+      "departments": null,
+      "purpose": null,
+      "body": {
+        "sort": [],
+        "filters": [],
+        "searchText": "",
+        "groupBy": [
+          {
+            "key": "template",
+            "groupType": "FILTERS",
+            "filters": [
+              {
+                "key": "DRAFT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "DRAFT"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "ARCHIVED",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ARCHIVED",
+                      "EXPIRED"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": [],
+        "pageInfo": {
+          "start": 0,
+          "rows": 0
+        }
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:20.929",
+      "count": 66,
+      "template_count": 0,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 66,
+          "hits": [],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": [
+            {
+              "key": "template",
+              "docCount": 0,
+              "buckets": [
+                {
+                  "key": "CHAT",
+                  "groups": null,
+                  "projections": null,
+                  "pipelineGroups": null,
+                  "nestedHits": null,
+                  "docCount": 3,
+                  "hits": null,
+                  "value": null,
+                  "keyMap": null
+                },
+                {
+                  "key": "EMAIL",
+                  "groups": null,
+                  "projections": null,
+                  "pipelineGroups": null,
+                  "nestedHits": null,
+                  "docCount": 11,
+                  "hits": null,
+                  "value": null,
+                  "keyMap": null
+                },
+                {
+                  "key": "TEXT",
+                  "groups": null,
+                  "projections": null,
+                  "pipelineGroups": null,
+                  "nestedHits": null,
+                  "docCount": 1,
+                  "hits": null,
+                  "value": null,
+                  "keyMap": null
+                }
+              ],
+              "value": 0.0,
+              "pipelineGroups": null,
+              "aggregateAfter": null
+            }
+          ],
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:21.273",
+      "count": 0,
+      "template_count": 0,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 0,
+          "hits": [],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": null,
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:21.706",
+      "count": 0,
+      "template_count": 0,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 0,
+          "hits": [],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": null,
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:21.706",
+      "count": 0,
+      "template_count": 0,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 0,
+          "hits": [],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": null,
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:21.710",
+      "count": 11,
+      "template_count": 11,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 11,
+          "hits": [
+            {
+              "id": "667f0c5234bfa115c6692f80",
+              "nonDeletable": true,
+              "templateId": "CPRA_FIRST_TIME",
+              "name": "First Time Email",
+              "tag": "cpraFirst",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203fa56697f36de623f1db"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "First Time Email  cpraFirst"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602258288,
+              "modifiedTime": 1780498344413,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f85",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_DECLINE_DATA_DELETION_OPEN_DOCUMENTS",
+              "name": "Request Decline: Data Deletion (Open Documents)",
+              "tag": "cpraOpen",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f6a6697f36de623f1ce"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Decline: Data Deletion (Open Documents)  cpraOpen"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259948,
+              "modifiedTime": 1780498287159,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f81",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_ACKNOWLEDGEMENT",
+              "name": "Request Acknowledgement",
+              "tag": "cpraAcknow",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "SERVICE",
+                "PARTS"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f60710089188b66d3b0"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Acknowledgement  cpraAcknow"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259845,
+              "modifiedTime": 1780498274534,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f82",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_COMPLETION_DATA_EXPORT",
+              "name": "Request Completion: Data Export",
+              "tag": "cpraExport",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f55710089188b66d3ad"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Completion: Data Export  cpraExport"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259875,
+              "modifiedTime": 1780498264302,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f84",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_COMPLETION_DATA_DELETION_CLOSED_DOCUMENTS",
+              "name": "Request Completion: Data Deletion (Closed Documents)",
+              "tag": "cpraClosed",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f4a6697f36de623f1bf"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Completion: Data Deletion (Closed Documents)  cpraClosed"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259926,
+              "modifiedTime": 1780498253089,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0befd4964026ee7b6ea1",
+              "nonDeletable": false,
+              "templateId": "667f0befd4964026ee7b6ea2",
+              "name": "Service History Recap PDF",
+              "tag": "HistoryRec",
+              "categories": [
+                "Repair Order"
+              ],
+              "nonDeletableCategories": [],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SERVICE",
+                "SALES"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f31710089188b66d39b"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Service History Recap PDF  HistoryRec"
+              },
+              "createdByUserId": "e68a7c10-8083-4297-bb30-690523fb737f",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602159705,
+              "modifiedTime": 1780498228426,
+              "deleted": false,
+              "privacyPreference": "CUSTOMER_SATISFACTION",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US",
+                "fr_CA",
+                "en_CA"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": null,
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f83",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_COMPLETION_DATA_CORRECTION",
+              "name": "Request Completion: Data Correction",
+              "tag": "cpraCorrec",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203f21710089188b66d390"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Completion: Data Correction  cpraCorrec"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259901,
+              "modifiedTime": 1780498211959,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5434bfa115c6692f88",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_DECLINE_MARKED_AS_DECLINED",
+              "name": "Request Decline: Marked As Declined",
+              "tag": "cpraBefore",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "SERVICE",
+                "PARTS"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203d65710089188b66d347"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Decline: Marked As Declined  cpraBefore"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602260028,
+              "modifiedTime": 1780497767250,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5434bfa115c6692f87",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_COMPLETION_SENSITIVE_INFORMATION_RESTRICTION",
+              "name": "Request Completion: Sensitive Information Restriction",
+              "tag": "cpraSensit",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "SERVICE",
+                "PARTS"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203d5d710089188b66d346"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Completion: Sensitive Information Restriction  cpraSensit"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602260000,
+              "modifiedTime": 1780497758977,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5334bfa115c6692f86",
+              "nonDeletable": true,
+              "templateId": "CPRA_REQUEST_COMPLETION_STOP_SELLING_AND_SHARING_DATA_WITH_3RD_PARTIES",
+              "name": "Request Completion: Do not sell & share with 3rd Parties",
+              "tag": "cpra3rdPar",
+              "categories": [
+                "Data Privacy"
+              ],
+              "nonDeletableCategories": [
+                "Data Privacy"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES",
+                "PARTS",
+                "SERVICE"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "6a203d53710089188b66d344"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Request Completion: Do not sell & share with 3rd Parties  cpra3rdPar"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "e3f1a0f4-bae2-4c1f-b238-f6f7bc63e175",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602259974,
+              "modifiedTime": 1780497750305,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "en_US"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": [
+                "USER",
+                "STORE",
+                "DATA_PRIVACY"
+              ],
+              "rules": [],
+              "siteIds": null
+            },
+            {
+              "id": "667f0c5234bfa115c6692f7b",
+              "nonDeletable": true,
+              "templateId": "STANDARD_APPOINTMENT_EMAIL",
+              "name": "Standard Appointment",
+              "tag": "apptremin",
+              "categories": [
+                "Appointment Reminder",
+                "Campaign Blast"
+              ],
+              "nonDeletableCategories": [
+                "Appointment Reminder"
+              ],
+              "type": "CUSTOM",
+              "purposeType": "COMMUNICATION",
+              "purposeSubType": "EMAIL",
+              "departments": [
+                "SALES"
+              ],
+              "thumbnail": {
+                "name": null,
+                "mediaId": "657971aae8288600071df386"
+              },
+              "templateEngine": {
+                "@type": "HTML"
+              },
+              "subject": null,
+              "htmlSubject": null,
+              "body": null,
+              "htmlBody": null,
+              "preHeader": null,
+              "status": "ACTIVE",
+              "campaignIds": null,
+              "statistics": null,
+              "searchDetail": {
+                "description": "Standard Appointment  apptremin"
+              },
+              "createdByUserId": "-1",
+              "updatedByUserId": "-1",
+              "expiryTime": null,
+              "usageTrigger": null,
+              "metadata": null,
+              "visibleOnUI": true,
+              "dealerId": "5939",
+              "tenantId": "dcdautomotive",
+              "createdTime": 1719602258101,
+              "modifiedTime": 1719602258101,
+              "deleted": false,
+              "privacyPreference": "DEALERSHIP_BUSINESS",
+              "privacyPreferenceType": "TRANSACTIONAL",
+              "replyTo": [],
+              "languages": null,
+              "publishedLanguages": [
+                "fr_CA",
+                "en_US",
+                "es_MX",
+                "fr_FR",
+                "en_GB"
+              ],
+              "enterpriseTemplate": false,
+              "nonEditable": false,
+              "publishedBy": null,
+              "dealerList": null,
+              "chatCardType": null,
+              "starredUserIds": null,
+              "allowedTagGroups": null,
+              "rules": null,
+              "siteIds": null
+            }
+          ],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": null,
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:44:21.714",
+      "count": 66,
+      "template_count": 0,
+      "full_data": {
+        "data": {
+          "key": null,
+          "count": 66,
+          "hits": [],
+          "suggest": null,
+          "tekSearchHit": null,
+          "projections": null,
+          "groups": [
+            {
+              "key": "template",
+              "docCount": 0,
+              "buckets": [
+                {
+                  "key": "ARCHIVED",
+                  "groups": null,
+                  "projections": null,
+                  "pipelineGroups": null,
+                  "nestedHits": null,
+                  "docCount": 0,
+                  "hits": null,
+                  "value": null,
+                  "keyMap": null
+                },
+                {
+                  "key": "DRAFT",
+                  "groups": null,
+                  "projections": null,
+                  "pipelineGroups": null,
+                  "nestedHits": null,
+                  "docCount": 0,
+                  "hits": null,
+                  "value": null,
+                  "keyMap": null
+                }
+              ],
+              "value": 0.0,
+              "pipelineGroups": null,
+              "aggregateAfter": null
+            }
+          ],
+          "nextPageToken": null,
+          "tekHits": null
+        },
+        "status": "success"
+      }
+    }
+  ]
+}

@@ -1,0 +1,527 @@
+{
+  "sequence": [
+    {
+      "type": "request",
+      "num": 1,
+      "timestamp": "11:39:44.516",
+      "departments": null,
+      "purpose": null,
+      "body": {
+        "sort": [],
+        "filters": [],
+        "searchText": "",
+        "groupBy": [
+          {
+            "key": "template",
+            "groupType": "FILTERS",
+            "filters": [
+              {
+                "key": "EMAIL",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "TEXT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "TEXT"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "CHAT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ACTIVE"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "CHAT"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "departments",
+                    "operator": "IN",
+                    "values": [
+                      "SALES"
+                    ],
+                    "key": "departments"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": [],
+        "pageInfo": {
+          "start": 0,
+          "rows": 0
+        }
+      }
+    },
+    {
+      "type": "request",
+      "num": 2,
+      "timestamp": "11:39:46.302",
+      "departments": [
+        "SALES"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [
+          {
+            "field": "modifiedTime",
+            "order": "DESC"
+          }
+        ],
+        "filters": [
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SALES"
+            ]
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [
+          "name"
+        ],
+        "excludeFields": [
+          "body",
+          "htmlBody",
+          "subject",
+          "htmlSubject",
+          "preHeader",
+          "languages"
+        ],
+        "pageInfo": {
+          "start": 0,
+          "rows": 50
+        }
+      }
+    },
+    {
+      "type": "request",
+      "num": 3,
+      "timestamp": "11:39:46.305",
+      "departments": [
+        "SALES"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SALES"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "num": 4,
+      "timestamp": "11:39:46.306",
+      "departments": [
+        "SERVICE"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "SERVICE"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "num": 5,
+      "timestamp": "11:39:46.308",
+      "departments": [
+        "PARTS"
+      ],
+      "purpose": [
+        "EMAIL"
+      ],
+      "body": {
+        "sort": [],
+        "filters": [
+          {
+            "field": "categories",
+            "operator": "IN",
+            "values": [
+              "Appointment Booking"
+            ],
+            "key": "categories"
+          },
+          {
+            "field": "purposeSubType",
+            "operator": "IN",
+            "values": [
+              "EMAIL"
+            ],
+            "key": "purposeSubType"
+          },
+          {
+            "field": "status",
+            "operator": "IN",
+            "values": [
+              "ACTIVE"
+            ],
+            "key": "status"
+          },
+          {
+            "field": "departments",
+            "operator": "IN",
+            "values": [
+              "PARTS"
+            ],
+            "key": "departments"
+          },
+          {
+            "field": "visibleOnUI",
+            "operator": "IN",
+            "values": [
+              true
+            ],
+            "key": "visibleOnUI"
+          }
+        ],
+        "searchText": "",
+        "groupBy": [],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": []
+      }
+    },
+    {
+      "type": "request",
+      "num": 6,
+      "timestamp": "11:39:46.309",
+      "departments": null,
+      "purpose": null,
+      "body": {
+        "sort": [],
+        "filters": [],
+        "searchText": "",
+        "groupBy": [
+          {
+            "key": "template",
+            "groupType": "FILTERS",
+            "filters": [
+              {
+                "key": "DRAFT",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "DRAFT"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              },
+              {
+                "key": "ARCHIVED",
+                "field": "purposeSubType",
+                "operator": "BOOL",
+                "andFilters": [
+                  {
+                    "field": "status",
+                    "operator": "IN",
+                    "values": [
+                      "ARCHIVED",
+                      "EXPIRED"
+                    ],
+                    "key": "status"
+                  },
+                  {
+                    "field": "purposeSubType",
+                    "operator": "IN",
+                    "values": [
+                      "EMAIL"
+                    ],
+                    "key": "purposeSubType"
+                  },
+                  {
+                    "field": "visibleOnUI",
+                    "operator": "IN",
+                    "values": [
+                      true
+                    ],
+                    "key": "visibleOnUI"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "includeFields": [],
+        "searchableFields": [],
+        "excludeFields": [],
+        "pageInfo": {
+          "start": 0,
+          "rows": 0
+        }
+      }
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:46.310",
+      "count": 66,
+      "template_count": 0
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:46.673",
+      "count": 11,
+      "template_count": 11
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:47.088",
+      "count": 66,
+      "template_count": 0
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:47.142",
+      "count": 0,
+      "template_count": 0
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:47.142",
+      "count": 0,
+      "template_count": 0
+    },
+    {
+      "type": "response",
+      "timestamp": "11:39:47.144",
+      "count": 0,
+      "template_count": 0
+    }
+  ]
+}
