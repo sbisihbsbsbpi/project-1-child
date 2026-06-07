@@ -333,9 +333,16 @@ class TempLogoAdditionFinalService:
                 browser = await playwright.chromium.connect_over_cdp(cdp_url)
                 context = browser.contexts[0] if browser.contexts else await browser.new_context()
                 logger.info("✅ Connected to browser")
-                
+
                 # Step 1: Navigate to templates list
-                page = await context.new_page()
+                # ✨ IMPROVEMENT: Reuse existing page if available (CDP mode)
+                if context.pages:
+                    page = context.pages[0]
+                    logger.info(f"♻️  Reusing existing tab")
+                else:
+                    page = await context.new_page()
+                    logger.info(f"📄 Created new tab")
+
                 list_url = f"{base_url}/templates/list"
                 logger.info(f"\n📍 Navigating to: {list_url}")
                 await page.goto(list_url, wait_until='domcontentloaded', timeout=15000)
@@ -600,7 +607,14 @@ class TempLogoAdditionFinalService:
 
         try:
             # Open template edit page
-            page = await context.new_page()
+            # ✨ IMPROVEMENT: Reuse existing page if available (CDP mode)
+            if context.pages:
+                page = context.pages[0]
+                logger.debug(f"   ♻️  Reusing existing tab for template edit")
+            else:
+                page = await context.new_page()
+                logger.debug(f"   📄 Created new tab for template edit")
+
             edit_url = f"{base_url}/templates/edit/{template_id}"
 
             logger.info(f"   🌐 Opening template editor...")
@@ -1669,27 +1683,71 @@ class TempLogoAdditionFinalService:
                     containers.forEach((container, idx) => {
                         const img = container.querySelector('img');
                         let hasImage = img !== null;
+                        let visibilityStatus = 'no-image';
 
                         // ✨ PHASE 5: Check if image is actually visible
                         if (hasImage && img) {
                             const imgStyle = window.getComputedStyle(img);
-                            const isVisible = imgStyle.display !== 'none' &&
+                            const imgRect = img.getBoundingClientRect();
+                            const isStyleVisible = imgStyle.display !== 'none' &&
                                              imgStyle.visibility !== 'hidden' &&
                                              imgStyle.opacity !== '0';
-                            hasImage = isVisible;
+
+                            const isZeroSize = imgRect.width === 0 || imgRect.height === 0;
+                            const isOffScreen = imgRect.top < -1000 || imgRect.left < -1000;
+
+                            if (!isStyleVisible) {
+                                visibilityStatus = 'hidden-css';
+                                hasImage = false;
+                            } else if (isZeroSize) {
+                                visibilityStatus = 'zero-size';
+                                hasImage = false;
+                            } else if (isOffScreen) {
+                                visibilityStatus = 'off-screen';
+                                hasImage = false;
+                            } else {
+                                visibilityStatus = `visible ${Math.round(imgRect.width)}x${Math.round(imgRect.height)}px`;
+                            }
                         }
 
+                        // ✨ PHASE 5.1: Log ALL containers (even ones without images)
+                        const rect = container.getBoundingClientRect();
+                        const containerInfo = `Container #${idx + 1}: ${visibilityStatus}, position=${Math.round(rect.top + window.scrollY)}px top`;
+
                         if (hasImage) {
-                            const rect = container.getBoundingClientRect();
+                            // Check if this is a UI icon (not a dealer logo)
+                            const imgAlt = img.alt || '';
+                            const imgSrc = img.src || '';
+                            const isUIIcon = imgAlt.includes('Get Directions') ||
+                                           imgAlt.includes('Call us') ||
+                                           imgAlt.includes('Tv') ||
+                                           imgSrc.includes('/icon-') ||
+                                           imgSrc.includes('/common/CRM/') ||
+                                           imgRect.width < 30; // Very small icons
+
+                            debug.push(`  ${isUIIcon ? '🎨' : '✅'} ${containerInfo}, src="${img.src}", alt="${imgAlt}"`);
 
                             // Mark the container for testing
                             container.setAttribute('data-learned-logo', `logo-${idx + 1}`);
+
+                            if (isUIIcon) {
+                                // ✨ PINK border for UI icons (to filter out)
+                                container.style.outline = '4px solid hotpink';
+                                container.style.backgroundColor = 'rgba(255, 105, 180, 0.2)';
+                                container.style.zIndex = '9999';
+                            } else {
+                                // ✨ GREEN border for real detected logos
+                                container.style.outline = '4px solid lime';
+                                container.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
+                                container.style.zIndex = '9999';
+                            }
 
                             patterns.detectedLogos.push({
                                 index: idx + 1,
                                 containerClass: bestPattern.class,
                                 hasImage: true,
                                 hasWarning: false,  // Will be determined in Phase 5
+                                isUIIcon: isUIIcon,
                                 position: {
                                     top: Math.round(rect.top + window.scrollY),
                                     left: Math.round(rect.left)
@@ -1698,8 +1756,11 @@ class TempLogoAdditionFinalService:
                                     width: Math.round(rect.width),
                                     height: Math.round(rect.height)
                                 },
-                                imageSrc: img ? img.src.substring(0, 80) : null
+                                imageSrc: img ? img.src : null,
+                                imageAlt: imgAlt
                             });
+                        } else {
+                            debug.push(`  ⏭️  ${containerInfo}`);
                         }
                     });
                 }
@@ -1813,6 +1874,16 @@ class TempLogoAdditionFinalService:
 
                 debug.push(`Total logos marked for processing: ${logoIndex}`);
 
+                // ✨ PHASE 5.1: Summary of all detected logos (dynamic + table-based)
+                debug.push(`\n=== DYNAMIC DETECTION SUMMARY ===`);
+                debug.push(`Logos detected (visible images): ${patterns.detectedLogos.length}`);
+                if (patterns.detectedLogos.length > 0) {
+                    debug.push(`Logo positions:`);
+                    patterns.detectedLogos.forEach((logo, idx) => {
+                        debug.push(`  Logo ${idx + 1}: top=${logo.position.top}px, size=${logo.size.width}x${logo.size.height}px, src="${logo.imageSrc}"`);
+                    });
+                }
+
                 // Helper function to detect logo department
                 function detectLogoDepartment(container, warningIcon) {
                     // Strategy 1: Check for department text near the logo
@@ -1884,6 +1955,16 @@ class TempLogoAdditionFinalService:
 
                     // Logo containers have 4 or 5 columns
                     if (cells.length === 4 || cells.length === 5) {
+                        // ✨ PHASE 5.2: Filter out tables with dynamic tag links (buttons, not logos)
+                        const hasDynamicLinks = table.querySelector('.dynamic_tag_link') !== null;
+                        const hasViewSurvey = table.textContent.includes('View Survey');
+                        const hasGetDirections = table.textContent.includes('Get Directions');
+                        const hasCallUs = table.textContent.includes('Call us') || table.textContent.includes('Call Us');
+
+                        if (hasDynamicLinks || hasViewSurvey || hasGetDirections || hasCallUs) {
+                            return; // Skip this table - it's a button/link container, not a logo container
+                        }
+
                         const tableInfo = {
                             tableIndex: tableIdx,
                             positions: [],
@@ -1949,6 +2030,69 @@ class TempLogoAdditionFinalService:
                                           cellIdx === 3 ? 'RIGHT' : 'FAR_RIGHT';
                             }
 
+                            // Determine TOP/BOTTOM based on which logo table this is (DOM order)
+                            // logoTables.length tells us which table number this will be (0-based)
+                            const tableNumber = logoTables.length + 1; // 1-based for display
+                            const rowPosition = tableNumber === 1 ? 'LOGO-1' : 'LOGO-2';
+
+                            // ✨ VISUAL HIGHLIGHT: Enhanced color-coding with table-specific colors
+                            const isLogo1 = tableNumber === 1;
+                            const isLogo2 = tableNumber === 2;
+
+                            if (hasImage) {
+                                // CYAN for LOGO-1 with image, MAGENTA for LOGO-2 with image
+                                const borderColor = isLogo1 ? 'cyan' : 'magenta';
+                                const bgColor = isLogo1 ? 'rgba(0, 255, 255, 0.2)' : 'rgba(255, 0, 255, 0.2)';
+                                cell.style.outline = `8px solid ${borderColor}`;
+                                cell.style.backgroundColor = bgColor;
+                                cell.style.boxShadow = `0 0 30px ${borderColor}, inset 0 0 20px ${bgColor}`;
+                            } else if (isEmpty) {
+                                // YELLOW for LOGO-1 empty, LIME for LOGO-2 empty
+                                const borderColor = isLogo1 ? 'gold' : 'lime';
+                                const bgColor = isLogo1 ? 'rgba(255, 215, 0, 0.15)' : 'rgba(0, 255, 0, 0.15)';
+                                cell.style.outline = `6px dashed ${borderColor}`;
+                                cell.style.backgroundColor = bgColor;
+                                cell.style.boxShadow = `0 0 20px ${borderColor}`;
+                            }
+
+                            // Add large, prominent label
+                            const label = document.createElement('div');
+                            let labelBg, labelText, labelBorder;
+
+                            if (hasImage) {
+                                labelBg = isLogo1 ? 'cyan' : 'magenta';
+                                labelText = 'black';
+                                labelBorder = 'black';
+                            } else if (isEmpty) {
+                                labelBg = isLogo1 ? 'gold' : 'lime';
+                                labelText = 'black';
+                                labelBorder = 'black';
+                            } else {
+                                labelBg = 'gray';
+                                labelText = 'white';
+                                labelBorder = 'black';
+                            }
+
+                            label.style.cssText = `
+                                position: absolute;
+                                top: 10px;
+                                left: 10px;
+                                background: ${labelBg};
+                                color: ${labelText};
+                                padding: 8px 12px;
+                                font-size: 14px;
+                                font-weight: bold;
+                                border: 3px solid ${labelBorder};
+                                border-radius: 5px;
+                                z-index: 999999;
+                                font-family: monospace;
+                                line-height: 1.4;
+                                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                            `;
+                            label.innerHTML = `<div style="font-size: 16px; margin-bottom: 2px;">${rowPosition}</div>Cell ${cellIdx}<br>[${alignment}]`;
+                            cell.style.position = 'relative';
+                            cell.appendChild(label);
+
                             tableInfo.positions.push({
                                 cellIndex: cellIdx,
                                 alignment: alignment,
@@ -1979,14 +2123,22 @@ class TempLogoAdditionFinalService:
 
                         // A table is likely a logo table if:
                         // 1. Has relevant content (images or empties), AND
-                        // 2. Either has images OR (has logo marker AND all cells have text templates AND in logo region)
+                        // 2. Either:
+                        //    a) Has at least one image, OR
+                        //    b) Has logo marker AND all cells have text templates AND in logo region, OR
+                        //    c) ✨ PHASE 5.2: All relevant cells are empty (ready for logo insertion) AND in logo region
+                        const allRelevantCellsEmpty = relevantPositions.every(p => p.isEmpty);
                         const isLikelyLogoTable = hasRelevantContent &&
                                                  (hasAtLeastOneImage ||
-                                                  (hasLogoMarker && allRelevantCellsHaveTextTemplate && inLogoRegion));
+                                                  (hasLogoMarker && allRelevantCellsHaveTextTemplate && inLogoRegion) ||
+                                                  (allRelevantCellsEmpty && allRelevantCellsHaveTextTemplate && inLogoRegion));
 
                         if (isLikelyLogoTable) {
                             logoTables.push(tableInfo);
                             debug.push(`  ✨ Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
+                        } else if (hasRelevantContent) {
+                            // ✨ PHASE 5.2: Debug why table was skipped
+                            debug.push(`  ⏭️  Skipping table ${tableIdx}: hasRelevantContent=${hasRelevantContent}, hasAtLeastOneImage=${hasAtLeastOneImage}, hasLogoMarker=${hasLogoMarker}, allRelevantCellsHaveTextTemplate=${allRelevantCellsHaveTextTemplate}, inLogoRegion=${inLogoRegion}`);
 
                             // ✨ PHASE 5: Enhanced logging - show ALL columns for debugging
                             tableInfo.positions.forEach(pos => {
@@ -1994,6 +2146,11 @@ class TempLogoAdditionFinalService:
                                 let dimensionInfo = '';
                                 let visibilityInfo = '';
                                 let issueFlags = [];
+                                let cellPosition = '';
+
+                                // Get the actual cell's visual position
+                                const cellRect = cells[pos.cellIndex].getBoundingClientRect();
+                                cellPosition = `visualTop=${Math.round(cellRect.top + window.scrollY)}px`;
 
                                 if (pos.actualImage) {
                                     const imgRect = pos.actualImage.getBoundingClientRect();
@@ -2017,13 +2174,11 @@ class TempLogoAdditionFinalService:
 
                                 const componentInfo = pos.imageComponent ? 'has-wrapper' : 'no-wrapper';
 
-                                debug.push(`    Cell ${pos.cellIndex} [${pos.alignment}]: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}, ${componentInfo}, ${imgInfo}`);
+                                debug.push(`    Cell ${pos.cellIndex} [${pos.alignment}]: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, ${cellPosition}, id=${pos.textTemplateId}, ${componentInfo}, ${imgInfo}`);
                                 if (pos.actualImage) {
                                     debug.push(`      → ${dimensionInfo}, ${visibilityInfo}`);
                                 }
                             });
-                        } else if (hasRelevantContent) {
-                            debug.push(`  Skipping table ${tableIdx}: Not a logo table (likely content/layout table)`);
                         }
                     }
                 });
@@ -2377,6 +2532,58 @@ class TempLogoAdditionFinalService:
                 debug.push(`Feature 5: Dynamic tags = ${enhancedFeatures.dynamicTagCount}`);
 
                 debug.push('Enhanced features extraction complete');
+
+                // ✨ VISUAL LEGEND: Add a floating legend to explain the highlights
+                const legend = document.createElement('div');
+                legend.id = 'logo-detection-legend';
+                legend.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    background: white;
+                    border: 3px solid black;
+                    border-radius: 8px;
+                    padding: 15px;
+                    z-index: 999999;
+                    font-family: monospace;
+                    font-size: 14px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                `;
+                legend.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 12px; font-size: 18px; border-bottom: 3px solid black; padding-bottom: 8px; text-align: center;">
+                        🎯 LOGO CONTAINER DETECTION
+                    </div>
+                    <div style="font-weight: bold; margin: 12px 0 8px 0; font-size: 14px; border-bottom: 2px solid #999; padding-bottom: 4px;">
+                        TABLE CELLS:
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(0,255,255,0.2); border-left: 6px solid cyan;">
+                        🔵 CYAN = LOGO-1 with image
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(255,215,0,0.15); border-left: 6px dashed gold;">
+                        🟡 GOLD (dashed) = LOGO-1 empty
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(255,0,255,0.2); border-left: 6px solid magenta;">
+                        🟣 MAGENTA = LOGO-2 with image
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(0,255,0,0.15); border-left: 6px dashed lime;">
+                        🟢 LIME (dashed) = LOGO-2 empty
+                    </div>
+                    <div style="font-weight: bold; margin: 12px 0 8px 0; font-size: 14px; border-bottom: 2px solid #999; padding-bottom: 4px;">
+                        DYNAMIC DETECTION:
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(255,105,180,0.2); border-left: 6px solid hotpink;">
+                        🩷 PINK = UI Icon (filtered out)
+                    </div>
+                    <div style="margin: 6px 0; padding: 6px; background: rgba(255,0,0,0.1); border-left: 6px solid red;">
+                        🔴 RED = Logo with warning
+                    </div>
+                    <div style="margin-top: 12px; font-size: 12px; color: #333; background: #f0f0f0; padding: 8px; border-radius: 4px;">
+                        <strong>📊 Detected:</strong><br>
+                        • ${logoTables.length} logo tables (LOGO-1 & LOGO-2)<br>
+                        • ${patterns.detectedLogos.length} dynamic logos
+                    </div>
+                `;
+                document.body.appendChild(legend);
 
                 return {
                     // Truly Dynamic Detection Results (NEW)
@@ -3013,22 +3220,86 @@ class TempLogoAdditionFinalService:
         """Insert logo into empty Logo 1/2 container"""
 
         try:
-            # Focus container
-            target_selector = f'div.TEXT_TEMPLATE[id="{container_info["id"]}"][contenteditable="true"]'
+            # Focus container - use JavaScript click to bypass "unselectable" blocking
+            container_id = container_info["id"]
 
-            try:
-                await page.wait_for_selector(target_selector, timeout=5000)
-                await page.click(target_selector)
-                await asyncio.sleep(1.5)
-            except:
+            logger.debug(f"   🔍 Finding and clicking container: {container_id}")
+
+            # Click INSIDE the TEXT_TEMPLATE using JavaScript (bypass unselectable parent)
+            click_result = await page.evaluate(f"""
+                () => {{
+                    const textTemplate = document.querySelector('[id="{container_id}"]');
+                    if (!textTemplate) return {{ success: false, reason: 'Container not found' }};
+
+                    // Scroll into view
+                    textTemplate.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+
+                    // Remove 'unselectable' class from parent if it exists
+                    let parent = textTemplate.parentElement;
+                    while (parent) {{
+                        if (parent.className && parent.className.includes('Unselectable')) {{
+                            const oldClass = parent.className;
+                            parent.className = parent.className.replace(/elementUnselectable\\S*/g, '');
+                        }}
+                        parent = parent.parentElement;
+                    }}
+
+                    // Use JavaScript click and focus
+                    textTemplate.click();
+                    textTemplate.focus();
+
+                    // Visual feedback
+                    textTemplate.style.outline = '3px solid cyan';
+                    textTemplate.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
+
+                    return {{
+                        success: true,
+                        contenteditable: textTemplate.getAttribute('contenteditable'),
+                        className: textTemplate.className
+                    }};
+                }}
+            """)
+
+            if not click_result.get('success'):
+                logger.debug(f"   ❌ Failed to click container: {click_result.get('reason')}")
                 return False
+
+            logger.debug(f"   ✅ Clicked container using JavaScript")
+            logger.debug(f"      Contenteditable: {click_result.get('contenteditable')}")
+            await asyncio.sleep(2)  # Wait for toolbar to appear
 
             # Click Insert Image button
             try:
+                logger.debug(f"   🔍 Looking for Insert Image button...")
                 await page.click('.icon-insert-image[aria-label="icon-insert-image"]', timeout=5000)
+                logger.debug(f"   ✅ Clicked Insert Image button")
                 await asyncio.sleep(2.5)
-            except:
-                return False
+            except Exception as e:
+                logger.debug(f"   ❌ Failed to find/click Insert Image button: {e}")
+
+                # Try alternative selectors
+                logger.debug(f"   🔄 Trying alternative selectors...")
+                alt_selectors = [
+                    '.icon-insert-image',
+                    '[aria-label*="insert"]',
+                    '[class*="insert-image"]',
+                    'button[aria-label*="image"]'
+                ]
+
+                clicked = False
+                for alt_selector in alt_selectors:
+                    try:
+                        await page.click(alt_selector, timeout=2000)
+                        logger.debug(f"   ✅ Clicked using alternative selector: {alt_selector}")
+                        clicked = True
+                        await asyncio.sleep(2.5)
+                        break
+                    except:
+                        continue
+
+                if not clicked:
+                    logger.debug(f"   ❌ No Insert Image button found")
+                    return False
 
             # Wait for media library
             modal_found = False
@@ -3101,21 +3372,35 @@ class TempLogoAdditionFinalService:
         """Insert logo into empty header container"""
 
         try:
-            # Click the header container by position
+            # Click the header container by position - use same pattern as Logo 1/2 insertion
             clicked = await page.evaluate(f"""
                 () => {{
                     const headerContainer = document.querySelector('[data-header-container="header-{header_info['position']}"]');
-                    if (!headerContainer) return {{ success: false }};
+                    if (!headerContainer) return {{ success: false, reason: 'Header container not found' }};
 
                     const textTemplate = headerContainer.querySelector('.TEXT_TEMPLATE') ||
                                         headerContainer.querySelector('[contenteditable="true"]');
 
                     if (textTemplate) {{
+                        // Remove 'unselectable' class from parent if it exists
+                        let parent = textTemplate.parentElement;
+                        while (parent) {{
+                            if (parent.className && parent.className.includes('Unselectable')) {{
+                                parent.className = parent.className.replace(/elementUnselectable\\S*/g, '');
+                            }}
+                            parent = parent.parentElement;
+                        }}
+
+                        // Scroll into view
+                        textTemplate.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+
+                        // Click and focus
                         textTemplate.click();
                         textTemplate.focus();
+
                         return {{ success: true }};
                     }}
-                    return {{ success: false }};
+                    return {{ success: false, reason: 'TEXT_TEMPLATE not found' }};
                 }}
             """)
 

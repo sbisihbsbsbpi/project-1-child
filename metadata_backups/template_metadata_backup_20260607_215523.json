@@ -1154,12 +1154,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T22:00:01.487325",
+        "enhanced_features_updated": "2026-06-07T21:51:51.576559",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T22:00:01.487309"
+          "validated_at": "2026-06-07T21:51:51.576544"
         },
         "phase_2_enhanced": true
       },
