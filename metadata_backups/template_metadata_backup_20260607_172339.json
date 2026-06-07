@@ -1024,15 +1024,7 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T17:23:39.382964",
-        "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": false,
-          "false_negative": true,
-          "validated_at": "2026-06-07T17:23:39.382942"
-        },
-        "needs_manual_inspection": true,
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:02:30.496541"
       },
       "action": "header_added",
       "category": "Service/Parts - 2 Logo Tables (Has Extra Logos) - BUG"
@@ -1057,15 +1049,7 @@
         "non_logo_table_count": 3,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T17:23:49.821226",
-        "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": false,
-          "false_negative": true,
-          "validated_at": "2026-06-07T17:23:49.821206"
-        },
-        "needs_manual_inspection": true,
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:02:40.945752"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -1090,15 +1074,7 @@
         "non_logo_table_count": 3,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T17:24:00.289864",
-        "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": false,
-          "false_negative": true,
-          "validated_at": "2026-06-07T17:24:00.289845"
-        },
-        "needs_manual_inspection": true,
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:02:51.445562"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -1123,15 +1099,7 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T17:24:10.675919",
-        "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": false,
-          "false_negative": true,
-          "validated_at": "2026-06-07T17:24:10.675902"
-        },
-        "needs_manual_inspection": true,
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:03:02.310356"
       },
       "action": "has_header",
       "category": "CPRA - Has Header Already"
@@ -1154,14 +1122,7 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T17:24:21.063294",
-        "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": true,
-          "false_negative": false,
-          "validated_at": "2026-06-07T17:24:21.063287"
-        },
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:03:13.415753"
       },
       "action": "processed",
       "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
@@ -1184,14 +1145,7 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T17:24:36.551481",
-        "api_cross_validation": {
-          "api_has_logo": false,
-          "detection_found_logo": true,
-          "false_negative": false,
-          "validated_at": "2026-06-07T17:24:36.551468"
-        },
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:03:29.570818"
       },
       "action": "processed",
       "category": "Service/Parts - 4 Logo Tables (No Extra Logos)"
@@ -1214,14 +1168,7 @@
         "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-07T17:25:28.791657",
-        "api_cross_validation": {
-          "api_has_logo": false,
-          "detection_found_logo": true,
-          "false_negative": false,
-          "validated_at": "2026-06-07T17:25:28.791652"
-        },
-        "phase_2_enhanced": true
+        "enhanced_features_updated": "2026-06-06T12:04:22.903401"
       },
       "action": "processed",
       "category": "Service/Parts - 2 Logo Tables (No Extra Logos)"
