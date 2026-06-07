@@ -693,14 +693,17 @@ class TempLogoAdditionFinalService:
                     learned_logos = detection_result.get('learnedLogosCount', 0)
                     warnings_count_ai = detection_result.get('warningsCount', 0)
                     empty_count_ai = detection_result.get('emptyCount', 0)
+                    # ✨ PHASE 3 FIX: Include ALL detected logos (not just ones needing action)
+                    all_detected = detection_result.get('allDetectedLogosCount', 0)
 
-                    # Has logos if: warnings OR empties OR learned markers found
+                    # Has logos if: warnings OR empties OR learned markers found OR dynamic detection found any
                     has_logos = (warnings_count_ai > 0 or
                                 empty_count_ai > 0 or
-                                learned_logos > 0)
+                                learned_logos > 0 or
+                                all_detected > 0)  # ✨ PHASE 3: Include dynamically detected logos
 
-                    # Total logo count includes learned markers
-                    logo_count = warnings_count_ai + empty_count_ai + learned_logos
+                    # Total logo count includes learned markers and all detected logos
+                    logo_count = max(warnings_count_ai + empty_count_ai + learned_logos, all_detected)
 
                     template_data = {
                         "name": template_name,
@@ -1374,9 +1377,10 @@ class TempLogoAdditionFinalService:
                     const isMediaUrl = (src.includes('amazonaws.com') && src.includes('media_')) ||
                                       src.includes('.png') || src.includes('.jpg') || src.includes('.svg');
 
-                    // Heuristic 4: Position (anywhere in visible area, excluding app header)
-                    const isReasonablePosition = rect.top > 100 && rect.top < 3000 &&
-                                                rect.left > 0 && rect.width > 0;
+                    // Heuristic 4: Position (anywhere in visible area)
+                    // ✨ PHASE 3 FIX: Allow logos at very top (was rect.top > 100, now > 0)
+                    const isReasonablePosition = rect.top >= 0 && rect.top < 3000 &&
+                                                rect.left >= 0 && rect.width > 0;
 
                     // Heuristic 5: Not a system icon
                     const notSystemIcon = !src.includes('icon-') &&
@@ -1409,7 +1413,8 @@ class TempLogoAdditionFinalService:
                                  (isVisible ? 1 : 0) +
                                  (hasLearnedMarker ? 3 : 0);  // NEW: Highest weight for learned markers
 
-                    if (score >= 2) {  // RELAXED Threshold: at least 2 points
+                    // ✨ PHASE 3 FIX: Lower threshold from 2 to 1 for better detection
+                    if (score >= 1) {  // VERY RELAXED Threshold: at least 1 point
                         candidateLogos.push({
                             img: img,
                             score: score,
@@ -2214,6 +2219,8 @@ class TempLogoAdditionFinalService:
                     enhancedFeatures: enhancedFeatures,
                     // PHASE 2 ENHANCEMENT: Direct access to learned markers count
                     learnedLogosCount: learnedLogoMarkers.length,
+                    // ✨ PHASE 3 FIX: Count ALL detected logos (not just ones needing action)
+                    allDetectedLogosCount: patterns.detectedLogos.length,  // Total logos found by dynamic detection
                     debug: debug
                 };
             }
