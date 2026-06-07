@@ -1352,6 +1352,81 @@ class TempLogoAdditionFinalService:
                 patterns.learningPhases.push(`Found ${learnedLogoMarkers.length} logos via data-learned-logo markers`);
 
                 // ============================================================================
+                // PHASE 0.5: CPRA PATTERN DETECTION (JUNE 7, 2026 - PHASE 3 FIX #4)
+                // Detect CPRA templates with custom headers (grayed button + sortable item images)
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 0.5: Scanning for CPRA pattern');
+                debug.push('=== PHASE 3 ENHANCEMENT: CPRA Pattern Detection ===');
+
+                const cpraLogos = [];
+
+                // Check if this is a CPRA template (grayed #HEADER button)
+                const cpraHeaderBtn = document.querySelector('#HEADER');
+                const isCPRAPattern = cpraHeaderBtn && parseFloat(window.getComputedStyle(cpraHeaderBtn).opacity) < 0.5;
+
+                debug.push(`Header button found: ${!!cpraHeaderBtn}, opacity: ${cpraHeaderBtn ? window.getComputedStyle(cpraHeaderBtn).opacity : 'N/A'}`);
+                debug.push(`CPRA pattern detected: ${isCPRAPattern}`);
+
+                if (isCPRAPattern) {
+                    // Look for logos in sortable items (CPRA custom header pattern)
+                    const sortableItems = document.querySelectorAll('[class*="SortableItem"]');
+                    debug.push(`Found ${sortableItems.length} sortable items to scan`);
+
+                    sortableItems.forEach((item, idx) => {
+                        const imgs = item.querySelectorAll('img');
+                        imgs.forEach(img => {
+                            const src = img.src || '';
+                            const rect = img.getBoundingClientRect();
+
+                            // Check if this is a dealer logo (not icon, reasonable size)
+                            const isMediaUrl = src.includes('amazonaws.com') && src.includes('media_');
+                            const isNotIcon = !src.includes('icon-') && !src.includes('favicon') && !src.includes('tekion-logo');
+                            const isReasonableSize = rect.width > 50 && rect.width < 500 && rect.height > 20 && rect.height < 300;
+
+                            if (isMediaUrl && isNotIcon && isReasonableSize) {
+                                cpraLogos.push({
+                                    img: img,
+                                    src: src.substring(0, 100),
+                                    position: {
+                                        top: Math.round(rect.top + window.scrollY),
+                                        left: Math.round(rect.left),
+                                        width: Math.round(rect.width),
+                                        height: Math.round(rect.height)
+                                    },
+                                    detectionMethod: 'cpra_sortable_item',
+                                    sortableItemIndex: idx
+                                });
+                                debug.push(`  ✅ Found CPRA logo in sortable item ${idx}: ${rect.width}x${rect.height}px`);
+                            }
+                        });
+                    });
+
+                    debug.push(`CPRA pattern scan complete: ${cpraLogos.length} logos found`);
+
+                    // Add CPRA logos to detected logos list
+                    cpraLogos.forEach((cpraLogo, idx) => {
+                        patterns.detectedLogos.push({
+                            index: patterns.detectedLogos.length + 1,
+                            containerClass: 'cpra_sortable_item',
+                            hasImage: true,
+                            hasWarning: false,
+                            position: {
+                                top: cpraLogo.position.top,
+                                left: cpraLogo.position.left
+                            },
+                            size: {
+                                width: cpraLogo.position.width,
+                                height: cpraLogo.position.height
+                            },
+                            imageSrc: cpraLogo.src,
+                            detectionMethod: 'cpra_pattern'
+                        });
+                    });
+                }
+
+                patterns.learningPhases.push(`Found ${cpraLogos.length} logos via CPRA pattern`);
+
+                // ============================================================================
                 // PHASE 1: Find all images that look like logos (ADAPTIVE HEURISTICS)
                 // ============================================================================
                 patterns.learningPhases.push('PHASE 1: Analyzing all images');
