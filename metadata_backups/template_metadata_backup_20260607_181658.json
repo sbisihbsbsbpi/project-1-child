@@ -114,12 +114,12 @@
         "non_logo_table_count": 11,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:16:58.671731",
+        "enhanced_features_updated": "2026-06-07T17:18:29.495787",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:16:58.671565"
+          "validated_at": "2026-06-07T17:18:29.495718"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -147,12 +147,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:17:09.446532",
+        "enhanced_features_updated": "2026-06-07T17:18:39.819399",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:17:09.446513"
+          "validated_at": "2026-06-07T17:18:39.819361"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -180,12 +180,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-07T18:17:20.182044",
+        "enhanced_features_updated": "2026-06-07T17:18:50.123917",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:17:20.181996"
+          "validated_at": "2026-06-07T17:18:50.123908"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -213,12 +213,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-07T18:17:31.016065",
+        "enhanced_features_updated": "2026-06-07T17:19:00.454942",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:17:31.016043"
+          "validated_at": "2026-06-07T17:19:00.454895"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -246,12 +246,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-07T18:17:41.684013",
+        "enhanced_features_updated": "2026-06-07T17:19:10.845259",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:17:41.683986"
+          "validated_at": "2026-06-07T17:19:10.845249"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -277,12 +277,12 @@
         "non_logo_table_count": 30,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:17:52.906921",
+        "enhanced_features_updated": "2026-06-07T17:19:21.173415",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:17:52.906899"
+          "validated_at": "2026-06-07T17:19:21.173404"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -309,12 +309,12 @@
         "non_logo_table_count": 26,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:18:03.933367",
+        "enhanced_features_updated": "2026-06-07T17:19:31.558263",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:03.932057"
+          "validated_at": "2026-06-07T17:19:31.558256"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -342,12 +342,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-07T18:18:15.079869",
+        "enhanced_features_updated": "2026-06-07T17:19:41.957335",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:15.079847"
+          "validated_at": "2026-06-07T17:19:41.957310"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -373,12 +373,12 @@
         "non_logo_table_count": 34,
         "has_buttons": true,
         "dynamic_tag_count": 18,
-        "enhanced_features_updated": "2026-06-07T18:18:26.038091",
+        "enhanced_features_updated": "2026-06-07T17:19:52.387001",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:26.038065"
+          "validated_at": "2026-06-07T17:19:52.386993"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -404,12 +404,12 @@
         "non_logo_table_count": 14,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:18:36.939853",
+        "enhanced_features_updated": "2026-06-07T17:20:02.743140",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:36.939826"
+          "validated_at": "2026-06-07T17:20:02.743115"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -435,12 +435,12 @@
         "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-07T18:18:47.892334",
+        "enhanced_features_updated": "2026-06-07T17:20:13.104416",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:47.892317"
+          "validated_at": "2026-06-07T17:20:13.104403"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -466,12 +466,12 @@
         "non_logo_table_count": 34,
         "has_buttons": true,
         "dynamic_tag_count": 20,
-        "enhanced_features_updated": "2026-06-07T18:18:58.726552",
+        "enhanced_features_updated": "2026-06-07T17:20:23.477890",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:18:58.726531"
+          "validated_at": "2026-06-07T17:20:23.477883"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -497,12 +497,12 @@
         "non_logo_table_count": 30,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:19:09.674664",
+        "enhanced_features_updated": "2026-06-07T17:20:33.818828",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:19:09.674612"
+          "validated_at": "2026-06-07T17:20:33.818809"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -528,12 +528,12 @@
         "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:19:21.487887",
+        "enhanced_features_updated": "2026-06-07T17:20:44.317997",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:19:21.487864"
+          "validated_at": "2026-06-07T17:20:44.317978"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -559,12 +559,12 @@
         "non_logo_table_count": 26,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-07T18:19:32.577824",
+        "enhanced_features_updated": "2026-06-07T17:20:54.784410",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:19:32.577778"
+          "validated_at": "2026-06-07T17:20:54.784399"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -590,12 +590,12 @@
         "non_logo_table_count": 26,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:19:43.507636",
+        "enhanced_features_updated": "2026-06-07T17:21:05.097168",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:19:43.507618"
+          "validated_at": "2026-06-07T17:21:05.097136"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -621,12 +621,12 @@
         "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:19:54.500286",
+        "enhanced_features_updated": "2026-06-07T17:21:15.460950",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:19:54.500040"
+          "validated_at": "2026-06-07T17:21:15.460935"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -652,12 +652,12 @@
         "non_logo_table_count": 26,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-07T18:20:05.476960",
+        "enhanced_features_updated": "2026-06-07T17:21:25.938501",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:20:05.476893"
+          "validated_at": "2026-06-07T17:21:25.938492"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -683,12 +683,12 @@
         "non_logo_table_count": 12,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:20:17.639302",
+        "enhanced_features_updated": "2026-06-07T17:21:36.309751",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:20:17.639275"
+          "validated_at": "2026-06-07T17:21:36.309730"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -714,12 +714,12 @@
         "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-07T18:20:37.085130",
+        "enhanced_features_updated": "2026-06-07T17:21:55.247564",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:20:37.085110"
+          "validated_at": "2026-06-07T17:21:55.247554"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -745,12 +745,12 @@
         "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-07T18:20:48.043028",
+        "enhanced_features_updated": "2026-06-07T17:22:05.608745",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:20:48.042996"
+          "validated_at": "2026-06-07T17:22:05.608723"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -776,12 +776,12 @@
         "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-07T18:20:58.607317",
+        "enhanced_features_updated": "2026-06-07T17:22:15.996569",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:20:58.607288"
+          "validated_at": "2026-06-07T17:22:15.996551"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -807,12 +807,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:21:09.800636",
+        "enhanced_features_updated": "2026-06-07T17:22:26.375087",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:21:09.800599"
+          "validated_at": "2026-06-07T17:22:26.375063"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -838,12 +838,12 @@
         "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-07T18:21:21.015711",
+        "enhanced_features_updated": "2026-06-07T17:22:36.762918",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:21:21.015672"
+          "validated_at": "2026-06-07T17:22:36.762903"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -869,12 +869,12 @@
         "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-07T18:21:32.338623",
+        "enhanced_features_updated": "2026-06-07T17:22:47.232596",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:21:32.338576"
+          "validated_at": "2026-06-07T17:22:47.232519"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -900,12 +900,12 @@
         "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-07T18:21:43.639426",
+        "enhanced_features_updated": "2026-06-07T17:22:57.685002",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:21:43.639407"
+          "validated_at": "2026-06-07T17:22:57.684975"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -931,12 +931,12 @@
         "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-07T18:21:54.701715",
+        "enhanced_features_updated": "2026-06-07T17:23:08.142394",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:21:54.701482"
+          "validated_at": "2026-06-07T17:23:08.142374"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -962,12 +962,12 @@
         "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-07T18:22:05.827167",
+        "enhanced_features_updated": "2026-06-07T17:23:18.492669",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:05.827133"
+          "validated_at": "2026-06-07T17:23:18.492656"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1024,12 +1024,12 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T18:22:16.926771",
+        "enhanced_features_updated": "2026-06-07T17:23:39.382964",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:16.926734"
+          "validated_at": "2026-06-07T17:23:39.382942"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1057,12 +1057,12 @@
         "non_logo_table_count": 3,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:22:28.351220",
+        "enhanced_features_updated": "2026-06-07T17:23:49.821226",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:28.351197"
+          "validated_at": "2026-06-07T17:23:49.821206"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1090,12 +1090,12 @@
         "non_logo_table_count": 3,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:22:40.198241",
+        "enhanced_features_updated": "2026-06-07T17:24:00.289864",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:40.198227"
+          "validated_at": "2026-06-07T17:24:00.289845"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1123,12 +1123,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:22:52.023983",
+        "enhanced_features_updated": "2026-06-07T17:24:10.675919",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:52.023937"
+          "validated_at": "2026-06-07T17:24:10.675902"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1154,12 +1154,12 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:23:03.187599",
+        "enhanced_features_updated": "2026-06-07T17:24:21.063294",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:23:03.187591"
+          "validated_at": "2026-06-07T17:24:21.063287"
         },
         "phase_2_enhanced": true
       },
@@ -1184,12 +1184,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T18:23:20.375671",
+        "enhanced_features_updated": "2026-06-07T17:24:36.551481",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:23:20.375659"
+          "validated_at": "2026-06-07T17:24:36.551468"
         },
         "phase_2_enhanced": true
       },
@@ -1214,12 +1214,12 @@
         "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-07T18:24:14.749618",
+        "enhanced_features_updated": "2026-06-07T17:25:28.791657",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:24:14.749590"
+          "validated_at": "2026-06-07T17:25:28.791652"
         },
         "phase_2_enhanced": true
       },

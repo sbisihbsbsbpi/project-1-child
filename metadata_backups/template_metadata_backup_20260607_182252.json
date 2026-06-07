@@ -1123,12 +1123,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-07T18:22:52.023983",
+        "enhanced_features_updated": "2026-06-07T17:24:10.675919",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:22:52.023937"
+          "validated_at": "2026-06-07T17:24:10.675902"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1154,12 +1154,12 @@
         "non_logo_table_count": 33,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:23:03.187599",
+        "enhanced_features_updated": "2026-06-07T17:24:21.063294",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:23:03.187591"
+          "validated_at": "2026-06-07T17:24:21.063287"
         },
         "phase_2_enhanced": true
       },
@@ -1184,12 +1184,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-07T18:23:20.375671",
+        "enhanced_features_updated": "2026-06-07T17:24:36.551481",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:23:20.375659"
+          "validated_at": "2026-06-07T17:24:36.551468"
         },
         "phase_2_enhanced": true
       },
@@ -1214,12 +1214,12 @@
         "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-07T18:24:14.749618",
+        "enhanced_features_updated": "2026-06-07T17:25:28.791657",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-07T18:24:14.749590"
+          "validated_at": "2026-06-07T17:25:28.791652"
         },
         "phase_2_enhanced": true
       },
