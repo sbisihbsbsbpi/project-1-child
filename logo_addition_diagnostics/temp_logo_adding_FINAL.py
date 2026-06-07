@@ -335,13 +335,13 @@ class TempLogoAdditionFinalService:
                 logger.info("✅ Connected to browser")
 
                 # Step 1: Navigate to templates list
-                # ✨ IMPROVEMENT: Reuse existing page if available (CDP mode)
+                # ✨ FIX (June 8): Tab 1 = Templates list (kept open for reference)
                 if context.pages:
                     page = context.pages[0]
-                    logger.info(f"♻️  Reusing existing tab")
+                    logger.info(f"♻️  Reusing existing tab for templates list (Tab #1)")
                 else:
                     page = await context.new_page()
-                    logger.info(f"📄 Created new tab")
+                    logger.info(f"📄 Created new tab for templates list (Tab #1)")
 
                 list_url = f"{base_url}/templates/list"
                 logger.info(f"\n📍 Navigating to: {list_url}")
@@ -607,13 +607,11 @@ class TempLogoAdditionFinalService:
 
         try:
             # Open template edit page
-            # ✨ IMPROVEMENT: Reuse existing page if available (CDP mode)
-            if context.pages:
-                page = context.pages[0]
-                logger.debug(f"   ♻️  Reusing existing tab for template edit")
-            else:
-                page = await context.new_page()
-                logger.debug(f"   📄 Created new tab for template edit")
+            # ✨ FIX (June 8): Create NEW tab for each template (keep all tabs open)
+            # Tab 1 = Templates list, Tab 2+ = Each template for manual review
+            page = await context.new_page()
+            tab_number = len(context.pages)
+            logger.info(f"   📄 Opening in new tab #{tab_number}")
 
             edit_url = f"{base_url}/templates/edit/{template_id}"
 
@@ -1895,6 +1893,11 @@ class TempLogoAdditionFinalService:
                     });
                 }
 
+                // ✨ FIX (June 8): Store dynamic detection results for later use
+                // This will be used to populate globalLogoRowsWithContent BEFORE table/hardcoded detection
+                const dynamicDetectedLogoCount = patterns.detectedLogos.length;
+                debug.push(`Dynamic detection will inform table/hardcoded detection: ${dynamicDetectedLogoCount} logos found`);
+
                 // Helper function to detect logo department
                 function detectLogoDepartment(container, warningIcon) {
                     // Strategy 1: Check for department text near the logo
@@ -1943,6 +1946,20 @@ class TempLogoAdditionFinalService:
 
                 // Shared guardrail state (will be populated by table detection first)
                 const globalLogoRowsWithContent = new Set(); // e.g., 'Logo 1', 'Logo 2'
+
+                // ✨ FIX (June 8): Populate globalLogoRowsWithContent from dynamic detection
+                // This ensures hardcoded detection knows about logos found by dynamic detection
+                // even if table-based detection finds 0 tables
+                if (dynamicDetectedLogoCount > 0) {
+                    debug.push('\\n=== SYNCING DYNAMIC DETECTION TO GLOBAL STATE ===');
+                    // Add Logo 1, Logo 2, etc. based on how many logos were dynamically detected
+                    for (let i = 1; i <= dynamicDetectedLogoCount; i++) {
+                        const logoRow = `Logo ${i}`;
+                        globalLogoRowsWithContent.add(logoRow);
+                        debug.push(`  Added "${logoRow}" to global state (from dynamic detection)`);
+                    }
+                    debug.push(`Global state now has: ${Array.from(globalLogoRowsWithContent).join(', ')}`);
+                }
 
                 // ============================================================================
                 // STEP 1: Run table-based detection FIRST

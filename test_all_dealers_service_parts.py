@@ -18,7 +18,7 @@ async def test_all_dealers():
     print()
     print("Departments: Service & Parts")
     print("Auto-Publish: DISABLED (testing mode)")
-    print("Max Templates: 5 (for safety)")
+    print("Max Templates: 3 (for testing tab management)")
     print()
     print("=" * 100)
     print()
@@ -33,7 +33,7 @@ async def test_all_dealers():
             cdp_url="http://localhost:9223",
             auto_publish=False,  # DON'T PUBLISH - just test
             base_url="https://preprodapp.tekioncloud.com",
-            max_templates=5  # Limit to 5 for safety
+            max_templates=3  # Limit to 3 for testing tab management
         )
 
         print()
