@@ -647,27 +647,46 @@ class TempLogoAdditionFinalService:
             # AI Prediction (if available)
             if self.ai:
                 try:
+                    # PHASE 2 ENHANCEMENT: Include learned logo markers in has_logos calculation
+                    learned_logos = detection_result.get('learnedLogosCount', 0)
+                    warnings_count_ai = detection_result.get('warningsCount', 0)
+                    empty_count_ai = detection_result.get('emptyCount', 0)
+
+                    # Has logos if: warnings OR empties OR learned markers found
+                    has_logos = (warnings_count_ai > 0 or
+                                empty_count_ai > 0 or
+                                learned_logos > 0)
+
+                    # Total logo count includes learned markers
+                    logo_count = warnings_count_ai + empty_count_ai + learned_logos
+
                     template_data = {
                         "name": template_name,
                         "departments": template.get('departments', []),
                         "detection": {
                             "logo_tables_found": detection_result.get('logoTablesCount', 0),
                             "header_button_opacity": detection_result.get('headerButtonOpacity', 0),
-                            "has_logos": detection_result.get('warningsCount', 0) > 0 or detection_result.get('emptyCount', 0) > 0,
-                            "logo_count": detection_result.get('warningsCount', 0) + detection_result.get('emptyCount', 0),
+                            "has_logos": has_logos,
+                            "logo_count": logo_count,
                             "logo_type": "table-based" if detection_result.get('logoTablesCount', 0) > 0 else "container-based",
                             # NEW: Enhanced AI features (Phase 1)
                             "sortable_item_count": enhanced_features.get('sortableItemCount', 0),
                             "total_table_count": enhanced_features.get('totalTableCount', 0),
                             "non_logo_table_count": enhanced_features.get('nonLogoTableCount', 0),
                             "has_buttons": enhanced_features.get('hasButtons', False),
-                            "dynamic_tag_count": enhanced_features.get('dynamicTagCount', 0)
+                            "dynamic_tag_count": enhanced_features.get('dynamicTagCount', 0),
+                            # PHASE 2 ENHANCEMENT: New feature
+                            "learned_logos_found": learned_logos
                         }
                     }
                     ai_prediction = self.ai.analyze_template(template_data)
                     logger.info(f"   🤖 AI: {ai_prediction['category']} (Confidence: {ai_prediction['confidence']:.0%})")
                     if ai_prediction.get('anomalies'):
                         logger.warning(f"   ⚠️  AI detected anomalies: {ai_prediction['anomalies']}")
+
+                    # Log Phase 2 enhancement info if learned logos found
+                    if learned_logos > 0:
+                        logger.info(f"   ✨ Phase 2: Found {learned_logos} logo(s) via data-learned-logo markers")
                 except Exception as e:
                     logger.debug(f"   AI prediction failed: {e}")
 
@@ -1234,6 +1253,51 @@ class TempLogoAdditionFinalService:
                 };
 
                 // ============================================================================
+                // PHASE 0: ENHANCED - Detect data-learned-logo markers (JUNE 7, 2026)
+                // ============================================================================
+                patterns.learningPhases.push('PHASE 0: Scanning for data-learned-logo markers');
+                debug.push('=== PHASE 2 ENHANCEMENT: data-learned-logo Detection ===');
+
+                const learnedLogoMarkers = [];
+                const allLearnedElements = document.querySelectorAll('[data-learned-logo]');
+
+                debug.push(`Found ${allLearnedElements.length} elements with data-learned-logo attribute`);
+
+                allLearnedElements.forEach((element, idx) => {
+                    const logoMarker = element.getAttribute('data-learned-logo');
+                    const img = element.querySelector('img');
+
+                    if (img) {
+                        const rect = img.getBoundingClientRect();
+                        const src = img.src || '';
+
+                        // Validate this is a real logo (not an icon)
+                        const isIcon = src.includes('icon-') ||
+                                      src.includes('favicon') ||
+                                      src.includes('tekion-logo');
+
+                        if (!isIcon && rect.width > 30 && rect.height > 15) {
+                            learnedLogoMarkers.push({
+                                element: element,
+                                img: img,
+                                marker: logoMarker,
+                                src: src.substring(0, 100),
+                                rect: {
+                                    top: Math.round(rect.top + window.scrollY),
+                                    left: Math.round(rect.left),
+                                    width: Math.round(rect.width),
+                                    height: Math.round(rect.height)
+                                },
+                                detectionMethod: 'data-learned-logo'
+                            });
+                            debug.push(`  ✅ Found logo with marker: ${logoMarker} (${rect.width}x${rect.height}px)`);
+                        }
+                    }
+                });
+
+                patterns.learningPhases.push(`Found ${learnedLogoMarkers.length} logos via data-learned-logo markers`);
+
+                // ============================================================================
                 // PHASE 1: Find all images that look like logos (ADAPTIVE HEURISTICS)
                 // ============================================================================
                 patterns.learningPhases.push('PHASE 1: Analyzing all images');
@@ -1272,19 +1336,34 @@ class TempLogoAdditionFinalService:
                     // Heuristic 6: Visible element
                     const isVisible = rect.width > 0 && rect.height > 0;
 
+                    // NEW HEURISTIC 7: Has data-learned-logo marker (HIGHEST CONFIDENCE)
+                    let parentElement = img.parentElement;
+                    let hasLearnedMarker = false;
+                    let depth = 0;
+                    while (parentElement && depth < 5) {
+                        if (parentElement.hasAttribute('data-learned-logo')) {
+                            hasLearnedMarker = true;
+                            break;
+                        }
+                        parentElement = parentElement.parentElement;
+                        depth++;
+                    }
+
                     // Score the candidate (RELAXED threshold for inclusivity)
                     const score = (isLogoSize ? 1 : 0) +
                                  (isLogoAspect ? 1 : 0) +
                                  (isMediaUrl ? 2 : 0) +  // Higher weight for media URLs
                                  (isReasonablePosition ? 1 : 0) +
                                  (notSystemIcon ? 1 : 0) +
-                                 (isVisible ? 1 : 0);
+                                 (isVisible ? 1 : 0) +
+                                 (hasLearnedMarker ? 3 : 0);  // NEW: Highest weight for learned markers
 
                     if (score >= 2) {  // RELAXED Threshold: at least 2 points
                         candidateLogos.push({
                             img: img,
                             score: score,
                             index: idx,
+                            hasLearnedMarker: hasLearnedMarker,
                             rect: {
                                 top: Math.round(rect.top + window.scrollY),
                                 left: Math.round(rect.left),
@@ -2001,11 +2080,14 @@ class TempLogoAdditionFinalService:
                     bestPatternScore: bestScore,
                     logosDetected: patterns.detectedLogos.length,
                     logosWithWarnings: warningsCount,
-                    logosMarkedForAction: logoIndex
+                    logosMarkedForAction: logoIndex,
+                    // NEW: Phase 2 Enhancement
+                    learnedLogoMarkersFound: learnedLogoMarkers.length
                 };
 
                 debug.push('\\n=== TRULY DYNAMIC DETECTION SUMMARY ===');
                 debug.push(`Total images analyzed: ${patterns.summary.totalImages}`);
+                debug.push(`Learned logo markers found: ${patterns.summary.learnedLogoMarkersFound} ✨ NEW`);
                 debug.push(`Candidate logos found: ${patterns.summary.candidateLogos}`);
                 debug.push(`Patterns discovered: ${patterns.summary.patternsDiscovered}`);
                 debug.push(`Best pattern: ${patterns.summary.bestPatternSelected} (score: ${patterns.summary.bestPatternScore})`);
@@ -2061,7 +2143,9 @@ class TempLogoAdditionFinalService:
                         bestPattern: bestPattern,
                         bestScore: bestScore,
                         detectedLogos: patterns.detectedLogos,
-                        summary: patterns.summary
+                        summary: patterns.summary,
+                        // PHASE 2 ENHANCEMENT: Learned logo markers
+                        learnedLogoMarkers: learnedLogoMarkers
                     },
                     // Legacy detection results (for backward compatibility)
                     warningsCount: warningsCount,
@@ -2077,6 +2161,8 @@ class TempLogoAdditionFinalService:
                     replaceCount: (logosToReplace || []).length,
                     // NEW: Enhanced AI features
                     enhancedFeatures: enhancedFeatures,
+                    // PHASE 2 ENHANCEMENT: Direct access to learned markers count
+                    learnedLogosCount: learnedLogoMarkers.length,
                     debug: debug
                 };
             }
