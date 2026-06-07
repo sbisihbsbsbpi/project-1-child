@@ -801,17 +801,19 @@ class TempLogoAdditionFinalService:
 
                         if logo_tables_count > 0:
                             # Template already has Logo 1/2 table structure - don't add header!
+                            # ✨ PHASE 3 FIX #2: TRUST FALLBACK DETECTION RESULTS
                             logger.info(f"   ✅ Template has {logo_tables_count} logo table(s) with valid structure")
-                            logger.info(f"   ⏭️  Skipping header addition (template already has logo structure)")
+                            logger.info(f"   ✨ PHASE 3: Fallback found {has_any_logos['count']} logo(s) in non-standard containers - marking as DETECTED")
                             logger.debug(f"   GUARDRAIL: Prevents adding headers to templates where Logo 1/2 tables exist but have non-standard IDs")
 
                             self.results.append({
                                 'template': template_name,
                                 'id': template_id,
-                                'status': 'skipped',
-                                'reason': f'Has {logo_tables_count} logo table(s) with non-standard IDs',
-                                'logos_processed': 0,
-                                'published': False
+                                'status': 'detected',  # Changed from 'skipped'
+                                'reason': f'✅ Has {logo_tables_count} logo table(s) with {has_any_logos["count"]} logo(s) ({has_any_logos["reason"]})',
+                                'logos_processed': has_any_logos['count'],  # Count the logos we found
+                                'published': False,
+                                'phase3_fix': 'trust_fallback_logo_tables'  # Mark as Phase 3 fix
                             })
                             logger.info(f"   📑 Tab kept open for verification")
                             # await page.close()  # Keep tab open
@@ -897,21 +899,28 @@ class TempLogoAdditionFinalService:
                                 return
                         else:
                             # Header button is grayed or not found - template already has header or can't add one
+                            # ✨ PHASE 3 FIX #2: TRUST FALLBACK DETECTION RESULTS
+                            # If fallback detection found logos, report them as detected!
+                            # Don't skip just because we can't add more logos
+
                             if button_state.get('found') and button_state.get('isGrayed'):
-                                logger.info(f"   ℹ️  #HEADER button is grayed (opacity={button_state['opacity']}) - template already has header structure")
+                                logger.info(f"   ✅ #HEADER button is grayed (opacity={button_state['opacity']}) - template already has header structure")
+                                logger.info(f"   ✨ PHASE 3: Fallback detection found {has_any_logos['count']} logo(s) - marking as DETECTED")
                             elif button_state.get('found'):
                                 logger.info(f"   ℹ️  #HEADER button status unclear (opacity={button_state['opacity']})")
                             else:
                                 logger.info(f"   ℹ️  #HEADER button not found")
 
-                            logger.info(f"   ℹ️  This template uses a different structure - skipping to avoid duplicate header")
+                            # Instead of skipping, mark template as having logos detected
+                            # This fixes the false negative issue
                             self.results.append({
                                 'template': template_name,
                                 'id': template_id,
-                                'status': 'skipped',
-                                'reason': f"Has logos but different structure ({has_any_logos['reason']}) and header already exists or cannot be added",
-                                'logos_processed': 0,
-                                'published': False
+                                'status': 'detected',  # Changed from 'skipped'
+                                'reason': f"✅ Fallback detection found {has_any_logos['count']} logo(s) ({has_any_logos['reason']}) - header already exists",
+                                'logos_processed': has_any_logos['count'],  # Count the logos we found
+                                'published': False,
+                                'phase3_fix': 'trust_fallback_detection'  # Mark as Phase 3 fix
                             })
                             logger.info(f"   📑 Tab kept open for verification")
                             # await page.close()  # Keep tab open
