@@ -755,7 +755,19 @@ class TempLogoAdditionFinalService:
                 for msg in debug_msgs[:30]:  # Show first 30 debug messages
                     logger.debug(f"     {msg}")
 
+            # ✨ PHASE 3 FIX: Also check allDetectedLogosCount before deciding to skip
+            all_detected_logos = detection_result.get('allDetectedLogosCount', 0)
+
             if warnings_count == 0 and empty_count == 0 and header_count == 0 and replace_count == 0:
+                # Check if dynamic detection found any logos
+                if all_detected_logos > 0:
+                    logger.info(f"   ✨ PHASE 3: Dynamic detection found {all_detected_logos} logo(s) - marking as DETECTED")
+                    logger.info(f"   📊 Detection Summary: {all_detected_logos} logos detected by dynamic pattern learning")
+                    logger.info(f"   ✅ Template has logos (already correct - no action needed)")
+                    logger.info(f"   📑 Tab kept open for verification")
+                    # await page.close()  # Keep tab open
+                    return
+
                 # No standard logo containers detected - check if we should add a header
                 logger.info("   📊 Detection Summary: No standard Logo 1/2 containers or headers detected")
                 logger.debug(f"   Detection returned: warnings={warnings_count}, empty={empty_count}, headers={header_count}")

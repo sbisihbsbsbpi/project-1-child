@@ -246,12 +246,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-07T18:56:39.705728",
+        "enhanced_features_updated": "2026-06-07T18:17:41.684013",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:56:39.705700"
+          "validated_at": "2026-06-07T18:17:41.683986"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -277,12 +277,12 @@
         "non_logo_table_count": 30,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-07T18:56:50.427654",
+        "enhanced_features_updated": "2026-06-07T18:17:52.906921",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": true,
-          "validated_at": "2026-06-07T18:56:50.427641"
+          "validated_at": "2026-06-07T18:17:52.906899"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
