@@ -1624,10 +1624,33 @@ class TempLogoAdditionFinalService:
 
                 if (bestPattern) {
                     patterns.learningPhases.push(`Selected best pattern: ${bestPattern.class} (score: ${bestScore})`);
-                    debug.push(`LEARNED PATTERN: ${bestPattern.class} (score: ${bestScore})`);
+                    debug.push(`✨ LEARNED PATTERN: ${bestPattern.class} (score: ${bestScore})`);
+                    debug.push(`   Pattern details: occurrences=${bestPattern.occurrences}, avgDepth=${bestPattern.avgDepth}`);
+
+                    // Show top 3 patterns for comparison
+                    const topPatterns = patterns.containerPatterns
+                        .sort((a, b) => {
+                            const scoreA = (a.class.toLowerCase().includes('image') ? 3 : 0) + (a.occurrences >= 2 && a.occurrences <= 5 ? 2 : 0);
+                            const scoreB = (b.class.toLowerCase().includes('image') ? 3 : 0) + (b.occurrences >= 2 && b.occurrences <= 5 ? 2 : 0);
+                            return scoreB - scoreA;
+                        })
+                        .slice(0, 3);
+
+                    debug.push(`   Top 3 candidate patterns:`);
+                    topPatterns.forEach((p, i) => {
+                        debug.push(`     ${i + 1}. ${p.class} (occurs: ${p.occurrences}x, depth: ${p.avgDepth})`);
+                    });
                 } else {
                     patterns.learningPhases.push('No suitable pattern found, using fallback');
-                    debug.push('WARNING: No pattern learned, falling back to hardcoded selectors');
+                    debug.push('⚠️  WARNING: No pattern learned, falling back to hardcoded selectors');
+
+                    // Show what patterns were found but rejected
+                    if (patterns.containerPatterns.length > 0) {
+                        debug.push(`   Found ${patterns.containerPatterns.length} patterns but none scored high enough:`);
+                        patterns.containerPatterns.slice(0, 5).forEach(p => {
+                            debug.push(`     - ${p.class} (occurs: ${p.occurrences}x, depth: ${p.avgDepth})`);
+                        });
+                    }
                 }
 
                 // ============================================================================
@@ -1645,7 +1668,16 @@ class TempLogoAdditionFinalService:
                     // Filter to only containers that actually have images
                     containers.forEach((container, idx) => {
                         const img = container.querySelector('img');
-                        const hasImage = img !== null;
+                        let hasImage = img !== null;
+
+                        // ✨ PHASE 5: Check if image is actually visible
+                        if (hasImage && img) {
+                            const imgStyle = window.getComputedStyle(img);
+                            const isVisible = imgStyle.display !== 'none' &&
+                                             imgStyle.visibility !== 'hidden' &&
+                                             imgStyle.opacity !== '0';
+                            hasImage = isVisible;
+                        }
 
                         if (hasImage) {
                             const rect = container.getBoundingClientRect();
@@ -1860,7 +1892,25 @@ class TempLogoAdditionFinalService:
 
                         cells.forEach((cell, cellIdx) => {
                             const imageComponent = cell.querySelector('.templates_Image_imageComponent__tqwK7j9G7t');
-                            const hasImage = imageComponent !== null;
+
+                            // ✨ PHASE 5 FIX: Check for ACTUAL <img> tag, not just wrapper component
+                            let actualImage = null;
+                            let hasImage = false;
+
+                            if (imageComponent) {
+                                actualImage = imageComponent.querySelector('img');
+                                hasImage = actualImage !== null;
+
+                                // Additional check: image must be visible (not display:none or visibility:hidden)
+                                if (hasImage && actualImage) {
+                                    const imgStyle = window.getComputedStyle(actualImage);
+                                    const isVisible = imgStyle.display !== 'none' &&
+                                                     imgStyle.visibility !== 'hidden' &&
+                                                     imgStyle.opacity !== '0';
+                                    hasImage = isVisible;
+                                }
+                            }
+
                             // Updated warning selector to handle new CSS classes
                             const hasWarning = cell.querySelector('.templates_errorWarningIconsWithPopover_warningIcon__fT9Rzb2vrs, .icon-alert1, [class*="errorWarningIconsWithPopover_warningIcon"], .templates_Image_warningIcon__hCZHMuhEmb') !== null;
                             const textTemplate = cell.querySelector('.TEXT_TEMPLATE[contenteditable="true"]');
@@ -1887,7 +1937,8 @@ class TempLogoAdditionFinalService:
                                 hasWarning: hasWarning,
                                 isEmpty: isEmpty,
                                 textTemplateId: textTemplate ? textTemplate.id : null,
-                                imageComponent: imageComponent
+                                imageComponent: imageComponent,
+                                actualImage: actualImage  // ✨ Store reference to actual img element
                             });
                         });
 
@@ -1915,11 +1966,16 @@ class TempLogoAdditionFinalService:
 
                         if (isLikelyLogoTable) {
                             logoTables.push(tableInfo);
-                            debug.push(`  Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
+                            debug.push(`  ✨ Found logo table #${logoTables.length} (table index ${tableIdx}): ${cells.length} columns`);
+
+                            // ✨ PHASE 5: Enhanced logging - show ALL columns for debugging
                             tableInfo.positions.forEach(pos => {
-                                if (pos.alignment !== 'EXTRA' && pos.alignment !== 'FAR_LEFT' && pos.alignment !== 'FAR_RIGHT') {
-                                    debug.push(`    ${pos.alignment}: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}`);
-                                }
+                                const imgInfo = pos.actualImage ?
+                                    `img.src="${pos.actualImage.src?.substring(0, 50)}..."` :
+                                    'no-img';
+                                const componentInfo = pos.imageComponent ? 'has-wrapper' : 'no-wrapper';
+
+                                debug.push(`    Cell ${pos.cellIndex} [${pos.alignment}]: hasImage=${pos.hasImage}, hasWarning=${pos.hasWarning}, isEmpty=${pos.isEmpty}, id=${pos.textTemplateId}, ${componentInfo}, ${imgInfo}`);
                             });
                         } else if (hasRelevantContent) {
                             debug.push(`  Skipping table ${tableIdx}: Not a logo table (likely content/layout table)`);
