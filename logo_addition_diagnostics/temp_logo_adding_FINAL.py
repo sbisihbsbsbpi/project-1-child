@@ -4081,26 +4081,20 @@ class TempLogoAdditionFinalService:
             if not container:
                 return {'success': False, 'error': 'Container element not found', 'logos': [], 'totalCount': 0}
 
-            # ✨ FIX (June 8): Hover on the image parent (subcontainer) to reveal toolbar
-            logger.debug(f"   Hovering on image parent (subcontainer)...")
-            img_parent = await page.evaluate_handle(f"""
-                () => {{
-                    const container = document.querySelector('[data-learned-logo="container-{logo_idx}"]') ||
-                                     document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]') ||
-                                     document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
-                    if (!container) return null;
-                    const img = container.querySelector('img');
-                    return img ? img.parentElement : container;
-                }}
-            """)
+            # ✨ FIX (June 8): Hover on the imageComponent subcontainer to reveal toolbar
+            logger.debug(f"   Hovering on imageComponent subcontainer...")
+            # CRITICAL: Must hover on [class*="imageComponent"], not img.parentElement!
+            sub_container = await container.query_selector('[class*="imageComponent"]')
 
-            if img_parent:
-                await img_parent.as_element().hover(force=True)
-                await asyncio.sleep(2)
+            if sub_container:
+                await sub_container.hover(force=True)
+                await asyncio.sleep(3)  # 3 seconds, not 2!
+                logger.debug(f"   ✓ Hovered on imageComponent for 3s")
             else:
                 # Fallback to container hover
+                logger.warning(f"   ⚠️  imageComponent not found, falling back to container hover")
                 await container.hover(force=True)
-                await asyncio.sleep(2)
+                await asyncio.sleep(3)
 
             # ✨ FIX (June 8): Click Change Image icon (search in container directly, not just sortableItem)
             change_clicked = await page.evaluate(f"""
