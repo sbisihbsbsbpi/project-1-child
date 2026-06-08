@@ -2724,6 +2724,14 @@ class TempLogoAdditionFinalService:
                 `;
                 document.body.appendChild(legend);
 
+                // ✨ FIX (June 8): Filter out UI icons from detectedLogos before returning
+                const realLogos = patterns.detectedLogos.filter(logo => !logo.isUIIcon);
+                const allDetectedCount = realLogos.length;
+                debug.push(`\n=== FINAL FILTERING ===`);
+                debug.push(`Total logos before filtering: ${patterns.detectedLogos.length}`);
+                debug.push(`Real logos (non-UI icons): ${realLogos.length}`);
+                debug.push(`UI icons filtered out: ${patterns.detectedLogos.length - realLogos.length}`);
+
                 return {
                     // Truly Dynamic Detection Results (NEW)
                     trulyDynamic: {
@@ -2732,7 +2740,8 @@ class TempLogoAdditionFinalService:
                         containerPatterns: patterns.containerPatterns,
                         bestPattern: bestPattern,
                         bestScore: bestScore,
-                        detectedLogos: patterns.detectedLogos,
+                        detectedLogos: realLogos,  // ✨ FIX: Return only real logos (UI icons filtered out)
+                        allDetectedLogos: patterns.detectedLogos,  // Keep all for debugging
                         summary: patterns.summary,
                         // PHASE 2 ENHANCEMENT: Learned logo markers
                         learnedLogoMarkers: learnedLogoMarkers
@@ -2754,7 +2763,7 @@ class TempLogoAdditionFinalService:
                     // PHASE 2 ENHANCEMENT: Direct access to learned markers count
                     learnedLogosCount: learnedLogoMarkers.length,
                     // ✨ PHASE 3 FIX: Count ALL detected logos (not just ones needing action)
-                    allDetectedLogosCount: patterns.detectedLogos.length,  // Total logos found by dynamic detection
+                    allDetectedLogosCount: allDetectedCount,  // ✨ FIX: Use filtered count (real logos only, no UI icons)
                     debug: debug
                 };
             }
@@ -4050,7 +4059,7 @@ class TempLogoAdditionFinalService:
 
             logger.debug(f"   Found logo container via method: {logo_found['method']}")
 
-            # Hover over container to reveal toolbar
+            # Find and hover on subcontainer (image parent) to reveal toolbar
             if logo_found['method'] == 'learned':
                 container = await page.query_selector(f'[data-learned-logo="container-{logo_idx}"]')
             elif logo_found['method'] == 'replace':
@@ -4061,10 +4070,28 @@ class TempLogoAdditionFinalService:
             if not container:
                 return {'success': False, 'error': 'Container element not found', 'logos': [], 'totalCount': 0}
 
-            await container.hover(force=True)
-            await asyncio.sleep(2)
+            # ✨ FIX (June 8): Hover on the image parent (subcontainer) to reveal toolbar
+            logger.debug(f"   Hovering on image parent (subcontainer)...")
+            img_parent = await page.evaluate_handle(f"""
+                () => {{
+                    const container = document.querySelector('[data-learned-logo="container-{logo_idx}"]') ||
+                                     document.querySelector('[data-logo-to-replace="replace-logo-{logo_idx}"]') ||
+                                     document.querySelector('[data-logo-to-inspect="warning-logo-{logo_idx}"]');
+                    if (!container) return null;
+                    const img = container.querySelector('img');
+                    return img ? img.parentElement : container;
+                }}
+            """)
 
-            # Click Change Image icon
+            if img_parent:
+                await img_parent.as_element().hover(force=True)
+                await asyncio.sleep(2)
+            else:
+                # Fallback to container hover
+                await container.hover(force=True)
+                await asyncio.sleep(2)
+
+            # ✨ FIX (June 8): Click Change Image icon (search in container directly, not just sortableItem)
             change_clicked = await page.evaluate(f"""
                 () => {{
                     const methods = [
@@ -4077,17 +4104,28 @@ class TempLogoAdditionFinalService:
                         const container = document.querySelector(selector);
                         if (!container) continue;
 
-                        const sortableItem = container.closest('[class*="SortableItem"]');
-                        if (!sortableItem) continue;
+                        // Try multiple search strategies
+                        let changeIcon = null;
 
-                        const changeIcon = sortableItem.querySelector('[aria-label="icon-switch"]') ||
-                                          sortableItem.querySelector('[title="Change Image"]') ||
-                                          container.querySelector('[aria-label="icon-switch"]') ||
-                                          container.querySelector('[title="Change Image"]');
+                        // Strategy 1: Look directly in container (for learned logos)
+                        changeIcon = container.querySelector('[aria-label="icon-switch"]') ||
+                                    container.querySelector('[title="Change Image"]');
 
                         if (changeIcon) {{
                             changeIcon.click();
-                            return {{ clicked: true }};
+                            return {{ clicked: true, method: 'direct-container' }};
+                        }}
+
+                        // Strategy 2: Look in closest SortableItem parent
+                        const sortableItem = container.closest('[class*="SortableItem"]');
+                        if (sortableItem) {{
+                            changeIcon = sortableItem.querySelector('[aria-label="icon-switch"]') ||
+                                        sortableItem.querySelector('[title="Change Image"]');
+
+                            if (changeIcon) {{
+                                changeIcon.click();
+                                return {{ clicked: true, method: 'sortable-item' }};
+                            }}
                         }}
                     }}
                     return {{ clicked: false, reason: 'Change Image icon not found' }};
