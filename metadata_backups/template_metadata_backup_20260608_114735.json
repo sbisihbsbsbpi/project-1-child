@@ -21,12 +21,12 @@
         "non_logo_table_count": 4,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:50:23.237607",
+        "enhanced_features_updated": "2026-06-08T03:58:45.895056",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:50:23.237597"
+          "validated_at": "2026-06-08T03:58:45.895049"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -47,17 +47,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 71,
-        "total_table_count": 20,
-        "non_logo_table_count": 20,
+        "sortable_item_count": 77,
+        "total_table_count": 18,
+        "non_logo_table_count": 17,
         "has_buttons": true,
         "dynamic_tag_count": 9,
-        "enhanced_features_updated": "2026-06-08T11:57:13.866996",
+        "enhanced_features_updated": "2026-06-07T20:04:19.823027",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:57:13.866979"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:04:19.823010"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -83,12 +83,12 @@
         "non_logo_table_count": 41,
         "has_buttons": true,
         "dynamic_tag_count": 14,
-        "enhanced_features_updated": "2026-06-08T11:51:03.282226",
+        "enhanced_features_updated": "2026-06-08T03:59:26.102467",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:03.282220"
+          "validated_at": "2026-06-08T03:59:26.102460"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -109,17 +109,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 59,
+        "sortable_item_count": 65,
         "total_table_count": 12,
-        "non_logo_table_count": 12,
+        "non_logo_table_count": 11,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:56:54.457774",
+        "enhanced_features_updated": "2026-06-07T20:04:41.266788",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:56:54.457764"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:04:41.266775"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -147,12 +147,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:48:48.963285",
+        "enhanced_features_updated": "2026-06-08T03:57:10.484525",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:48:48.963262"
+          "validated_at": "2026-06-08T03:57:10.484515"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -180,12 +180,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-08T11:50:04.326894",
+        "enhanced_features_updated": "2026-06-08T03:58:26.942578",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:50:04.326878"
+          "validated_at": "2026-06-08T03:58:26.942570"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -213,12 +213,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-08T11:49:45.486478",
+        "enhanced_features_updated": "2026-06-08T03:58:07.815721",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:49:45.486469"
+          "validated_at": "2026-06-08T03:58:07.815706"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -246,12 +246,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-08T11:49:07.825996",
+        "enhanced_features_updated": "2026-06-08T03:57:29.557643",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:49:07.825989"
+          "validated_at": "2026-06-08T03:57:29.557638"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -277,12 +277,12 @@
         "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-08T11:47:35.969877",
+        "enhanced_features_updated": "2026-06-08T03:56:03.261837",
         "api_cross_validation": {
           "api_has_logo": false,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:47:35.969860"
+          "validated_at": "2026-06-08T03:56:03.261821"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -304,17 +304,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 114,
-        "total_table_count": 29,
-        "non_logo_table_count": 29,
+        "sortable_item_count": 126,
+        "total_table_count": 28,
+        "non_logo_table_count": 26,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:56:35.430173",
+        "enhanced_features_updated": "2026-06-07T20:05:45.197037",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:56:35.430159"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:05:45.197023"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -342,12 +342,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 7,
-        "enhanced_features_updated": "2026-06-08T11:49:26.673155",
+        "enhanced_features_updated": "2026-06-08T03:57:48.748479",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:49:26.673147"
+          "validated_at": "2026-06-08T03:57:48.748444"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -373,12 +373,12 @@
         "non_logo_table_count": 37,
         "has_buttons": true,
         "dynamic_tag_count": 18,
-        "enhanced_features_updated": "2026-06-08T11:51:47.659773",
+        "enhanced_features_updated": "2026-06-08T04:00:09.440260",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:47.659755"
+          "validated_at": "2026-06-08T04:00:09.440252"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -399,17 +399,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 47,
+        "sortable_item_count": 53,
         "total_table_count": 15,
-        "non_logo_table_count": 15,
+        "non_logo_table_count": 14,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:55:27.872471",
+        "enhanced_features_updated": "2026-06-07T20:06:18.092372",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:55:27.872457"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:06:18.092360"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -430,17 +430,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 40,
-        "total_table_count": 9,
-        "non_logo_table_count": 9,
+        "sortable_item_count": 177,
+        "total_table_count": 45,
+        "non_logo_table_count": 44,
         "has_buttons": true,
-        "dynamic_tag_count": 12,
-        "enhanced_features_updated": "2026-06-08T11:52:08.979088",
+        "dynamic_tag_count": 29,
+        "enhanced_features_updated": "2026-06-07T20:06:29.121772",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:52:08.979059"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:06:29.121759"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -461,17 +461,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 144,
-        "total_table_count": 37,
-        "non_logo_table_count": 37,
+        "sortable_item_count": 153,
+        "total_table_count": 36,
+        "non_logo_table_count": 34,
         "has_buttons": true,
         "dynamic_tag_count": 20,
-        "enhanced_features_updated": "2026-06-08T11:57:25.012760",
+        "enhanced_features_updated": "2026-06-07T20:06:39.664236",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:57:25.012751"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:06:39.664205"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -492,17 +492,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 127,
-        "total_table_count": 33,
-        "non_logo_table_count": 33,
+        "sortable_item_count": 130,
+        "total_table_count": 32,
+        "non_logo_table_count": 30,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-08T11:56:05.832874",
+        "enhanced_features_updated": "2026-06-07T20:06:50.187467",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:56:05.832854"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:06:50.187453"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -523,17 +523,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 114,
-        "total_table_count": 27,
-        "non_logo_table_count": 27,
+        "sortable_item_count": 117,
+        "total_table_count": 26,
+        "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:56:16.488980",
+        "enhanced_features_updated": "2026-06-07T20:07:00.718793",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:56:16.488972"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:07:00.718779"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -559,12 +559,12 @@
         "non_logo_table_count": 29,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-08T11:51:16.015664",
+        "enhanced_features_updated": "2026-06-08T03:59:37.067360",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:16.015656"
+          "validated_at": "2026-06-08T03:59:37.067331"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -590,12 +590,12 @@
         "non_logo_table_count": 28,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:51:26.577270",
+        "enhanced_features_updated": "2026-06-08T03:59:48.179325",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:26.577262"
+          "validated_at": "2026-06-08T03:59:48.179316"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -621,12 +621,12 @@
         "non_logo_table_count": 27,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:51:37.169849",
+        "enhanced_features_updated": "2026-06-08T03:59:58.952522",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:37.169844"
+          "validated_at": "2026-06-08T03:59:58.952513"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -652,12 +652,12 @@
         "non_logo_table_count": 29,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-08T11:51:58.198098",
+        "enhanced_features_updated": "2026-06-08T03:18:34.647171",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:51:58.198088"
+          "validated_at": "2026-06-08T03:18:34.647164"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -678,17 +678,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 47,
+        "sortable_item_count": 50,
         "total_table_count": 12,
         "non_logo_table_count": 12,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:55:46.794274",
+        "enhanced_features_updated": "2026-06-07T20:07:53.407372",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:55:46.794267"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:07:53.407362"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -709,17 +709,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 58,
+        "sortable_item_count": 61,
         "total_table_count": 14,
-        "non_logo_table_count": 14,
+        "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-08T11:53:20.785100",
+        "enhanced_features_updated": "2026-06-07T20:08:03.953355",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:53:20.785060"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:03.953291"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -740,17 +740,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 62,
+        "sortable_item_count": 65,
         "total_table_count": 14,
-        "non_logo_table_count": 14,
+        "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-08T11:53:39.857736",
+        "enhanced_features_updated": "2026-06-07T20:08:14.350821",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:53:39.857715"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:14.350807"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -771,17 +771,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 115,
-        "total_table_count": 27,
-        "non_logo_table_count": 27,
+        "sortable_item_count": 118,
+        "total_table_count": 26,
+        "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 16,
-        "enhanced_features_updated": "2026-06-08T11:53:58.801784",
+        "enhanced_features_updated": "2026-06-07T20:08:25.024715",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:53:58.801743"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:25.024704"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -802,17 +802,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 130,
-        "total_table_count": 35,
-        "non_logo_table_count": 34,
+        "sortable_item_count": 133,
+        "total_table_count": 34,
+        "non_logo_table_count": 32,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-08T11:54:09.428162",
+        "enhanced_features_updated": "2026-06-07T20:08:35.669294",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:54:09.428155"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:35.669281"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -833,17 +833,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 111,
-        "total_table_count": 27,
-        "non_logo_table_count": 27,
+        "sortable_item_count": 114,
+        "total_table_count": 26,
+        "non_logo_table_count": 24,
         "has_buttons": true,
         "dynamic_tag_count": 15,
-        "enhanced_features_updated": "2026-06-08T11:54:20.140981",
+        "enhanced_features_updated": "2026-06-07T20:08:46.087771",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:54:20.140974"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:46.087749"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -864,17 +864,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 174,
-        "total_table_count": 44,
-        "non_logo_table_count": 44,
+        "sortable_item_count": 177,
+        "total_table_count": 43,
+        "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-08T11:54:30.739545",
+        "enhanced_features_updated": "2026-06-07T20:08:56.546614",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:54:30.739536"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:08:56.546595"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -895,17 +895,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 174,
-        "total_table_count": 44,
-        "non_logo_table_count": 44,
+        "sortable_item_count": 177,
+        "total_table_count": 43,
+        "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 29,
-        "enhanced_features_updated": "2026-06-08T11:54:49.839676",
+        "enhanced_features_updated": "2026-06-07T20:09:07.175735",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:54:49.839669"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:09:07.175669"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -926,17 +926,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 174,
-        "total_table_count": 44,
-        "non_logo_table_count": 44,
+        "sortable_item_count": 177,
+        "total_table_count": 43,
+        "non_logo_table_count": 42,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-08T11:55:08.889900",
+        "enhanced_features_updated": "2026-06-07T20:09:17.699744",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:55:08.889871"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:09:17.699703"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -957,17 +957,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 58,
+        "sortable_item_count": 61,
         "total_table_count": 14,
-        "non_logo_table_count": 14,
+        "non_logo_table_count": 13,
         "has_buttons": true,
         "dynamic_tag_count": 10,
-        "enhanced_features_updated": "2026-06-08T11:53:01.861469",
+        "enhanced_features_updated": "2026-06-07T20:09:28.113255",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:53:01.861455"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:09:28.113215"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -988,17 +988,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 40,
-        "total_table_count": 9,
-        "non_logo_table_count": 9,
+        "sortable_item_count": 184,
+        "total_table_count": 47,
+        "non_logo_table_count": 46,
         "has_buttons": true,
-        "dynamic_tag_count": 12,
-        "enhanced_features_updated": "2026-06-08T11:52:51.271829",
+        "dynamic_tag_count": 29,
+        "enhanced_features_updated": "2026-06-07T20:03:59.045461",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:52:51.271816"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:03:59.045447"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1019,17 +1019,17 @@
         "has_logos": true,
         "logo_count": 0,
         "logo_type": "resizable images",
-        "sortable_item_count": 131,
-        "total_table_count": 33,
+        "sortable_item_count": 127,
+        "total_table_count": 34,
         "non_logo_table_count": 33,
         "has_buttons": true,
-        "dynamic_tag_count": 22,
-        "enhanced_features_updated": "2026-06-08T11:52:19.675155",
+        "dynamic_tag_count": 19,
+        "enhanced_features_updated": "2026-06-07T20:09:38.530433",
         "api_cross_validation": {
-          "api_has_logo": false,
+          "api_has_logo": true,
           "detection_found_logo": false,
-          "false_negative": false,
-          "validated_at": "2026-06-08T11:52:19.675142"
+          "false_negative": true,
+          "validated_at": "2026-06-07T20:09:38.530416"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1057,12 +1057,12 @@
         "non_logo_table_count": 1,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:47:52.666225",
+        "enhanced_features_updated": "2026-06-08T03:56:13.916300",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:47:52.666215"
+          "validated_at": "2026-06-08T03:56:13.916292"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1090,12 +1090,12 @@
         "non_logo_table_count": 1,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:48:11.395409",
+        "enhanced_features_updated": "2026-06-08T03:56:32.935387",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:48:11.395402"
+          "validated_at": "2026-06-08T03:56:32.935380"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1123,12 +1123,12 @@
         "non_logo_table_count": 2,
         "has_buttons": true,
         "dynamic_tag_count": 6,
-        "enhanced_features_updated": "2026-06-08T11:48:30.193640",
+        "enhanced_features_updated": "2026-06-08T03:56:51.717918",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:48:30.193631"
+          "validated_at": "2026-06-08T03:56:51.717912"
         },
         "needs_manual_inspection": true,
         "phase_2_enhanced": true
@@ -1154,12 +1154,12 @@
         "non_logo_table_count": 35,
         "has_buttons": true,
         "dynamic_tag_count": 17,
-        "enhanced_features_updated": "2026-06-08T11:50:42.210568",
+        "enhanced_features_updated": "2026-06-08T03:59:04.738095",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:50:42.210518"
+          "validated_at": "2026-06-08T03:59:04.738083"
         },
         "phase_2_enhanced": true
       },
@@ -1184,12 +1184,12 @@
         "non_logo_table_count": 35,
         "has_buttons": true,
         "dynamic_tag_count": 19,
-        "enhanced_features_updated": "2026-06-08T11:50:52.680161",
+        "enhanced_features_updated": "2026-06-08T03:59:15.271821",
         "api_cross_validation": {
           "api_has_logo": true,
           "detection_found_logo": false,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:50:52.680154"
+          "validated_at": "2026-06-08T03:59:15.271805"
         },
         "phase_2_enhanced": true
       },
@@ -1209,17 +1209,17 @@
         "has_logos": false,
         "logo_count": 0,
         "logo_type": null,
-        "sortable_item_count": 174,
-        "total_table_count": 46,
-        "non_logo_table_count": 46,
+        "sortable_item_count": 177,
+        "total_table_count": 45,
+        "non_logo_table_count": 44,
         "has_buttons": true,
         "dynamic_tag_count": 28,
-        "enhanced_features_updated": "2026-06-08T11:52:32.336553",
+        "enhanced_features_updated": "2026-06-07T20:11:29.300991",
         "api_cross_validation": {
-          "api_has_logo": true,
-          "detection_found_logo": false,
+          "api_has_logo": false,
+          "detection_found_logo": true,
           "false_negative": false,
-          "validated_at": "2026-06-08T11:52:32.336545"
+          "validated_at": "2026-06-07T20:11:29.300984"
         },
         "phase_2_enhanced": true
       },
