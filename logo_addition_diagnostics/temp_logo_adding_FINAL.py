@@ -800,16 +800,26 @@ class TempLogoAdditionFinalService:
                         # Validate each detected logo
                         for idx, logo in enumerate(detected_logos, 1):
                             logo_filename = logo.get('imageFilename', '')
+                            logger.debug(f"   Validating Logo {idx}: filename='{logo_filename}'")
+
                             if logo_filename:
+                                # FIX (June 8): Extra check - warn if query params are still present
+                                if '?' in logo_filename:
+                                    logger.warning(f"   ⚠️  Logo {idx} filename still has query params: {logo_filename}")
+                                    clean_filename = logo_filename.split('?')[0]
+                                    logger.info(f"   Cleaning to: {clean_filename}")
+                                    logo_filename = clean_filename
+
                                 if logo_filename not in available_filenames:
                                     logger.warning(f"   ⚠️  Logo {idx} '{logo_filename}' NOT in media library!")
+                                    logger.debug(f"       Available logos: {available_filenames[:5]}{'...' if len(available_filenames) > 5 else ''}")
                                     invalid_logos.append({
                                         'index': idx,
                                         'filename': logo_filename,
                                         'reason': 'not_in_media_library'
                                     })
                                 else:
-                                    logger.debug(f"   ✅ Logo {idx} '{logo_filename}' is valid")
+                                    logger.info(f"   ✅ Logo {idx} '{logo_filename}' is valid (exists in media library)")
                             else:
                                 logger.debug(f"   ⚠️  Logo {idx} has no filename to validate")
 
@@ -1876,7 +1886,8 @@ class TempLogoAdditionFinalService:
                                     height: Math.round(rect.height)
                                 },
                                 imageSrc: img ? img.src : null,
-                                imageFilename: img && img.src ? img.src.split('/').pop() : null,
+                                // FIX (June 8): Strip query parameters from filename (e.g., ?X-Amz-Algorithm=...)
+                                imageFilename: img && img.src ? img.src.split('/').pop().split('?')[0] : null,
                                 imageAlt: imgAlt
                             });
                         } else {
