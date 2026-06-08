@@ -4211,67 +4211,70 @@ class TempLogoAdditionFinalService:
                 logger.debug(f"   Selecting by index: {fallback_index}")
 
             # Select logo from popup
-            selection_result = await page.evaluate(f"""
-                (targetFilename, fallbackIndex) => {{
+            selection_result = await page.evaluate("""
+                (args) => {
+                    const targetFilename = args.targetFilename;
+                    const fallbackIndex = args.fallbackIndex;
+
                     const popup = document.querySelector('[role="dialog"]') || document.querySelector('.ant-modal');
-                    if (!popup) return {{ success: false, error: 'Popup not found' }};
+                    if (!popup) return { success: false, error: 'Popup not found' };
 
                     const tiles = Array.from(popup.querySelectorAll('[class*="mediaTile"]'));
-                    if (tiles.length === 0) return {{ success: false, error: 'No media tiles found' }};
+                    if (tiles.length === 0) return { success: false, error: 'No media tiles found' };
 
                     let selectedTile = null;
                     let selectedIndex = -1;
                     let method = 'index';
 
                     // Try to find by filename if specified
-                    if (targetFilename) {{
-                        for (let i = 0; i < tiles.length; i++) {{
+                    if (targetFilename) {
+                        for (let i = 0; i < tiles.length; i++) {
                             const img = tiles[i].querySelector('img');
-                            if (img && img.src) {{
+                            if (img && img.src) {
                                 const filename = img.src.split('/').pop();
-                                if (filename === targetFilename) {{
+                                if (filename === targetFilename || filename.startsWith(targetFilename.split('?')[0])) {
                                     selectedTile = tiles[i];
                                     selectedIndex = i;
                                     method = 'filename';
                                     break;
-                                }}
-                            }}
-                        }}
-                    }}
+                                }
+                            }
+                        }
+                    }
 
                     // Fallback to index selection
-                    if (!selectedTile && fallbackIndex < tiles.length) {{
+                    if (!selectedTile && fallbackIndex < tiles.length) {
                         selectedTile = tiles[fallbackIndex];
                         selectedIndex = fallbackIndex;
                         method = 'index';
-                    }}
+                    }
 
-                    if (!selectedTile) {{
-                        return {{ success: false, error: 'No suitable tile found' }};
-                    }}
+                    if (!selectedTile) {
+                        return { success: false, error: 'No suitable tile found' };
+                    }
 
                     // Click the tile
                     const topLayer = selectedTile.querySelector('[role="button"]') ||
                                     selectedTile.querySelector('[class*="topLayer"]');
 
-                    if (topLayer) {{
+                    if (topLayer) {
                         topLayer.click();
 
                         // Get the selected filename
                         const img = selectedTile.querySelector('img');
                         const filename = img && img.src ? img.src.split('/').pop() : '';
 
-                        return {{
+                        return {
                             success: true,
                             selected_filename: filename,
                             selected_index: selectedIndex,
                             method: method
-                        }};
-                    }}
+                        };
+                    }
 
-                    return {{ success: false, error: 'Could not click tile' }};
-                }}
-            """, target_filename, fallback_index)
+                    return { success: false, error: 'Could not click tile' };
+                }
+            """, {'targetFilename': target_filename, 'fallbackIndex': fallback_index})
 
             if selection_result['success']:
                 logger.debug(f"   ✅ Selected '{selection_result['selected_filename']}' (method: {selection_result['method']}, index: {selection_result['selected_index']})")
