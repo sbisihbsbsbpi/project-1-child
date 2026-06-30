@@ -53,7 +53,19 @@ except (ImportError, FileNotFoundError, Exception) as e:
         print("⚠️  Camoufox installed but has dependency issues (browserforge data files missing)")
         print("   Skipping Camoufox - Rebrowser provides excellent stealth already!")
 
-from playwright_stealth import stealth_async
+"""playwright-stealth compatibility across versions"""
+try:
+    # v1.x exports stealth_async directly
+    from playwright_stealth import stealth_async  # type: ignore
+except Exception:
+    try:
+        # v2.x provides a Stealth class with apply_stealth_async
+        from playwright_stealth.stealth import Stealth  # type: ignore
+
+        async def stealth_async(page):  # type: ignore
+            await Stealth().apply_stealth_async(page)
+    except Exception:  # no stealth available
+        stealth_async = None  # type: ignore
 import os
 import asyncio
 import random
@@ -2662,8 +2674,11 @@ class ScreenshotService:
         # Apply stealth mode using playwright-stealth library + 2024-2025 enhancements
         if use_stealth and not use_real_browser:
             logger.debug("   🥷 Applying playwright-stealth library...")
-            await stealth_async(page)
-            logger.info("   ✅ Stealth mode activated!")
+            if stealth_async:
+                await stealth_async(page)
+                logger.info("   ✅ Stealth mode activated!")
+            else:
+                logger.warning("   ⚠️ playwright-stealth not available; continuing without stealth")
 
             # ========================================
             # 🎯 9 STEALTH SOLUTIONS - Applied Here
@@ -3627,8 +3642,11 @@ class ScreenshotService:
         if use_stealth and not use_real_browser:
             if not self.stealth_injected or not self.ENABLE_BROWSER_REUSE:
                 logger.debug("   🥷 Applying playwright-stealth library...")
-                await stealth_async(page)
-                logger.info("   ✅ Stealth mode activated!")
+                if stealth_async:
+                    await stealth_async(page)
+                    logger.info("   ✅ Stealth mode activated!")
+                else:
+                    logger.warning("   ⚠️ playwright-stealth not available; continuing without stealth")
 
                 # ========================================
                 # 🎯 9 STEALTH SOLUTIONS - Applied Here

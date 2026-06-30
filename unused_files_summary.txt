@@ -1,0 +1,71 @@
+Root: /Users/tlreddy/Documents/project-1-child
+Total files scanned: 5113
+Unused candidates: 787
+Top extensions (by count):
+  <none>    count=   417  size=85,645,846
+  .json     count=   132  size=6,170,927
+  .png      count=   113  size=27,373,477
+  .typed    count=    85  size=1,317
+  .py       count=    13  size=143,156
+  .xlsx     count=    11  size=65,609
+  .csv      count=     7  size=10,073
+  .txt      count=     2  size=239,123
+  .xml      count=     1  size=1,782
+  .example  count=     1  size=759
+  .yml      count=     1  size=3,324
+  .ts       count=     1  size=3,407
+  .html     count=     1  size=0
+  .working  count=     1  size=115,957
+  .svg      count=     1  size=2,665
+
+Largest 50 candidates:
+  82,620,416  .gitnexus/kuzu
+     442,462  backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_004.png
+     438,993  backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_003.png
+     427,277  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_002.png
+     409,608  backend/screenshots/Accounting_Glaccountmapping_List?module=service_002.png
+     402,304  backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_005.png
+     401,816  backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_002.png
+     400,919  backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_004.png
+     398,553  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_004.png
+     396,057  backend/screenshots/Accounting_Glaccountmapping_List?module=service_003.png
+     395,863  backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_001.png
+     393,729  backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_003.png
+     383,977  backend/screenshots/Accounting_Glaccountmapping_ListModule=fniProduct_001.png
+     382,336  backend/screenshots/Accounting_Glaccountmapping_ListModule=fniProduct_002.png
+     374,777  backend/screenshots/Accounting_Glaccountmapping_List?module=service_001.png
+     373,225  backend/screenshots/Parts:_Parts:Settings_PdfConfiguration.png
+     373,077  backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_002.png
+     372,953  backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_001.png
+     370,607  backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_001.png
+     369,829  backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_002.png
+     367,756  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_001.png
+     366,396  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_002.png
+     353,969  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_003.png
+     353,600  backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_002.png
+     352,316  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_005.png
+     341,009  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_003.png
+     340,296  backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_003.png
+     339,143  backend/screenshots/Accounting_Glaccountmapping_List?module=receivables_001.png
+     339,121  backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_003.png
+     338,855  backend/screenshots/Accounting_Glaccountmapping_ListModule=receivables_001.png
+     337,898  backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_006.png
+     337,716  backend/screenshots/Accounting_Glaccountmapping_List?module=receivables_002.png
+     337,320  backend/screenshots/Accounting_Glaccountmapping_ListModule=receivables_002.png
+     326,082  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_001.png
+     325,291  backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_001.png
+     318,354  backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_003.png
+     316,680  backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_002.png
+     316,614  backend/screenshots/Accounting_Glaccountmapping_List?module=payables_002.png
+     316,171  backend/screenshots/Accounting_Glaccountmapping_List?module=payables_003.png
+     311,540  backend/screenshots/Accounting_Glaccountmapping_List?module=payables_001.png
+     310,325  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_004.png
+     302,391  backend/screenshots/Parts:_AdjustmentReason.png
+     301,812  backend/screenshots/Accounting_Glaccountmapping_ListModule=parts:NAccessories_002.png
+     279,023  backend/screenshots/Accounting_Glaccountmapping_ListModule=parts:NAccessories_001.png
+     265,931  backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsVarOps_001.png
+     264,715  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsVarOps_001.png
+     264,384  backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsVarOps_002.png
+     264,123  backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsVarOps_002.png
+     263,608  backend/screenshots/Accounting_Glaccountmapping_ListModule=newVehicle_002.png
+     261,461  backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_001.png

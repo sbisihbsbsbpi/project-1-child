@@ -124,6 +124,36 @@ class BrowserPathDetector:
             return None
 
     @classmethod
+    def get_safari_path(cls) -> Optional[Path]:
+        """Get Safari executable path for macOS.
+
+        Safari is only available on macOS. Returns None on other platforms.
+
+        Returns:
+            Path to Safari executable if found, None otherwise
+
+        Platform-specific paths:
+            - macOS: /Applications/Safari.app/Contents/MacOS/Safari
+        """
+        os_type = PlatformDetector.detect_os()
+
+        if os_type == OperatingSystem.MACOS:
+            # Standard Safari
+            safari_path = Path("/Applications/Safari.app/Contents/MacOS/Safari")
+            if safari_path.exists():
+                return safari_path
+
+            # Safari Technology Preview (for development/testing)
+            stp_path = Path("/Applications/Safari Technology Preview.app/Contents/MacOS/Safari Technology Preview")
+            if stp_path.exists():
+                return stp_path
+
+            return None
+        else:
+            # Safari not available on Windows/Linux
+            return None
+
+    @classmethod
     def get_browser_user_data_dir(cls, browser: str = "chrome") -> Path:
         """Get browser user data directory for current OS.
 

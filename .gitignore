@@ -68,6 +68,12 @@ frontend/node_modules/
 frontend/dist/
 frontend/.next/
 
+# Tauri
+frontend/src-tauri/target/
+frontend/src-tauri/gen/
+frontend/src-tauri/binaries/
+frontend/src-tauri/resources/
+
 # Temp files
 *.tmp
 *.temp

@@ -170,6 +170,282 @@ async def generic_screenshot_error_handler(request: Request, exc: ScreenshotTool
     )
 
 
+# ============================================================================
+# Multi‑browser launcher: user‑selectable Chrome (CDP) or Safari (WebDriver) port
+# ============================================================================
+from pydantic import BaseModel as _BaseModelForLauncher  # alias to avoid confusion
+from typing import Optional as _OptionalForLauncher, Dict as _DictForLauncher
+
+
+class LaunchBrowserRequest(_BaseModelForLauncher):
+    browser: str = "chrome"  # "chrome" or "safari"
+    port: int = 9223
+    use_temp_profile: bool = True
+    copy_cookies: bool = False  # placeholder
+
+
+def _is_port_listening(port: int) -> bool:
+    import socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        return s.connect_ex(("127.0.0.1", port)) == 0
+    finally:
+        s.close()
+
+
+def _detect_chrome_path() -> _OptionalForLauncher[Path]:
+    import platform
+    os_name = platform.system().lower()
+    candidates = []
+    if os_name == "darwin":
+        candidates = [Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")]
+    elif os_name == "windows":
+        candidates = [
+            Path(r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"),
+            Path(r"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"),
+            Path.home() / "AppData" / "Local" / "Google" / "Chrome" / "Application" / "chrome.exe",
+        ]
+    else:  # linux
+        candidates = [
+            Path("/usr/bin/google-chrome"),
+            Path("/usr/bin/google-chrome-stable"),
+            Path("/usr/bin/chromium"),
+            Path("/usr/bin/chromium-browser"),
+        ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return None
+
+
+def _get_chrome_user_data_dir() -> Path:
+    import platform
+    home = Path.home()
+    os_name = platform.system().lower()
+    if os_name == "darwin":
+        return home / "Library" / "Application Support" / "Google" / "Chrome"
+    elif os_name == "windows":
+        return home / "AppData" / "Local" / "Google" / "Chrome" / "User Data"
+    else:
+        return home / ".config" / "google-chrome"
+
+
+# Track launched sessions (pid + optional temp profile path) by port
+ACTIVE_BROWSER_SESSIONS: _DictForLauncher[int, dict] = {}
+LAST_CDP_PORT: int = 9223
+
+
+@app.get("/api/cdp-status/{port}")
+async def get_cdp_status_port(port: int):
+    try:
+        is_up = _is_port_listening(port)
+        return {"port": port, "is_listening": is_up}
+    except Exception as e:
+        logger.error(f"❌ CDP status check failed for {port}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/launch-browser-cdp")
+async def launch_browser_cdp(req: LaunchBrowserRequest):
+    """Launch Chrome with CDP or start Safari automation on a chosen port.
+
+    Notes:
+    - Chrome: uses --remote-debugging-port and optional temporary profile
+    - Safari: starts safaridriver on the given port (WebDriver, not CDP)
+    """
+    try:
+        import platform
+        import time
+        from shutil import which
+
+        browser = req.browser.lower().strip()
+        port = int(req.port)
+        if port < 1024 or port > 65535:
+            raise HTTPException(status_code=400, detail="Port must be between 1024 and 65535")
+
+        # If already listening, return early
+        if _is_port_listening(port):
+            return {"status": "already_running", "browser": browser, "port": port}
+
+        if browser == "chrome":
+            chrome_path = _detect_chrome_path()
+            if not chrome_path:
+                raise HTTPException(status_code=404, detail="Chrome not found on this system")
+
+            user_data_dir = None
+            if req.use_temp_profile:
+                import tempfile
+                user_data_dir = tempfile.mkdtemp(prefix=f"chrome_cdp_{port}_")
+
+                # Optionally copy cookies/local storage from main profile
+                if req.copy_cookies:
+                    try:
+                        import shutil
+                        src_root = _get_chrome_user_data_dir()
+                        # Prefer Default profile; fallback to Profile 1
+                        src_default = src_root / "Default"
+                        if not src_default.exists():
+                            # Use Profile 1 if Default not present
+                            src_default = src_root / "Profile 1"
+
+                        # Copy Cookies DB
+                        cookies_src = src_default / "Cookies"
+                        if cookies_src.exists():
+                            dst_default = Path(user_data_dir) / "Default"
+                            dst_default.mkdir(parents=True, exist_ok=True)
+                            cookies_dst = dst_default / "Cookies"
+                            shutil.copy2(cookies_src, cookies_dst)
+                            logger.info(f"🍪 Copied Cookies DB to temp profile: {cookies_dst}")
+                        else:
+                            logger.info("🍪 No Cookies DB found to copy from main profile")
+
+                        # Copy Local Storage (LevelDB)
+                        ls_src = src_default / "Local Storage"
+                        if ls_src.exists():
+                            ls_dst = (Path(user_data_dir) / "Default" / "Local Storage")
+                            # Python 3.8+: dirs_exist_ok supported
+                            shutil.copytree(ls_src, ls_dst, dirs_exist_ok=True)
+                            logger.info(f"💾 Copied Local Storage to temp profile: {ls_dst}")
+                        else:
+                            logger.info("💾 No Local Storage folder found to copy")
+                    except Exception as e:
+                        logger.warning(f"⚠️ Failed to copy cookies/local storage: {e}")
+
+            cmd = [
+                str(chrome_path),
+                "--remote-debugging-address=127.0.0.1",
+                f"--remote-debugging-port={port}",
+            ]
+            if user_data_dir:
+                cmd.append(f"--user-data-dir={user_data_dir}")
+            cmd += ["--no-first-run", "--no-default-browser-check"]
+
+            logger.info(f"🚀 Launching Chrome with CDP on {port}: {' '.join(cmd[:3])} ...")
+            proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+            # Store session metadata
+            ACTIVE_BROWSER_SESSIONS[port] = {"pid": proc.pid, "profile": user_data_dir, "browser": "chrome"}
+
+            for _ in range(10):  # ~10s
+                time.sleep(1)
+                if _is_port_listening(port):
+                    return {"status": "launched", "browser": browser, "port": port, "profile": user_data_dir}
+            return {"status": "launching", "browser": browser, "port": port, "profile": user_data_dir}
+
+        elif browser == "safari":
+            if platform.system().lower() != "darwin":
+                raise HTTPException(status_code=400, detail="Safari automation is only supported on macOS")
+
+            sd_path = which("safaridriver")
+            if not sd_path:
+                raise HTTPException(status_code=404, detail="safaridriver not found. Enable 'Allow Remote Automation' in Safari Develop menu and install Xcode tools.")
+
+            logger.info(f"🚀 Starting safaridriver on port {port} ...")
+            proc = subprocess.Popen([sd_path, "-p", str(port)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+            ACTIVE_BROWSER_SESSIONS[port] = {"pid": proc.pid, "profile": None, "browser": "safari"}
+
+            for _ in range(10):
+                time.sleep(1)
+                if _is_port_listening(port):
+                    return {"status": "launched", "browser": browser, "port": port}
+            return {"status": "launching", "browser": browser, "port": port}
+
+        else:
+            raise HTTPException(status_code=400, detail=f"Unsupported browser: {browser}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Failed to launch {req.browser} on {req.port}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/stop-browser-cdp")
+async def stop_browser_cdp(port: int):
+    """Stop a launched browser session on the given port and cleanup temp profile (if any)."""
+    import psutil
+    try:
+        meta = ACTIVE_BROWSER_SESSIONS.get(port)
+        if not meta:
+            # Fallback: try to discover any process listening on port and kill
+            killed = False
+            for p in psutil.process_iter(attrs=["pid", "name"]):
+                try:
+                    for c in p.connections(kind='inet'):
+                        if c.laddr and c.laddr.port == port and c.status == psutil.CONN_LISTEN:
+                            p.terminate()
+                            try:
+                                p.wait(timeout=3)
+                            except psutil.TimeoutExpired:
+                                p.kill()
+                            killed = True
+                            break
+                except Exception:
+                    pass
+            return {"status": "stopped" if killed else "not_found", "port": port}
+
+        # Kill recorded pid
+        pid = meta.get("pid")
+        profile = meta.get("profile")
+        try:
+            p = psutil.Process(pid)
+            p.terminate()
+            try:
+                p.wait(timeout=3)
+            except psutil.TimeoutExpired:
+                p.kill()
+        except Exception:
+            pass
+
+        # Cleanup profile directory
+        if profile:
+            try:
+                shutil.rmtree(profile, ignore_errors=True)
+            except Exception:
+                pass
+
+        ACTIVE_BROWSER_SESSIONS.pop(port, None)
+        return {"status": "stopped", "port": port}
+    except Exception as e:
+        logger.error(f"❌ Failed to stop browser on {port}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/browser-sessions")
+async def list_browser_sessions():
+    """List known launched browser sessions."""
+    return {
+        "sessions": [
+            {"port": port, **{k: v for k, v in meta.items() if k in ("browser", "profile", "pid")}}
+            for port, meta in ACTIVE_BROWSER_SESSIONS.items()
+        ]
+    }
+
+
+class CookieImportRequest(_BaseModelForLauncher):
+    cookies: list
+
+
+@app.post("/api/cdp/import-cookies")
+async def import_cookies_to_cdp(req: CookieImportRequest):
+    """Import cookies into the current CDP browser context (active tab).
+
+    Expects a list of Playwright-compatible cookie dicts:
+    [{name, value, domain, path, expires?, httpOnly?, secure?, sameSite?}]
+    """
+    try:
+        if screenshot_service.cdp_browser is None:
+            raise HTTPException(status_code=400, detail="Not connected to a CDP browser. Connect first.")
+        # Get active tab (ensures a page + context exists)
+        page = await screenshot_service._get_active_tab()
+        context = page.context
+        await context.add_cookies(req.cookies)
+        return {"status": "ok", "count": len(req.cookies)}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Failed to import cookies: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Services
 screenshot_service = ScreenshotService()
 document_service = DocumentService()
@@ -1944,24 +2220,27 @@ async def get_cdp_status():
 
 
 @app.post("/api/connect-cdp")
-async def connect_to_cdp():
-    """Connect screenshot service to CDP browser on port 9223.
+async def connect_to_cdp(port: int = 9223):
+    """Connect screenshot service to CDP browser on the specified port (default 9223).
 
     This establishes the actual browser connection that Logo Addition needs.
     """
     try:
         logger.info("🔌 Connecting screenshot service to CDP browser...")
 
-        # Connect to CDP browser
-        cdp_url = "http://localhost:9223"
+        # Connect to CDP browser on chosen port
+        cdp_url = f"http://localhost:{port}"
         browser = await screenshot_service._connect_to_chrome_cdp(cdp_url=cdp_url)
+        # Remember last successful port
+        global LAST_CDP_PORT
+        LAST_CDP_PORT = port
 
         if browser:
             logger.info("✅ Screenshot service connected to CDP browser!")
             return {
                 "status": "connected",
-                "message": "Successfully connected to CDP browser on port 9223",
-                "port": 9223
+                "message": f"Successfully connected to CDP browser on port {port}",
+                "port": port
             }
         else:
             logger.error("❌ Failed to connect to CDP browser")
@@ -3233,7 +3512,7 @@ async def start_logo_addition(request: TemplateAdditionRequest):
     if not browser:
         logger.warning("⚠️ Browser not connected - attempting auto-reconnect to CDP...")
         try:
-            browser = await screenshot_service._connect_to_chrome_cdp(cdp_url="http://localhost:9223")
+            browser = await screenshot_service._connect_to_chrome_cdp(cdp_url=f"http://localhost:{LAST_CDP_PORT}")
             if browser:
                 logger.info("✅ Auto-reconnect successful!")
             else:

@@ -1,0 +1,4005 @@
+{
+  "root": "/Users/tlreddy/Documents/project-1-child",
+  "total_files": 5113,
+  "referenced_basenames": 35513,
+  "unused_candidates": 787,
+  "summary_by_ext": {
+    ".xlsx": {
+      "count": 11,
+      "bytes": 65609
+    },
+    ".txt": {
+      "count": 2,
+      "bytes": 239123
+    },
+    "<none>": {
+      "count": 417,
+      "bytes": 85645846
+    },
+    ".csv": {
+      "count": 7,
+      "bytes": 10073
+    },
+    ".py": {
+      "count": 13,
+      "bytes": 143156
+    },
+    ".json": {
+      "count": 132,
+      "bytes": 6170927
+    },
+    ".typed": {
+      "count": 85,
+      "bytes": 1317
+    },
+    ".xml": {
+      "count": 1,
+      "bytes": 1782
+    },
+    ".example": {
+      "count": 1,
+      "bytes": 759
+    },
+    ".yml": {
+      "count": 1,
+      "bytes": 3324
+    },
+    ".ts": {
+      "count": 1,
+      "bytes": 3407
+    },
+    ".png": {
+      "count": 113,
+      "bytes": 27373477
+    },
+    ".html": {
+      "count": 1,
+      "bytes": 0
+    },
+    ".working": {
+      "count": 1,
+      "bytes": 115957
+    },
+    ".svg": {
+      "count": 1,
+      "bytes": 2665
+    }
+  },
+  "unused": [
+    {
+      "path": ".gitnexus/kuzu",
+      "size": 82620416,
+      "ext": ""
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_004.png",
+      "size": 442462,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_003.png",
+      "size": 438993,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_002.png",
+      "size": 427277,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=service_002.png",
+      "size": 409608,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_005.png",
+      "size": 402304,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_002.png",
+      "size": 401816,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_004.png",
+      "size": 400919,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_004.png",
+      "size": 398553,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=service_003.png",
+      "size": 396057,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories_001.png",
+      "size": 395863,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_003.png",
+      "size": 393729,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=fniProduct_001.png",
+      "size": 383977,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=fniProduct_002.png",
+      "size": 382336,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=service_001.png",
+      "size": 374777,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_Parts:Settings_PdfConfiguration.png",
+      "size": 373225,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_002.png",
+      "size": 373077,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_001.png",
+      "size": 372953,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_001.png",
+      "size": 370607,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct_002.png",
+      "size": 369829,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_001.png",
+      "size": 367756,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_002.png",
+      "size": 366396,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_003.png",
+      "size": 353969,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_002.png",
+      "size": 353600,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_005.png",
+      "size": 352316,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_003.png",
+      "size": 341009,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_003.png",
+      "size": 340296,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=receivables_001.png",
+      "size": 339143,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_003.png",
+      "size": 339121,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=receivables_001.png",
+      "size": 338855,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle_006.png",
+      "size": 337898,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=receivables_002.png",
+      "size": 337716,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=receivables_002.png",
+      "size": 337320,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_001.png",
+      "size": 326082,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps_001.png",
+      "size": 325291,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle_003.png",
+      "size": 318354,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_002.png",
+      "size": 316680,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=payables_002.png",
+      "size": 316614,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=payables_003.png",
+      "size": 316171,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=payables_001.png",
+      "size": 311540,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps_004.png",
+      "size": 310325,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_AdjustmentReason.png",
+      "size": 302391,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=parts:NAccessories_002.png",
+      "size": 301812,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=parts:NAccessories_001.png",
+      "size": 279023,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsVarOps_001.png",
+      "size": 265931,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsVarOps_001.png",
+      "size": 264715,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsVarOps_002.png",
+      "size": 264384,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsVarOps_002.png",
+      "size": 264123,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=newVehicle_002.png",
+      "size": 263608,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=payables_001.png",
+      "size": 261461,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=newVehicle_003.png",
+      "size": 261347,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=usedVehicle.png",
+      "size": 260102,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=newVehicle_001.png",
+      "size": 253789,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceCodes_List_001.png",
+      "size": 244670,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceCodes_List_002.png",
+      "size": 243342,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=foOthers_001.png",
+      "size": 237949,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=foOthers_001.png",
+      "size": 237845,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=foOthers_002.png",
+      "size": 237596,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=foOthers_002.png",
+      "size": 236439,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceCodes_List.png",
+      "size": 221132,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceBreaks_001.png",
+      "size": 211330,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceBreaks_002.png",
+      "size": 210184,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CoreManagementSetup_ReasonsSetup_001.png",
+      "size": 202511,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CoreManagementSetup_ReasonsSetup_002.png",
+      "size": 200249,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CoreManagementSetup_ReasonsSetup.png",
+      "size": 196111,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsFixedOps.png",
+      "size": 190980,
+      "ext": ".png"
+    },
+    {
+      "path": "another template.txt",
+      "size": 189122,
+      "ext": ".txt"
+    },
+    {
+      "path": "backend/screenshots/Parts:_VoidReasons_001.png",
+      "size": 185076,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_VoidReasons_002.png",
+      "size": 183499,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_VoidReasons.png",
+      "size": 181106,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=service_001.png",
+      "size": 179818,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=service_002.png",
+      "size": 178301,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=service.png",
+      "size": 172024,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_ReturnReasons_001.png",
+      "size": 170560,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_ReturnReasons_002.png",
+      "size": 169216,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_ReturnReasons.png",
+      "size": 164566,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriceBreaks.png",
+      "size": 162995,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=usedVehicle_001.png",
+      "size": 158567,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=receivables.png",
+      "size": 158405,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=usedVehicle_002.png",
+      "size": 156628,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_DefaultPartPricing_002.png",
+      "size": 152345,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_DefaultPartPricing_001.png",
+      "size": 152329,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=tekionPay_001.png",
+      "size": 150175,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=tekionPay_001.png",
+      "size": 150009,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=tekionPay_002.png",
+      "size": 149308,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=foOthers.png",
+      "size": 149078,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=tekionPay_002.png",
+      "size": 148038,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=fniProduct.png",
+      "size": 147812,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_AdjustmentReason_001.png",
+      "size": 145893,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_AdjustmentReason_002.png",
+      "size": 143934,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=paymentMethodsVarOps.png",
+      "size": 141023,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_Manufacturer_001.png",
+      "size": 137316,
+      "ext": ".png"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/python",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/python3",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/\ud835\udf0bthon",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/python",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/python3",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/\ud835\udf0bthon",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/python",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/python3",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/\ud835\udf0bthon",
+      "size": 135696,
+      "ext": ""
+    },
+    {
+      "path": "backend/screenshots/Parts:_Manufacturer_002.png",
+      "size": 135318,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_WarehouseManagement_001.png",
+      "size": 131730,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_WarehouseManagement_002.png",
+      "size": 130009,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_ListModule=tekionPay.png",
+      "size": 129635,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_Manufacturer.png",
+      "size": 128869,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriorityCodes_001.png",
+      "size": 126180,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriorityCodes_002.png",
+      "size": 124310,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=partsNAccessories.png",
+      "size": 121414,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_WarehouseManagement.png",
+      "size": 118903,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=service.png",
+      "size": 118476,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=foOthers.png",
+      "size": 117698,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=receivables.png",
+      "size": 117295,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=usedVehicle.png",
+      "size": 117127,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=newVehicle.png",
+      "size": 116942,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=payables.png",
+      "size": 116736,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=fniProduct.png",
+      "size": 116464,
+      "ext": ".png"
+    },
+    {
+      "path": "archive/backup-files/frontend/styles.css.working",
+      "size": 115957,
+      "ext": ".working"
+    },
+    {
+      "path": "backend/screenshots/Parts:_PriorityCodes.png",
+      "size": 115800,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsVarOps.png",
+      "size": 111454,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=paymentMethodsFixedOps.png",
+      "size": 110468,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Accounting_Glaccountmapping_List?module=tekionPay.png",
+      "size": 108257,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CustomizedPrice_001.png",
+      "size": 107513,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CustomizedPrice_002.png",
+      "size": 105537,
+      "ext": ".png"
+    },
+    {
+      "path": "backend/screenshots/Parts:_CustomizedPrice.png",
+      "size": 91483,
+      "ext": ".png"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/METADATA",
+      "size": 90587,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/METADATA",
+      "size": 90587,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/METADATA",
+      "size": 90587,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/licenses/LICENSE",
+      "size": 68061,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/licenses/LICENSE",
+      "size": 68061,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/RECORD",
+      "size": 67454,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/RECORD",
+      "size": 67454,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/RECORD",
+      "size": 67454,
+      "ext": ""
+    },
+    {
+      "path": "scroll template.txt",
+      "size": 50001,
+      "ext": ".txt"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115736.json",
+      "size": 47121,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115725.json",
+      "size": 47120,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115713.json",
+      "size": 47119,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115654.json",
+      "size": 47118,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115635.json",
+      "size": 47117,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115616.json",
+      "size": 47116,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115605.json",
+      "size": 47115,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115546.json",
+      "size": 47114,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115527.json",
+      "size": 47113,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115508.json",
+      "size": 47112,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115449.json",
+      "size": 47111,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115430.json",
+      "size": 47110,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115420.json",
+      "size": 47109,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115409.json",
+      "size": 47108,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115358.json",
+      "size": 47107,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035603.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035613.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035632.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035651.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035710.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035729.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035748.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035807.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035826.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035845.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035904.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035915.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035926.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035937.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035948.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_035958.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_040009.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114735.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114752.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114811.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114830.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114848.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114907.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114926.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_114945.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115004.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115023.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115042.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115052.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115103.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115116.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115126.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115137.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115147.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115158.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115208.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115232.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115251.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115339.json",
+      "size": 47106,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031416.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031427.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031446.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031505.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031524.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031543.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031602.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031621.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031640.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031659.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031718.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031728.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031739.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031750.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031800.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031812.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031824.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_031834.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115320.json",
+      "size": 47105,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024802.json",
+      "size": 47104,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115219.json",
+      "size": 47104,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_115301.json",
+      "size": 47104,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024752.json",
+      "size": 47103,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024741.json",
+      "size": 47102,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024731.json",
+      "size": 47101,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024709.json",
+      "size": 47099,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024720.json",
+      "size": 47099,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024659.json",
+      "size": 47098,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024640.json",
+      "size": 47097,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024621.json",
+      "size": 47096,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024602.json",
+      "size": 47095,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024543.json",
+      "size": 47094,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024357.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024408.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024427.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024446.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024505.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260608_024524.json",
+      "size": 47093,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200359.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200409.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200419.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200430.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200441.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200451.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200502.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200512.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200523.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200534.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200545.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200556.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200607.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200618.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200629.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200639.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200650.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200700.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200711.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200721.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200732.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200743.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200753.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200803.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200814.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200825.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200835.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200846.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200856.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200907.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200917.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200928.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200938.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200948.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_200959.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_201009.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_201020.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_201036.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "metadata_backups/template_metadata_backup_20260607_201129.json",
+      "size": 47087,
+      "ext": ".json"
+    },
+    {
+      "path": "backend/app/services/capture_orchestrator.py",
+      "size": 31618,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/METADATA",
+      "size": 30710,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/METADATA",
+      "size": 30710,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/METADATA",
+      "size": 30710,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/METADATA",
+      "size": 18802,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi/_compat/v2.py",
+      "size": 16951,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi/_compat/v2.py",
+      "size": 16951,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi/_compat/v2.py",
+      "size": 16951,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/lxml-6.0.2.dist-info/RECORD",
+      "size": 16651,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/RECORD",
+      "size": 15869,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/RECORD",
+      "size": 15869,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/RECORD",
+      "size": 15545,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/RECORD",
+      "size": 15545,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/RECORD",
+      "size": 15545,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/METADATA",
+      "size": 15046,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/METADATA",
+      "size": 15046,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/METADATA",
+      "size": 15046,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/RECORD",
+      "size": 14602,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/api_extraction_service.py",
+      "size": 14283,
+      "ext": ".py"
+    },
+    {
+      "path": "backend/api_extraction_service.py",
+      "size": 14283,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "size": 13936,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "size": 13936,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "size": 13936,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/licenses/LICENSE",
+      "size": 11358,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/LICENSE",
+      "size": 11325,
+      "ext": ""
+    },
+    {
+      "path": ".DS_Store",
+      "size": 10244,
+      "ext": ""
+    },
+    {
+      "path": "backend/.DS_Store",
+      "size": 10244,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/requests/LICENSE",
+      "size": 10142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/METADATA",
+      "size": 8808,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/METADATA",
+      "size": 8808,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/METADATA",
+      "size": 8555,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/METADATA",
+      "size": 8378,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/METADATA",
+      "size": 8378,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/METADATA",
+      "size": 8378,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/METADATA",
+      "size": 8348,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/METADATA",
+      "size": 8348,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/METADATA",
+      "size": 8348,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "archive/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "backend/screenshot_service/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "frontend/src/.DS_Store",
+      "size": 8196,
+      "ext": ""
+    },
+    {
+      "path": "backend/backend/reports/Communication Templates Tekion Logo removal.xlsx",
+      "size": 8109,
+      "ext": ".xlsx"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/RECORD",
+      "size": 7649,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/RECORD",
+      "size": 7649,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/RECORD",
+      "size": 7649,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/METADATA",
+      "size": 7277,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/METADATA",
+      "size": 7277,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/METADATA",
+      "size": 7277,
+      "ext": ""
+    },
+    {
+      "path": "logo_processing_results_20260531_105427.xlsx",
+      "size": 7194,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "temp_logo_results_FINAL_20260608_115745.xlsx",
+      "size": 6782,
+      "ext": ".xlsx"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/METADATA",
+      "size": 6738,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/METADATA",
+      "size": 6738,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/METADATA",
+      "size": 6738,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set-5.5.0.dist-info/METADATA",
+      "size": 6646,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/METADATA",
+      "size": 6566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/METADATA",
+      "size": 6566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/METADATA",
+      "size": 6566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/RECORD",
+      "size": 6480,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/RECORD",
+      "size": 6480,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/RECORD",
+      "size": 6480,
+      "ext": ""
+    },
+    {
+      "path": "logo_processing_results_20260531_041541.xlsx",
+      "size": 6467,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "oemexcel",
+      "size": 6418,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/METADATA",
+      "size": 6318,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/METADATA",
+      "size": 6318,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/METADATA",
+      "size": 6318,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/RECORD",
+      "size": 6257,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/RECORD",
+      "size": 6257,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/RECORD",
+      "size": 6257,
+      "ext": ""
+    },
+    {
+      "path": "backend/logging_config.py",
+      "size": 6231,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/screenshot-service/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/.github/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/eval/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus-claude-plugin/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus-cursor-integration/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus-web/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus-web/src/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "archive/backup-files/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "backend/app/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "backend/backend/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "backend/output/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "backend/screenshots/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "frontend/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "frontend/src-tauri/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "screenshots/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "version-0/.DS_Store",
+      "size": 6148,
+      "ext": ""
+    },
+    {
+      "path": "logo_processing_results_20260531_123557.xlsx",
+      "size": 5657,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "logo_processing_results_20260531_122655.xlsx",
+      "size": 5650,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "temp_logo_results_FINAL_20260607_201157.xlsx",
+      "size": 5392,
+      "ext": ".xlsx"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/RECORD",
+      "size": 5191,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/RECORD",
+      "size": 5191,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/RECORD",
+      "size": 5191,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn/lifespan/on.py",
+      "size": 5173,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn/lifespan/on.py",
+      "size": 5173,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn/lifespan/on.py",
+      "size": 5173,
+      "ext": ".py"
+    },
+    {
+      "path": "logo_processing_results_20260531_125021.xlsx",
+      "size": 5123,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "logo_processing_results_20260531_120447.xlsx",
+      "size": 5104,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "logo_processing_results_20260531_123228.xlsx",
+      "size": 5104,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "logo_addition_results_20260531_015657.xlsx",
+      "size": 5027,
+      "ext": ".xlsx"
+    },
+    {
+      "path": "GitNexus/LICENSE",
+      "size": 4588,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/METADATA",
+      "size": 4566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/METADATA",
+      "size": 4566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/METADATA",
+      "size": 4566,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/METADATA",
+      "size": 4277,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/METADATA",
+      "size": 4277,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/METADATA",
+      "size": 4277,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/screenshot-service/logging_config.py",
+      "size": 3959,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/docx/oxml/ns.py",
+      "size": 3780,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/lxml-6.0.2.dist-info/METADATA",
+      "size": 3622,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus/src/cli/tool.ts",
+      "size": 3407,
+      "ext": ".ts"
+    },
+    {
+      "path": "GitNexus/.github/workflows/ci.yml",
+      "size": 3324,
+      "ext": ".yml"
+    },
+    {
+      "path": "logo_update_report_20260530_181124.csv",
+      "size": 3268,
+      "ext": ".csv"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/METADATA",
+      "size": 3259,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/METADATA",
+      "size": 3259,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/METADATA",
+      "size": 3259,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/RECORD",
+      "size": 2974,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/RECORD",
+      "size": 2872,
+      "ext": ""
+    },
+    {
+      "path": "frontend/public/tauri.svg",
+      "size": 2665,
+      "ext": ".svg"
+    },
+    {
+      "path": "test_phase5_customer_pay_closed.py",
+      "size": 2630,
+      "ext": ".py"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/METADATA",
+      "size": 2621,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/METADATA",
+      "size": 2621,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/METADATA",
+      "size": 2621,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/METADATA",
+      "size": 2552,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/METADATA",
+      "size": 2552,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/METADATA",
+      "size": 2552,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/RECORD",
+      "size": 2531,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/RECORD",
+      "size": 2531,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/RECORD",
+      "size": 2531,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/activate",
+      "size": 2252,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/activate",
+      "size": 2250,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/activate",
+      "size": 2242,
+      "ext": ""
+    },
+    {
+      "path": "logo_update_report_20260530_201153.csv",
+      "size": 2017,
+      "ext": ".csv"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/METADATA",
+      "size": 1994,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/RECORD",
+      "size": 1830,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/RECORD",
+      "size": 1830,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/RECORD",
+      "size": 1830,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/docx/templates/default-docx-template/[Content_Types].xml",
+      "size": 1782,
+      "ext": ".xml"
+    },
+    {
+      "path": "logo_update_report_20260530_175658.csv",
+      "size": 1550,
+      "ext": ".csv"
+    },
+    {
+      "path": "logo_update_report_20260530_165410.csv",
+      "size": 1547,
+      "ext": ".csv"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/RECORD",
+      "size": 1392,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/RECORD",
+      "size": 1392,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/RECORD",
+      "size": 1392,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/pygments/LICENSE",
+      "size": 1331,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/licenses/LICENSE",
+      "size": 1131,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/licenses/LICENSE",
+      "size": 1129,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/licenses/LICENSE",
+      "size": 1129,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/licenses/LICENSE",
+      "size": 1129,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/LICENSE",
+      "size": 1104,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set-5.5.0.dist-info/licenses/MIT-LICENSE",
+      "size": 1099,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/licenses/LICENSE",
+      "size": 1090,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/licenses/LICENSE",
+      "size": 1090,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/licenses/LICENSE",
+      "size": 1090,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/LICENSE",
+      "size": 1089,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/licenses/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/LICENSE",
+      "size": 1086,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/licenses/LICENSE",
+      "size": 1083,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/licenses/LICENSE",
+      "size": 1083,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/licenses/LICENSE",
+      "size": 1083,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/licenses/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/licenses/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/licenses/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/LICENSE",
+      "size": 1081,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/licenses/LICENSE",
+      "size": 1080,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/licenses/LICENSE",
+      "size": 1080,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/licenses/LICENSE",
+      "size": 1080,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/RECORD",
+      "size": 1076,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/RECORD",
+      "size": 1076,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/RECORD",
+      "size": 1076,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/LICENSE",
+      "size": 1072,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/LICENSE",
+      "size": 1056,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/pkg_resources/LICENSE",
+      "size": 1023,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/RECORD",
+      "size": 992,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/RECORD",
+      "size": 992,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/RECORD",
+      "size": 992,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/LICENSE",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".gitignore",
+      "size": 989,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/RECORD",
+      "size": 868,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/RECORD",
+      "size": 868,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/RECORD",
+      "size": 868,
+      "ext": ""
+    },
+    {
+      "path": "frontend/src-tauri/tauri.conf.json",
+      "size": 841,
+      "ext": ".json"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/RECORD",
+      "size": 802,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/RECORD",
+      "size": 802,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/RECORD",
+      "size": 802,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/eval/.env.example",
+      "size": 759,
+      "ext": ".example"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set-5.5.0.dist-info/RECORD",
+      "size": 752,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/LICENSE",
+      "size": 751,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/docx/templates/default-docx-template/_rels/.rels",
+      "size": 748,
+      "ext": ""
+    },
+    {
+      "path": "logo_update_report_20260530_173401.csv",
+      "size": 693,
+      "ext": ".csv"
+    },
+    {
+      "path": "GitNexus/.gitignore",
+      "size": 671,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/msgpack/COPYING",
+      "size": 614,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/RECORD",
+      "size": 580,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/RECORD",
+      "size": 580,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/RECORD",
+      "size": 580,
+      "ext": ""
+    },
+    {
+      "path": "backend/.env",
+      "size": 556,
+      "ext": ""
+    },
+    {
+      "path": "logo_update_report_20260530_164435.csv",
+      "size": 499,
+      "ext": ".csv"
+    },
+    {
+      "path": "logo_update_report_20260530_171838.csv",
+      "size": 499,
+      "ext": ".csv"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/py.typed",
+      "size": 286,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/py.typed",
+      "size": 286,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/py.typed",
+      "size": 286,
+      "ext": ".typed"
+    },
+    {
+      "path": "frontend/.gitignore",
+      "size": 253,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/jsonpath_ng",
+      "size": 250,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/pip",
+      "size": 239,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/pip3",
+      "size": 239,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/pip",
+      "size": 238,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/pip3",
+      "size": 238,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/pip",
+      "size": 234,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/pip3",
+      "size": 234,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/uvicorn",
+      "size": 229,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/bin/fastapi",
+      "size": 228,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/uvicorn",
+      "size": 228,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/deep",
+      "size": 227,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/bin/fastapi",
+      "size": 227,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/uvicorn",
+      "size": 224,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/bin/fastapi",
+      "size": 223,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/.cursorrules",
+      "size": 209,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/.windsurfrules",
+      "size": 209,
+      "ext": ""
+    },
+    {
+      "path": ".env",
+      "size": 207,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus/.npmignore",
+      "size": 207,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/licenses/src/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/LICENSE",
+      "size": 197,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/eval/.gitignore",
+      "size": 174,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/lxml-6.0.2.dist-info/WHEEL",
+      "size": 142,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/WHEEL",
+      "size": 136,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/WHEEL",
+      "size": 136,
+      "ext": ""
+    },
+    {
+      "path": "GitNexus/gitnexus-test-setup/.gitignore",
+      "size": 112,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/WHEEL",
+      "size": 104,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/WHEEL",
+      "size": 104,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/WHEEL",
+      "size": 104,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/urllib3/py.typed",
+      "size": 93,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/urllib3/py.typed",
+      "size": 93,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/urllib3/py.typed",
+      "size": 93,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/WHEEL",
+      "size": 92,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/WHEEL",
+      "size": 91,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/WHEEL",
+      "size": 90,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/WHEEL",
+      "size": 87,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set-5.5.0.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/WHEEL",
+      "size": 82,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/.gitignore",
+      "size": 69,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/.gitignore",
+      "size": 69,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/.gitignore",
+      "size": 69,
+      "ext": ""
+    },
+    {
+      "path": "frontend/.env",
+      "size": 69,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/tomli_w/py.typed",
+      "size": 26,
+      "ext": ".typed"
+    },
+    {
+      "path": "GitNexus/gitnexus-web/.gitignore",
+      "size": 20,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/h11/py.typed",
+      "size": 7,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/h11/py.typed",
+      "size": 7,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/h11/py.typed",
+      "size": 7,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set-5.5.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/lxml-6.0.2.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc-0.0.4.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types-0.7.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio-4.12.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/click-8.3.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/h11-0.16.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/idna-3.11.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core-2.41.5.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/starlette-0.52.1.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection-0.4.2.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/INSTALLER",
+      "size": 4,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn/py.typed",
+      "size": 1,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/zip-safe",
+      "size": 1,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn/py.typed",
+      "size": 1,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/zip-safe",
+      "size": 1,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn/py.typed",
+      "size": 1,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_doc/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/annotated_types/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/anyio/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/click/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff-8.6.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/deepdiff/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/fastapi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/jsonpath_ng-1.8.0.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/orderly_set/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/cachecontrol/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic/v1/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/pydantic_core/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/starlette/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/typing_inspection/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/api-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/PIL/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_doc/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/annotated_types/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/anyio/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/click/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/fastapi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/cachecontrol/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic/v1/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/pydantic_core/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/python_docx-1.1.0.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/starlette/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/typing_inspection/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/document-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/PIL/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_doc/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/annotated_types/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/anyio/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/click/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi-0.135.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/fastapi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pillow-12.1.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip-26.1.1.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/cachecontrol/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/certifi/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/distro/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/idna/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/packaging/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/platformdirs/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/pyproject_hooks/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/resolvelib/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/rich/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pip/_vendor/truststore/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic-2.12.5.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic/v1/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/pydantic_core/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/starlette/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/typing_inspection/py.typed",
+      "size": 0,
+      "ext": ".typed"
+    },
+    {
+      "path": ".backup/microservices-20260508-232610/services/quality-service/venv/lib/python3.14/site-packages/uvicorn-0.41.0.dist-info/REQUESTED",
+      "size": 0,
+      "ext": ""
+    },
+    {
+      "path": "archive/test-files/logs.html",
+      "size": 0,
+      "ext": ".html"
+    }
+  ]
+}

@@ -491,10 +491,12 @@ function App() {
   // ✅ FIXED (Bug #14): These are now in AppContext (removed duplicate declarations)
   // captureMode, useStealth, useRealBrowser, headless, trackNetwork, autoExpandDropdowns
 
-  // Simple CDP status indicator for port 9223 ("unknown" | "up" | "down")
-  const [cdpStatus, setCdpStatus] = useState<"unknown" | "up" | "down">(
-    "unknown"
-  );
+  // Simple CDP status indicator for a chosen port ("unknown" | "up" | "down")
+  const [cdpStatus, setCdpStatus] = useState<"unknown" | "up" | "down">("unknown");
+  const [cdpPort, setCdpPort] = useState<number>(9223);
+  const [cdpBrowser, setCdpBrowser] = useState<"chrome" | "safari">("chrome");
+  const [copyCookies, setCopyCookies] = useState<boolean>(true);
+  const [cookieText, setCookieText] = useState<string>("");
 
   // ✅ FIXED (Bug #14): These are now in SettingsContext
   // nonScrollableUrls, baseUrl, wordsToRemove
@@ -4283,7 +4285,7 @@ ${
   // whether something is listening on localhost:9223.
   const checkCdpStatus = async () => {
     try {
-      const response = await fetch(apiUrl("/api/cdp-status"));
+      const response = await fetch(apiUrl(`/api/cdp-status/${cdpPort}`));
       if (!response.ok) {
         const text = await response.text();
         log.warn("⚠️ Failed to check CDP status:", text);
@@ -4295,15 +4297,113 @@ ${
       const data = await response.json();
       const isListening = !!data.is_listening;
       setCdpStatus(isListening ? "up" : "down");
-      addLog(
-        `🌐 CDP status on port ${data.port ?? 9223}: ${
-          isListening ? "UP" : "DOWN"
-        }`
-      );
+      addLog(`🌐 CDP status on port ${data.port ?? cdpPort}: ${isListening ? "UP" : "DOWN"}`);
     } catch (error: any) {
       log.error("❌ Error checking CDP status:", error);
       addLog(`❌ Error checking CDP status: ${String(error)}`);
       setCdpStatus("unknown");
+    }
+  };
+
+  // Launch selected browser on chosen port (Chrome: CDP, Safari: safaridriver)
+  const launchSelectedBrowserCdp = async () => {
+    try {
+      addLog(`🚀 Launching ${cdpBrowser} on port ${cdpPort}...`);
+      const response = await fetch(apiUrl("/api/launch-browser-cdp"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ browser: cdpBrowser, port: cdpPort, use_temp_profile: true, copy_cookies: copyCookies })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        log.warn("⚠️ Failed to launch:", data?.detail || data);
+        addLog(`❌ Failed to launch ${cdpBrowser}: ${data?.detail || JSON.stringify(data)}`);
+        notify(`Failed to launch ${cdpBrowser}: ${data?.detail || "Unknown error"}`, { title: "Launch Browser", type: "error", duration: 7000 });
+        return;
+      }
+      addLog(`✅ ${cdpBrowser} ${data.status} on port ${cdpPort}`);
+      notify(`${cdpBrowser} ${data.status} on port ${cdpPort}`, { title: "Launch Browser", type: "success", duration: 5000 });
+      // Immediately refresh status
+      checkCdpStatus();
+    } catch (error: any) {
+      log.error("❌ Error launching browser:", error);
+      addLog(`❌ Error launching browser: ${String(error)}`);
+      notify(`Error launching browser: ${String(error)}`, { title: "Launch Browser", type: "error", duration: 7000 });
+    }
+  };
+
+  // Connect backend to CDP on selected port
+  const connectToSelectedCdp = async () => {
+    try {
+      addLog(`🔌 Connecting to CDP on port ${cdpPort}...`);
+      const response = await fetch(apiUrl(`/api/connect-cdp?port=${cdpPort}`), {
+        method: "POST",
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        addLog(`❌ Failed to connect: ${data?.detail || JSON.stringify(data)}`);
+        notify(`Failed to connect: ${data?.detail || "Unknown error"}`, { title: "Connect CDP", type: "error", duration: 7000 });
+        return;
+      }
+      addLog(`✅ ${data.message || "Connected."}`);
+      notify(data.message || `Connected on ${cdpPort}`, { title: "Connect CDP", type: "success", duration: 5000 });
+    } catch (e: any) {
+      addLog(`❌ Error connecting: ${String(e)}`);
+      notify(String(e), { title: "Connect CDP", type: "error", duration: 7000 });
+    }
+  };
+
+  // Stop/cleanup the selected browser session
+  const stopSelectedBrowser = async () => {
+    try {
+      addLog(`🛑 Stopping browser on port ${cdpPort}...`);
+      const response = await fetch(apiUrl(`/api/stop-browser-cdp?port=${cdpPort}`), {
+        method: "POST",
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        addLog(`❌ Failed to stop: ${data?.detail || JSON.stringify(data)}`);
+        notify(`Failed to stop: ${data?.detail || "Unknown error"}`, { title: "Stop Browser", type: "error", duration: 7000 });
+        return;
+      }
+      addLog(`✅ ${data.status} (port ${data.port})`);
+      notify(`${data.status} (port ${data.port})`, { title: "Stop Browser", type: "success", duration: 5000 });
+      // Refresh status
+      checkCdpStatus();
+    } catch (e: any) {
+      addLog(`❌ Error stopping: ${String(e)}`);
+      notify(String(e), { title: "Stop Browser", type: "error", duration: 7000 });
+    }
+  };
+
+  const importCookies = async () => {
+    try {
+      let cookies: any[] = [];
+      try {
+        const parsed = JSON.parse(cookieText || "[]");
+        cookies = Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        notify("Invalid JSON. Please paste an array of cookie objects.", { title: "Import Cookies", type: "error", duration: 6000 });
+        return;
+      }
+      if (!cookies.length) {
+        notify("No cookies provided.", { title: "Import Cookies", type: "warning", duration: 4000 });
+        return;
+      }
+      addLog(`🍪 Importing ${cookies.length} cookies to active CDP context...`);
+      const resp = await fetch(apiUrl("/api/cdp/import-cookies"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cookies })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        notify(data?.detail || "Failed to import cookies.", { title: "Import Cookies", type: "error", duration: 7000 });
+        return;
+      }
+      notify(`Imported ${data.count} cookies.`, { title: "Import Cookies", type: "success", duration: 5000 });
+    } catch (e: any) {
+      notify(String(e), { title: "Import Cookies", type: "error", duration: 7000 });
     }
   };
 
@@ -10758,7 +10858,7 @@ ${
                                 : "#6b7280", // gray
                           }}
                         >
-                          CDP on port 9223:{" "}
+                          CDP on port {cdpPort}:{" "}
                           {cdpStatus === "up"
                             ? "✅ UP"
                             : cdpStatus === "down"
@@ -10780,6 +10880,75 @@ ${
                           >
                             Refresh
                           </button>
+                        </div>
+
+                        {/* Browser + Port controls */}
+                        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: 'wrap' }}>
+                          <select
+                            value={cdpBrowser}
+                            onChange={(e) => setCdpBrowser(e.target.value as any)}
+                            style={{ padding: 6, borderRadius: 6 }}
+                          >
+                            <option value="chrome">Chrome</option>
+                            <option value="safari">Safari</option>
+                          </select>
+                          <input
+                            type="number"
+                            value={cdpPort}
+                            onChange={(e) => setCdpPort(parseInt(e.target.value || "9223", 10))}
+                            min={1024}
+                            max={65535}
+                            style={{ width: 100, padding: 6, borderRadius: 6 }}
+                          />
+                          <button
+                            type="button"
+                            onClick={launchSelectedBrowserCdp}
+                            disabled={loading}
+                            style={{ padding: "6px 12px", borderRadius: 6 }}
+                          >
+                            Launch {cdpBrowser}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={connectToSelectedCdp}
+                            disabled={loading}
+                            style={{ padding: "6px 12px", borderRadius: 6 }}
+                          >
+                            Connect to CDP
+                          </button>
+                          <button
+                            type="button"
+                            onClick={stopSelectedBrowser}
+                            disabled={loading}
+                            style={{ padding: "6px 12px", borderRadius: 6 }}
+                          >
+                            Stop/Cleanup
+                          </button>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <input type="checkbox" checked={copyCookies} onChange={(e)=>setCopyCookies(e.target.checked)} />
+                            Copy cookies/tokens (Chrome only)
+                          </label>
+                        </div>
+
+                        {cdpBrowser === 'safari' && (
+                          <div style={{ fontSize: 12, color: '#6b7280' }}>
+                            Safari uses WebDriver (not CDP). For CDP features, use Chrome.
+                          </div>
+                        )}
+
+                        {/* Cookie Injection (Chrome CDP) */}
+                        <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                          <div style={{ fontSize: 12, color: '#6b7280' }}>Paste cookies JSON (array of cookie objects) and click Import (requires connected Chrome CDP).</div>
+                          <textarea
+                            value={cookieText}
+                            onChange={(e)=>setCookieText(e.target.value)}
+                            placeholder='[{"name":"token","value":"...","domain":".example.com","path":"/"}]'
+                            rows={3}
+                            style={{ width: '100%', padding: 8, borderRadius: 6, fontFamily: 'monospace', fontSize: 12 }}
+                          />
+                          <div>
+                            <button onClick={importCookies} disabled={loading} style={{ padding: '6px 12px', borderRadius: 6 }}>Import Cookies</button>
+                          </div>
                         </div>
 
                         <button
